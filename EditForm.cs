@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace GameMaster
 {
-    public partial class Form1 : Form
+    public partial class EditForm : Form
     {
-        public Form1()
+        public EditForm()
         {
             InitializeComponent();
         }
