@@ -47,7 +47,9 @@ namespace GameMaster
 
         private void btAdd_Click(object sender, EventArgs e)
         {
-
+            DownloadForm DownloadWindow = new DownloadForm();
+            DownloadWindow.Show();
+            this.Hide();
         }
 
         private void lErscheinungsdatum_Load(object sender, EventArgs e)
