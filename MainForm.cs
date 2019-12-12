@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace GameMaster
 {
-    public partial class lErscheinungsdatum : Form
+    public partial class MainForm : Form
     {
-        public lErscheinungsdatum()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -31,12 +31,18 @@ namespace GameMaster
 
         private void btNew_Click(object sender, EventArgs e)
         {
-
+            EditForm NewWindow = new EditForm();
+            NewWindow.Text = "New Config";
+            NewWindow.Show();
+            this.Hide();
         }
 
         private void btEdit_Click(object sender, EventArgs e)
         {
-
+            EditForm EditWindow = new EditForm();
+            EditWindow.Text = "Edit Config";
+            EditWindow.Show();
+            this.Hide();
         }
 
         private void btAdd_Click(object sender, EventArgs e)
@@ -46,7 +52,8 @@ namespace GameMaster
 
         private void lErscheinungsdatum_Load(object sender, EventArgs e)
         {
-
+            btEdit.Enabled = false;
+            btStart.Enabled = false;
         }
     }
 }

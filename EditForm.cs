@@ -16,5 +16,15 @@ namespace GameMaster
         {
             InitializeComponent();
         }
+
+        private void btBack_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btSave_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

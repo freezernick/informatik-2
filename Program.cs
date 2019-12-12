@@ -16,7 +16,7 @@ namespace GameMaster
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new lErscheinungsdatum());
+            Application.Run(new MainForm());
         }
     }
 }
