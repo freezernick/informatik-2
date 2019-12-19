@@ -114,7 +114,7 @@
             this.btExit.UseVisualStyleBackColor = true;
             this.btExit.Click += new System.EventHandler(this.button1_Click);
             // 
-            // ObjectListForm
+            // EditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -128,8 +128,8 @@
             this.Controls.Add(this.btTriggerDelete);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.listBox1);
-            this.Name = "ObjectListForm";
-            this.Text = "ObjectList";
+            this.Name = "EditorForm";
+            this.Text = "Editor";
             this.Load += new System.EventHandler(this.ObjectListForm_Load);
             this.ResumeLayout(false);
 
