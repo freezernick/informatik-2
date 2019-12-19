@@ -21,5 +21,12 @@ namespace GameMaster
         {
 
         }
+
+        private void btExit_Click(object sender, EventArgs e)
+        {
+            MainForm NewWindow = new MainForm();
+            NewWindow.Show();
+            this.Hide();
+        }
     }
 }

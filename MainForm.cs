@@ -37,10 +37,9 @@ namespace GameMaster
             this.Hide();
         }
 
-        private void btEdit_Click(object sender, EventArgs e)
+        private void btEditprop_Click(object sender, EventArgs e)
         {
             EditForm EditWindow = new EditForm();
-            EditWindow.Text = "Edit Config";
             EditWindow.Show();
             this.Hide();
         }
@@ -54,8 +53,8 @@ namespace GameMaster
 
         private void lErscheinungsdatum_Load(object sender, EventArgs e)
         {
-            btEdit.Enabled = false;
-            btStart.Enabled = false;
+            btEditprop.Enabled = false;
+            btEdittrig.Enabled = false;
         }
     }
 }

@@ -19,12 +19,14 @@ namespace GameMaster
 
         private void btBack_Click(object sender, EventArgs e)
         {
-            Close();
+            MainForm NewWindow = new MainForm();
+            NewWindow.Show();
+            this.Hide();
         }
 
         private void btSave_Click(object sender, EventArgs e)
         {
-
+          
         }
     }
 }
