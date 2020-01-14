@@ -30,15 +30,15 @@
         {
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.btAdd = new System.Windows.Forms.Button();
             this.btEditprop = new System.Windows.Forms.Button();
             this.btNew = new System.Windows.Forms.Button();
-            this.btEdittrig = new System.Windows.Forms.Button();
+            this.btEditrules = new System.Windows.Forms.Button();
             this.lName = new System.Windows.Forms.Label();
             this.lCreator = new System.Windows.Forms.Label();
             this.lLastChanged = new System.Windows.Forms.Label();
             this.lVersion = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,7 +59,7 @@
             this.groupBox1.Controls.Add(this.btAdd);
             this.groupBox1.Controls.Add(this.btEditprop);
             this.groupBox1.Controls.Add(this.btNew);
-            this.groupBox1.Controls.Add(this.btEdittrig);
+            this.groupBox1.Controls.Add(this.btEditrules);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.groupBox1.Location = new System.Drawing.Point(408, 303);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -68,11 +68,20 @@
             this.groupBox1.Size = new System.Drawing.Size(368, 131);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Actions";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(7, 93);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(355, 27);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Start";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // btAdd
             // 
-            this.btAdd.Location = new System.Drawing.Point(5, 62);
+            this.btAdd.Location = new System.Drawing.Point(7, 57);
             this.btAdd.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(173, 27);
@@ -84,7 +93,7 @@
             // btEditprop
             // 
             this.btEditprop.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.btEditprop.Location = new System.Drawing.Point(189, 23);
+            this.btEditprop.Location = new System.Drawing.Point(191, 18);
             this.btEditprop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btEditprop.Name = "btEditprop";
             this.btEditprop.Size = new System.Drawing.Size(171, 27);
@@ -95,7 +104,7 @@
             // 
             // btNew
             // 
-            this.btNew.Location = new System.Drawing.Point(5, 23);
+            this.btNew.Location = new System.Drawing.Point(7, 18);
             this.btNew.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btNew.Name = "btNew";
             this.btNew.Size = new System.Drawing.Size(173, 27);
@@ -104,17 +113,17 @@
             this.btNew.UseVisualStyleBackColor = true;
             this.btNew.Click += new System.EventHandler(this.btNew_Click);
             // 
-            // btEdittrig
+            // btEditrules
             // 
-            this.btEdittrig.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.btEdittrig.Location = new System.Drawing.Point(189, 62);
-            this.btEdittrig.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btEdittrig.Name = "btEdittrig";
-            this.btEdittrig.Size = new System.Drawing.Size(171, 27);
-            this.btEdittrig.TabIndex = 2;
-            this.btEdittrig.Text = "Edit triggers";
-            this.btEdittrig.UseVisualStyleBackColor = true;
-            this.btEdittrig.Click += new System.EventHandler(this.btStart_Click);
+            this.btEditrules.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.btEditrules.Location = new System.Drawing.Point(191, 57);
+            this.btEditrules.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btEditrules.Name = "btEditrules";
+            this.btEditrules.Size = new System.Drawing.Size(171, 27);
+            this.btEditrules.TabIndex = 2;
+            this.btEditrules.Text = "Edit rules";
+            this.btEditrules.UseVisualStyleBackColor = true;
+            this.btEditrules.Click += new System.EventHandler(this.btStart_Click);
             // 
             // lName
             // 
@@ -152,16 +161,6 @@
             this.lVersion.TabIndex = 5;
             this.lVersion.Text = "Version";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(5, 98);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(355, 27);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Start";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -174,6 +173,8 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.listBox1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MainForm";
             this.ShowIcon = false;
             this.Text = "Game Master";
@@ -188,7 +189,7 @@
 
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btEdittrig;
+        private System.Windows.Forms.Button btEditrules;
         private System.Windows.Forms.Button btAdd;
         private System.Windows.Forms.Button btEditprop;
         private System.Windows.Forms.Button btNew;

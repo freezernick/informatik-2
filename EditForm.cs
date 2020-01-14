@@ -21,7 +21,7 @@ namespace GameMaster
         {
             MainForm NewWindow = new MainForm();
             NewWindow.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void btSave_Click(object sender, EventArgs e)

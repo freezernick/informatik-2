@@ -19,7 +19,10 @@ namespace GameMaster
 
         private void btStart_Click(object sender, EventArgs e)
         {
-
+            EditorForm Newwindow = new EditorForm();
+            //NewWindow.Text =
+            Newwindow.Show();
+            this.Hide();
  
 
         }
@@ -53,8 +56,8 @@ namespace GameMaster
 
         private void lErscheinungsdatum_Load(object sender, EventArgs e)
         {
-            btEditprop.Enabled = false;
-            btEdittrig.Enabled = false;
+            btEditprop.Enabled = true;
+            btEditrules.Enabled = true;
         }
     }
 }
