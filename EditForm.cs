@@ -10,11 +10,21 @@ using System.Windows.Forms;
 
 namespace GameMaster
 {
-    public partial class Form1 : Form
+    public partial class EditForm : Form
     {
-        public Form1()
+        public EditForm()
         {
             InitializeComponent();
+        }
+
+        private void btBack_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btSave_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
