@@ -39,6 +39,10 @@
             this.lCreator = new System.Windows.Forms.Label();
             this.lLastChanged = new System.Windows.Forms.Label();
             this.lVersion = new System.Windows.Forms.Label();
+            this.lNameValue = new System.Windows.Forms.Label();
+            this.lCreatorValue = new System.Windows.Forms.Label();
+            this.lVersionValue = new System.Windows.Forms.Label();
+            this.lLastChangedValue = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -128,44 +132,88 @@
             // lName
             // 
             this.lName.AutoSize = true;
+            this.lName.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lName.Location = new System.Drawing.Point(409, 15);
             this.lName.Name = "lName";
-            this.lName.Size = new System.Drawing.Size(45, 17);
+            this.lName.Size = new System.Drawing.Size(54, 17);
             this.lName.TabIndex = 2;
-            this.lName.Text = "Name";
+            this.lName.Text = "Name:";
             // 
             // lCreator
             // 
             this.lCreator.AutoSize = true;
+            this.lCreator.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold);
             this.lCreator.Location = new System.Drawing.Point(409, 55);
             this.lCreator.Name = "lCreator";
-            this.lCreator.Size = new System.Drawing.Size(55, 17);
+            this.lCreator.Size = new System.Drawing.Size(67, 17);
             this.lCreator.TabIndex = 3;
-            this.lCreator.Text = "Creator";
+            this.lCreator.Text = "Creator:";
             // 
             // lLastChanged
             // 
             this.lLastChanged.AutoSize = true;
+            this.lLastChanged.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold);
             this.lLastChanged.Location = new System.Drawing.Point(409, 134);
             this.lLastChanged.Name = "lLastChanged";
-            this.lLastChanged.Size = new System.Drawing.Size(96, 17);
+            this.lLastChanged.Size = new System.Drawing.Size(113, 17);
             this.lLastChanged.TabIndex = 4;
-            this.lLastChanged.Text = "Last Changed";
+            this.lLastChanged.Text = "Last Changed:";
             // 
             // lVersion
             // 
             this.lVersion.AutoSize = true;
+            this.lVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold);
             this.lVersion.Location = new System.Drawing.Point(409, 96);
             this.lVersion.Name = "lVersion";
-            this.lVersion.Size = new System.Drawing.Size(56, 17);
+            this.lVersion.Size = new System.Drawing.Size(68, 17);
             this.lVersion.TabIndex = 5;
-            this.lVersion.Text = "Version";
+            this.lVersion.Text = "Version:";
+            // 
+            // lNameValue
+            // 
+            this.lNameValue.AutoSize = true;
+            this.lNameValue.Location = new System.Drawing.Point(596, 15);
+            this.lNameValue.Name = "lNameValue";
+            this.lNameValue.Size = new System.Drawing.Size(84, 17);
+            this.lNameValue.TabIndex = 6;
+            this.lNameValue.Text = "lNameValue";
+            // 
+            // lCreatorValue
+            // 
+            this.lCreatorValue.AutoSize = true;
+            this.lCreatorValue.Location = new System.Drawing.Point(596, 55);
+            this.lCreatorValue.Name = "lCreatorValue";
+            this.lCreatorValue.Size = new System.Drawing.Size(94, 17);
+            this.lCreatorValue.TabIndex = 7;
+            this.lCreatorValue.Text = "lCreatorValue";
+            // 
+            // lVersionValue
+            // 
+            this.lVersionValue.AutoSize = true;
+            this.lVersionValue.Location = new System.Drawing.Point(596, 96);
+            this.lVersionValue.Name = "lVersionValue";
+            this.lVersionValue.Size = new System.Drawing.Size(95, 17);
+            this.lVersionValue.TabIndex = 8;
+            this.lVersionValue.Text = "lVersionValue";
+            // 
+            // lLastChangedValue
+            // 
+            this.lLastChangedValue.AutoSize = true;
+            this.lLastChangedValue.Location = new System.Drawing.Point(596, 134);
+            this.lLastChangedValue.Name = "lLastChangedValue";
+            this.lLastChangedValue.Size = new System.Drawing.Size(131, 17);
+            this.lLastChangedValue.TabIndex = 9;
+            this.lLastChangedValue.Text = "lLastChangedValue";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lLastChangedValue);
+            this.Controls.Add(this.lVersionValue);
+            this.Controls.Add(this.lCreatorValue);
+            this.Controls.Add(this.lNameValue);
             this.Controls.Add(this.lVersion);
             this.Controls.Add(this.lLastChanged);
             this.Controls.Add(this.lCreator);
@@ -198,6 +246,10 @@
         private System.Windows.Forms.Label lLastChanged;
         private System.Windows.Forms.Label lVersion;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label lNameValue;
+        private System.Windows.Forms.Label lCreatorValue;
+        private System.Windows.Forms.Label lVersionValue;
+        private System.Windows.Forms.Label lLastChangedValue;
     }
 }
 
