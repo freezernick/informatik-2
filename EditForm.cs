@@ -28,5 +28,10 @@ namespace GameMaster
         {
           
         }
+
+        private void EditForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -13,15 +13,17 @@ namespace GameMaster
     public partial class MainForm : Form
     {
         public Game PseudoGame;
+
+        public Game SelectedGame;
         public MainForm()
         {
             InitializeComponent();
         }
 
-        private void btStart_Click(object sender, EventArgs e)
+        private void btEditrules_Click(object sender, EventArgs e)
         {
             EditorForm Newwindow = new EditorForm();
-            //NewWindow.Text =
+            Newwindow.Text = "Edit " + SelectedGame.Name;
             Newwindow.Show();
             this.Hide();
  
@@ -30,7 +32,12 @@ namespace GameMaster
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            SelectedGame = (Game) listBox1.SelectedItem;
+            lNameValue.Text = SelectedGame.Name;
+            lAuthorValue.Text = SelectedGame.Author;
+            lVersionValue.Text = SelectedGame.FriendlyVersion;
+            lLastChangedValue.Text = SelectedGame.LastChanged.ToString();
+       
         }
 
         private void btNew_Click(object sender, EventArgs e)
@@ -44,6 +51,7 @@ namespace GameMaster
         private void btEditprop_Click(object sender, EventArgs e)
         {
             EditForm EditWindow = new EditForm();
+            EditWindow.Text = "Edit " + SelectedGame.Name;
             EditWindow.Show();
             this.Hide();
         }
@@ -61,7 +69,11 @@ namespace GameMaster
             btEditrules.Enabled = true;
             PseudoGame = new Game();
             PseudoGame.Name = "TestGame";
+            PseudoGame.FriendlyVersion = "1.0";
+            PseudoGame.LastChanged = new DateTime(2020,1,15);
+            PseudoGame.Author = "Jakob";
             listBox1.Items.Add(PseudoGame);
+            listBox1.SetSelected(0,true);
         }
     }
 }

@@ -40,7 +40,7 @@
             this.lLastChanged = new System.Windows.Forms.Label();
             this.lVersion = new System.Windows.Forms.Label();
             this.lNameValue = new System.Windows.Forms.Label();
-            this.lCreatorValue = new System.Windows.Forms.Label();
+            this.lAuthorValue = new System.Windows.Forms.Label();
             this.lVersionValue = new System.Windows.Forms.Label();
             this.lLastChangedValue = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
@@ -127,7 +127,7 @@
             this.btEditrules.TabIndex = 2;
             this.btEditrules.Text = "Edit rules";
             this.btEditrules.UseVisualStyleBackColor = true;
-            this.btEditrules.Click += new System.EventHandler(this.btStart_Click);
+            this.btEditrules.Click += new System.EventHandler(this.btEditrules_Click);
             // 
             // lName
             // 
@@ -145,9 +145,9 @@
             this.lCreator.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold);
             this.lCreator.Location = new System.Drawing.Point(409, 55);
             this.lCreator.Name = "lCreator";
-            this.lCreator.Size = new System.Drawing.Size(67, 17);
+            this.lCreator.Size = new System.Drawing.Size(61, 17);
             this.lCreator.TabIndex = 3;
-            this.lCreator.Text = "Creator:";
+            this.lCreator.Text = "Author:";
             // 
             // lLastChanged
             // 
@@ -178,14 +178,14 @@
             this.lNameValue.TabIndex = 6;
             this.lNameValue.Text = "lNameValue";
             // 
-            // lCreatorValue
+            // lAuthorValue
             // 
-            this.lCreatorValue.AutoSize = true;
-            this.lCreatorValue.Location = new System.Drawing.Point(596, 55);
-            this.lCreatorValue.Name = "lCreatorValue";
-            this.lCreatorValue.Size = new System.Drawing.Size(94, 17);
-            this.lCreatorValue.TabIndex = 7;
-            this.lCreatorValue.Text = "lCreatorValue";
+            this.lAuthorValue.AutoSize = true;
+            this.lAuthorValue.Location = new System.Drawing.Point(596, 55);
+            this.lAuthorValue.Name = "lAuthorValue";
+            this.lAuthorValue.Size = new System.Drawing.Size(89, 17);
+            this.lAuthorValue.TabIndex = 7;
+            this.lAuthorValue.Text = "lAuthorValue";
             // 
             // lVersionValue
             // 
@@ -212,7 +212,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.lLastChangedValue);
             this.Controls.Add(this.lVersionValue);
-            this.Controls.Add(this.lCreatorValue);
+            this.Controls.Add(this.lAuthorValue);
             this.Controls.Add(this.lNameValue);
             this.Controls.Add(this.lVersion);
             this.Controls.Add(this.lLastChanged);
@@ -247,7 +247,7 @@
         private System.Windows.Forms.Label lVersion;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label lNameValue;
-        private System.Windows.Forms.Label lCreatorValue;
+        private System.Windows.Forms.Label lAuthorValue;
         private System.Windows.Forms.Label lVersionValue;
         private System.Windows.Forms.Label lLastChangedValue;
     }
