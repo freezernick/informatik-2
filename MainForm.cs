@@ -12,6 +12,7 @@ namespace GameMaster
 {
     public partial class MainForm : Form
     {
+        public Game PseudoGame;
         public MainForm()
         {
             InitializeComponent();
@@ -29,7 +30,7 @@ namespace GameMaster
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void btNew_Click(object sender, EventArgs e)
@@ -58,6 +59,9 @@ namespace GameMaster
         {
             btEditprop.Enabled = true;
             btEditrules.Enabled = true;
+            PseudoGame = new Game();
+            PseudoGame.Name = "TestGame";
+            listBox1.Items.Add(PseudoGame);
         }
     }
 }
