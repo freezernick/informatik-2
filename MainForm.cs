@@ -42,7 +42,7 @@ namespace GameMaster
 
         private void btNew_Click(object sender, EventArgs e)
         {
-            EditForm NewWindow = new EditForm();
+            EditForm NewWindow = new EditForm(false,this);
             NewWindow.Text = "New Config";
             NewWindow.Show();
             this.Hide();
@@ -50,10 +50,11 @@ namespace GameMaster
 
         private void btEditprop_Click(object sender, EventArgs e)
         {
-            EditForm EditWindow = new EditForm();
+            EditForm EditWindow = new EditForm(true,this);
+            EditWindow.SelectedGame = PseudoGame;
             EditWindow.Text = "Edit " + SelectedGame.Name;
             EditWindow.Show();
-            this.Hide();
+            this.Hide();      
         }
 
         private void btAdd_Click(object sender, EventArgs e)
