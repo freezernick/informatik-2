@@ -50,7 +50,7 @@
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(9, 10);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(2);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(282, 342);
             this.listBox1.TabIndex = 0;
@@ -65,17 +65,18 @@
             this.groupBox1.Controls.Add(this.btEditRules);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.groupBox1.Location = new System.Drawing.Point(306, 246);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(276, 106);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
             // btStart
             // 
+            this.btStart.Enabled = false;
             this.btStart.Location = new System.Drawing.Point(5, 76);
-            this.btStart.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btStart.Margin = new System.Windows.Forms.Padding(2);
             this.btStart.Name = "btStart";
             this.btStart.Size = new System.Drawing.Size(266, 22);
             this.btStart.TabIndex = 6;
@@ -85,7 +86,7 @@
             // btAdd
             // 
             this.btAdd.Location = new System.Drawing.Point(5, 46);
-            this.btAdd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btAdd.Margin = new System.Windows.Forms.Padding(2);
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(130, 22);
             this.btAdd.TabIndex = 5;
@@ -95,9 +96,10 @@
             // 
             // btEditProp
             // 
+            this.btEditProp.Enabled = false;
             this.btEditProp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.btEditProp.Location = new System.Drawing.Point(143, 15);
-            this.btEditProp.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btEditProp.Margin = new System.Windows.Forms.Padding(2);
             this.btEditProp.Name = "btEditProp";
             this.btEditProp.Size = new System.Drawing.Size(128, 22);
             this.btEditProp.TabIndex = 4;
@@ -108,7 +110,7 @@
             // btNew
             // 
             this.btNew.Location = new System.Drawing.Point(5, 15);
-            this.btNew.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btNew.Margin = new System.Windows.Forms.Padding(2);
             this.btNew.Name = "btNew";
             this.btNew.Size = new System.Drawing.Size(130, 22);
             this.btNew.TabIndex = 3;
@@ -118,9 +120,10 @@
             // 
             // btEditRules
             // 
+            this.btEditRules.Enabled = false;
             this.btEditRules.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.btEditRules.Location = new System.Drawing.Point(143, 46);
-            this.btEditRules.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btEditRules.Margin = new System.Windows.Forms.Padding(2);
             this.btEditRules.Name = "btEditRules";
             this.btEditRules.Size = new System.Drawing.Size(128, 22);
             this.btEditRules.TabIndex = 2;
@@ -227,7 +230,7 @@
             this.Controls.Add(this.lName);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.listBox1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
