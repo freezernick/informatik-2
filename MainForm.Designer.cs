@@ -32,9 +32,9 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.btAdd = new System.Windows.Forms.Button();
-            this.btEditprop = new System.Windows.Forms.Button();
+            this.btEditProp = new System.Windows.Forms.Button();
             this.btNew = new System.Windows.Forms.Button();
-            this.btEditrules = new System.Windows.Forms.Button();
+            this.btEditRules = new System.Windows.Forms.Button();
             this.lName = new System.Windows.Forms.Label();
             this.lCreator = new System.Windows.Forms.Label();
             this.lLastChanged = new System.Windows.Forms.Label();
@@ -61,9 +61,9 @@
             // 
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.btAdd);
-            this.groupBox1.Controls.Add(this.btEditprop);
+            this.groupBox1.Controls.Add(this.btEditProp);
             this.groupBox1.Controls.Add(this.btNew);
-            this.groupBox1.Controls.Add(this.btEditrules);
+            this.groupBox1.Controls.Add(this.btEditRules);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.groupBox1.Location = new System.Drawing.Point(408, 303);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -94,17 +94,17 @@
             this.btAdd.UseVisualStyleBackColor = true;
             this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
             // 
-            // btEditprop
+            // btEditProp
             // 
-            this.btEditprop.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.btEditprop.Location = new System.Drawing.Point(191, 18);
-            this.btEditprop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btEditprop.Name = "btEditprop";
-            this.btEditprop.Size = new System.Drawing.Size(171, 27);
-            this.btEditprop.TabIndex = 4;
-            this.btEditprop.Text = "Edit properties";
-            this.btEditprop.UseVisualStyleBackColor = true;
-            this.btEditprop.Click += new System.EventHandler(this.btEditprop_Click);
+            this.btEditProp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.btEditProp.Location = new System.Drawing.Point(191, 18);
+            this.btEditProp.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btEditProp.Name = "btEditProp";
+            this.btEditProp.Size = new System.Drawing.Size(171, 27);
+            this.btEditProp.TabIndex = 4;
+            this.btEditProp.Text = "Edit properties";
+            this.btEditProp.UseVisualStyleBackColor = true;
+            this.btEditProp.Click += new System.EventHandler(this.btEditProp_Click);
             // 
             // btNew
             // 
@@ -117,17 +117,17 @@
             this.btNew.UseVisualStyleBackColor = true;
             this.btNew.Click += new System.EventHandler(this.btNew_Click);
             // 
-            // btEditrules
+            // btEditRules
             // 
-            this.btEditrules.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.btEditrules.Location = new System.Drawing.Point(191, 57);
-            this.btEditrules.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btEditrules.Name = "btEditrules";
-            this.btEditrules.Size = new System.Drawing.Size(171, 27);
-            this.btEditrules.TabIndex = 2;
-            this.btEditrules.Text = "Edit rules";
-            this.btEditrules.UseVisualStyleBackColor = true;
-            this.btEditrules.Click += new System.EventHandler(this.btEditrules_Click);
+            this.btEditRules.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.btEditRules.Location = new System.Drawing.Point(191, 57);
+            this.btEditRules.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btEditRules.Name = "btEditRules";
+            this.btEditRules.Size = new System.Drawing.Size(171, 27);
+            this.btEditRules.TabIndex = 2;
+            this.btEditRules.Text = "Edit rules";
+            this.btEditRules.UseVisualStyleBackColor = true;
+            this.btEditRules.Click += new System.EventHandler(this.btEditRules_Click);
             // 
             // lName
             // 
@@ -237,9 +237,9 @@
 
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btEditrules;
+        private System.Windows.Forms.Button btEditRules;
         private System.Windows.Forms.Button btAdd;
-        private System.Windows.Forms.Button btEditprop;
+        private System.Windows.Forms.Button btEditProp;
         private System.Windows.Forms.Button btNew;
         private System.Windows.Forms.Label lName;
         private System.Windows.Forms.Label lCreator;

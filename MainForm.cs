@@ -20,7 +20,7 @@ namespace GameMaster
             InitializeComponent();
         }
 
-        private void btEditrules_Click(object sender, EventArgs e)
+        private void btEditRules_Click(object sender, EventArgs e)
         {
             EditorForm Newwindow = new EditorForm();
             Newwindow.Text = "Edit " + SelectedGame.Name;
@@ -48,7 +48,7 @@ namespace GameMaster
             this.Hide();
         }
 
-        private void btEditprop_Click(object sender, EventArgs e)
+        private void btEditProp_Click(object sender, EventArgs e)
         {
             EditForm EditWindow = new EditForm(true,this);
             EditWindow.SelectedGame = PseudoGame;
@@ -59,15 +59,15 @@ namespace GameMaster
 
         private void btAdd_Click(object sender, EventArgs e)
         {
-            DownloadForm DownloadWindow = new DownloadForm();
+            DownloadForm DownloadWindow = new DownloadForm(this);
             DownloadWindow.Show();
             this.Hide();
         }
 
         private void lErscheinungsdatum_Load(object sender, EventArgs e)
         {
-            btEditprop.Enabled = true;
-            btEditrules.Enabled = true;
+            btEditProp.Enabled = true;
+            btEditRules.Enabled = true;
             PseudoGame = new Game();
             PseudoGame.Name = "TestGame";
             PseudoGame.FriendlyVersion = "1.0";

@@ -12,21 +12,29 @@ namespace GameMaster
 {
     public partial class DownloadForm : Form
     {
-        public DownloadForm()
+        private MainForm MainForm;
+        public DownloadForm(MainForm mainForm)
         {
             InitializeComponent();
+            MainForm = mainForm;
         }
 
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void btExit_Click(object sender, EventArgs e)
         {
-            MainForm NewWindow = new MainForm();
-            NewWindow.Show();
-            this.Hide();
+            MainForm.Show();
+            this.Close();
+        }
+
+        private void tbQuelle_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void pbProgress_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

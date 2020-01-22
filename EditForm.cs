@@ -37,15 +37,20 @@ namespace GameMaster
         {
             if (Editing)
             {
-                textBox1.Text = SelectedGame.Name;
-                textBox2.Text = SelectedGame.Author;
-                textBox3.Text = SelectedGame.FriendlyVersion;
+                tbName.Text = SelectedGame.Name;
+                tbAuthor.Text = SelectedGame.Author;
+                tbFriendlyVerion.Text = SelectedGame.FriendlyVersion;
             }
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void tbName_TextChanged(object sender, EventArgs e)
         {
             
+        }
+
+        private void tbFriendlyVerion_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
