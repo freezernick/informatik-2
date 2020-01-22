@@ -28,96 +28,75 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.lName = new System.Windows.Forms.Label();
+            this.lAuthor = new System.Windows.Forms.Label();
+            this.lVersion = new System.Windows.Forms.Label();
+            this.tbName = new System.Windows.Forms.TextBox();
+            this.tbAuthor = new System.Windows.Forms.TextBox();
+            this.tbFriendlyVerion = new System.Windows.Forms.TextBox();
             this.btSave = new System.Windows.Forms.Button();
             this.btBack = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // lName
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 7);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Name";
+            this.lName.AutoSize = true;
+            this.lName.Location = new System.Drawing.Point(11, 9);
+            this.lName.Name = "lName";
+            this.lName.Size = new System.Drawing.Size(45, 17);
+            this.lName.TabIndex = 0;
+            this.lName.Text = "Name";
             // 
-            // label2
+            // lAuthor
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 42);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Creator";
+            this.lAuthor.AutoSize = true;
+            this.lAuthor.Location = new System.Drawing.Point(11, 52);
+            this.lAuthor.Name = "lAuthor";
+            this.lAuthor.Size = new System.Drawing.Size(50, 17);
+            this.lAuthor.TabIndex = 1;
+            this.lAuthor.Text = "Author";
             // 
-            // label3
+            // lVersion
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 112);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Last Changed";
+            this.lVersion.AutoSize = true;
+            this.lVersion.Location = new System.Drawing.Point(11, 95);
+            this.lVersion.Name = "lVersion";
+            this.lVersion.Size = new System.Drawing.Size(56, 17);
+            this.lVersion.TabIndex = 3;
+            this.lVersion.Text = "Version";
             // 
-            // label4
+            // tbName
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 77);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(42, 13);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Version";
+            this.tbName.Location = new System.Drawing.Point(171, 6);
+            this.tbName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(219, 22);
+            this.tbName.TabIndex = 4;
+            this.tbName.TextChanged += new System.EventHandler(this.tbName_TextChanged);
             // 
-            // textBox1
+            // tbAuthor
             // 
-            this.textBox1.Location = new System.Drawing.Point(128, 5);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(165, 20);
-            this.textBox1.TabIndex = 4;
+            this.tbAuthor.Location = new System.Drawing.Point(171, 49);
+            this.tbAuthor.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbAuthor.Name = "tbAuthor";
+            this.tbAuthor.Size = new System.Drawing.Size(219, 22);
+            this.tbAuthor.TabIndex = 5;
             // 
-            // textBox2
+            // tbFriendlyVerion
             // 
-            this.textBox2.Location = new System.Drawing.Point(128, 40);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(165, 20);
-            this.textBox2.TabIndex = 5;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(128, 75);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(165, 20);
-            this.textBox3.TabIndex = 6;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(128, 110);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(165, 20);
-            this.textBox4.TabIndex = 7;
+            this.tbFriendlyVerion.Location = new System.Drawing.Point(171, 92);
+            this.tbFriendlyVerion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbFriendlyVerion.Name = "tbFriendlyVerion";
+            this.tbFriendlyVerion.Size = new System.Drawing.Size(219, 22);
+            this.tbFriendlyVerion.TabIndex = 6;
+            this.tbFriendlyVerion.TextChanged += new System.EventHandler(this.tbFriendlyVerion_TextChanged);
             // 
             // btSave
             // 
-            this.btSave.Location = new System.Drawing.Point(160, 152);
-            this.btSave.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btSave.Location = new System.Drawing.Point(213, 186);
+            this.btSave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(133, 24);
+            this.btSave.Size = new System.Drawing.Size(177, 30);
             this.btSave.TabIndex = 8;
             this.btSave.Text = "Save";
             this.btSave.UseVisualStyleBackColor = true;
@@ -125,10 +104,10 @@
             // 
             // btBack
             // 
-            this.btBack.Location = new System.Drawing.Point(10, 152);
-            this.btBack.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btBack.Location = new System.Drawing.Point(13, 186);
+            this.btBack.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btBack.Name = "btBack";
-            this.btBack.Size = new System.Drawing.Size(134, 24);
+            this.btBack.Size = new System.Drawing.Size(179, 30);
             this.btBack.TabIndex = 9;
             this.btBack.Text = "Back";
             this.btBack.UseVisualStyleBackColor = true;
@@ -136,25 +115,24 @@
             // 
             // EditForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(303, 183);
+            this.ClientSize = new System.Drawing.Size(404, 225);
             this.ControlBox = false;
             this.Controls.Add(this.btBack);
             this.Controls.Add(this.btSave);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Controls.Add(this.tbFriendlyVerion);
+            this.Controls.Add(this.tbAuthor);
+            this.Controls.Add(this.tbName);
+            this.Controls.Add(this.lVersion);
+            this.Controls.Add(this.lAuthor);
+            this.Controls.Add(this.lName);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "EditForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.EditForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -162,14 +140,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label lName;
+        private System.Windows.Forms.Label lAuthor;
+        private System.Windows.Forms.Label lVersion;
+        private System.Windows.Forms.TextBox tbName;
+        private System.Windows.Forms.TextBox tbAuthor;
+        private System.Windows.Forms.TextBox tbFriendlyVerion;
         private System.Windows.Forms.Button btSave;
         private System.Windows.Forms.Button btBack;
     }

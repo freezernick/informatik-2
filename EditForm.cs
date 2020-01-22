@@ -12,17 +12,43 @@ namespace GameMaster
 {
     public partial class EditForm : Form
     {
-        public EditForm()
+        public Game SelectedGame;
+        private bool Editing;
+        private MainForm MainForm;
+        public EditForm(bool EditMode,MainForm MainWindow)
         {
             InitializeComponent();
+            Editing = EditMode;
+            MainForm = MainWindow;
         }
 
         private void btBack_Click(object sender, EventArgs e)
         {
-            Close();
+            MainForm.Show();
+            this.Close();
         }
 
         private void btSave_Click(object sender, EventArgs e)
+        {
+          
+        }
+
+        private void EditForm_Load(object sender, EventArgs e)
+        {
+            if (Editing)
+            {
+                tbName.Text = SelectedGame.Name;
+                tbAuthor.Text = SelectedGame.Author;
+                tbFriendlyVerion.Text = SelectedGame.FriendlyVersion;
+            }
+        }
+
+        private void tbName_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void tbFriendlyVerion_TextChanged(object sender, EventArgs e)
         {
 
         }
