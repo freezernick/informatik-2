@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace GameMaster
 {
@@ -66,15 +67,29 @@ namespace GameMaster
 
         private void lErscheinungsdatum_Load(object sender, EventArgs e)
         {
+            /* Kontrolle, ob das ruleset-Directory existiert */
+            if (!Directory.Exists(AppContext.BaseDirectory + @"\rulesets\"))
+            {
+                Directory.CreateDirectory(AppContext.BaseDirectory + @"\rulesets\");
+            }
+            /* Kontrolle, ob das ruleset-Directory Dateien hat */
+            if (Directory.GetFiles(AppContext.BaseDirectory + @"\rulesets\").Length == 0)
+            {
+                return;
+            }
+            /* Zumindest btStart sollte langfristig in die IndexChanged, damit wir da kontrollieren, ob ein Start denkbar ist */
             btEditProp.Enabled = true;
             btEditRules.Enabled = true;
-            PseudoGame = new Game();
-            PseudoGame.Name = "TestGame";
-            PseudoGame.FriendlyVersion = "1.0";
-            PseudoGame.LastChanged = new DateTime(2020,1,15);
-            PseudoGame.Author = "Jakob";
-            listBox1.Items.Add(PseudoGame);
-            listBox1.SetSelected(0,true);
+            btStart.Enabled = true;
+
+
+            PseudoGame = new Game(); // @F2P: Remove
+            PseudoGame.Name = "TestGame";   // @F2P: Remove
+            PseudoGame.FriendlyVersion = "1.0"; // @F2P: Remove
+            PseudoGame.LastChanged = new DateTime(2020,1,15); // @F2P: Remove
+            PseudoGame.Author = "Jakob"; // @F2P: Remove
+            listBox1.Items.Add(PseudoGame); // @F2P: Remove
+            listBox1.SetSelected(0,true); // @F2P: Remove
         }
     }
 }
