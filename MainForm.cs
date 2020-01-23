@@ -8,12 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using SUCC;
+using System.Net;
 
 namespace GameMaster
 {
     public partial class MainForm : Form
     {
-        public Game PseudoGame;
+        public Game PseudoGame; // @F2P: Remove
 
         public Game SelectedGame;
         public MainForm()
@@ -33,11 +35,11 @@ namespace GameMaster
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SelectedGame = (Game) listBox1.SelectedItem;
-            lNameValue.Text = SelectedGame.Name;
-            lAuthorValue.Text = SelectedGame.Author;
-            lVersionValue.Text = SelectedGame.FriendlyVersion;
-            lLastChangedValue.Text = SelectedGame.LastChanged.ToString();
+            //SelectedGame = (Game) listBox1.SelectedItem;
+            //lNameValue.Text = SelectedGame.Name;
+            //lAuthorValue.Text = SelectedGame.Author;
+            //lVersionValue.Text = SelectedGame.FriendlyVersion;
+            //lLastChangedValue.Text = SelectedGame.LastChanged.ToString();
        
         }
 
@@ -72,11 +74,16 @@ namespace GameMaster
             {
                 Directory.CreateDirectory(AppContext.BaseDirectory + @"\rulesets\");
             }
-            /* Kontrolle, ob das ruleset-Directory Dateien hat */
-            if (Directory.GetFiles(AppContext.BaseDirectory + @"\rulesets\").Length == 0)
+
+            foreach (string dir in Directory.GetDirectories(AppContext.BaseDirectory + @"\rulesets\"))
             {
-                return;
+                string[] subStrings = dir.Split('\\');
+                int LastIndex = subStrings.Length - 1;
+                listBox1.Items.Add(subStrings[LastIndex]);
+                DataFile dataFile = new DataFile(Path.Combine(dir, subStrings[LastIndex]));
+                dataFile.SaveAllData();
             }
+
             /* Zumindest btStart sollte langfristig in die IndexChanged, damit wir da kontrollieren, ob ein Start denkbar ist */
             btEditProp.Enabled = true;
             btEditRules.Enabled = true;
