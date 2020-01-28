@@ -76,6 +76,8 @@ namespace GameMaster
         {
             if (!Directory.Exists(DownloadDirectory))
             {
+                rtbStatus.AppendText("Download directory doesn't exist!");
+                rtbStatus.AppendText("Creating...");
                 Directory.CreateDirectory(DownloadDirectory);
             }
             using (WebClient wc = new WebClient())
@@ -85,8 +87,10 @@ namespace GameMaster
                 /* Upgrade insecure requests */
                 if (DownloadUrl.StartsWith("http://"))
                 {
+                    rtbStatus.AppendText("Upgrading insecure request...");
                     DownloadUrl.Replace("http://", "https://");
                 }
+                rtbStatus.AppendText("Downloading now...");
                 wc.DownloadProgressChanged += wc_DownloadProgressChanged;
                 wc.DownloadFileAsync(
                     new System.Uri(DownloadUrl),
@@ -99,6 +103,11 @@ namespace GameMaster
         void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             pbProgress.Value = e.ProgressPercentage;
+
+            if(pbProgress.Value == 100)
+            {
+                rtbStatus.AppendText("Finished!");
+            }
         }
 
         private void ZipHandling()
