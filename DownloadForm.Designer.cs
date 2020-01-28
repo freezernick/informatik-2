@@ -46,7 +46,7 @@
             // rtbStatus
             // 
             this.rtbStatus.Enabled = false;
-            this.rtbStatus.Location = new System.Drawing.Point(14, 114);
+            this.rtbStatus.Location = new System.Drawing.Point(14, 107);
             this.rtbStatus.Name = "rtbStatus";
             this.rtbStatus.Size = new System.Drawing.Size(579, 166);
             this.rtbStatus.TabIndex = 1;
@@ -54,12 +54,14 @@
             // 
             // btStart
             // 
+            this.btStart.Enabled = false;
             this.btStart.Location = new System.Drawing.Point(303, 61);
             this.btStart.Name = "btStart";
             this.btStart.Size = new System.Drawing.Size(290, 32);
             this.btStart.TabIndex = 2;
             this.btStart.Text = "Start";
             this.btStart.UseVisualStyleBackColor = true;
+            this.btStart.Click += new System.EventHandler(this.btStart_Click);
             // 
             // btExit
             // 
