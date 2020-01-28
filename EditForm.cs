@@ -33,6 +33,7 @@ namespace GameMaster
             SelectedGame.FriendlyVersion = tbFriendlyVerion.Text;
             SelectedGame.Author = tbAuthor.Text;
             SelectedGame.Name = tbName.Text;
+            SelectedGame.LastChanged = DateTime.Now;
             SelectedGame.Save();
         }
 
