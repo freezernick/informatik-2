@@ -41,7 +41,6 @@
             this.pbProgress.Name = "pbProgress";
             this.pbProgress.Size = new System.Drawing.Size(580, 30);
             this.pbProgress.TabIndex = 0;
-            this.pbProgress.Click += new System.EventHandler(this.pbProgress_Click);
             // 
             // rtbStatus
             // 
