@@ -67,11 +67,28 @@ namespace GameMaster
         void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             pbProgress.Value = e.ProgressPercentage;
+            if (pbProgress.Value == 100)
+            {
+                ZipHandling();
+            }
         }
 
         private void ZipHandling()
         {
-            ZipFile.ExtractToDirectory(Path.Combine(DownloadDirectory, "Download.zip"),AppContext.BaseDirectory + @"\rulesets");
+            string TempDirectory = AppContext.BaseDirectory + @"\temp";
+            ZipFile.ExtractToDirectory(Path.Combine(DownloadDirectory, "Download.zip"),TempDirectory);
+            string[] Files = Directory.GetFiles(TempDirectory);
+            foreach (string File in Files)
+            {
+                if (File.Contains(".txt"))
+                {
+                    //loading
+                    return;
+                }
+            }
+            string[] dirs = Directory.GetDirectories(TempDirectory);
+            string[] substrings = dirs[0].Split('\\');
+            TempDirectory += substrings.Last();
         }
     }
 }
