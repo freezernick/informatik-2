@@ -102,21 +102,20 @@ namespace GameMaster
         void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             pbProgress.Value = e.ProgressPercentage;
-            if (pbProgress.Value == 100)
-            {
-                ZipHandling();
-            }
         }
 
         void wc_DownloadFileCompleted(object sender, EventArgs e)
         {
             rtbStatus.AppendText("Finished!\n");
+            ZipHandling();
         }
 
         private void ZipHandling()
         {
+            rtbStatus.AppendText("Extracting archive...");
             string TempDirectory = AppContext.BaseDirectory + @"\temp";
-            ZipFile.ExtractToDirectory(Path.Combine(DownloadDirectory, "Download.zip"),TempDirectory);
+            ZipFile.ExtractToDirectory(Path.Combine(DownloadDirectory, "Download.zip"), TempDirectory);
+            rtbStatus.AppendText("Done! Checking files...\n");
             string[] Files = Directory.GetFiles(TempDirectory);
             foreach (string File in Files)
             {
