@@ -90,6 +90,7 @@ namespace GameMaster
                 }
                 rtbStatus.AppendText("Downloading now...\n");
                 wc.DownloadProgressChanged += wc_DownloadProgressChanged;
+                wc.DownloadFileCompleted += wc_DownloadFileCompleted;
                 wc.DownloadFileAsync(
                     new System.Uri(DownloadUrl),
                     Path.Combine(DownloadDirectory, "Download.zip")
@@ -101,11 +102,11 @@ namespace GameMaster
         void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             pbProgress.Value = e.ProgressPercentage;
+        }
 
-            if(pbProgress.Value == 100)
-            {
-                rtbStatus.AppendText("Finished!\n");
-            }
+        void wc_DownloadFileCompleted(object sender, EventArgs e)
+        {
+            rtbStatus.AppendText("Finished!\n");
         }
 
         private void ZipHandling()
