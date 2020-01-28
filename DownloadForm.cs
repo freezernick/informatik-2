@@ -80,9 +80,16 @@ namespace GameMaster
             }
             using (WebClient wc = new WebClient())
             {
+                string DownloadUrl = tbQuelle.Text;
+
+                /* Upgrade insecure requests */
+                if (DownloadUrl.StartsWith("http://"))
+                {
+                    DownloadUrl.Replace("http://", "https://");
+                }
                 wc.DownloadProgressChanged += wc_DownloadProgressChanged;
                 wc.DownloadFileAsync(
-                    new System.Uri(tbQuelle.Text),
+                    new System.Uri(DownloadUrl),
                     Path.Combine(DownloadDirectory, "Download.zip")
                 );
             }
