@@ -31,20 +31,45 @@ namespace GameMaster
 
         private void tbQuelle_TextChanged(object sender, EventArgs e)
         {
-            if (Uri.IsWellFormedUriString(tbQuelle.Text, UriKind.Absolute))
-            {
-                btStart.Enabled = true;
-            }
-            else
+            if(!ValidateUrl(tbQuelle.Text))
             {
                 btStart.Enabled = false;
+                return;
             }
+            btStart.Enabled = true;
         }
-
-
-        private void pbProgress_Click(object sender, EventArgs e)
+        /**
+         * Checks if the given string is a valid URL
+         * Also ensures it's a .zip
+         * @return Whether it's valid or not
+         */
+        private bool ValidateUrl(string Url)
         {
+            /* Is using http / https */
+            if(!Url.StartsWith("http://") && !Url.StartsWith("https://"))
+            {
+                rtbStatus.Text += "1";
+                return false;
+            }
 
+            /* Target is a .zip archive */
+            if(!Url.EndsWith(".zip"))
+            {
+                rtbStatus.Text += "2";
+                return false;
+            }
+
+            string[] substrings = Url.Split('/');
+
+            /**
+             * Target archive has a name
+             * (Checks if there are characters between the last '/' and the .zip
+             */
+            if(substrings.Last() == ".zip")
+            {
+                return false;
+            }
+            return true;
         }
 
         private void btStart_Click(object sender, EventArgs e)
