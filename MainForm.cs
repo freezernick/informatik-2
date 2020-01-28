@@ -18,9 +18,11 @@ namespace GameMaster
         public Game PseudoGame; // @F2P: Remove
 
         public Game SelectedGame;
+        public List<Game> Games;
         public MainForm()
         {
             InitializeComponent();
+            Games = new List<Game>();
         }
 
         private void btEditRules_Click(object sender, EventArgs e)
@@ -81,7 +83,8 @@ namespace GameMaster
                 int LastIndex = subStrings.Length - 1;
                 listBox1.Items.Add(subStrings[LastIndex]);
                 DataFile dataFile = new DataFile(Path.Combine(dir, subStrings[LastIndex]));
-                dataFile.SaveAllData();
+                Game CurrentGame = new Game();
+                Games.Add(Game.ConfigToGame(CurrentGame, dataFile));
             }
 
             /* Zumindest btStart sollte langfristig in die IndexChanged, damit wir da kontrollieren, ob ein Start denkbar ist */
