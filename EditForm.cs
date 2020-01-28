@@ -30,7 +30,10 @@ namespace GameMaster
 
         private void btSave_Click(object sender, EventArgs e)
         {
-          
+            SelectedGame.FriendlyVersion = tbFriendlyVerion.Text;
+            SelectedGame.Author = tbAuthor.Text;
+            SelectedGame.Name = tbName.Text;
+            SelectedGame.Save();
         }
 
         private void EditForm_Load(object sender, EventArgs e)

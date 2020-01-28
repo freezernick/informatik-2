@@ -37,12 +37,12 @@ namespace GameMaster
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //SelectedGame = (Game) listBox1.SelectedItem;
-            //lNameValue.Text = SelectedGame.Name;
-            //lAuthorValue.Text = SelectedGame.Author;
-            //lVersionValue.Text = SelectedGame.FriendlyVersion;
-            //lLastChangedValue.Text = SelectedGame.LastChanged.ToString();
-       
+            SelectedGame = Games[listBox1.SelectedIndex];
+            lNameValue.Text = SelectedGame.Name;
+            lAuthorValue.Text = SelectedGame.Author;
+            lVersionValue.Text = SelectedGame.FriendlyVersion;
+            lLastChangedValue.Text = SelectedGame.LastChanged.ToString();
+
         }
 
         private void btNew_Click(object sender, EventArgs e)
@@ -56,7 +56,7 @@ namespace GameMaster
         private void btEditProp_Click(object sender, EventArgs e)
         {
             EditForm EditWindow = new EditForm(true,this);
-            EditWindow.SelectedGame = PseudoGame;
+            EditWindow.SelectedGame = SelectedGame;
             EditWindow.Text = "Edit " + SelectedGame.Name;
             EditWindow.Show();
             this.Hide();      
@@ -91,15 +91,7 @@ namespace GameMaster
             btEditProp.Enabled = true;
             btEditRules.Enabled = true;
             btStart.Enabled = true;
-
-
-            PseudoGame = new Game(); // @F2P: Remove
-            PseudoGame.Name = "TestGame";   // @F2P: Remove
-            PseudoGame.FriendlyVersion = "1.0"; // @F2P: Remove
-            PseudoGame.LastChanged = new DateTime(2020,1,15); // @F2P: Remove
-            PseudoGame.Author = "Jakob"; // @F2P: Remove
-            listBox1.Items.Add(PseudoGame); // @F2P: Remove
-            listBox1.SetSelected(0,true); // @F2P: Remove
+            listBox1.SetSelected(0, true);
         }
     }
 }

@@ -35,9 +35,11 @@ namespace GameMaster
             AssociatedConfig.Set<string>("ID", ID);
             AssociatedConfig.Set<string[]>("Categories", Categories);
             AssociatedConfig.Set<string>("StartAction", StartAction);
+            AssociatedConfig.Set<string>("Author", Author);
             AssociatedConfig.Set<DateTime>("LastChanged", LastChanged);
             AssociatedConfig.Set<string>("FriendlyVersion", FriendlyVersion);
             AssociatedConfig.Set<int>("Version", Version);
+            AssociatedConfig.SaveAllData();
         }
 
         public String Name;
