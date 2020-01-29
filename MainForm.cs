@@ -85,9 +85,8 @@ namespace GameMaster
             foreach (string dir in Directory.GetDirectories(AppContext.BaseDirectory + @"\rulesets\"))
             {
                 string[] subStrings = dir.Split('\\');
-                int LastIndex = subStrings.Length - 1;
-                listBox1.Items.Add(subStrings[LastIndex]);
-                DataFile dataFile = new DataFile(Path.Combine(dir, subStrings[LastIndex]));
+                listBox1.Items.Add(subStrings.Last());
+                DataFile dataFile = new DataFile(Path.Combine(dir, "ruleset"));
                 Game CurrentGame = new Game();
                 Games.Add(Game.ConfigToGame(CurrentGame, dataFile));
             }
