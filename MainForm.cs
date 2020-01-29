@@ -87,7 +87,7 @@ namespace GameMaster
                 string[] subStrings = dir.Split('\\');
                 int LastIndex = subStrings.Length - 1;
                 listBox1.Items.Add(subStrings[LastIndex]);
-                DataFile dataFile = new DataFile(Path.Combine(dir, subStrings[LastIndex]));
+                DataFile dataFile = new DataFile(Path.Combine(dir, "ruleset"));
                 Game CurrentGame = new Game();
                 Games.Add(Game.ConfigToGame(CurrentGame, dataFile));
             }
