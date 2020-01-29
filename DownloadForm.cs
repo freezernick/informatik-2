@@ -119,15 +119,20 @@ namespace GameMaster
             string[] Files = Directory.GetFiles(TempDirectory);
             foreach (string File in Files)
             {
-                if (File.Contains(".txt"))
+                if (File.Contains(".succ"))
                 {
-                    //loading
+                    FileHandling(true);
                     return;
                 }
             }
             string[] dirs = Directory.GetDirectories(TempDirectory);
             string[] substrings = dirs[0].Split('\\');
             TempDirectory += substrings.Last();
+        }
+
+        private void FileHandling(bool isConfigInRoot, string FolderName = "")
+        {
+
         }
     }
 }
