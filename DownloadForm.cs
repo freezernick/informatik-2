@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Net;
 using System.IO;
 using System.IO.Compression;
+using SUCC;
+
 namespace GameMaster
 {
     public partial class DownloadForm : Form
@@ -122,7 +124,7 @@ namespace GameMaster
                 if (File.Contains(".succ"))
                 {
                     rtbStatus.AppendText("Found 1 ruleset!\n");
-                    FileHandling(true);
+                    FileHandling(true, File);
                     return;
                 }
             }
@@ -143,9 +145,28 @@ namespace GameMaster
             rtbStatus.AppendText("Found " + SetCount.ToString() + " rulesets!\n");
         }
 
-        private void FileHandling(bool isConfigInRoot, string FolderName = "")
+        /**
+         * Moves the rulesets to the proper folder
+         * @param isConfigInRoot Whether the .succ is directly in the temp directory or in a subdirectory
+         * @param Name Either the name of the .succ or the name of the subdirectory
+         */
+        private void FileHandling(bool isConfigInRoot, string Name)
         {
-
+            if(isConfigInRoot)
+            {
+                DataFile dataFile = new DataFile(Path.Combine(AppContext.BaseDirectory + @"\temp\") + Name);
+                string id = dataFile.Get<string>("ID");
+                Directory.CreateDirectory(Path.Combine(AppContext.BaseDirectory + @"\rulesets\", id));
+                string[] files = Directory.GetFiles(AppContext.BaseDirectory + @"\temp\");
+                foreach (string file in files)
+                {
+                    File.Move(AppContext.BaseDirectory + @"\temp\" + file, Path.Combine(AppContext.BaseDirectory + @"\rulesets\" + Name) + file);
+                }
+            }
+            else
+            {
+                Directory.Move(Path.Combine(AppContext.BaseDirectory + @"\temp", Name), AppContext.BaseDirectory + @"\rulesets\" + Name);
+            }
         }
     }
 }

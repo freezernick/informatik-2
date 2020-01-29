@@ -77,6 +77,11 @@ namespace GameMaster
                 Directory.CreateDirectory(AppContext.BaseDirectory + @"\rulesets\");
             }
 
+            if(Directory.Exists(AppContext.BaseDirectory + @"\temp\"))
+            {
+                Directory.Delete(AppContext.BaseDirectory + @"\temp\", true);
+            }
+
             foreach (string dir in Directory.GetDirectories(AppContext.BaseDirectory + @"\rulesets\"))
             {
                 string[] subStrings = dir.Split('\\');
