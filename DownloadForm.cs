@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Net;
 using System.IO;
 using System.IO.Compression;
+using SUCC;
+
 namespace GameMaster
 {
     public partial class DownloadForm : Form
@@ -145,7 +147,14 @@ namespace GameMaster
 
         private void FileHandling(bool isConfigInRoot, string FolderName = "")
         {
-
+            if(isConfigInRoot)
+            {
+                /* read config to check the name */
+            }
+            else
+            {
+                Directory.Move(Path.Combine(AppContext.BaseDirectory + @"\temp", FolderName), AppContext.BaseDirectory + @"\rulesets\" + FolderName);
+            }
         }
     }
 }
