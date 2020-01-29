@@ -15,6 +15,12 @@ namespace GameMaster
             Version = 1;
         }
 
+        /**
+         * Populates the members of a game instance with the valus of the specified config file
+         * @param GameObject The game object that should be initialized
+         * @param config The config file holding the information
+         * @return The populated game object
+         */
         public static Game ConfigToGame(Game GameObject, DataFile config)
         {
             GameObject.Name = config.Get<string>("Name");
@@ -29,6 +35,9 @@ namespace GameMaster
             return GameObject;
         }
 
+        /**
+         * Saves the member variables of the game to the associated config file
+         */
         public void Save()
         {
             AssociatedConfig.Set<string>("Name", Name);
@@ -42,10 +51,27 @@ namespace GameMaster
             AssociatedConfig.SaveAllData();
         }
 
+        /**
+         * Creates a new config file in a new folder based on the game's id
+         */
         public void CreateNew()
         {
             AssociatedConfig = new DataFile(Path.Combine(AppContext.BaseDirectory + @"\rulesets\", ID) + @"\ruleset");
             Save();
+        }
+
+        /**
+         * Checks if the executable specified in the StartAction property is valid
+         * TODO: Check if .exe
+         * @return Whether the start action is valid or not
+         */
+        public bool ValidAction()
+        {
+            if(File.Exists(StartAction))
+            {
+                return true;
+            }
+            return false;
         }
 
         public String Name;
