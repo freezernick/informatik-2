@@ -42,6 +42,12 @@ namespace GameMaster
             AssociatedConfig.SaveAllData();
         }
 
+        public void CreateNew()
+        {
+            AssociatedConfig = new DataFile(Path.Combine(AppContext.BaseDirectory + @"\rulesets\", ID) + @"\ruleset");
+            Save();
+        }
+
         public String Name;
         public String ID;
         public String[] Categories;

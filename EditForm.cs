@@ -34,7 +34,17 @@ namespace GameMaster
             SelectedGame.Author = tbAuthor.Text;
             SelectedGame.Name = tbName.Text;
             SelectedGame.LastChanged = DateTime.Now;
-            SelectedGame.Save();
+            SelectedGame.StartAction = tbStartAction.Text;
+            if (Editing)
+            {
+                SelectedGame.Save();
+            }
+            else
+            {
+                SelectedGame.ID = "newgame";
+                SelectedGame.Categories = new string[] {"default"};
+                SelectedGame.CreateNew();
+            }
         }
 
         private void EditForm_Load(object sender, EventArgs e)
@@ -44,17 +54,9 @@ namespace GameMaster
                 tbName.Text = SelectedGame.Name;
                 tbAuthor.Text = SelectedGame.Author;
                 tbFriendlyVerion.Text = SelectedGame.FriendlyVersion;
+                return;
             }
-        }
-
-        private void tbName_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void tbFriendlyVerion_TextChanged(object sender, EventArgs e)
-        {
-
+            SelectedGame = new Game();
         }
     }
 }
