@@ -112,7 +112,7 @@ namespace GameMaster
 
         private void ZipHandling()
         {
-            rtbStatus.AppendText("Extracting archive...");
+            rtbStatus.AppendText("Extracting archive...\n");
             string TempDirectory = AppContext.BaseDirectory + @"\temp";
             ZipFile.ExtractToDirectory(Path.Combine(DownloadDirectory, "Download.zip"), TempDirectory);
             rtbStatus.AppendText("Done! Checking files...\n");
@@ -121,13 +121,26 @@ namespace GameMaster
             {
                 if (File.Contains(".succ"))
                 {
+                    rtbStatus.AppendText("Found 1 ruleset!\n");
                     FileHandling(true);
                     return;
                 }
             }
             string[] dirs = Directory.GetDirectories(TempDirectory);
-            string[] substrings = dirs[0].Split('\\');
-            TempDirectory += substrings.Last();
+            int SetCount = 0;
+            foreach(string dir in dirs)
+            {
+                string[] substrings = dir.Split('\\');
+                foreach (string File in Directory.GetFiles(Path.Combine(TempDirectory, substrings.Last())))
+                {
+                    if(File.Contains(".succ"))
+                    {
+                        SetCount++;
+                        FileHandling(false, substrings.Last());
+                    }
+                }
+            }
+            rtbStatus.AppendText("Found " + SetCount.ToString() + " rulesets!\n");
         }
 
         private void FileHandling(bool isConfigInRoot, string FolderName = "")
