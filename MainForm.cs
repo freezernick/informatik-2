@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using SUCC;
 using System.Net;
+using System.Diagnostics;
 
 namespace GameMaster
 {
@@ -17,6 +18,8 @@ namespace GameMaster
     {
         public Game SelectedGame;
         public List<Game> Games;
+        private Process process;
+        private bool Running;
         public MainForm()
         {
             InitializeComponent();
@@ -38,7 +41,7 @@ namespace GameMaster
             lAuthorValue.Text = SelectedGame.Author;
             lVersionValue.Text = SelectedGame.FriendlyVersion;
             lLastChangedValue.Text = SelectedGame.LastChanged.ToString();
-            if(SelectedGame.ValidAction())
+            if(SelectedGame.ValidAction() && !Running)
             {
                 btStart.Enabled = true;
             }
@@ -99,6 +102,18 @@ namespace GameMaster
             btEditProp.Enabled = true;
             btEditRules.Enabled = true;
             listBox1.SetSelected(0, true);
+        }
+
+        private void btStart_Click(object sender, EventArgs e)
+        {
+            process = Process.Start(SelectedGame.StartAction);
+            process.Exited += p_Exited;
+            Running = true;
+        }
+
+        private void p_Exited(object sender, EventArgs e)
+        {
+            Running = false;
         }
     }
 }
