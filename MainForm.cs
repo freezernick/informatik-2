@@ -15,8 +15,6 @@ namespace GameMaster
 {
     public partial class MainForm : Form
     {
-        public Game PseudoGame; // @F2P: Remove
-
         public Game SelectedGame;
         public List<Game> Games;
         public MainForm()
@@ -31,8 +29,6 @@ namespace GameMaster
             Newwindow.Text = "Edit " + SelectedGame.Name;
             Newwindow.Show();
             this.Hide();
- 
-
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -42,6 +38,14 @@ namespace GameMaster
             lAuthorValue.Text = SelectedGame.Author;
             lVersionValue.Text = SelectedGame.FriendlyVersion;
             lLastChangedValue.Text = SelectedGame.LastChanged.ToString();
+            if(SelectedGame.ValidAction())
+            {
+                btStart.Enabled = true;
+            }
+            else
+            {
+                btStart.Enabled = false;
+            }
 
         }
 
@@ -71,12 +75,13 @@ namespace GameMaster
 
         private void lErscheinungsdatum_Load(object sender, EventArgs e)
         {
-            /* Kontrolle, ob das ruleset-Directory existiert */
+            // Check if rulesets directory exists
             if (!Directory.Exists(AppContext.BaseDirectory + @"\rulesets\"))
             {
                 Directory.CreateDirectory(AppContext.BaseDirectory + @"\rulesets\");
             }
 
+            // Cleans the temporary directory
             if(Directory.Exists(AppContext.BaseDirectory + @"\temp\"))
             {
                 Directory.Delete(AppContext.BaseDirectory + @"\temp\", true);
@@ -91,10 +96,8 @@ namespace GameMaster
                 Games.Add(Game.ConfigToGame(CurrentGame, dataFile));
             }
 
-            /* Zumindest btStart sollte langfristig in die IndexChanged, damit wir da kontrollieren, ob ein Start denkbar ist */
             btEditProp.Enabled = true;
             btEditRules.Enabled = true;
-            btStart.Enabled = true;
             listBox1.SetSelected(0, true);
         }
     }

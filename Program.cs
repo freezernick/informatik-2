@@ -15,6 +15,12 @@ namespace GameMaster
             Version = 1;
         }
 
+        /// <summary>
+        /// Populates the member variables of a specified game with values of the specified config file
+        /// </summary>
+        /// <param name="GameObject">The game object that should be populated</param>
+        /// <param name="config">The config file holding the values</param>
+        /// <returns>The populated game object</returns>
         public static Game ConfigToGame(Game GameObject, DataFile config)
         {
             GameObject.Name = config.Get<string>("Name");
@@ -29,6 +35,9 @@ namespace GameMaster
             return GameObject;
         }
 
+        /// <summary>
+        /// Saves the member variables of the game to the associated config file
+        /// </summary>
         public void Save()
         {
             AssociatedConfig.Set<string>("Name", Name);
@@ -42,10 +51,26 @@ namespace GameMaster
             AssociatedConfig.SaveAllData();
         }
 
+        /// <summary>
+        /// Creates a new config file for the specified ID
+        /// </summary>
         public void CreateNew()
         {
             AssociatedConfig = new DataFile(Path.Combine(AppContext.BaseDirectory + @"\rulesets\", ID) + @"\ruleset");
             Save();
+        }
+
+        /// <summary>
+        /// Checks if the executable specified in the StartAction property is valid
+        /// </summary>
+        /// <returns>Whether the start action is valid or not</returns>
+        public bool ValidAction()
+        {
+            if(File.Exists(StartAction) && StartAction.EndsWith(".exe"))
+            {
+                return true;
+            }
+            return false;
         }
 
         public String Name;
@@ -65,7 +90,7 @@ namespace GameMaster
     static class Program
     {
         /// <summary>
-        /// Der Haupteinstiegspunkt für die Anwendung.
+        /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
