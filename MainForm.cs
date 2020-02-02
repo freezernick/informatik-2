@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using SUCC;
 using System.Net;
+using System.Diagnostics;
 
 namespace GameMaster
 {
@@ -17,6 +18,7 @@ namespace GameMaster
     {
         public Game SelectedGame;
         public List<Game> Games;
+        private Process process;
         public MainForm()
         {
             InitializeComponent();
@@ -99,6 +101,17 @@ namespace GameMaster
             btEditProp.Enabled = true;
             btEditRules.Enabled = true;
             listBox1.SetSelected(0, true);
+        }
+
+        private void btStart_Click(object sender, EventArgs e)
+        {
+            process = Process.Start(SelectedGame.StartAction);
+            process.Exited += p_Exited;
+        }
+
+        private void p_Exited(object sender, EventArgs e)
+        {
+
         }
     }
 }
