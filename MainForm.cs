@@ -19,6 +19,7 @@ namespace GameMaster
         public Game SelectedGame;
         public List<Game> Games;
         private Process process;
+        private bool Running;
         public MainForm()
         {
             InitializeComponent();
@@ -40,7 +41,7 @@ namespace GameMaster
             lAuthorValue.Text = SelectedGame.Author;
             lVersionValue.Text = SelectedGame.FriendlyVersion;
             lLastChangedValue.Text = SelectedGame.LastChanged.ToString();
-            if(SelectedGame.ValidAction())
+            if(SelectedGame.ValidAction() && !Running)
             {
                 btStart.Enabled = true;
             }
@@ -107,11 +108,12 @@ namespace GameMaster
         {
             process = Process.Start(SelectedGame.StartAction);
             process.Exited += p_Exited;
+            Running = true;
         }
 
         private void p_Exited(object sender, EventArgs e)
         {
-
+            Running = false;
         }
     }
 }
