@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btStart = new System.Windows.Forms.Button();
@@ -43,6 +44,7 @@
             this.lAuthorValue = new System.Windows.Forms.Label();
             this.lVersionValue = new System.Windows.Forms.Label();
             this.lLastChangedValue = new System.Windows.Forms.Label();
+            this.Tray = new System.Windows.Forms.NotifyIcon(this.components);
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -216,6 +218,11 @@
             this.lLastChangedValue.TabIndex = 9;
             this.lLastChangedValue.Text = "lLastChangedValue";
             // 
+            // Tray
+            // 
+            this.Tray.Text = "GameMaster";
+            this.Tray.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Tray_MouseDoubleClick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -261,6 +268,7 @@
         private System.Windows.Forms.Label lAuthorValue;
         private System.Windows.Forms.Label lVersionValue;
         private System.Windows.Forms.Label lLastChangedValue;
+        private System.Windows.Forms.NotifyIcon Tray;
     }
 }
 

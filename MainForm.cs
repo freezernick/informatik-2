@@ -24,6 +24,8 @@ namespace GameMaster
         {
             InitializeComponent();
             Games = new List<Game>();
+            Tray.Icon = SystemIcons.Application;
+            CheckForIllegalCrossThreadCalls = false;
         }
 
         private void btEditRules_Click(object sender, EventArgs e)
@@ -107,13 +109,26 @@ namespace GameMaster
         private void btStart_Click(object sender, EventArgs e)
         {
             process = Process.Start(SelectedGame.StartAction);
+            process.EnableRaisingEvents = true;
             process.Exited += p_Exited;
             Running = true;
+            Tray.Visible = true;
+            Hide();
         }
 
         private void p_Exited(object sender, EventArgs e)
         {
             Running = false;
+            Show();
+            WindowState = FormWindowState.Normal;
+            Tray.Visible = false;
+        }
+
+        private void Tray_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Show();
+            Tray.Visible = false;
+            WindowState = FormWindowState.Normal;
         }
     }
 }
