@@ -101,9 +101,18 @@ namespace GameMaster
                 Games.Add(Game.ConfigToGame(CurrentGame, dataFile));
             }
 
-            btEditProp.Enabled = true;
-            btEditRules.Enabled = true;
-            listBox1.SetSelected(0, true);
+            
+            if(listBox1.Items.Count > 0)
+            {
+                btEditProp.Enabled = true;
+                btEditRules.Enabled = true;
+                listBox1.SetSelected(0, true);
+                lNameValue.Visible = true;
+                lAuthorValue.Visible = true;
+                lVersionValue.Visible = true;
+                lLastChangedValue.Visible = true;
+            }
+            
         }
 
         private void btStart_Click(object sender, EventArgs e)
