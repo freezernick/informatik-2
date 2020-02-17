@@ -39,9 +39,8 @@ namespace GameMaster
 
         private void btExit_Click(object sender, EventArgs e)
         {
-            MainForm NewWindow = new MainForm();
-            NewWindow.Show();
-            this.Close();
+            FormHandler.MainForm().Show();
+            Hide();
         }
 
         private void button4_Click(object sender, EventArgs e)

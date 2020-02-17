@@ -177,7 +177,6 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.EditForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

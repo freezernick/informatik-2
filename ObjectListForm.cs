@@ -24,9 +24,6 @@ namespace GameMaster
 
         private void btEdit_Click(object sender, EventArgs e)
         {
-            ObjectListForm NewWindow = new ObjectListForm();
-            NewWindow.Show();
-            this.Hide();
         }
     }
 }

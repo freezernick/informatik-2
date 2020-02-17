@@ -14,18 +14,28 @@ namespace GameMaster
     {
         public Game SelectedGame;
         private bool Editing;
-        private MainForm MainForm;
-        public EditForm(bool EditMode,MainForm MainWindow)
+        public EditForm()
         {
             InitializeComponent();
+        }
+
+        public void SetEditMode(bool EditMode)
+        {
             Editing = EditMode;
-            MainForm = MainWindow;
+            if (Editing)
+            {
+                tbName.Text = SelectedGame.Name;
+                tbAuthor.Text = SelectedGame.Author;
+                tbFriendlyVerion.Text = SelectedGame.FriendlyVersion;
+                return;
+            }
+            SelectedGame = new Game();
         }
 
         private void btBack_Click(object sender, EventArgs e)
         {
-            MainForm.Show();
-            this.Close();
+            FormHandler.MainForm().Show();
+            Hide();
         }
 
         private void btSave_Click(object sender, EventArgs e)
@@ -45,18 +55,6 @@ namespace GameMaster
                 SelectedGame.Categories = new string[] {"default"};
                 SelectedGame.CreateNew();
             }
-        }
-
-        private void EditForm_Load(object sender, EventArgs e)
-        {
-            if (Editing)
-            {
-                tbName.Text = SelectedGame.Name;
-                tbAuthor.Text = SelectedGame.Author;
-                tbFriendlyVerion.Text = SelectedGame.FriendlyVersion;
-                return;
-            }
-            SelectedGame = new Game();
         }
     }
 }

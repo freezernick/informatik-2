@@ -25,15 +25,14 @@ namespace GameMaster
             InitializeComponent();
             Games = new List<Game>();
             Tray.Icon = SystemIcons.Application;
-            CheckForIllegalCrossThreadCalls = false;
+            CheckForIllegalCrossThreadCalls = true;
         }
 
         private void btEditRules_Click(object sender, EventArgs e)
         {
-            EditorForm Newwindow = new EditorForm();
-            Newwindow.Text = "Edit " + SelectedGame.Name;
-            Newwindow.Show();
-            this.Hide();
+            FormHandler.EditorForm().Text = "Edit " + SelectedGame.Name;
+            FormHandler.EditorForm().Show();
+            Hide();
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -56,26 +55,24 @@ namespace GameMaster
 
         private void btNew_Click(object sender, EventArgs e)
         {
-            EditForm NewWindow = new EditForm(false,this);
-            NewWindow.Text = "New Config";
-            NewWindow.Show();
-            this.Hide();
+            FormHandler.EditForm().SetEditMode(false);
+            FormHandler.EditForm().Text = "New config";
+            FormHandler.EditForm().Show();
+            Hide();
         }
 
         private void btEditProp_Click(object sender, EventArgs e)
         {
-            EditForm EditWindow = new EditForm(true,this);
-            EditWindow.SelectedGame = SelectedGame;
-            EditWindow.Text = "Edit " + SelectedGame.Name;
-            EditWindow.Show();
-            this.Hide();      
+            FormHandler.EditForm().SetEditMode(true);
+            FormHandler.EditForm().Text = "Edit " + SelectedGame.Name;
+            FormHandler.EditForm().Show();
+            Hide();      
         }
 
         private void btAdd_Click(object sender, EventArgs e)
         {
-            DownloadForm DownloadWindow = new DownloadForm(this);
-            DownloadWindow.Show();
-            this.Hide();
+            FormHandler.DownloadForm().Show();
+            Hide();
         }
 
         private void lErscheinungsdatum_Load(object sender, EventArgs e)

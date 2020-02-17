@@ -37,26 +37,29 @@
             // 
             // pbProgress
             // 
-            this.pbProgress.Location = new System.Drawing.Point(13, 286);
+            this.pbProgress.Location = new System.Drawing.Point(10, 232);
+            this.pbProgress.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pbProgress.Name = "pbProgress";
-            this.pbProgress.Size = new System.Drawing.Size(580, 30);
+            this.pbProgress.Size = new System.Drawing.Size(435, 24);
             this.pbProgress.TabIndex = 0;
             // 
             // rtbStatus
             // 
             this.rtbStatus.Enabled = false;
-            this.rtbStatus.Location = new System.Drawing.Point(14, 107);
+            this.rtbStatus.Location = new System.Drawing.Point(10, 87);
+            this.rtbStatus.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.rtbStatus.Name = "rtbStatus";
-            this.rtbStatus.Size = new System.Drawing.Size(579, 166);
+            this.rtbStatus.Size = new System.Drawing.Size(435, 136);
             this.rtbStatus.TabIndex = 1;
             this.rtbStatus.Text = "";
             // 
             // btStart
             // 
             this.btStart.Enabled = false;
-            this.btStart.Location = new System.Drawing.Point(303, 61);
+            this.btStart.Location = new System.Drawing.Point(227, 50);
+            this.btStart.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btStart.Name = "btStart";
-            this.btStart.Size = new System.Drawing.Size(290, 32);
+            this.btStart.Size = new System.Drawing.Size(218, 26);
             this.btStart.TabIndex = 2;
             this.btStart.Text = "Start";
             this.btStart.UseVisualStyleBackColor = true;
@@ -64,33 +67,36 @@
             // 
             // btExit
             // 
-            this.btExit.Location = new System.Drawing.Point(14, 61);
+            this.btExit.Location = new System.Drawing.Point(10, 50);
+            this.btExit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btExit.Name = "btExit";
-            this.btExit.Size = new System.Drawing.Size(283, 32);
+            this.btExit.Size = new System.Drawing.Size(212, 26);
             this.btExit.TabIndex = 3;
-            this.btExit.Text = "Exit";
+            this.btExit.Text = "Back";
             this.btExit.UseVisualStyleBackColor = true;
             this.btExit.Click += new System.EventHandler(this.btExit_Click);
             // 
             // tbQuelle
             // 
-            this.tbQuelle.Location = new System.Drawing.Point(14, 24);
+            this.tbQuelle.Location = new System.Drawing.Point(10, 20);
+            this.tbQuelle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tbQuelle.Name = "tbQuelle";
-            this.tbQuelle.Size = new System.Drawing.Size(578, 22);
+            this.tbQuelle.Size = new System.Drawing.Size(434, 20);
             this.tbQuelle.TabIndex = 4;
             this.tbQuelle.TextChanged += new System.EventHandler(this.tbQuelle_TextChanged);
             // 
             // DownloadForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(611, 335);
+            this.ClientSize = new System.Drawing.Size(458, 272);
             this.ControlBox = false;
             this.Controls.Add(this.tbQuelle);
             this.Controls.Add(this.btExit);
             this.Controls.Add(this.btStart);
             this.Controls.Add(this.rtbStatus);
             this.Controls.Add(this.pbProgress);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "DownloadForm";
             this.Text = "Download";
             this.ResumeLayout(false);

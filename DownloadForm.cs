@@ -16,19 +16,17 @@ namespace GameMaster
 {
     public partial class DownloadForm : Form
     {
-        private MainForm MainForm;
         private string DownloadDirectory = AppContext.BaseDirectory + @"\downloads";
-        public DownloadForm(MainForm mainForm)
+        public DownloadForm()
         {
             InitializeComponent();
-            MainForm = mainForm;
         }
 
 
         private void btExit_Click(object sender, EventArgs e)
         {
-            MainForm.Show();
-            this.Close();
+            FormHandler.MainForm().Show();
+            Close();
         }
 
         private void tbQuelle_TextChanged(object sender, EventArgs e)
@@ -40,20 +38,23 @@ namespace GameMaster
             }
             btStart.Enabled = true;
         }
-        /**
-         * Checks if the given string is a valid URL
-         * Also ensures it's a .zip
-         * @return Whether it's valid or not
-         */
+
+        
+        /// <summary>
+        /// Checks if the given string is a valid URL.
+        /// Also ensures it's a .zip
+        /// </summary>
+        /// <param name="Url">The string to be checked</param>
+        /// <returns>Whether it's valid or not</returns>
         private bool ValidateUrl(string Url)
         {
-            /* Is using http / https */
+            // Is using http / https
             if(!Url.StartsWith("http://") && !Url.StartsWith("https://"))
             {
                 return false;
             }
 
-            /* Target is a .zip archive */
+            // Target is a .zip archive
             if(!Url.EndsWith(".zip"))
             {
                 return false;
@@ -61,11 +62,9 @@ namespace GameMaster
 
             string[] substrings = Url.Split('/');
 
-            /**
-             * Target archive has a name
-             * (Checks if there are characters between the last '/' and the .zip
-             */
-            if(substrings.Last() == ".zip")
+            /// Target archive has a name
+            /// (Checks if there are characters between the last '/' and the .zip)
+            if (substrings.Last() == ".zip")
             {
                 return false;
             }
@@ -84,7 +83,7 @@ namespace GameMaster
             {
                 string DownloadUrl = tbQuelle.Text;
 
-                /* Upgrade insecure requests */
+                // Upgrade insecure requests
                 if (DownloadUrl.StartsWith("http://"))
                 {
                     rtbStatus.AppendText("\nUpgrading insecure request...\n");
@@ -145,11 +144,11 @@ namespace GameMaster
             rtbStatus.AppendText("Found " + SetCount.ToString() + " rulesets!\n");
         }
 
-        /**
-         * Moves the rulesets to the proper folder
-         * @param isConfigInRoot Whether the .succ is directly in the temp directory or in a subdirectory
-         * @param Name Either the name of the .succ or the name of the subdirectory
-         */
+        /// <summary>
+        /// Moves the rulesets to the proper folder
+        /// </summary>
+        /// <param name="isConfigInRoot">Whether the .succ is directly in the temp directory or in a subdirectory</param>
+        /// <param name="Name">Either the name of the .succ or the name of the subdirectory</param>
         private void FileHandling(bool isConfigInRoot, string Name)
         {
             if(isConfigInRoot)
