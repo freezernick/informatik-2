@@ -49,6 +49,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Emgu.CV.World.NetStandard, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <HintPath>packages\Emgu.CV.4.2.0.3662\lib\netstandard2.0\Emgu.CV.World.NetStandard.dll</HintPath>
+    </Reference>
+    <Reference Include="GameOverlay, Version=4.0.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GameOverlay.Net.4.0.8\lib\net47\GameOverlay.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Direct2D1, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>packages\SharpDX.Direct2D1.4.2.0\lib\net45\SharpDX.Direct2D1.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DXGI, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>packages\SharpDX.DXGI.4.2.0\lib\net45\SharpDX.DXGI.dll</HintPath>
+    </Reference>
     <Reference Include="SUCC">
       <HintPath>lib\SUCC.dll</HintPath>
     </Reference>
@@ -66,57 +81,59 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EditForm.cs">
+    <Compile Include="Forms\FormHandler.cs" />
+    <Compile Include="Forms\EditForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditForm.Designer.cs">
+    <Compile Include="Forms\EditForm.Designer.cs">
       <DependentUpon>EditForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DownloadForm.cs">
+    <Compile Include="Forms\DownloadForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DownloadForm.Designer.cs">
+    <Compile Include="Forms\DownloadForm.Designer.cs">
       <DependentUpon>DownloadForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ObjectListForm.cs">
+    <Compile Include="Forms\ObjectListForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ObjectListForm.Designer.cs">
+    <Compile Include="Forms\ObjectListForm.Designer.cs">
       <DependentUpon>ObjectListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="EditorForm.cs">
+    <Compile Include="Forms\EditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditorForm.Designer.cs">
+    <Compile Include="Forms\EditorForm.Designer.cs">
       <DependentUpon>EditorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Meta\GameConfig.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyForm.cs">
+    <Compile Include="Forms\PropertyForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PropertyForm.Designer.cs">
+    <Compile Include="Forms\PropertyForm.Designer.cs">
       <DependentUpon>PropertyForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="DownloadForm.resx">
+    <EmbeddedResource Include="Forms\DownloadForm.resx">
       <DependentUpon>DownloadForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EditForm.resx">
+    <EmbeddedResource Include="Forms\EditForm.resx">
       <DependentUpon>EditForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EditorForm.resx">
+    <EmbeddedResource Include="Forms\EditorForm.resx">
       <DependentUpon>EditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ObjectListForm.resx">
+    <EmbeddedResource Include="Forms\ObjectListForm.resx">
       <DependentUpon>ObjectListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -128,9 +145,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="PropertyForm.resx">
+    <EmbeddedResource Include="Forms\PropertyForm.resx">
       <DependentUpon>PropertyForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
