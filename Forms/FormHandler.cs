@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GameMaster
+﻿namespace GameMaster
 {
     public static class FormHandler
     {

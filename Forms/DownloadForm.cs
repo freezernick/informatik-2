@@ -1,27 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Net;
+﻿using SUCC;
+using System;
 using System.IO;
 using System.IO.Compression;
-using SUCC;
+using System.Linq;
+using System.Net;
+using System.Windows.Forms;
 
 namespace GameMaster
 {
     public partial class DownloadForm : Form
     {
         private string DownloadDirectory = AppContext.BaseDirectory + @"\downloads";
+
         public DownloadForm()
         {
             InitializeComponent();
         }
-
 
         private void btExit_Click(object sender, EventArgs e)
         {
@@ -31,7 +25,7 @@ namespace GameMaster
 
         private void tbQuelle_TextChanged(object sender, EventArgs e)
         {
-            if(!ValidateUrl(tbQuelle.Text))
+            if (!ValidateUrl(tbQuelle.Text))
             {
                 btStart.Enabled = false;
                 return;
@@ -39,7 +33,6 @@ namespace GameMaster
             btStart.Enabled = true;
         }
 
-        
         /// <summary>
         /// Checks if the given string is a valid URL.
         /// Also ensures it's a .zip
@@ -49,13 +42,13 @@ namespace GameMaster
         private bool ValidateUrl(string Url)
         {
             // Is using http / https
-            if(!Url.StartsWith("http://") && !Url.StartsWith("https://"))
+            if (!Url.StartsWith("http://") && !Url.StartsWith("https://"))
             {
                 return false;
             }
 
             // Target is a .zip archive
-            if(!Url.EndsWith(".zip"))
+            if (!Url.EndsWith(".zip"))
             {
                 return false;
             }
@@ -97,15 +90,14 @@ namespace GameMaster
                     Path.Combine(DownloadDirectory, "Download.zip")
                 );
             }
-            
         }
 
-        void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        private void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             pbProgress.Value = e.ProgressPercentage;
         }
 
-        void wc_DownloadFileCompleted(object sender, EventArgs e)
+        private void wc_DownloadFileCompleted(object sender, EventArgs e)
         {
             rtbStatus.AppendText("Finished!\n");
             ZipHandling();
@@ -129,12 +121,12 @@ namespace GameMaster
             }
             string[] dirs = Directory.GetDirectories(TempDirectory);
             int SetCount = 0;
-            foreach(string dir in dirs)
+            foreach (string dir in dirs)
             {
                 string[] substrings = dir.Split('\\');
                 foreach (string File in Directory.GetFiles(Path.Combine(TempDirectory, substrings.Last())))
                 {
-                    if(File.Contains(".succ"))
+                    if (File.Contains(".succ"))
                     {
                         SetCount++;
                         FileHandling(false, substrings.Last());
@@ -151,7 +143,7 @@ namespace GameMaster
         /// <param name="Name">Either the name of the .succ or the name of the subdirectory</param>
         private void FileHandling(bool isConfigInRoot, string Name)
         {
-            if(isConfigInRoot)
+            if (isConfigInRoot)
             {
                 DataFile dataFile = new DataFile(Path.Combine(AppContext.BaseDirectory + @"\temp\") + Name);
                 string id = dataFile.Get<string>("ID");
