@@ -112,6 +112,8 @@
     <Compile Include="Forms\EditorForm.Designer.cs">
       <DependentUpon>EditorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameMaster\Overlay.cs" />
+    <Compile Include="GameMaster\Process.cs" />
     <Compile Include="Meta\GameConfig.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

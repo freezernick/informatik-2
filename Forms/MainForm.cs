@@ -25,7 +25,7 @@ namespace GameMaster
             InitializeComponent();
             Games = new List<Game>();
             Tray.Icon = SystemIcons.Application;
-            CheckForIllegalCrossThreadCalls = true;
+            CheckForIllegalCrossThreadCalls = false;
         }
 
         private void btEditRules_Click(object sender, EventArgs e)
@@ -117,6 +117,9 @@ namespace GameMaster
             process = Process.Start(SelectedGame.StartAction);
             process.EnableRaisingEvents = true;
             process.Exited += p_Exited;
+            GameMasterOverlay Overlay = new GameMasterOverlay();
+            Overlay.Initialize();
+            Overlay.Run();
             Running = true;
             Tray.Visible = true;
             Hide();
@@ -125,7 +128,7 @@ namespace GameMaster
         private void p_Exited(object sender, EventArgs e)
         {
             Running = false;
-            Show();
+            FormHandler.MainForm().Show();
             WindowState = FormWindowState.Normal;
             Tray.Visible = false;
         }
