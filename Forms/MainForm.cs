@@ -109,6 +109,7 @@ namespace GameMaster
 
         private void btStart_Click(object sender, EventArgs e)
         {
+            new VM(SelectedGame);
         }
 
         private void Tray_MouseDoubleClick(object sender, MouseEventArgs e)

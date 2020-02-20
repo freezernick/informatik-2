@@ -2,6 +2,7 @@
 using SUCC;
 using System;
 using System.IO;
+using System.Reflection;
 
 namespace GameMaster
 {
@@ -26,6 +27,7 @@ namespace GameMaster
         {
             GameObject.Name = config.Get<string>("Name");
             GameObject.StartAction = config.Get<string>("StartAction", "");
+            // GameObject.Template = Type.GetType(config.Get<string>("Template", ""));
             GameObject.AssociatedConfig = config;
             return GameObject;
         }

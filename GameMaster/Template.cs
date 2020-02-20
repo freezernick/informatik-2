@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using GameMaster.Rules.Abstracts;
 
 namespace GameMaster.Templates
 {
@@ -18,6 +19,8 @@ namespace GameMaster.Templates
     {
         public string Name;
         protected bool ThirdDimension;
+        protected ArrayList Triggers;
+        protected ArrayList Objects;
     }
 
     public class Template3D : Template

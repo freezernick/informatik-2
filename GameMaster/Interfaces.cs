@@ -1,4 +1,4 @@
-﻿using GameMaster.Abstracts;
+﻿using GameMaster.Rules.Abstracts;
 using GameMaster.Types;
 using System.Windows.Forms;
 
