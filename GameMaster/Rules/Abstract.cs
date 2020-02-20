@@ -1,14 +1,68 @@
 ﻿using GameMaster.Types;
 using System.Drawing;
 using System.Numerics;
+using System.Collections.Generic;
+using GameMaster.Interfaces;
 
 namespace GameMaster.Rules.Abstracts
 {
-    public abstract class Event
+    /// <summary>
+    /// Class used for objects that should be added to the left side of the ruleset editor
+    /// </summary>
+    public abstract class LeftSide
     {
-        public string Name;
 
-        public abstract void Execute();
+    }
+
+    /// <summary>
+    /// Class used for objects that should be added to the right side of the ruleset editor
+    /// </summary>
+    public abstract class RightSide
+    {
+        public abstract void EventExecute(Event eventReference);
+    }
+
+    /// <summary>
+    /// Events are used to group the execution of multiple actions
+    /// </summary>
+    public abstract class Event : LeftSide, EventRegister
+    {
+        protected string Name;
+        protected string Description;
+        protected List<RightSide> EventObjects;
+        public void Execute()
+        {
+            foreach(RightSide eventObject in EventObjects)
+            {
+                eventObject.EventExecute(this);
+            }
+        }
+
+        public void RegisterObject(RightSide eventObject)
+        {
+            EventObjects.Add(eventObject);
+        }
+
+        public void UnregisterObject(RightSide eventObject)
+        {
+            EventObjects.Remove(eventObject);
+        }
+    }
+
+    /// <summary>
+    /// World Events are events bound to a specific world
+    /// </summary>
+    public abstract class WorldEvent : Event
+    {
+
+    }
+
+    /// <summary>
+    /// Global Events are executed ignoring which world is currently active
+    /// </summary>
+    public abstract class GlobalEvent : Event
+    {
+
     }
 
     public abstract class Action
@@ -18,9 +72,22 @@ namespace GameMaster.Rules.Abstracts
         public abstract void Run();
     }
 
-    public abstract class World
+    public abstract class ObjectAction
     {
         public string Name;
+
+        public abstract void Run();
+    }
+
+    public abstract class World : LeftSide
+    {
+        public string Name;
+        public List<WorldEvent> WorldEvents;
+
+        public World()
+        {
+            WorldEvents = new List<WorldEvent>();
+        }
 
         public abstract class ScreenParameter
         {
@@ -86,7 +153,7 @@ namespace GameMaster.Rules.Abstracts
         public abstract class WorldParameter : WorldObject
         {
             public string Name;
-            public Action ToDo;
+            public ObjectAction ToDo;
             public ScreenLocation ScreenLocation;
         }
     }

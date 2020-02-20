@@ -1,5 +1,6 @@
 ﻿using GameMaster.Rules.Abstracts;
 using GameMaster.Rules.Worlds;
+using GameMaster.Config;
 using GameMaster.Interfaces;
 using GameMaster.Overlay;
 using GameMaster.Templates;
@@ -30,6 +31,7 @@ namespace GameMaster
             Overlay = new GameMasterOverlay();
             Overlay.Initialize();
             Overlay.Run();
+            LoadedTemplate = game.Template;
         }
 
         private void p_Exited(object sender, EventArgs e)

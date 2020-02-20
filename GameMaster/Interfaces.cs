@@ -9,6 +9,9 @@ namespace GameMaster.Interfaces
         World CurrentWorld { get; }
     }
 
+    /// <summary>
+    /// Interface between the MainForm and the VM
+    /// </summary>
     public interface ProcessInterface
     {
         void ProcessStarted();
@@ -16,17 +19,25 @@ namespace GameMaster.Interfaces
         void ProcessEnded();
     }
 
+    /// <summary>
+    /// Interface for registering or unregistering objects to a specific event
+    /// </summary>
+    public interface EventRegister
+    {
+        void RegisterObject(RightSide eventObject);
+
+        void UnregisterObject(RightSide eventObject);
+    }
+
+    public interface TickEventInterface
+    {
+        void OnTickEvent();
+    }
+
     public interface Input
     {
         void KeyEvent(Keys key);
 
         void AxisEvent(AxisEvent axisEvent);
-    }
-
-    public interface Tick
-    {
-        void registerObject(Action action);
-
-        void unregisterObject(Action action);
     }
 }

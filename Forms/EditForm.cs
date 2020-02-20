@@ -1,4 +1,5 @@
 ﻿using GameMaster.Templates;
+using GameMaster.Config;
 using System;
 using System.Windows.Forms;
 

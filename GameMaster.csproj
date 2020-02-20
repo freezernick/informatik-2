@@ -113,12 +113,15 @@
     <Compile Include="Forms\EditorForm.Designer.cs">
       <DependentUpon>EditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameMaster\Abstract.cs" />
+    <Compile Include="GameMaster\Rules\Abstract.cs" />
+    <Compile Include="GameMaster\Rules\Actions.cs" />
     <Compile Include="GameMaster\Interfaces.cs" />
     <Compile Include="GameMaster\Overlay.cs" />
     <Compile Include="GameMaster\Process.cs" />
+    <Compile Include="GameMaster\Rules\Events.cs" />
     <Compile Include="GameMaster\Template.cs" />
     <Compile Include="GameMaster\Types.cs" />
+    <Compile Include="GameMaster\Rules\Worlds.cs" />
     <Compile Include="Meta\GameConfig.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

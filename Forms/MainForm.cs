@@ -1,4 +1,5 @@
-﻿using GameMaster.Interfaces;
+﻿using GameMaster.Config;
+using GameMaster.Interfaces;
 using SUCC;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace GameMaster
         public Game SelectedGame;
         public List<Game> Games;
         private bool Running;
+        private VM vm;
 
         public MainForm()
         {
@@ -32,27 +34,25 @@ namespace GameMaster
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBox1.Items.Count > 0 && listBox1.SelectedIndex >= 0)
+            // Checks if there are items in the box
+            if (listBox1.Items.Count == 0)
             {
-                btEditProp.Enabled = true;
-                btEditRules.Enabled = true;
-                btDelete.Enabled = true;
-                SelectedGame = Games[listBox1.SelectedIndex];
-                if (SelectedGame.ValidAction() && !Running)
-                {
-                    btStart.Enabled = true;
-                }
-                else
-                {
-                    btStart.Enabled = false;
-                }
+                btStart.Enabled = false;
+                btEditProp.Enabled = false;
+                btDelete.Enabled = false;
+                return;
+            }
+
+            btEditProp.Enabled = true;
+            btDelete.Enabled = true;
+            SelectedGame = Games[listBox1.SelectedIndex];
+            if (SelectedGame.ValidAction() && !Running)
+            {
+                btStart.Enabled = true;
             }
             else
             {
                 btStart.Enabled = false;
-                btEditProp.Enabled = false;
-                btEditRules.Enabled = false;
-                btDelete.Enabled = false;
             }
         }
 
@@ -92,15 +92,23 @@ namespace GameMaster
                 Directory.Delete(AppContext.BaseDirectory + @"\temp\", true);
             }
 
+            // Loops over each directory inside the ruleset directory...
             foreach (string dir in Directory.GetDirectories(AppContext.BaseDirectory + @"\rulesets\"))
             {
+                // ...and adds the found rulesets to the list...
                 string[] subStrings = dir.Split('\\');
                 listBox1.Items.Add(subStrings.Last());
+
+                // ...and loads the actual config...
                 DataFile dataFile = new DataFile(Path.Combine(dir, "ruleset"));
+                dataFile.AutoSave = false;
+
+                //...and adds the game to the list
                 Game CurrentGame = new Game();
                 Games.Add(Game.ConfigToGame(CurrentGame, dataFile));
             }
 
+            // Select the first game in the list by default if it exists
             if (listBox1.Items.Count > 0)
             {
                 listBox1.SetSelected(0, true);
@@ -109,7 +117,8 @@ namespace GameMaster
 
         private void btStart_Click(object sender, EventArgs e)
         {
-            new VM(SelectedGame);
+            // Creates a new instance of the VM class holding information for the actual GameMaster
+            vm = new VM(SelectedGame);
         }
 
         private void Tray_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -131,6 +140,9 @@ namespace GameMaster
             SelectedGame = null;
         }
 
+        /// <summary>
+        /// Called when the game process is started
+        /// </summary>
         public void ProcessStarted()
         {
             Running = true;
@@ -138,12 +150,16 @@ namespace GameMaster
             Hide();
         }
 
+        /// <summary>
+        /// Called when the game process has been terminated
+        /// </summary>
         public void ProcessEnded()
         {
             Running = false;
             FormHandler.MainForm().Show();
             WindowState = FormWindowState.Normal;
             Tray.Visible = false;
+            vm = null;
         }
     }
 }
