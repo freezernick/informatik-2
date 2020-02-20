@@ -25,8 +25,6 @@ namespace GameMaster
             if (Editing)
             {
                 tbName.Text = SelectedGame.Name;
-                tbAuthor.Text = SelectedGame.Author;
-                tbFriendlyVerion.Text = SelectedGame.FriendlyVersion;
                 return;
             }
             SelectedGame = new Game();
@@ -40,10 +38,7 @@ namespace GameMaster
 
         private void btSave_Click(object sender, EventArgs e)
         {
-            SelectedGame.FriendlyVersion = tbFriendlyVerion.Text;
-            SelectedGame.Author = tbAuthor.Text;
             SelectedGame.Name = tbName.Text;
-            SelectedGame.LastChanged = DateTime.Now;
             SelectedGame.StartAction = tbStartAction.Text;
             if (Editing)
             {
@@ -51,8 +46,6 @@ namespace GameMaster
             }
             else
             {
-                SelectedGame.ID = "newgame";
-                SelectedGame.Categories = new string[] {"default"};
                 SelectedGame.CreateNew();
             }
         }

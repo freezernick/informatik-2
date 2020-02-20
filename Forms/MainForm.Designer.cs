@@ -30,141 +30,49 @@
         {
             this.components = new System.ComponentModel.Container();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.btAdd = new System.Windows.Forms.Button();
+            this.btDownload = new System.Windows.Forms.Button();
             this.btNew = new System.Windows.Forms.Button();
-            this.lName = new System.Windows.Forms.Label();
-            this.lCreator = new System.Windows.Forms.Label();
-            this.lLastChanged = new System.Windows.Forms.Label();
-            this.lVersion = new System.Windows.Forms.Label();
-            this.lNameValue = new System.Windows.Forms.Label();
-            this.lAuthorValue = new System.Windows.Forms.Label();
-            this.lVersionValue = new System.Windows.Forms.Label();
-            this.lLastChangedValue = new System.Windows.Forms.Label();
             this.Tray = new System.Windows.Forms.NotifyIcon(this.components);
             this.btStart = new System.Windows.Forms.Button();
             this.btEditProp = new System.Windows.Forms.Button();
             this.btEditRules = new System.Windows.Forms.Button();
+            this.SourceCodeLink = new System.Windows.Forms.LinkLabel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.WebsiteLink = new System.Windows.Forms.LinkLabel();
+            this.btDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(9, 10);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(2);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(282, 199);
             this.listBox1.TabIndex = 0;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
-            // btAdd
+            // btDownload
             // 
-            this.btAdd.Location = new System.Drawing.Point(11, 213);
-            this.btAdd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.btAdd.Name = "btAdd";
-            this.btAdd.Size = new System.Drawing.Size(175, 22);
-            this.btAdd.TabIndex = 5;
-            this.btAdd.Text = "Download Configurations";
-            this.btAdd.UseVisualStyleBackColor = true;
-            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
+            this.btDownload.Location = new System.Drawing.Point(103, 213);
+            this.btDownload.Margin = new System.Windows.Forms.Padding(2);
+            this.btDownload.Name = "btDownload";
+            this.btDownload.Size = new System.Drawing.Size(108, 22);
+            this.btDownload.TabIndex = 5;
+            this.btDownload.Text = "Download";
+            this.btDownload.UseVisualStyleBackColor = true;
+            this.btDownload.Click += new System.EventHandler(this.btAdd_Click);
             // 
             // btNew
             // 
-            this.btNew.Location = new System.Drawing.Point(190, 213);
-            this.btNew.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btNew.Location = new System.Drawing.Point(9, 213);
+            this.btNew.Margin = new System.Windows.Forms.Padding(2);
             this.btNew.Name = "btNew";
-            this.btNew.Size = new System.Drawing.Size(101, 22);
+            this.btNew.Size = new System.Drawing.Size(90, 22);
             this.btNew.TabIndex = 3;
             this.btNew.Text = "New";
             this.btNew.UseVisualStyleBackColor = true;
             this.btNew.Click += new System.EventHandler(this.btNew_Click);
-            // 
-            // lName
-            // 
-            this.lName.AutoSize = true;
-            this.lName.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lName.Location = new System.Drawing.Point(307, 12);
-            this.lName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lName.Name = "lName";
-            this.lName.Size = new System.Drawing.Size(43, 13);
-            this.lName.TabIndex = 2;
-            this.lName.Text = "Name:";
-            // 
-            // lCreator
-            // 
-            this.lCreator.AutoSize = true;
-            this.lCreator.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold);
-            this.lCreator.Location = new System.Drawing.Point(307, 45);
-            this.lCreator.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lCreator.Name = "lCreator";
-            this.lCreator.Size = new System.Drawing.Size(48, 13);
-            this.lCreator.TabIndex = 3;
-            this.lCreator.Text = "Author:";
-            // 
-            // lLastChanged
-            // 
-            this.lLastChanged.AutoSize = true;
-            this.lLastChanged.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold);
-            this.lLastChanged.Location = new System.Drawing.Point(307, 109);
-            this.lLastChanged.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lLastChanged.Name = "lLastChanged";
-            this.lLastChanged.Size = new System.Drawing.Size(89, 13);
-            this.lLastChanged.TabIndex = 4;
-            this.lLastChanged.Text = "Last Changed:";
-            // 
-            // lVersion
-            // 
-            this.lVersion.AutoSize = true;
-            this.lVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold);
-            this.lVersion.Location = new System.Drawing.Point(307, 78);
-            this.lVersion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lVersion.Name = "lVersion";
-            this.lVersion.Size = new System.Drawing.Size(53, 13);
-            this.lVersion.TabIndex = 5;
-            this.lVersion.Text = "Version:";
-            // 
-            // lNameValue
-            // 
-            this.lNameValue.AutoSize = true;
-            this.lNameValue.Location = new System.Drawing.Point(447, 12);
-            this.lNameValue.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lNameValue.Name = "lNameValue";
-            this.lNameValue.Size = new System.Drawing.Size(64, 13);
-            this.lNameValue.TabIndex = 6;
-            this.lNameValue.Text = "lNameValue";
-            this.lNameValue.Visible = false;
-            // 
-            // lAuthorValue
-            // 
-            this.lAuthorValue.AutoSize = true;
-            this.lAuthorValue.Location = new System.Drawing.Point(447, 45);
-            this.lAuthorValue.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lAuthorValue.Name = "lAuthorValue";
-            this.lAuthorValue.Size = new System.Drawing.Size(67, 13);
-            this.lAuthorValue.TabIndex = 7;
-            this.lAuthorValue.Text = "lAuthorValue";
-            this.lAuthorValue.Visible = false;
-            // 
-            // lVersionValue
-            // 
-            this.lVersionValue.AutoSize = true;
-            this.lVersionValue.Location = new System.Drawing.Point(447, 78);
-            this.lVersionValue.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lVersionValue.Name = "lVersionValue";
-            this.lVersionValue.Size = new System.Drawing.Size(71, 13);
-            this.lVersionValue.TabIndex = 8;
-            this.lVersionValue.Text = "lVersionValue";
-            this.lVersionValue.Visible = false;
-            // 
-            // lLastChangedValue
-            // 
-            this.lLastChangedValue.AutoSize = true;
-            this.lLastChangedValue.Location = new System.Drawing.Point(447, 109);
-            this.lLastChangedValue.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lLastChangedValue.Name = "lLastChangedValue";
-            this.lLastChangedValue.Size = new System.Drawing.Size(99, 13);
-            this.lLastChangedValue.TabIndex = 9;
-            this.lLastChangedValue.Text = "lLastChangedValue";
-            this.lLastChangedValue.Visible = false;
             // 
             // Tray
             // 
@@ -174,7 +82,7 @@
             // btStart
             // 
             this.btStart.Enabled = false;
-            this.btStart.Location = new System.Drawing.Point(310, 212);
+            this.btStart.Location = new System.Drawing.Point(310, 63);
             this.btStart.Margin = new System.Windows.Forms.Padding(2);
             this.btStart.Name = "btStart";
             this.btStart.Size = new System.Drawing.Size(279, 22);
@@ -186,46 +94,83 @@
             // 
             this.btEditProp.Enabled = false;
             this.btEditProp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btEditProp.Location = new System.Drawing.Point(310, 160);
+            this.btEditProp.Location = new System.Drawing.Point(310, 11);
             this.btEditProp.Margin = new System.Windows.Forms.Padding(2);
             this.btEditProp.Name = "btEditProp";
             this.btEditProp.Size = new System.Drawing.Size(279, 22);
             this.btEditProp.TabIndex = 11;
-            this.btEditProp.Text = "Edit properties";
+            this.btEditProp.Text = "Edit Properties";
             this.btEditProp.UseVisualStyleBackColor = true;
             // 
             // btEditRules
             // 
             this.btEditRules.Enabled = false;
             this.btEditRules.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btEditRules.Location = new System.Drawing.Point(310, 186);
+            this.btEditRules.Location = new System.Drawing.Point(310, 37);
             this.btEditRules.Margin = new System.Windows.Forms.Padding(2);
             this.btEditRules.Name = "btEditRules";
             this.btEditRules.Size = new System.Drawing.Size(279, 22);
             this.btEditRules.TabIndex = 10;
-            this.btEditRules.Text = "Edit rules";
+            this.btEditRules.Text = "Edit Rules";
             this.btEditRules.UseVisualStyleBackColor = true;
+            // 
+            // SourceCodeLink
+            // 
+            this.SourceCodeLink.AutoSize = true;
+            this.SourceCodeLink.Location = new System.Drawing.Point(519, 222);
+            this.SourceCodeLink.Name = "SourceCodeLink";
+            this.SourceCodeLink.Size = new System.Drawing.Size(69, 13);
+            this.SourceCodeLink.TabIndex = 14;
+            this.SourceCodeLink.TabStop = true;
+            this.SourceCodeLink.Text = "Source Code";
+            this.SourceCodeLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.SourceCodeLink_LinkClicked);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(307, 222);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(135, 13);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Made with ♥️ and OpenCV";
+            // 
+            // WebsiteLink
+            // 
+            this.WebsiteLink.AutoSize = true;
+            this.WebsiteLink.Location = new System.Drawing.Point(458, 222);
+            this.WebsiteLink.Name = "WebsiteLink";
+            this.WebsiteLink.Size = new System.Drawing.Size(46, 13);
+            this.WebsiteLink.TabIndex = 16;
+            this.WebsiteLink.TabStop = true;
+            this.WebsiteLink.Text = "Website";
+            // 
+            // btDelete
+            // 
+            this.btDelete.Enabled = false;
+            this.btDelete.Location = new System.Drawing.Point(216, 212);
+            this.btDelete.Name = "btDelete";
+            this.btDelete.Size = new System.Drawing.Size(75, 23);
+            this.btDelete.TabIndex = 17;
+            this.btDelete.Text = "Delete";
+            this.btDelete.UseVisualStyleBackColor = true;
+            this.btDelete.Click += new System.EventHandler(this.button1_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 245);
+            this.Controls.Add(this.btDelete);
+            this.Controls.Add(this.WebsiteLink);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.SourceCodeLink);
             this.Controls.Add(this.btStart);
             this.Controls.Add(this.btEditProp);
             this.Controls.Add(this.btEditRules);
-            this.Controls.Add(this.lLastChangedValue);
-            this.Controls.Add(this.btAdd);
+            this.Controls.Add(this.btDownload);
             this.Controls.Add(this.btNew);
-            this.Controls.Add(this.lVersionValue);
-            this.Controls.Add(this.lAuthorValue);
-            this.Controls.Add(this.lNameValue);
-            this.Controls.Add(this.lVersion);
-            this.Controls.Add(this.lLastChanged);
-            this.Controls.Add(this.lCreator);
-            this.Controls.Add(this.lName);
             this.Controls.Add(this.listBox1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
@@ -240,20 +185,16 @@
         #endregion
 
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button btAdd;
+        private System.Windows.Forms.Button btDownload;
         private System.Windows.Forms.Button btNew;
-        private System.Windows.Forms.Label lName;
-        private System.Windows.Forms.Label lCreator;
-        private System.Windows.Forms.Label lLastChanged;
-        private System.Windows.Forms.Label lVersion;
-        private System.Windows.Forms.Label lNameValue;
-        private System.Windows.Forms.Label lAuthorValue;
-        private System.Windows.Forms.Label lVersionValue;
-        private System.Windows.Forms.Label lLastChangedValue;
         private System.Windows.Forms.NotifyIcon Tray;
         private System.Windows.Forms.Button btStart;
         private System.Windows.Forms.Button btEditProp;
         private System.Windows.Forms.Button btEditRules;
+        private System.Windows.Forms.LinkLabel SourceCodeLink;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.LinkLabel WebsiteLink;
+        private System.Windows.Forms.Button btDelete;
     }
 }
 

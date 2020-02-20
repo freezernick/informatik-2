@@ -1,16 +1,11 @@
-﻿using System;
+﻿using SUCC;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.IO;
-using SUCC;
-using System.Net;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace GameMaster
 {
@@ -20,6 +15,7 @@ namespace GameMaster
         public List<Game> Games;
         private Process process;
         private bool Running;
+
         public MainForm()
         {
             InitializeComponent();
@@ -37,20 +33,28 @@ namespace GameMaster
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SelectedGame = Games[listBox1.SelectedIndex];
-            lNameValue.Text = SelectedGame.Name;
-            lAuthorValue.Text = SelectedGame.Author;
-            lVersionValue.Text = SelectedGame.FriendlyVersion;
-            lLastChangedValue.Text = SelectedGame.LastChanged.ToString();
-            if(SelectedGame.ValidAction() && !Running)
+            if(listBox1.Items.Count > 0)
             {
-                btStart.Enabled = true;
+                btEditProp.Enabled = true;
+                btEditRules.Enabled = true;
+                btDelete.Enabled = true;
+                SelectedGame = Games[listBox1.SelectedIndex];
+                if (SelectedGame.ValidAction() && !Running)
+                {
+                    btStart.Enabled = true;
+                }
+                else
+                {
+                    btStart.Enabled = false;
+                }
             }
             else
             {
                 btStart.Enabled = false;
+                btEditProp.Enabled = false;
+                btEditRules.Enabled = false;
+                btDelete.Enabled = false;
             }
-
         }
 
         private void btNew_Click(object sender, EventArgs e)
@@ -66,7 +70,7 @@ namespace GameMaster
             FormHandler.EditForm().SetEditMode(true);
             FormHandler.EditForm().Text = "Edit " + SelectedGame.Name;
             FormHandler.EditForm().Show();
-            Hide();      
+            Hide();
         }
 
         private void btAdd_Click(object sender, EventArgs e)
@@ -84,7 +88,7 @@ namespace GameMaster
             }
 
             // Cleans the temporary directory
-            if(Directory.Exists(AppContext.BaseDirectory + @"\temp\"))
+            if (Directory.Exists(AppContext.BaseDirectory + @"\temp\"))
             {
                 Directory.Delete(AppContext.BaseDirectory + @"\temp\", true);
             }
@@ -98,18 +102,10 @@ namespace GameMaster
                 Games.Add(Game.ConfigToGame(CurrentGame, dataFile));
             }
 
-            
-            if(listBox1.Items.Count > 0)
+            if (listBox1.Items.Count > 0)
             {
-                btEditProp.Enabled = true;
-                btEditRules.Enabled = true;
                 listBox1.SetSelected(0, true);
-                lNameValue.Visible = true;
-                lAuthorValue.Visible = true;
-                lVersionValue.Visible = true;
-                lLastChangedValue.Visible = true;
             }
-            
         }
 
         private void btStart_Click(object sender, EventArgs e)
@@ -138,6 +134,19 @@ namespace GameMaster
             Show();
             Tray.Visible = false;
             WindowState = FormWindowState.Normal;
+        }
+
+        private void SourceCodeLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(GameMaster.Properties.Resources.Repository);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SelectedGame.Delete();
+            listBox1.ClearSelected();
+            listBox1.Items.Remove(SelectedGame);
+            SelectedGame = null;
         }
     }
 }
