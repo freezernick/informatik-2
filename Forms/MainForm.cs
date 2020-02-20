@@ -1,7 +1,7 @@
-﻿using SUCC;
+﻿using GameMaster.Interfaces;
+using SUCC;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -9,11 +9,10 @@ using System.Windows.Forms;
 
 namespace GameMaster
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, ProcessInterface
     {
         public Game SelectedGame;
         public List<Game> Games;
-        private Process process;
         private bool Running;
 
         public MainForm()
@@ -33,7 +32,7 @@ namespace GameMaster
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(listBox1.Items.Count > 0)
+            if (listBox1.Items.Count > 0 && listBox1.SelectedIndex >= 0)
             {
                 btEditProp.Enabled = true;
                 btEditRules.Enabled = true;
@@ -60,7 +59,7 @@ namespace GameMaster
         private void btNew_Click(object sender, EventArgs e)
         {
             FormHandler.EditForm().SetEditMode(false);
-            FormHandler.EditForm().Text = "New config";
+            FormHandler.EditForm().Text = "New Config";
             FormHandler.EditForm().Show();
             Hide();
         }
@@ -110,23 +109,6 @@ namespace GameMaster
 
         private void btStart_Click(object sender, EventArgs e)
         {
-            process = Process.Start(SelectedGame.StartAction);
-            process.EnableRaisingEvents = true;
-            process.Exited += p_Exited;
-            GameMasterOverlay Overlay = new GameMasterOverlay();
-            Overlay.Initialize();
-            Overlay.Run();
-            Running = true;
-            Tray.Visible = true;
-            Hide();
-        }
-
-        private void p_Exited(object sender, EventArgs e)
-        {
-            Running = false;
-            FormHandler.MainForm().Show();
-            WindowState = FormWindowState.Normal;
-            Tray.Visible = false;
         }
 
         private void Tray_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -143,10 +125,24 @@ namespace GameMaster
 
         private void button1_Click(object sender, EventArgs e)
         {
+            listBox1.Items.RemoveAt(listBox1.SelectedIndex);
             SelectedGame.Delete();
-            listBox1.ClearSelected();
-            listBox1.Items.Remove(SelectedGame);
             SelectedGame = null;
+        }
+
+        public void ProcessStarted()
+        {
+            Running = true;
+            Tray.Visible = true;
+            Hide();
+        }
+
+        public void ProcessEnded()
+        {
+            Running = false;
+            FormHandler.MainForm().Show();
+            WindowState = FormWindowState.Normal;
+            Tray.Visible = false;
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using System;
-using GameOverlay.Drawing;
+﻿using GameOverlay.Drawing;
 using GameOverlay.Windows;
+using System;
 
-namespace GameMaster
+namespace GameMaster.Overlay
 {
     public class GameMasterOverlay
     {

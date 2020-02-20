@@ -1,20 +1,25 @@
 ﻿using System.Collections;
-using GameMaster.Abstracts;
 
 namespace GameMaster.Templates
 {
+    public static class TemplateHelper
+    {
+        public static ArrayList GetTemplateList()
+        {
+            ArrayList Templates = new ArrayList();
+            Templates.Add(new Template3D());
+            Templates.Add(new Template2D());
+            //Templates.Add(new PlatformerTemplate());
+            return Templates;
+        }
+    }
+
     public class Template
     {
         public string Name;
         protected bool ThirdDimension;
-        public ArrayList Worlds;
-
-        public Template()
-        {
-            Worlds = new ArrayList();
-        }
     }
-    
+
     public class Template3D : Template
     {
         public Template3D()
@@ -31,13 +36,9 @@ namespace GameMaster.Templates
         }
     }
 
-    public class PlattformerTemplate : Template2D
-    {
-        public GameWorld.Player PlayerObject;
-        public GameWorld.Goal GoalObject;
-        public PlattformerTemplate()
-        {
-
-        }
-    }
+    //public class PlatformerTemplate : Template2D
+    //{
+    //    public GameWorld.Player PlayerObject;
+    //    public GameWorld.Goal GoalObject;
+    //}
 }

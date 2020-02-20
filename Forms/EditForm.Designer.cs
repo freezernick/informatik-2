@@ -29,76 +29,39 @@
         private void InitializeComponent()
         {
             this.lName = new System.Windows.Forms.Label();
-            this.lAuthor = new System.Windows.Forms.Label();
-            this.lVersion = new System.Windows.Forms.Label();
             this.tbName = new System.Windows.Forms.TextBox();
-            this.tbAuthor = new System.Windows.Forms.TextBox();
-            this.tbFriendlyVerion = new System.Windows.Forms.TextBox();
             this.btSave = new System.Windows.Forms.Button();
             this.btBack = new System.Windows.Forms.Button();
-            this.tbID = new System.Windows.Forms.TextBox();
-            this.lID = new System.Windows.Forms.Label();
             this.tbStartAction = new System.Windows.Forms.TextBox();
             this.lStartAction = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lName
             // 
             this.lName.AutoSize = true;
-            this.lName.Location = new System.Drawing.Point(12, 11);
+            this.lName.Location = new System.Drawing.Point(10, 14);
+            this.lName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lName.Name = "lName";
-            this.lName.Size = new System.Drawing.Size(45, 17);
+            this.lName.Size = new System.Drawing.Size(35, 13);
             this.lName.TabIndex = 0;
             this.lName.Text = "Name";
             // 
-            // lAuthor
-            // 
-            this.lAuthor.AutoSize = true;
-            this.lAuthor.Location = new System.Drawing.Point(12, 95);
-            this.lAuthor.Name = "lAuthor";
-            this.lAuthor.Size = new System.Drawing.Size(50, 17);
-            this.lAuthor.TabIndex = 1;
-            this.lAuthor.Text = "Author";
-            // 
-            // lVersion
-            // 
-            this.lVersion.AutoSize = true;
-            this.lVersion.Location = new System.Drawing.Point(12, 135);
-            this.lVersion.Name = "lVersion";
-            this.lVersion.Size = new System.Drawing.Size(56, 17);
-            this.lVersion.TabIndex = 3;
-            this.lVersion.Text = "Version";
-            // 
             // tbName
             // 
-            this.tbName.Location = new System.Drawing.Point(424, 6);
-            this.tbName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbName.Location = new System.Drawing.Point(68, 11);
+            this.tbName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(399, 22);
+            this.tbName.Size = new System.Drawing.Size(300, 20);
             this.tbName.TabIndex = 1;
-            // 
-            // tbAuthor
-            // 
-            this.tbAuthor.Location = new System.Drawing.Point(424, 90);
-            this.tbAuthor.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tbAuthor.Name = "tbAuthor";
-            this.tbAuthor.Size = new System.Drawing.Size(399, 22);
-            this.tbAuthor.TabIndex = 3;
-            // 
-            // tbFriendlyVerion
-            // 
-            this.tbFriendlyVerion.Location = new System.Drawing.Point(424, 130);
-            this.tbFriendlyVerion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tbFriendlyVerion.Name = "tbFriendlyVerion";
-            this.tbFriendlyVerion.Size = new System.Drawing.Size(399, 22);
-            this.tbFriendlyVerion.TabIndex = 4;
             // 
             // btSave
             // 
-            this.btSave.Location = new System.Drawing.Point(424, 524);
-            this.btSave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btSave.Location = new System.Drawing.Point(236, 87);
+            this.btSave.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(400, 30);
+            this.btSave.Size = new System.Drawing.Size(132, 24);
             this.btSave.TabIndex = 7;
             this.btSave.Text = "Save";
             this.btSave.UseVisualStyleBackColor = true;
@@ -106,72 +69,70 @@
             // 
             // btBack
             // 
-            this.btBack.Location = new System.Drawing.Point(15, 524);
-            this.btBack.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btBack.Location = new System.Drawing.Point(11, 87);
+            this.btBack.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btBack.Name = "btBack";
-            this.btBack.Size = new System.Drawing.Size(400, 30);
+            this.btBack.Size = new System.Drawing.Size(152, 24);
             this.btBack.TabIndex = 6;
             this.btBack.Text = "Back";
             this.btBack.UseVisualStyleBackColor = true;
             this.btBack.Click += new System.EventHandler(this.btBack_Click);
             // 
-            // tbID
-            // 
-            this.tbID.Location = new System.Drawing.Point(424, 48);
-            this.tbID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tbID.Name = "tbID";
-            this.tbID.Size = new System.Drawing.Size(399, 22);
-            this.tbID.TabIndex = 2;
-            // 
-            // lID
-            // 
-            this.lID.AutoSize = true;
-            this.lID.Location = new System.Drawing.Point(12, 53);
-            this.lID.Name = "lID";
-            this.lID.Size = new System.Drawing.Size(21, 17);
-            this.lID.TabIndex = 10;
-            this.lID.Text = "ID";
-            // 
             // tbStartAction
             // 
-            this.tbStartAction.Location = new System.Drawing.Point(424, 173);
-            this.tbStartAction.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbStartAction.Location = new System.Drawing.Point(68, 35);
+            this.tbStartAction.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tbStartAction.Name = "tbStartAction";
-            this.tbStartAction.Size = new System.Drawing.Size(399, 22);
+            this.tbStartAction.Size = new System.Drawing.Size(300, 20);
             this.tbStartAction.TabIndex = 5;
             // 
             // lStartAction
             // 
             this.lStartAction.AutoSize = true;
-            this.lStartAction.Location = new System.Drawing.Point(12, 178);
+            this.lStartAction.Location = new System.Drawing.Point(10, 38);
+            this.lStartAction.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lStartAction.Name = "lStartAction";
-            this.lStartAction.Size = new System.Drawing.Size(77, 17);
+            this.lStartAction.Size = new System.Drawing.Size(48, 13);
             this.lStartAction.TabIndex = 13;
-            this.lStartAction.Text = "StartAction";
+            this.lStartAction.Text = "File Path";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(10, 64);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(51, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Template";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(68, 61);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(299, 21);
+            this.comboBox1.TabIndex = 15;
             // 
             // EditForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(839, 567);
+            this.ClientSize = new System.Drawing.Size(629, 461);
             this.ControlBox = false;
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lStartAction);
             this.Controls.Add(this.tbStartAction);
-            this.Controls.Add(this.tbID);
-            this.Controls.Add(this.lID);
             this.Controls.Add(this.btBack);
             this.Controls.Add(this.btSave);
-            this.Controls.Add(this.tbFriendlyVerion);
-            this.Controls.Add(this.tbAuthor);
             this.Controls.Add(this.tbName);
-            this.Controls.Add(this.lVersion);
-            this.Controls.Add(this.lAuthor);
             this.Controls.Add(this.lName);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "EditForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.EditForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -180,16 +141,12 @@
         #endregion
 
         private System.Windows.Forms.Label lName;
-        private System.Windows.Forms.Label lAuthor;
-        private System.Windows.Forms.Label lVersion;
         private System.Windows.Forms.TextBox tbName;
-        private System.Windows.Forms.TextBox tbAuthor;
-        private System.Windows.Forms.TextBox tbFriendlyVerion;
         private System.Windows.Forms.Button btSave;
         private System.Windows.Forms.Button btBack;
-        private System.Windows.Forms.TextBox tbID;
-        private System.Windows.Forms.Label lID;
         private System.Windows.Forms.TextBox tbStartAction;
         private System.Windows.Forms.Label lStartAction;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

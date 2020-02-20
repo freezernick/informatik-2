@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GameMaster.Templates;
+using System;
 using System.Windows.Forms;
 
 namespace GameMaster
 {
     public partial class EditForm : Form
     {
-        public Game SelectedGame;
         private bool Editing;
+        private Game currentGame;
+
         public EditForm()
         {
             InitializeComponent();
@@ -24,10 +19,11 @@ namespace GameMaster
             Editing = EditMode;
             if (Editing)
             {
-                tbName.Text = SelectedGame.Name;
+                currentGame = FormHandler.MainForm().SelectedGame;
+                tbName.Text = currentGame.Name;
                 return;
             }
-            SelectedGame = new Game();
+            currentGame = new Game();
         }
 
         private void btBack_Click(object sender, EventArgs e)
@@ -38,15 +34,24 @@ namespace GameMaster
 
         private void btSave_Click(object sender, EventArgs e)
         {
-            SelectedGame.Name = tbName.Text;
-            SelectedGame.StartAction = tbStartAction.Text;
+            currentGame.Name = tbName.Text;
+            currentGame.StartAction = tbStartAction.Text;
+            currentGame.Template = (Template)comboBox1.SelectedItem;
             if (Editing)
             {
-                SelectedGame.Save();
+                currentGame.Save();
             }
             else
             {
-                SelectedGame.CreateNew();
+                currentGame.CreateNew();
+            }
+        }
+
+        private void EditForm_Load(object sender, EventArgs e)
+        {
+            foreach (Template template in TemplateHelper.GetTemplateList())
+            {
+                comboBox1.Items.Add(template);
             }
         }
     }

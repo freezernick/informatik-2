@@ -48,6 +48,7 @@
             this.listBox1.Location = new System.Drawing.Point(9, 10);
             this.listBox1.Margin = new System.Windows.Forms.Padding(2);
             this.listBox1.Name = "listBox1";
+            this.listBox1.ScrollAlwaysVisible = true;
             this.listBox1.Size = new System.Drawing.Size(282, 199);
             this.listBox1.TabIndex = 0;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
@@ -101,6 +102,7 @@
             this.btEditProp.TabIndex = 11;
             this.btEditProp.Text = "Edit Properties";
             this.btEditProp.UseVisualStyleBackColor = true;
+            this.btEditProp.Click += new System.EventHandler(this.btEditProp_Click);
             // 
             // btEditRules
             // 
