@@ -58,7 +58,6 @@ namespace GameMaster
 
         private void btNew_Click(object sender, EventArgs e)
         {
-            FormHandler.EditForm().SetEditMode(false);
             FormHandler.EditForm().Text = "New Config";
             FormHandler.EditForm().Show();
             Hide();
@@ -66,8 +65,7 @@ namespace GameMaster
 
         private void btEditProp_Click(object sender, EventArgs e)
         {
-            FormHandler.EditForm().SetEditMode(true);
-            FormHandler.EditForm().Text = "Edit " + SelectedGame.Name;
+            FormHandler.EditorForm().Text = "Edit " + SelectedGame.Name;
             FormHandler.EditForm().Show();
             Hide();
         }

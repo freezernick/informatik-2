@@ -7,10 +7,6 @@ namespace GameMaster.Config
 {
     public class Game
     {
-        public Game()
-        {
-        }
-
         public String Name;
         public String StartAction;
         public Template Template;

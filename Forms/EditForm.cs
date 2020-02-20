@@ -7,29 +7,21 @@ namespace GameMaster
 {
     public partial class EditForm : Form
     {
-        private bool Editing;
         private Game currentGame;
 
         public EditForm()
         {
             InitializeComponent();
-        }
-
-        public void SetEditMode(bool EditMode)
-        {
-            Editing = EditMode;
-            if (Editing)
-            {
-                currentGame = FormHandler.MainForm().SelectedGame;
-                tbName.Text = currentGame.Name;
-                return;
-            }
-            currentGame = new Game();
+            currentGame = FormHandler.MainForm().SelectedGame;
+            Text = "Edit " + currentGame.Name;
+            tbName.Text = currentGame.Name;
+            tbStartAction.Text = currentGame.StartAction;
+            comboBox1.SelectedItem = currentGame.Template;
         }
 
         private void btBack_Click(object sender, EventArgs e)
         {
-            FormHandler.MainForm().Show();
+            FormHandler.EditorForm().Show();
             Hide();
         }
 
@@ -37,15 +29,8 @@ namespace GameMaster
         {
             currentGame.Name = tbName.Text;
             currentGame.StartAction = tbStartAction.Text;
-            currentGame.Template = (Template)comboBox1.SelectedItem;
-            if (Editing)
-            {
-                currentGame.Save();
-            }
-            else
-            {
-                currentGame.CreateNew();
-            }
+            currentGame.Template = (Template) comboBox1.SelectedItem;
+            currentGame.Save();
         }
 
         private void EditForm_Load(object sender, EventArgs e)

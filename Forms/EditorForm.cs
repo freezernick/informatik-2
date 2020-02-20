@@ -35,5 +35,11 @@ namespace GameMaster
         private void button4_Click(object sender, EventArgs e)
         {
         }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            FormHandler.EditForm().Show();
+            Hide();
+        }
     }
 }

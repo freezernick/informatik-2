@@ -5,7 +5,6 @@
         private static MainForm _mainForm;
         private static ObjectListForm _objectListForm;
         private static EditorForm _editorForm;
-        private static PropertyForm _propertyForm;
         private static EditForm _editForm;
         private static DownloadForm _downloadForm;
 
@@ -31,12 +30,6 @@
         {
             if (_editForm == null) { _editForm = new EditForm(); }
             return _editForm;
-        }
-
-        public static PropertyForm PropertyForm()
-        {
-            if (_propertyForm == null) { _propertyForm = new PropertyForm(); }
-            return _propertyForm;
         }
 
         public static DownloadForm DownloadForm()

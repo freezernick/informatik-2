@@ -10,7 +10,11 @@ namespace GameMaster.Templates
         public static ArrayList GetTemplateList()
         {
             ArrayList Templates = new ArrayList();
-            //Templates.Add(new PlatformerTemplate());
+            Templates.Add(new Platformer());
+            Templates.Add(new Pong());
+            Templates.Add(new FourWins());
+            Templates.Add(new TicTacToe());
+            Templates.Add(new TurnBased());
             return Templates;
         }
     }
