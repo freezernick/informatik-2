@@ -6,7 +6,7 @@ Es sollte dafür eine grafische Oberfläche gegen, mit der dann anhand von Param
 
 Der 'GameMaster' wird in C# entwickelt.
 Für die Oberfläche verwenden wir [WindowsForms.](https://github.com/dotnet/winforms)
-Als Tool zur Bildanalyse dient eine OpenCV-Implementierung für C# namens [Egmu CV.](https://github.com/emgucv/emgucv)
+Als Tool zur Bildanalyse dient eine OpenCV-Implementierung für C# namens [Emgu CV.](https://github.com/emgucv/emgucv)
 Für das Overlay verwenden wir [GameOverlay.Net.](https://github.com/michel-pi/GameOverlay.Net)
 Darüberhinaus verwenden wir die Bibliothek ['Sexy and Utilitarian C# Configuration' (SUCC)](https://github.com/JimmyCushnie/SUCC) für das Speichern der KI-Konfiguration.
 
