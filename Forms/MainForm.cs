@@ -22,6 +22,7 @@ namespace GameMaster
             InitializeComponent();
             Games = new List<Game>();
             Tray.Icon = SystemIcons.Application;
+            Tray.Click += Tray_MouseDoubleClick;
             CheckForIllegalCrossThreadCalls = false;
         }
 
@@ -119,9 +120,10 @@ namespace GameMaster
             vm = new VM(SelectedGame);
         }
 
-        private void Tray_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void Tray_MouseDoubleClick(object sender, EventArgs e)
         {
-            Show();
+            vm.Interrupt();
+            FormHandler.MainForm().Show();
             Tray.Visible = false;
             WindowState = FormWindowState.Normal;
         }

@@ -1,6 +1,7 @@
 ﻿using GameOverlay.Drawing;
 using GameOverlay.Windows;
 using System;
+using System.Collections.Generic;
 
 namespace GameMaster.Overlay
 {
@@ -33,7 +34,6 @@ namespace GameMaster.Overlay
             // set everything before you call _graphics.Setup()
             _graphics = new Graphics
             {
-                MeasureFPS = true,
                 Height = _window.Height,
                 PerPrimitiveAntiAliasing = true,
                 TextAntiAliasing = true,
@@ -70,20 +70,28 @@ namespace GameMaster.Overlay
             _green = _graphics.CreateSolidBrush(Color.Green);
             _blue = _graphics.CreateSolidBrush(Color.Blue);
         }
-
+        private List<string> messages;
+        public void Log(string Message)
+        {
+            if(messages == null)
+            {
+                messages = new List<string>();
+            }
+            messages.Add(Message);
+        }
         public void Run()
         {
-            var gfx = _graphics; // little shortcut
-
-            while (true)
+            var gfx = _graphics;
+            gfx.BeginScene(); // call before you start any drawing
+            gfx.ClearScene();
+            if(messages != null)
             {
-                gfx.BeginScene(); // call before you start any drawing
-                gfx.ClearScene(); // set the background of the scene (can be transparent)
-
-                gfx.DrawTextWithBackground(_font, _red, _black, 10, 10, "FPS: " + gfx.FPS);
-
-                gfx.EndScene();
+                for(int i = 0; i < messages.Count; i++)
+                {
+                    gfx.DrawTextWithBackground(_font, _red, _black, 10, 20*i, messages.ToArray()[i]);
+                }
             }
+            gfx.EndScene();
         }
 
         private void _window_SizeChanged(object sender, OverlaySizeEventArgs e)

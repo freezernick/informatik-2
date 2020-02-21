@@ -79,7 +79,6 @@
             // Tray
             // 
             this.Tray.Text = "GameMaster";
-            this.Tray.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Tray_MouseDoubleClick);
             // 
             // btStart
             // 
