@@ -9,6 +9,8 @@ using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Windows.Forms;
+using Emgu.CV;
+
 
 namespace GameMaster
 {
@@ -36,6 +38,10 @@ namespace GameMaster
 
         private void p_Exited(object sender, EventArgs e)
         {
+            Overlay = null;
+            LoadedTemplate = null;
+            CurrentWorld = null;
+            InputHandler = null;
             FormHandler.MainForm().ProcessEnded();
         }
     }
