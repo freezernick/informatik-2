@@ -6,6 +6,15 @@ using GameMaster.Interfaces;
 
 namespace GameMaster.Rules.Abstracts
 {
+    public class GameWindow
+    {
+        public bool Fullscreen;
+        public int Width;
+        public int Height;
+        public int X;
+        public int Y;
+    }
+
     /// <summary>
     /// Class used for objects that should be added to the left side of the ruleset editor
     /// </summary>

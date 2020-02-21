@@ -67,7 +67,7 @@ namespace GameMaster
         private void btEditProp_Click(object sender, EventArgs e)
         {
             FormHandler.EditorForm().Text = "Edit " + SelectedGame.Name;
-            FormHandler.EditForm().Show();
+            FormHandler.EditorForm().Show();
             Hide();
         }
 

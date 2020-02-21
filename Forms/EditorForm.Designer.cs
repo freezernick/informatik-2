@@ -48,7 +48,7 @@
             // btTriggerDelete
             // 
             this.btTriggerDelete.Location = new System.Drawing.Point(160, 27);
-            this.btTriggerDelete.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btTriggerDelete.Margin = new System.Windows.Forms.Padding(2);
             this.btTriggerDelete.Name = "btTriggerDelete";
             this.btTriggerDelete.Size = new System.Drawing.Size(98, 24);
             this.btTriggerDelete.TabIndex = 2;
@@ -59,7 +59,7 @@
             // 
             this.listBox3.FormattingEnabled = true;
             this.listBox3.Location = new System.Drawing.Point(11, 55);
-            this.listBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBox3.Margin = new System.Windows.Forms.Padding(2);
             this.listBox3.Name = "listBox3";
             this.listBox3.Size = new System.Drawing.Size(247, 407);
             this.listBox3.TabIndex = 0;
@@ -69,7 +69,7 @@
             // 
             this.listBox4.FormattingEnabled = true;
             this.listBox4.Location = new System.Drawing.Point(283, 55);
-            this.listBox4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBox4.Margin = new System.Windows.Forms.Padding(2);
             this.listBox4.Name = "listBox4";
             this.listBox4.Size = new System.Drawing.Size(508, 407);
             this.listBox4.TabIndex = 1;
@@ -78,7 +78,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(11, 27);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(68, 24);
             this.button1.TabIndex = 3;
@@ -88,7 +88,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(667, 27);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(124, 24);
             this.button2.TabIndex = 4;
@@ -99,7 +99,7 @@
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(411, 27);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(124, 24);
             this.button3.TabIndex = 5;
@@ -136,6 +136,7 @@
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(35, 22);
             this.toolStripButton2.Text = "Save";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
             // toolStripButton3
             // 
@@ -145,6 +146,7 @@
             this.toolStripButton3.Name = "toolStripButton3";
             this.toolStripButton3.Size = new System.Drawing.Size(30, 22);
             this.toolStripButton3.Text = "Exit";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
             // button4
             // 
@@ -155,6 +157,7 @@
             this.button4.TabIndex = 18;
             this.button4.Text = "Add Event";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click_1);
             // 
             // button5
             // 
@@ -192,7 +195,7 @@
             this.Controls.Add(this.btTriggerDelete);
             this.Controls.Add(this.listBox4);
             this.Controls.Add(this.listBox3);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "EditorForm";
             this.Text = "Editor";
             this.Load += new System.EventHandler(this.ObjectListForm_Load);

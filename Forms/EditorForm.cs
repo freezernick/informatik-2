@@ -5,6 +5,7 @@ namespace GameMaster
 {
     public partial class EditorForm : Form
     {
+        private bool unsavedChanges;
         public EditorForm()
         {
             InitializeComponent();
@@ -40,6 +41,21 @@ namespace GameMaster
         {
             FormHandler.EditForm().Show();
             Hide();
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

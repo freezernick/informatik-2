@@ -66,4 +66,14 @@ namespace GameMaster.Rules.Actions
 
         }
     }
+
+    public class ExecuteCustomEvent : Action
+    {
+        public Event eventReference;
+
+        public override void Run()
+        {
+            eventReference.Execute();
+        }
+    }
 }

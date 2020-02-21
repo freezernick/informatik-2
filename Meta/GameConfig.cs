@@ -2,6 +2,9 @@
 using SUCC;
 using System;
 using System.IO;
+using System.Collections.Generic;
+using GameMaster.Rules.Abstracts;
+using GameMaster.Rules.Events;
 
 namespace GameMaster.Config
 {
@@ -10,6 +13,8 @@ namespace GameMaster.Config
         public String Name;
         public String StartAction;
         public Template Template;
+        public List<LeftSide> LeftSideObjects;
+        public List<Event> CustomEvents;
         private DataFile AssociatedConfig;
 
         /// <summary>
@@ -23,6 +28,8 @@ namespace GameMaster.Config
             GameObject.Name = config.Get<string>("Name");
             GameObject.StartAction = config.Get<string>("StartAction", "");
             GameObject.Template = (Template) Activator.CreateInstance(Type.GetType(config.Get<string>("Template", "")));
+            GameObject.LeftSideObjects = config.Get<List<LeftSide>>("LeftSideObjects", new List<LeftSide>());
+            GameObject.CustomEvents = config.Get<List<Event>>("CustomEvents", new List<Event>());
             GameObject.AssociatedConfig = config;
             return GameObject;
         }
@@ -35,6 +42,8 @@ namespace GameMaster.Config
             AssociatedConfig.Set<string>("Name", Name);
             AssociatedConfig.Set<string>("StartAction", StartAction);
             AssociatedConfig.Set<string>("Template", Template.ToString());
+            AssociatedConfig.Set<List<LeftSide>>("LeftSideObjects", LeftSideObjects);
+            AssociatedConfig.Set<List<Event>>("CustomEvents", CustomEvents);
             AssociatedConfig.SaveAllData();
         }
 

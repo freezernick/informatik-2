@@ -44,4 +44,14 @@ namespace GameMaster.Rules.Events
             Description = "The World Shutdown Request Event is called when the user wants to end the GameMaster session. You could save the game in this event for example.";
         }
     }
+
+    public class CustomGlobalEvent : GlobalEvent
+    {
+
+    }
+
+    public class CustomWorldEvent : WorldEvent
+    {
+
+    }
 }
