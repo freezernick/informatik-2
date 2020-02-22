@@ -1,8 +1,8 @@
-﻿using GameMaster.Rules.Abstracts;
-using GameMaster.Types;
+﻿using GameMaster.Ruleset.Rules.Abstracts;
+using GameMaster.Ruleset.Types;
 using System.Numerics;
 
-namespace GameMaster.Rules.Actions
+namespace GameMaster.Ruleset.Rules.Actions
 {
     public class Click : Action
     {
@@ -15,7 +15,6 @@ namespace GameMaster.Rules.Actions
 
         public override void Run()
         {
-
         }
     }
 
@@ -63,7 +62,6 @@ namespace GameMaster.Rules.Actions
 
         public override void Run()
         {
-
         }
     }
 

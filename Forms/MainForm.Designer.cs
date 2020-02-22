@@ -170,12 +170,14 @@
             this.Controls.Add(this.btDownload);
             this.Controls.Add(this.btNew);
             this.Controls.Add(this.listBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
             this.ShowIcon = false;
-            this.Text = "Game Master";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "GameMaster";
             this.Load += new System.EventHandler(this.lErscheinungsdatum_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -1,8 +1,6 @@
-﻿using GameMaster.Rules.Abstracts;
-using GameMaster.Types;
-using System.Numerics;
+﻿using GameMaster.Ruleset.Rules.Abstracts;
 
-namespace GameMaster.Rules.Worlds
+namespace GameMaster.Ruleset.Rules.Worlds
 {
     public class GameWorld : Abstracts.GameWorld
     {
@@ -21,7 +19,6 @@ namespace GameMaster.Rules.Worlds
                 Name = "Goal";
             }
         }
-
     }
 
     public class StartupWorld : World

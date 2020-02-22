@@ -1,9 +1,9 @@
-﻿using System.Collections;
+﻿using GameMaster.Ruleset.Rules.Abstracts;
+using GameMaster.Ruleset.Rules.Worlds;
+using System.Collections;
 using System.Collections.Generic;
-using GameMaster.Rules.Abstracts;
-using GameMaster.Rules.Worlds;
 
-namespace GameMaster.Templates
+namespace GameMaster.Ruleset.Templates
 {
     public static class TemplateHelper
     {
@@ -18,6 +18,7 @@ namespace GameMaster.Templates
             return Templates;
         }
     }
+
     public abstract class Template
     {
         public string Name;

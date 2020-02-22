@@ -1,4 +1,4 @@
-﻿namespace GameMaster.Types
+﻿namespace GameMaster.Ruleset.Types
 {
     public enum MouseAxis
     {

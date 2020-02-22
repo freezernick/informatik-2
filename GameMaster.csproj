@@ -116,16 +116,17 @@
     <Compile Include="Forms\EditorForm.Designer.cs">
       <DependentUpon>EditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameMaster\Rules\Abstract.cs" />
-    <Compile Include="GameMaster\Rules\Actions.cs" />
+    <Compile Include="GameMaster\Logging.cs" />
+    <Compile Include="GameMaster\Ruleset\Rules\Abstract.cs" />
+    <Compile Include="GameMaster\Ruleset\Rules\Actions.cs" />
     <Compile Include="GameMaster\Interfaces.cs" />
     <Compile Include="GameMaster\Overlay.cs" />
     <Compile Include="GameMaster\Process.cs" />
-    <Compile Include="GameMaster\Rules\Events.cs" />
-    <Compile Include="GameMaster\Template.cs" />
-    <Compile Include="GameMaster\Types.cs" />
-    <Compile Include="GameMaster\Rules\Worlds.cs" />
-    <Compile Include="Meta\GameConfig.cs" />
+    <Compile Include="GameMaster\Ruleset\Rules\Events.cs" />
+    <Compile Include="GameMaster\Ruleset\Template.cs" />
+    <Compile Include="GameMaster\Ruleset\Types.cs" />
+    <Compile Include="GameMaster\Ruleset\Rules\Worlds.cs" />
+    <Compile Include="GameMaster\Ruleset\GameConfig.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\DownloadForm.resx">

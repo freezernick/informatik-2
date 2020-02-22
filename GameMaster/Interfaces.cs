@@ -1,5 +1,5 @@
-﻿using GameMaster.Rules.Abstracts;
-using GameMaster.Types;
+﻿using GameMaster.Ruleset.Rules.Abstracts;
+using GameMaster.Ruleset.Types;
 using System.Windows.Forms;
 
 namespace GameMaster.Interfaces
@@ -39,5 +39,10 @@ namespace GameMaster.Interfaces
         void KeyEvent(Keys key);
 
         void AxisEvent(AxisEvent axisEvent);
+    }
+
+    public interface LoggingInterface
+    {
+        void Log(string message);
     }
 }

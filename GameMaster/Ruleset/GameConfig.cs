@@ -1,12 +1,11 @@
-﻿using GameMaster.Templates;
+﻿using GameMaster.Ruleset.Rules.Abstracts;
+using GameMaster.Ruleset.Templates;
 using SUCC;
 using System;
-using System.IO;
 using System.Collections.Generic;
-using GameMaster.Rules.Abstracts;
-using GameMaster.Rules.Events;
+using System.IO;
 
-namespace GameMaster.Config
+namespace GameMaster.Ruleset
 {
     public class Game
     {
@@ -27,7 +26,7 @@ namespace GameMaster.Config
         {
             GameObject.Name = config.Get<string>("Name");
             GameObject.StartAction = config.Get<string>("StartAction", "");
-            GameObject.Template = (Template) Activator.CreateInstance(Type.GetType(config.Get<string>("Template", "")));
+            GameObject.Template = (Template)Activator.CreateInstance(Type.GetType(config.Get<string>("Template", "")));
             GameObject.LeftSideObjects = config.Get<List<LeftSide>>("LeftSideObjects", new List<LeftSide>());
             GameObject.CustomEvents = config.Get<List<Event>>("CustomEvents", new List<Event>());
             GameObject.AssociatedConfig = config;

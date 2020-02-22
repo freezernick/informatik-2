@@ -1,5 +1,5 @@
-﻿using GameMaster.Templates;
-using GameMaster.Config;
+﻿using GameMaster.Ruleset;
+using GameMaster.Ruleset.Templates;
 using System;
 using System.Windows.Forms;
 
@@ -12,11 +12,15 @@ namespace GameMaster
         public EditForm()
         {
             InitializeComponent();
+            foreach (Template template in TemplateHelper.GetTemplateList())
+            {
+                comboBox1.Items.Add(template);
+            }
             currentGame = FormHandler.MainForm().SelectedGame;
             Text = "Edit " + currentGame.Name;
             tbName.Text = currentGame.Name;
             tbStartAction.Text = currentGame.StartAction;
-            comboBox1.SelectedItem = currentGame.Template;
+            comboBox1.SelectedIndex = comboBox1.FindString(currentGame.Template.ToString());
         }
 
         private void btBack_Click(object sender, EventArgs e)
@@ -29,16 +33,8 @@ namespace GameMaster
         {
             currentGame.Name = tbName.Text;
             currentGame.StartAction = tbStartAction.Text;
-            currentGame.Template = (Template) comboBox1.SelectedItem;
+            currentGame.Template = (Template)comboBox1.SelectedItem;
             currentGame.Save();
-        }
-
-        private void EditForm_Load(object sender, EventArgs e)
-        {
-            foreach (Template template in TemplateHelper.GetTemplateList())
-            {
-                comboBox1.Items.Add(template);
-            }
         }
     }
 }

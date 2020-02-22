@@ -1,7 +1,6 @@
-﻿using GameMaster.Rules.Abstracts;
-using GameMaster.Interfaces;
+﻿using GameMaster.Ruleset.Rules.Abstracts;
 
-namespace GameMaster.Rules.Events
+namespace GameMaster.Ruleset.Rules.Events
 {
     public class TickEvent : GlobalEvent
     {
@@ -47,11 +46,19 @@ namespace GameMaster.Rules.Events
 
     public class CustomGlobalEvent : GlobalEvent
     {
-
+        public CustomGlobalEvent()
+        {
+            Name = "My Custom Global Event";
+            Description = "Default Description";
+        }
     }
 
     public class CustomWorldEvent : WorldEvent
     {
-
+        public CustomWorldEvent()
+        {
+            Name = "My Custom World Event";
+            Description = "Default Description";
+        }
     }
 }

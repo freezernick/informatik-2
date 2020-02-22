@@ -1,10 +1,10 @@
-﻿using GameMaster.Types;
+﻿using GameMaster.Interfaces;
+using GameMaster.Ruleset.Types;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
-using System.Collections.Generic;
-using GameMaster.Interfaces;
 
-namespace GameMaster.Rules.Abstracts
+namespace GameMaster.Ruleset.Rules.Abstracts
 {
     public class GameWindow
     {
@@ -20,7 +20,6 @@ namespace GameMaster.Rules.Abstracts
     /// </summary>
     public abstract class LeftSide
     {
-
     }
 
     /// <summary>
@@ -39,9 +38,10 @@ namespace GameMaster.Rules.Abstracts
         protected string Name;
         protected string Description;
         protected List<RightSide> EventObjects;
+
         public void Execute()
         {
-            foreach(RightSide eventObject in EventObjects)
+            foreach (RightSide eventObject in EventObjects)
             {
                 eventObject.EventExecute(this);
             }
@@ -63,7 +63,6 @@ namespace GameMaster.Rules.Abstracts
     /// </summary>
     public abstract class WorldEvent : Event
     {
-
     }
 
     /// <summary>
@@ -71,7 +70,6 @@ namespace GameMaster.Rules.Abstracts
     /// </summary>
     public abstract class GlobalEvent : Event
     {
-
     }
 
     public abstract class Action
@@ -152,6 +150,7 @@ namespace GameMaster.Rules.Abstracts
                 Pitch = pitch;
             }
         }
+
         public abstract class WorldObject
         {
             public Vector3 WorldLocation;

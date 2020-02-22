@@ -1,5 +1,6 @@
-﻿using GameMaster.Config;
+﻿using GameMaster.Interfaces;
 using GameMaster.Overlay;
+using GameMaster.Ruleset;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -9,7 +10,7 @@ using Timer = System.Threading.Timer;
 
 namespace GameMaster
 {
-    public class VM
+    public class VM : LoggingInterface
     {
         public void CheckStatus(Object stateInfo)
         {
@@ -28,10 +29,12 @@ namespace GameMaster
             GameProcess = Process.Start(game.StartAction);
             GameProcess.EnableRaisingEvents = true;
             GameProcess.Exited += p_Exited;
+            LogClass.Log("Process started");
             FormHandler.MainForm().ProcessStarted();
             Overlay = new GameMasterOverlay();
             Overlay.Initialize();
             Overlay.Run();
+            LogClass.Log("Overlay started");
             StartUpdates();
         }
 
@@ -119,6 +122,11 @@ namespace GameMaster
             }
             //If hBitmap is null, retun null.
             return null;
+        }
+
+        public void Log(string message)
+        {
+            if (Overlay != null) { Overlay.Log(message); }
         }
 
         //This structure shall be used to keep the size of the screen.
