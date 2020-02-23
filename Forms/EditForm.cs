@@ -25,8 +25,8 @@ namespace GameMaster
 
         private void btBack_Click(object sender, EventArgs e)
         {
+            Close();
             FormHandler.EditorForm().Show();
-            Hide();
         }
 
         private void btSave_Click(object sender, EventArgs e)
