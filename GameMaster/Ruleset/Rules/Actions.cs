@@ -74,4 +74,19 @@ namespace GameMaster.Ruleset.Rules.Actions
             eventReference.Execute();
         }
     }
+
+    public class Log : Action
+    {
+        public string message;
+
+        public Log()
+        {
+            Name = "Log";
+        }
+
+        public override void Run()
+        {
+            LogClass.Log(message);
+        }
+    }
 }
