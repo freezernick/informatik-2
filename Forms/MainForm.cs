@@ -10,13 +10,12 @@ using System.Windows.Forms;
 
 namespace GameMaster
 {
-    public partial class MainForm : Form, ProcessInterface, LoggingInterface
+    public partial class MainForm : Form, ProcessInterface
     {
         public Game SelectedGame;
         public List<Game> Games;
         private bool Running;
         public VM vm { get; private set; }
-        private StreamWriter LogWriter;
 
         public MainForm()
         {
@@ -25,7 +24,6 @@ namespace GameMaster
             Tray.Icon = SystemIcons.Application;
             Tray.Click += Tray_MouseDoubleClick;
             CheckForIllegalCrossThreadCalls = false;
-            LogWriter = new StreamWriter(Path.Combine(AppContext.BaseDirectory, "log.txt"));
         }
 
         private void btEditRules_Click(object sender, EventArgs e)
@@ -162,17 +160,6 @@ namespace GameMaster
             WindowState = FormWindowState.Normal;
             Tray.Visible = false;
             vm = null;
-        }
-
-        public void Log(string message)
-        {
-            LogWriter.WriteLine("{0} : " + message, DateTime.Now.ToLongTimeString());
-        }
-
-        public void StopLogging()
-        {
-            LogWriter.Flush();
-            LogWriter.Close();
         }
     }
 }

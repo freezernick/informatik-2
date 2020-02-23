@@ -1,25 +1,35 @@
-﻿using GameMaster.Interfaces;
-using GameMaster.Overlay;
+﻿using GameMaster.Overlay;
 using GameMaster.Ruleset;
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Timer = System.Threading.Timer;
 
 namespace GameMaster
 {
-    public class VM : LoggingInterface
+    public class VM
     {
-        public void CheckStatus(Object stateInfo)
-        {
-            AutoResetEvent autoEvent = (AutoResetEvent)stateInfo;
-            Update();
-        }
+        /// <summary>
+        /// Will be increased every tick (60th of a second). Every 1200th tick the log should be flushed (saved).
+        /// </summary>
+        private int iterationCount = 0;
 
         private AutoResetEvent autoEvent = new AutoResetEvent(false);
         private Timer timer;
+
+        public void CheckStatus(Object stateInfo)
+        {
+            AutoResetEvent autoEvent = (AutoResetEvent)stateInfo;
+            iterationCount++;
+            if (iterationCount == 1200)
+            {
+                iterationCount = 0;
+            }
+            Update();
+        }
 
         private Process GameProcess;
         private GameMasterOverlay Overlay;
@@ -29,19 +39,19 @@ namespace GameMaster
             GameProcess = Process.Start(game.StartAction);
             GameProcess.EnableRaisingEvents = true;
             GameProcess.Exited += p_Exited;
-            LogClass.Log("Process started");
+            Log("Process started");
             FormHandler.MainForm().ProcessStarted();
             Overlay = new GameMasterOverlay();
             Overlay.Initialize();
             Overlay.Run();
-            LogClass.Log("Overlay started");
+            Log("Overlay started");
             StartUpdates();
         }
 
         private void StartUpdates()
         {
             Overlay.Log("Starting Updates");
-            timer = new Timer(this.CheckStatus, autoEvent, 1000, 250);
+            timer = new Timer(this.CheckStatus, autoEvent, 1000, 1000 / 60);
         }
 
         public void Update()
@@ -57,6 +67,43 @@ namespace GameMaster
         private void p_Exited(object sender, EventArgs e)
         {
             FormHandler.MainForm().ProcessEnded();
+        }
+
+        // Logging
+
+        private StreamWriter LogWriter;
+
+        private void StartLogging()
+        {
+            LogWriter = new StreamWriter(Path.Combine(AppContext.BaseDirectory, @"rulesets\" + FormHandler.MainForm().SelectedGame.Name.ToLower() + @"\log.txt"));
+        }
+
+        public void Log(string message)
+        {
+            if (LogWriter == null) { return; }
+            LogWriter.WriteLine("{0} : " + message, DateTime.Now.ToLongTimeString());
+        }
+
+        public void OverlayLog(string message)
+        {
+            if (Overlay != null) { Overlay.Log(message); }
+        }
+
+        /// <summary>
+        /// Saves the current log status
+        /// </summary>
+        private void FlushLog()
+        {
+            LogWriter.Flush();
+        }
+
+        /// <summary>
+        /// Stops the logger and saves the current log
+        /// </summary>
+        private void StopLogging()
+        {
+            FlushLog();
+            LogWriter.Close();
         }
 
         protected static IntPtr m_HBitmap;
@@ -122,11 +169,6 @@ namespace GameMaster
             }
             //If hBitmap is null, retun null.
             return null;
-        }
-
-        public void Log(string message)
-        {
-            if (Overlay != null) { Overlay.Log(message); }
         }
 
         //This structure shall be used to keep the size of the screen.

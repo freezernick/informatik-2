@@ -14,12 +14,6 @@ namespace GameMaster
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(FormHandler.MainForm());
-            AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
-        }
-
-        static void OnProcessExit(object sender, EventArgs e)
-        {
-            FormHandler.MainForm().StopLogging();
         }
     }
 }

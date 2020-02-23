@@ -1,7 +1,9 @@
-﻿using GameOverlay.Drawing;
+﻿using GameMaster.Logging;
+using GameOverlay.Drawing;
 using GameOverlay.Windows;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace GameMaster.Overlay
 {
@@ -17,6 +19,10 @@ namespace GameMaster.Overlay
         private SolidBrush _red;
         private SolidBrush _green;
         private SolidBrush _blue;
+
+        private AutoResetEvent autoEvent = new AutoResetEvent(false);
+
+        internal List<LogMessage> logMessages = new List<LogMessage>();
 
         public GameMasterOverlay()
         {
@@ -69,28 +75,17 @@ namespace GameMaster.Overlay
             _red = _graphics.CreateSolidBrush(Color.Red); // those are the only pre defined Colors
             _green = _graphics.CreateSolidBrush(Color.Green);
             _blue = _graphics.CreateSolidBrush(Color.Blue);
+
+            // Start Log Check
+            var stateTimer = new Timer(this.UpdateLog,
+                                   autoEvent, 1000, 250);
         }
-        private List<string> messages;
-        public void Log(string Message)
-        {
-            if(messages == null)
-            {
-                messages = new List<string>();
-            }
-            messages.Add(Message);
-        }
+
         public void Run()
         {
             var gfx = _graphics;
             gfx.BeginScene(); // call before you start any drawing
             gfx.ClearScene();
-            if(messages != null)
-            {
-                for(int i = 0; i < messages.Count; i++)
-                {
-                    gfx.DrawTextWithBackground(_font, _red, _black, 10, 20*i, messages.ToArray()[i]);
-                }
-            }
             gfx.EndScene();
         }
 
@@ -108,6 +103,25 @@ namespace GameMaster.Overlay
                 // otherwise just set its members
                 _graphics.Width = e.Width;
                 _graphics.Height = e.Height;
+            }
+        }
+
+        // Logging
+
+        public void Log(string Message) => logMessages.Add(new LogMessage(Message));
+
+        public void UpdateLog(Object stateInfo)
+        {
+            AutoResetEvent autoEvent = (AutoResetEvent)stateInfo;
+
+            for (int i = 0; i < logMessages.Count; i++)
+            {
+                LogMessage message = logMessages[i];
+                message.clockCount++;
+                if (message.clockCount == 4)
+                {
+                    logMessages.Remove(message);
+                }
             }
         }
     }

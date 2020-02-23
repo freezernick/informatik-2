@@ -40,9 +40,4 @@ namespace GameMaster.Interfaces
 
         void AxisEvent(AxisEvent axisEvent);
     }
-
-    public interface LoggingInterface
-    {
-        void Log(string message);
-    }
 }

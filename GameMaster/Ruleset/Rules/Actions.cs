@@ -1,4 +1,5 @@
-﻿using GameMaster.Ruleset.Rules.Abstracts;
+﻿using GameMaster.Logging;
+using GameMaster.Ruleset.Rules.Abstracts;
 using GameMaster.Ruleset.Types;
 using System.Numerics;
 
@@ -86,7 +87,22 @@ namespace GameMaster.Ruleset.Rules.Actions
 
         public override void Run()
         {
-            LogClass.Log(message);
+            FormHandler.MainForm().vm.Log(message);
+        }
+    }
+
+    public class OverlayLog : Action
+    {
+        public string message;
+
+        public OverlayLog()
+        {
+            Name = "Overlay Log";
+        }
+
+        public override void Run()
+        {
+            LogHelper.OverlayLog(message);
         }
     }
 }
