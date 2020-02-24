@@ -12,9 +12,6 @@ namespace GameMaster
 {
     public class VM
     {
-        /// <summary>
-        /// Will be increased every tick (60th of a second). Every 1200th tick the log should be flushed (saved).
-        /// </summary>
         private int iterationCount = 0;
 
         private AutoResetEvent autoEvent = new AutoResetEvent(false);
@@ -24,8 +21,9 @@ namespace GameMaster
         {
             AutoResetEvent autoEvent = (AutoResetEvent)stateInfo;
             iterationCount++;
-            if (iterationCount == 1200)
+            if (iterationCount == 16)
             {
+                Overlay.UpdateLog();
                 iterationCount = 0;
             }
             Update();
@@ -39,6 +37,7 @@ namespace GameMaster
             GameProcess = Process.Start(game.StartAction);
             GameProcess.EnableRaisingEvents = true;
             GameProcess.Exited += p_Exited;
+            StartLogging();
             Log("Process started");
             FormHandler.MainForm().ProcessStarted();
             Overlay = new GameMasterOverlay();
@@ -50,22 +49,28 @@ namespace GameMaster
 
         private void StartUpdates()
         {
-            Overlay.Log("Starting Updates");
-            timer = new Timer(this.CheckStatus, autoEvent, 1000, 1000 / 60);
+            Log("Starting Updates");
+            timer = new Timer(this.CheckStatus, autoEvent, 250, 250);
         }
 
         public void Update()
         {
+            FlushLog();
             Overlay.Run();
         }
 
         public void Interrupt()
         {
+            Log("Interrupt signal");
             GameProcess.Kill();
         }
 
         private void p_Exited(object sender, EventArgs e)
         {
+            timer.Dispose();
+            StopLogging();
+            Overlay.Clear();
+            Overlay = null;
             FormHandler.MainForm().ProcessEnded();
         }
 
@@ -92,10 +97,7 @@ namespace GameMaster
         /// <summary>
         /// Saves the current log status
         /// </summary>
-        private void FlushLog()
-        {
-            LogWriter.Flush();
-        }
+        private void FlushLog() => LogWriter.Flush();
 
         /// <summary>
         /// Stops the logger and saves the current log

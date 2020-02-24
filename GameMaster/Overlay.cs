@@ -3,7 +3,6 @@ using GameOverlay.Drawing;
 using GameOverlay.Windows;
 using System;
 using System.Collections.Generic;
-using System.Threading;
 
 namespace GameMaster.Overlay
 {
@@ -20,24 +19,18 @@ namespace GameMaster.Overlay
         private SolidBrush _green;
         private SolidBrush _blue;
 
-        private AutoResetEvent autoEvent = new AutoResetEvent(false);
-
         internal List<LogMessage> logMessages = new List<LogMessage>();
 
         public GameMasterOverlay()
         {
-            // it is important to set the window to visible (and topmost) if you want to see it!
-            _window = new OverlayWindow(0, 0, 800, 600)
+            _window = new OverlayWindow(0, 0, 1920, 1080)
             {
                 IsTopmost = true,
                 IsVisible = true
             };
 
-            // handle this event to resize your Graphics surface
             _window.SizeChanged += _window_SizeChanged;
 
-            // initialize a new Graphics object
-            // set everything before you call _graphics.Setup()
             _graphics = new Graphics
             {
                 Height = _window.Height,
@@ -52,40 +45,39 @@ namespace GameMaster.Overlay
 
         ~GameMasterOverlay()
         {
-            // don't forget to free resources
             _graphics.Dispose();
             _window.Dispose();
         }
 
         public void Initialize()
         {
-            // creates the window using the settings we applied to it in the constructor
             _window.CreateWindow();
 
-            _graphics.WindowHandle = _window.Handle; // set the target handle before calling Setup()
+            _graphics.WindowHandle = _window.Handle;
             _graphics.Setup();
 
-            // creates a simple font with no additional style
             _font = _graphics.CreateFont("Arial", 16);
 
-            // colors for brushes will be automatically normalized. 0.0f - 1.0f and 0.0f - 255.0f is accepted!
             _black = _graphics.CreateSolidBrush(0, 0, 0);
             _gray = _graphics.CreateSolidBrush(0x24, 0x29, 0x2E);
 
-            _red = _graphics.CreateSolidBrush(Color.Red); // those are the only pre defined Colors
+            _red = _graphics.CreateSolidBrush(Color.Red);
             _green = _graphics.CreateSolidBrush(Color.Green);
             _blue = _graphics.CreateSolidBrush(Color.Blue);
-
-            // Start Log Check
-            var stateTimer = new Timer(this.UpdateLog,
-                                   autoEvent, 1000, 250);
         }
 
+        /// <summary>
+        /// Refreshes the overlay
+        /// </summary>
         public void Run()
         {
             var gfx = _graphics;
-            gfx.BeginScene(); // call before you start any drawing
+            gfx.BeginScene();
             gfx.ClearScene();
+            for (int i = 0; i < logMessages.Count - 1; i++)
+            {
+                gfx.DrawTextWithBackground(_font, 16f, _red, _black, new Point(100, i * 25), logMessages[i].message);
+            }
             gfx.EndScene();
         }
 
@@ -106,15 +98,30 @@ namespace GameMaster.Overlay
             }
         }
 
+        /// <summary>
+        /// Clears the screen from the overlay
+        /// </summary>
+        public void Clear()
+        {
+            _graphics.BeginScene();
+            _graphics.ClearScene();
+            _graphics.EndScene();
+        }
+
         // Logging
 
+        /// <summary>
+        /// Adds a log message to the screen
+        /// </summary>
+        /// <param name="Message"></param>
         public void Log(string Message) => logMessages.Add(new LogMessage(Message));
 
-        public void UpdateLog(Object stateInfo)
+        /// <summary>
+        /// Will update the remove timers for all log messages
+        /// </summary>
+        public void UpdateLog()
         {
-            AutoResetEvent autoEvent = (AutoResetEvent)stateInfo;
-
-            for (int i = 0; i < logMessages.Count; i++)
+            for (int i = 0; i < logMessages.Count - 1; i++)
             {
                 LogMessage message = logMessages[i];
                 message.clockCount++;
