@@ -33,6 +33,15 @@ namespace GameMaster.Ruleset
             return GameObject;
         }
 
+        static readonly string ConfigDefaultFile =
+            @"
+            Name:
+            StartAction:
+            Template:
+            LeftSideObjects:
+            CustomEvents:
+            ";
+
         /// <summary>
         /// Saves the member variables of the game to the associated config file
         /// </summary>
@@ -51,7 +60,7 @@ namespace GameMaster.Ruleset
         /// </summary>
         public void CreateNew()
         {
-            AssociatedConfig = new DataFile(Path.Combine(AppContext.BaseDirectory + @"\rulesets\", Name.ToLower()) + @"\ruleset");
+            AssociatedConfig = new DataFile(Path.Combine(AppContext.BaseDirectory + @"\rulesets\", Name.ToLower()) + @"\ruleset", ConfigDefaultFile);
             Save();
         }
 
