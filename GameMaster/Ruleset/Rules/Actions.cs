@@ -15,8 +15,9 @@ namespace GameMaster.Ruleset.Actions
             Name = "Click";
         }
 
-        public override void Run()
+        public override void EventExecute(Event eventReference)
         {
+            throw new System.NotImplementedException();
         }
     }
 
@@ -26,7 +27,7 @@ namespace GameMaster.Ruleset.Actions
         public GameWorld.WorldObject Self;
         public float Spacing;
 
-        public override void Run()
+        public override void EventExecute(Event eventReference)
         {
             if (Self.WorldLocation.X + ObjectToAvoid.WorldLocation.X < Spacing)
             {
@@ -45,14 +46,19 @@ namespace GameMaster.Ruleset.Actions
     public class Move : Action
     {
         public GameWorld.WorldObject Self;
-        private bool isMoving;
-        private Vector3 OldLocation;
-        private int Offset;
-        private Axis Axis;
+        public bool isMoving;
+        public Vector3 OldLocation;
+        public int Offset;
+        public Axis Axis;
 
         public bool IsMoving()
         {
             return isMoving;
+        }
+
+        public Move()
+        {
+
         }
 
         public Move(GameWorld.WorldObject worldObject, Axis MovementAxis, int offset)
@@ -62,8 +68,9 @@ namespace GameMaster.Ruleset.Actions
             Offset = offset;
         }
 
-        public override void Run()
+        public override void EventExecute(Event eventReference)
         {
+            throw new System.NotImplementedException();
         }
     }
 
@@ -71,7 +78,7 @@ namespace GameMaster.Ruleset.Actions
     {
         public Event eventReference;
 
-        public override void Run()
+        public override void EventExecute(Event caller)
         {
             eventReference.Execute();
         }
@@ -86,7 +93,7 @@ namespace GameMaster.Ruleset.Actions
             Name = "Log";
         }
 
-        public override void Run()
+        public override void EventExecute(Event eventReference)
         {
             FormHandler.MainForm().vm.Log(message);
         }
@@ -101,7 +108,7 @@ namespace GameMaster.Ruleset.Actions
             Name = "Overlay Log";
         }
 
-        public override void Run()
+        public override void EventExecute(Event eventReference)
         {
             LogHelper.OverlayLog(message);
         }

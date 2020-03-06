@@ -80,7 +80,7 @@ namespace GameMaster
 
         private void StartLogging()
         {
-            LogWriter = new StreamWriter(Path.Combine(AppContext.BaseDirectory, @"rulesets\" + FormHandler.MainForm().SelectedRuleset.Name.ToLower() + @"\log.txt"));
+            LogWriter = new StreamWriter(Path.Combine(AppContext.BaseDirectory, "log.txt"));
         }
 
         public void Log(string message)

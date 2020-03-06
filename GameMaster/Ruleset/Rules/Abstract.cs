@@ -80,11 +80,9 @@ namespace GameMaster.Ruleset.Abstracts
     {
     }
 
-    public abstract class Action
+    public abstract class Action : RightSide
     {
         public string Name;
-
-        public abstract void Run();
     }
 
     public abstract class ObjectAction

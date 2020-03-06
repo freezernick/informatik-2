@@ -22,6 +22,7 @@ namespace GameMaster
             tbName.Text = currentGame.Name;
             tbStartAction.Text = currentGame.Executable;
             comboBox1.SelectedIndex = comboBox1.FindString(currentGame.GetTemplate().ToString());
+            textBox1.Text = currentGame.ID;
         }
 
         private void btBack_Click(object sender, EventArgs e)
@@ -32,10 +33,16 @@ namespace GameMaster
 
         private void btSave_Click(object sender, EventArgs e)
         {
+            currentGame.ID = textBox1.Text;
             currentGame.Name = tbName.Text;
             currentGame.Executable = tbStartAction.Text;
             currentGame.SetTemplate((Template)comboBox1.SelectedItem);
             Configuration.Save(currentGame);
+            if(!FormHandler.MainForm().Games.Contains(currentGame))
+            {
+                FormHandler.MainForm().Games.Add(currentGame);
+                FormHandler.MainForm().UpdateList();
+            }
         }
     }
 }

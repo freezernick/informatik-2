@@ -9,6 +9,7 @@ namespace GameMaster
     public partial class EditorForm : Form
     {
         public Configuration game;
+        public LeftSide selectedObject;
 
         public EditorForm()
         {
@@ -22,10 +23,18 @@ namespace GameMaster
 
         private void ObjectListForm_Load(object sender, EventArgs e)
         {
+            foreach(LeftSide element in game.LeftSideObjects)
+            {
+                listBox3.Items.Add(element);
+            }
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if(listBox3.SelectedIndex != -1)
+            {
+                selectedObject = game.LeftSideObjects[listBox3.SelectedIndex];
+            }
         }
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
@@ -85,6 +94,25 @@ namespace GameMaster
         private void btTriggerDelete_Click(object sender, EventArgs e)
         {
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if(selectedObject == null)
+            {
+                return;
+            }
+
+            Actions actions = new Actions();
+            actions.FormClosed += ActionList_Closed;
+            actions.game = game;
+            actions.Show();
+            Hide();
+        }
+
+        private void ActionList_Closed(object sender, EventArgs e)
+        {
+            Show();
+        }
     }
 
     /// <summary>
@@ -93,7 +121,7 @@ namespace GameMaster
     /// </summary>
     public class EditorWindow : Form
     {
-        protected Configuration game;
+        public Configuration game;
 
         public EditorWindow()
         {

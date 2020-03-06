@@ -78,6 +78,15 @@ namespace GameMaster
             Hide();
         }
 
+        public void UpdateList()
+        {
+            listBox1.Items.Clear();
+            foreach (Configuration config in Games)
+            {
+                listBox1.Items.Add(config.Name);
+            }
+        }
+
         private void lErscheinungsdatum_Load(object sender, EventArgs e)
         {
             // Check if rulesets directory exists
@@ -92,12 +101,12 @@ namespace GameMaster
                 Directory.Delete(AppContext.BaseDirectory + @"\temp\", true);
             }
 
-            foreach (string dir in Directory.GetDirectories(AppContext.BaseDirectory + @"\rulesets\"))
+            foreach (string dir in Directory.GetFiles(AppContext.BaseDirectory + @"\rulesets\"))
             {
-                string[] subStrings = dir.Split('\\');
-                listBox1.Items.Add(subStrings.Last());
-                Games.Add(Configuration.Load(Path.Combine(dir, subStrings.Last() +".xml")));
+                Games.Add(Configuration.Load(dir));
             }
+
+            UpdateList();
 
             // Select the first game in the list by default if it exists
             if (listBox1.Items.Count > 0)

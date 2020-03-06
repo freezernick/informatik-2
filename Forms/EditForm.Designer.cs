@@ -37,12 +37,14 @@
             this.btSave = new System.Windows.Forms.Button();
             this.btBack = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lName
             // 
             this.lName.AutoSize = true;
-            this.lName.Location = new System.Drawing.Point(11, 9);
+            this.lName.Location = new System.Drawing.Point(17, 38);
             this.lName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lName.Name = "lName";
             this.lName.Size = new System.Drawing.Size(35, 13);
@@ -51,7 +53,7 @@
             // 
             // tbName
             // 
-            this.tbName.Location = new System.Drawing.Point(68, 6);
+            this.tbName.Location = new System.Drawing.Point(74, 35);
             this.tbName.Margin = new System.Windows.Forms.Padding(2);
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(300, 20);
@@ -59,7 +61,7 @@
             // 
             // tbStartAction
             // 
-            this.tbStartAction.Location = new System.Drawing.Point(68, 30);
+            this.tbStartAction.Location = new System.Drawing.Point(74, 59);
             this.tbStartAction.Margin = new System.Windows.Forms.Padding(2);
             this.tbStartAction.Name = "tbStartAction";
             this.tbStartAction.Size = new System.Drawing.Size(300, 20);
@@ -68,7 +70,7 @@
             // lStartAction
             // 
             this.lStartAction.AutoSize = true;
-            this.lStartAction.Location = new System.Drawing.Point(11, 33);
+            this.lStartAction.Location = new System.Drawing.Point(16, 62);
             this.lStartAction.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lStartAction.Name = "lStartAction";
             this.lStartAction.Size = new System.Drawing.Size(48, 13);
@@ -78,7 +80,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 58);
+            this.label1.Location = new System.Drawing.Point(16, 87);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(51, 13);
             this.label1.TabIndex = 14;
@@ -87,14 +89,14 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(69, 55);
+            this.comboBox1.Location = new System.Drawing.Point(74, 84);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(299, 21);
+            this.comboBox1.Size = new System.Drawing.Size(300, 21);
             this.comboBox1.TabIndex = 15;
             // 
             // btSave
             // 
-            this.btSave.Location = new System.Drawing.Point(198, 110);
+            this.btSave.Location = new System.Drawing.Point(203, 128);
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(170, 23);
             this.btSave.TabIndex = 16;
@@ -104,7 +106,7 @@
             // 
             // btBack
             // 
-            this.btBack.Location = new System.Drawing.Point(14, 110);
+            this.btBack.Location = new System.Drawing.Point(17, 128);
             this.btBack.Name = "btBack";
             this.btBack.Size = new System.Drawing.Size(170, 23);
             this.btBack.TabIndex = 17;
@@ -115,18 +117,38 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 89);
+            this.label2.Location = new System.Drawing.Point(17, 112);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(353, 13);
             this.label2.TabIndex = 18;
             this.label2.Text = "Changing the Template requires to go through the Template Wizard again";
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(74, 11);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(300, 20);
+            this.textBox1.TabIndex = 20;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(17, 14);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(18, 13);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "ID";
+            // 
             // EditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(385, 141);
+            this.ClientSize = new System.Drawing.Size(385, 162);
             this.ControlBox = false;
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btBack);
             this.Controls.Add(this.btSave);
@@ -157,5 +179,7 @@
         private System.Windows.Forms.Button btSave;
         private System.Windows.Forms.Button btBack;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label3;
     }
 }

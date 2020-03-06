@@ -20,7 +20,7 @@ namespace GameMaster.Interfaces
     }
 
     /// <summary>
-    /// Interface for registering or unregistering objects to a specific event
+    /// Interface for registering or unregistering objects to a specific left side object
     /// </summary>
     public interface ObjectRegister
     {

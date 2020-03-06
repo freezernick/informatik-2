@@ -12,6 +12,16 @@ namespace GameMaster.Ruleset
     [XmlInclude(typeof(GameMaster.Ruleset.Templates.Platformer))]
     [XmlInclude(typeof(GameMaster.Ruleset.Events.CustomGlobalEvent))]
     [XmlInclude(typeof(GameMaster.Ruleset.Events.CustomWorldEvent))]
+    [XmlInclude(typeof(GameMaster.Ruleset.Events.WorldShutdownRequestEvent))]
+    [XmlInclude(typeof(GameMaster.Ruleset.Events.GlobalShutdownRequestEvent))]
+    [XmlInclude(typeof(GameMaster.Ruleset.Events.TickEvent))]
+    [XmlInclude(typeof(GameMaster.Ruleset.Events.WorldStartupEvent))]
+    [XmlInclude(typeof(GameMaster.Ruleset.Actions.Avoid))]
+    [XmlInclude(typeof(GameMaster.Ruleset.Actions.Click))]
+    [XmlInclude(typeof(GameMaster.Ruleset.Actions.ExecuteCustomEvent))]
+    [XmlInclude(typeof(GameMaster.Ruleset.Actions.Log))]
+    [XmlInclude(typeof(GameMaster.Ruleset.Actions.Move))]
+    [XmlInclude(typeof(GameMaster.Ruleset.Actions.OverlayLog))]
     public class Configuration
     {
         public Configuration()
