@@ -1,6 +1,6 @@
-﻿using GameMaster.Ruleset.Rules.Abstracts;
+﻿using System.Windows.Forms;
+using GameMaster.Ruleset.Abstracts;
 using GameMaster.Ruleset.Types;
-using System.Windows.Forms;
 
 namespace GameMaster.Interfaces
 {
@@ -22,7 +22,7 @@ namespace GameMaster.Interfaces
     /// <summary>
     /// Interface for registering or unregistering objects to a specific event
     /// </summary>
-    public interface EventRegister
+    public interface ObjectRegister
     {
         void RegisterObject(RightSide eventObject);
 

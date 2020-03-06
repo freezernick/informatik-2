@@ -1,7 +1,8 @@
-﻿using GameMaster.Ruleset.Rules.Abstracts;
-using GameMaster.Ruleset.Rules.Worlds;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
+using GameMaster.Ruleset.Worlds;
+using GameMaster.Ruleset.Abstracts;
 
 namespace GameMaster.Ruleset.Templates
 {
@@ -10,11 +11,9 @@ namespace GameMaster.Ruleset.Templates
         public static ArrayList GetTemplateList()
         {
             ArrayList Templates = new ArrayList();
+            Templates.Add(new Template2D());
+            Templates.Add(new Template3D());
             Templates.Add(new Platformer());
-            Templates.Add(new Pong());
-            Templates.Add(new FourWins());
-            Templates.Add(new TicTacToe());
-            Templates.Add(new TurnBased());
             return Templates;
         }
     }
@@ -32,7 +31,7 @@ namespace GameMaster.Ruleset.Templates
         }
     }
 
-    public abstract class Template3D : Template
+    public class Template3D : Template
     {
         public Template3D()
         {
@@ -41,7 +40,7 @@ namespace GameMaster.Ruleset.Templates
         }
     }
 
-    public abstract class Template2D : Template
+    public class Template2D : Template
     {
         public Template2D()
         {
@@ -65,7 +64,6 @@ namespace GameMaster.Ruleset.Templates
             Name = "Pong";
         }
     }
-
     public class Platformer : Template2D
     {
         public Platformer()

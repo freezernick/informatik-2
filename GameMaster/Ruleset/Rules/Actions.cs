@@ -1,9 +1,10 @@
 ﻿using GameMaster.Logging;
-using GameMaster.Ruleset.Rules.Abstracts;
-using GameMaster.Ruleset.Types;
 using System.Numerics;
+using GameMaster.Ruleset.Types;
+using GameMaster.Ruleset.Abstracts;
+using GameMaster.Ruleset.Worlds;
 
-namespace GameMaster.Ruleset.Rules.Actions
+namespace GameMaster.Ruleset.Actions
 {
     public class Click : Action
     {
@@ -21,8 +22,8 @@ namespace GameMaster.Ruleset.Rules.Actions
 
     public class Avoid : Action
     {
-        public Worlds.GameWorld.WorldObject ObjectToAvoid;
-        public Worlds.GameWorld.WorldObject Self;
+        public GameWorld.WorldObject ObjectToAvoid;
+        public GameWorld.WorldObject Self;
         public float Spacing;
 
         public override void Run()
@@ -43,7 +44,7 @@ namespace GameMaster.Ruleset.Rules.Actions
 
     public class Move : Action
     {
-        public Worlds.GameWorld.WorldObject Self;
+        public GameWorld.WorldObject Self;
         private bool isMoving;
         private Vector3 OldLocation;
         private int Offset;
@@ -54,7 +55,7 @@ namespace GameMaster.Ruleset.Rules.Actions
             return isMoving;
         }
 
-        public Move(Worlds.GameWorld.WorldObject worldObject, Axis MovementAxis, int offset)
+        public Move(GameWorld.WorldObject worldObject, Axis MovementAxis, int offset)
         {
             OldLocation = worldObject.WorldLocation;
             Axis = MovementAxis;

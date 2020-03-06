@@ -1,6 +1,8 @@
-﻿using GameMaster.Ruleset.Rules.Abstracts;
+﻿using System.Xml.Serialization;
+using GameMaster.Ruleset.Abstracts;
 
-namespace GameMaster.Ruleset.Rules.Events
+
+namespace GameMaster.Ruleset.Events
 {
     public class TickEvent : GlobalEvent
     {

@@ -32,9 +32,9 @@ namespace GameMaster
         private Process GameProcess;
         private GameMasterOverlay Overlay;
 
-        public VM(Game game)
+        public VM(Configuration game)
         {
-            GameProcess = Process.Start(game.StartAction);
+            GameProcess = Process.Start(game.Executable);
             GameProcess.EnableRaisingEvents = true;
             GameProcess.Exited += p_Exited;
             StartLogging();
@@ -80,7 +80,7 @@ namespace GameMaster
 
         private void StartLogging()
         {
-            LogWriter = new StreamWriter(Path.Combine(AppContext.BaseDirectory, @"rulesets\" + FormHandler.MainForm().SelectedGame.Name.ToLower() + @"\log.txt"));
+            LogWriter = new StreamWriter(Path.Combine(AppContext.BaseDirectory, @"rulesets\" + FormHandler.MainForm().SelectedRuleset.Name.ToLower() + @"\log.txt"));
         }
 
         public void Log(string message)

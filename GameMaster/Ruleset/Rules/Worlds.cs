@@ -1,8 +1,9 @@
-﻿using GameMaster.Ruleset.Rules.Abstracts;
+﻿using GameMaster.Ruleset.Abstracts;
 
-namespace GameMaster.Ruleset.Rules.Worlds
+
+namespace GameMaster.Ruleset.Worlds
 {
-    public class GameWorld : Abstracts.GameWorld
+    public class GameWorld : AbstractGameWorld
     {
         public class Player : WorldParameter
         {

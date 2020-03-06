@@ -1,6 +1,6 @@
 ﻿using GameMaster.Interfaces;
-using GameMaster.Ruleset;
 using SUCC;
+using GameMaster.Ruleset;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,15 +12,15 @@ namespace GameMaster
 {
     public partial class MainForm : Form, ProcessInterface
     {
-        public Game SelectedGame;
-        public List<Game> Games;
+        public Configuration SelectedRuleset;
+        public List<Configuration> Games;
         private bool Running;
         public VM vm { get; private set; }
 
         public MainForm()
         {
             InitializeComponent();
-            Games = new List<Game>();
+            Games = new List<Configuration>();
             Tray.Icon = SystemIcons.Application;
             Tray.Click += Tray_MouseDoubleClick;
             CheckForIllegalCrossThreadCalls = false;
@@ -28,7 +28,7 @@ namespace GameMaster
 
         private void btEditRules_Click(object sender, EventArgs e)
         {
-            FormHandler.EditorForm().Text = "Edit " + SelectedGame.Name;
+            FormHandler.EditorForm().Text = "Edit " + SelectedRuleset.Name;
             FormHandler.EditorForm().Show();
             Hide();
         }
@@ -46,8 +46,8 @@ namespace GameMaster
 
             btEditProp.Enabled = true;
             btDelete.Enabled = true;
-            SelectedGame = Games[listBox1.SelectedIndex];
-            if (SelectedGame.ValidAction() && !Running)
+            SelectedRuleset = Games[listBox1.SelectedIndex];
+            if (SelectedRuleset.ValidAction() && !Running)
             {
                 btStart.Enabled = true;
             }
@@ -59,6 +59,7 @@ namespace GameMaster
 
         private void btNew_Click(object sender, EventArgs e)
         {
+            SelectedRuleset = new Configuration();
             FormHandler.EditForm().Text = "New Config";
             FormHandler.EditForm().Show();
             Hide();
@@ -66,7 +67,7 @@ namespace GameMaster
 
         private void btEditProp_Click(object sender, EventArgs e)
         {
-            FormHandler.EditorForm().Text = "Edit " + SelectedGame.Name;
+            FormHandler.EditorForm().Text = "Edit " + SelectedRuleset.Name;
             FormHandler.EditorForm().Show();
             Hide();
         }
@@ -91,20 +92,11 @@ namespace GameMaster
                 Directory.Delete(AppContext.BaseDirectory + @"\temp\", true);
             }
 
-            // Loops over each directory inside the ruleset directory...
             foreach (string dir in Directory.GetDirectories(AppContext.BaseDirectory + @"\rulesets\"))
             {
-                // ...and adds the found rulesets to the list...
                 string[] subStrings = dir.Split('\\');
                 listBox1.Items.Add(subStrings.Last());
-
-                // ...and loads the actual config...
-                DataFile dataFile = new DataFile(Path.Combine(dir, "ruleset"));
-                dataFile.AutoSave = false;
-
-                //...and adds the game to the list
-                Game CurrentGame = new Game();
-                Games.Add(Game.ConfigToGame(CurrentGame, dataFile));
+                Games.Add(Configuration.Load(Path.Combine(dir, subStrings.Last() +".xml")));
             }
 
             // Select the first game in the list by default if it exists
@@ -117,7 +109,7 @@ namespace GameMaster
         private void btStart_Click(object sender, EventArgs e)
         {
             // Creates a new instance of the VM class holding information for the actual GameMaster
-            vm = new VM(SelectedGame);
+            vm = new VM(SelectedRuleset);
         }
 
         private void Tray_MouseDoubleClick(object sender, EventArgs e)
@@ -136,8 +128,8 @@ namespace GameMaster
         private void button1_Click(object sender, EventArgs e)
         {
             listBox1.Items.RemoveAt(listBox1.SelectedIndex);
-            SelectedGame.Delete();
-            SelectedGame = null;
+            SelectedRuleset.Delete();
+            SelectedRuleset = null;
         }
 
         /// <summary>

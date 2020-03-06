@@ -1,10 +1,11 @@
 ﻿using GameMaster.Interfaces;
-using GameMaster.Ruleset.Types;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
+using System.Xml.Serialization;
+using GameMaster.Ruleset.Types;
 
-namespace GameMaster.Ruleset.Rules.Abstracts
+namespace GameMaster.Ruleset.Abstracts
 {
     public class GameWindow
     {
@@ -20,6 +21,7 @@ namespace GameMaster.Ruleset.Rules.Abstracts
     /// </summary>
     public abstract class LeftSide
     {
+        public string Name;
     }
 
     /// <summary>
@@ -33,11 +35,17 @@ namespace GameMaster.Ruleset.Rules.Abstracts
     /// <summary>
     /// Events are used to group the execution of multiple actions
     /// </summary>
-    public abstract class Event : LeftSide, EventRegister
+    public abstract class Event : LeftSide, ObjectRegister
     {
-        protected string Name;
-        protected string Description;
-        protected List<RightSide> EventObjects;
+        public string Description;
+        public List<RightSide> EventObjects;
+
+        public Event()
+        {
+            Name = "Event";
+            Description = "Event description";
+            EventObjects = new List<RightSide>();
+        }
 
         public void Execute()
         {
@@ -88,7 +96,6 @@ namespace GameMaster.Ruleset.Rules.Abstracts
 
     public abstract class World : LeftSide
     {
-        public string Name;
         public List<WorldEvent> WorldEvents;
 
         public World()
@@ -135,7 +142,7 @@ namespace GameMaster.Ruleset.Rules.Abstracts
         }
     }
 
-    public abstract class GameWorld : World
+    public abstract class AbstractGameWorld : World
     {
         public struct Rotation
         {

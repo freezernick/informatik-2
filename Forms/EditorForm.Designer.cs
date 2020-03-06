@@ -54,6 +54,7 @@
             this.btTriggerDelete.TabIndex = 2;
             this.btTriggerDelete.Text = "Remove Element";
             this.btTriggerDelete.UseVisualStyleBackColor = true;
+            this.btTriggerDelete.Click += new System.EventHandler(this.btTriggerDelete_Click);
             // 
             // listBox3
             // 
@@ -117,6 +118,7 @@
             this.toolStrip1.Size = new System.Drawing.Size(806, 25);
             this.toolStrip1.TabIndex = 17;
             this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
             // toolStripButton1
             // 

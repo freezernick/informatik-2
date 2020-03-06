@@ -1,4 +1,6 @@
-﻿namespace GameMaster
+﻿using Form = System.Windows.Forms.Form;
+
+namespace GameMaster
 {
     public static class FormHandler
     {
