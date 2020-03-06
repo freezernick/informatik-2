@@ -29,6 +29,24 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditorForm));
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("TickEvent");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("WorldStartupEvent");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("WorldShutdownRequest");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("StartupWorld", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
+            treeNode3});
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("WorldStartupEvent");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("TickEvent");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Custom Event 1");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("WorldShutdownEvent");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("GameWorld", new System.Windows.Forms.TreeNode[] {
+            treeNode5,
+            treeNode6,
+            treeNode7,
+            treeNode8});
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Custom Global Event 1");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Global Shutdown Event");
             this.btTriggerDelete = new System.Windows.Forms.Button();
             this.listBox3 = new System.Windows.Forms.ListBox();
             this.listBox4 = new System.Windows.Forms.ListBox();
@@ -42,6 +60,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
+            this.treeView1 = new System.Windows.Forms.TreeView();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -182,12 +201,47 @@
             this.button6.Text = "Add Object Action";
             this.button6.UseVisualStyleBackColor = true;
             // 
+            // treeView1
+            // 
+            this.treeView1.Location = new System.Drawing.Point(12, 104);
+            this.treeView1.Name = "treeView1";
+            treeNode1.Name = "TickEvent";
+            treeNode1.Text = "TickEvent";
+            treeNode2.Name = "WorldStartupEvent";
+            treeNode2.Text = "WorldStartupEvent";
+            treeNode3.Name = "WorldShutdownRequest";
+            treeNode3.Text = "WorldShutdownRequest";
+            treeNode4.Name = "StartupWorld";
+            treeNode4.Text = "StartupWorld";
+            treeNode5.Name = "WorldStartupEvent";
+            treeNode5.Text = "WorldStartupEvent";
+            treeNode6.Name = "TickEvent";
+            treeNode6.Text = "TickEvent";
+            treeNode7.Name = "Custom Event 1";
+            treeNode7.Text = "Custom Event 1";
+            treeNode8.Name = "WorldShutdownEvent";
+            treeNode8.Text = "WorldShutdownEvent";
+            treeNode9.Name = "GameWorld";
+            treeNode9.Text = "GameWorld";
+            treeNode10.Name = "Custom Global Event 1";
+            treeNode10.Text = "Custom Global Event 1";
+            treeNode11.Name = "Global Shutdown Event";
+            treeNode11.Text = "Global Shutdown Event";
+            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode4,
+            treeNode9,
+            treeNode10,
+            treeNode11});
+            this.treeView1.Size = new System.Drawing.Size(246, 357);
+            this.treeView1.TabIndex = 21;
+            // 
             // EditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(806, 473);
             this.ControlBox = false;
+            this.Controls.Add(this.treeView1);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
@@ -223,5 +277,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.TreeView treeView1;
     }
 }

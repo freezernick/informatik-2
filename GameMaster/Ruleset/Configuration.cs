@@ -2,26 +2,29 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
-using GameMaster.Ruleset.Templates;
 using GameMaster.Ruleset.Abstracts;
+using GameMaster.Ruleset.Worlds;
+using GameMaster.Ruleset.Templates;
 
 namespace GameMaster.Ruleset
 {
     [XmlRoot("configuration")]
-    [XmlInclude(typeof(GameMaster.Ruleset.Templates.Template2D))]
-    [XmlInclude(typeof(GameMaster.Ruleset.Templates.Platformer))]
-    [XmlInclude(typeof(GameMaster.Ruleset.Events.CustomGlobalEvent))]
-    [XmlInclude(typeof(GameMaster.Ruleset.Events.CustomWorldEvent))]
-    [XmlInclude(typeof(GameMaster.Ruleset.Events.WorldShutdownRequestEvent))]
-    [XmlInclude(typeof(GameMaster.Ruleset.Events.GlobalShutdownRequestEvent))]
-    [XmlInclude(typeof(GameMaster.Ruleset.Events.TickEvent))]
-    [XmlInclude(typeof(GameMaster.Ruleset.Events.WorldStartupEvent))]
-    [XmlInclude(typeof(GameMaster.Ruleset.Actions.Avoid))]
-    [XmlInclude(typeof(GameMaster.Ruleset.Actions.Click))]
-    [XmlInclude(typeof(GameMaster.Ruleset.Actions.ExecuteCustomEvent))]
-    [XmlInclude(typeof(GameMaster.Ruleset.Actions.Log))]
-    [XmlInclude(typeof(GameMaster.Ruleset.Actions.Move))]
-    [XmlInclude(typeof(GameMaster.Ruleset.Actions.OverlayLog))]
+    [XmlInclude(typeof(Templates.Template2D))]
+    [XmlInclude(typeof(Templates.Platformer))]
+    [XmlInclude(typeof(Events.CustomGlobalEvent))]
+    [XmlInclude(typeof(Events.CustomWorldEvent))]
+    [XmlInclude(typeof(Events.WorldShutdownRequestEvent))]
+    [XmlInclude(typeof(Events.GlobalShutdownRequestEvent))]
+    [XmlInclude(typeof(Events.TickEvent))]
+    [XmlInclude(typeof(Events.WorldStartupEvent))]
+    [XmlInclude(typeof(Actions.Avoid))]
+    [XmlInclude(typeof(Actions.Click))]
+    [XmlInclude(typeof(Actions.ExecuteCustomEvent))]
+    [XmlInclude(typeof(Actions.Log))]
+    [XmlInclude(typeof(Actions.Move))]
+    [XmlInclude(typeof(Actions.OverlayLog))]
+    [XmlInclude(typeof(Worlds.GameWorld))]
+    [XmlInclude(typeof(Worlds.StartupWorld))]
     public class Configuration
     {
         public Configuration()
@@ -32,6 +35,7 @@ namespace GameMaster.Ruleset
             Template = new Platformer();
             CustomEvents = new List<Event>();
             LeftSideObjects = new List<LeftSide>();
+            LeftSideObjects.Add(new StartupWorld());
         }
 
         public String Name;
