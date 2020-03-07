@@ -35,7 +35,6 @@ namespace GameMaster.Ruleset
             Template = new Platformer();
             CustomEvents = new List<Event>();
             LeftSideObjects = new List<LeftSide>();
-            LeftSideObjects.Add(new StartupWorld());
         }
 
         public String Name;

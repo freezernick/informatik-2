@@ -6,34 +6,26 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Windows.Forms;
 using Timer = System.Threading.Timer;
 
 namespace GameMaster
 {
     public class VM
     {
+        private Process GameProcess;
+        private GameMasterOverlay Overlay;
+        private KeyboardHook hook = new KeyboardHook();
         private int iterationCount = 0;
-
         private AutoResetEvent autoEvent = new AutoResetEvent(false);
         private Timer timer;
 
-        public void CheckStatus(Object stateInfo)
-        {
-            AutoResetEvent autoEvent = (AutoResetEvent)stateInfo;
-            iterationCount++;
-            if (iterationCount == 16)
-            {
-                Overlay.UpdateLog();
-                iterationCount = 0;
-            }
-            Update();
-        }
-
-        private Process GameProcess;
-        private GameMasterOverlay Overlay;
-
         public VM(Configuration game)
         {
+            hook.KeyPressed += InputHandling;
+            hook.RegisterHotKey(ModifierKeys.Control, Keys.F3);
+            hook.RegisterHotKey(ModifierKeys.Control, Keys.F4);
+            hook.RegisterHotKey(ModifierKeys.Control, Keys.F5);
             GameProcess = Process.Start(game.Executable);
             GameProcess.EnableRaisingEvents = true;
             GameProcess.Exited += p_Exited;
@@ -53,7 +45,7 @@ namespace GameMaster
             timer = new Timer(this.CheckStatus, autoEvent, 250, 250);
         }
 
-        public void Update()
+        private void Update()
         {
             FlushLog();
             Overlay.Run();
@@ -61,6 +53,7 @@ namespace GameMaster
 
         public void Interrupt()
         {
+            hook.Dispose();
             Log("Interrupt signal");
             GameProcess.Kill();
         }
@@ -74,14 +67,27 @@ namespace GameMaster
             FormHandler.MainForm().ProcessEnded();
         }
 
+        /// <summary>
+        /// Helper for the internal timer
+        /// </summary>
+        /// <param name="stateInfo"></param>
+        public void CheckStatus(Object stateInfo)
+        {
+            AutoResetEvent autoEvent = (AutoResetEvent)stateInfo;
+            iterationCount++;
+            if (iterationCount == 16)
+            {
+                Overlay.UpdateLog();
+                iterationCount = 0;
+            }
+            Update();
+        }
+
         // Logging
 
         private StreamWriter LogWriter;
 
-        private void StartLogging()
-        {
-            LogWriter = new StreamWriter(Path.Combine(AppContext.BaseDirectory, "log.txt"));
-        }
+        private void StartLogging() => LogWriter = new StreamWriter(Path.Combine(AppContext.BaseDirectory, "log.txt"));
 
         public void Log(string message)
         {
@@ -179,54 +185,152 @@ namespace GameMaster
             public int cx;
             public int cy;
         }
+
+        public sealed class KeyboardHook : IDisposable
+        {
+            // Registers a hot key with Windows.
+            [DllImport("user32.dll")]
+            private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
+            // Unregisters the hot key with Windows.
+            [DllImport("user32.dll")]
+            private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
+            /// <summary>
+            /// Represents the window that is used internally to get the messages.
+            /// </summary>
+            private class Window : NativeWindow, IDisposable
+            {
+                private static int WM_HOTKEY = 0x0312;
+
+                public Window() => this.CreateHandle(new CreateParams());
+
+                /// <summary>
+                /// Overridden to get the notifications.
+                /// </summary>
+                /// <param name="m"></param>
+                protected override void WndProc(ref Message m)
+                {
+                    base.WndProc(ref m);
+
+                    // check if we got a hot key pressed.
+                    if (m.Msg == WM_HOTKEY)
+                    {
+                        // get the keys.
+                        Keys key = (Keys)(((int)m.LParam >> 16) & 0xFFFF);
+                        ModifierKeys modifier = (ModifierKeys)((int)m.LParam & 0xFFFF);
+
+                        // invoke the event to notify the parent.
+                        if (KeyPressed != null)
+                            KeyPressed(this, new KeyPressedEventArgs(modifier, key));
+                    }
+                }
+
+                public event EventHandler<KeyPressedEventArgs> KeyPressed;
+
+                public void Dispose() => this.DestroyHandle();
+            }
+
+            private Window _window = new Window();
+            private int _currentId;
+
+            public KeyboardHook()
+            {
+                // register the event of the inner native window.
+                _window.KeyPressed += delegate (object sender, KeyPressedEventArgs args)
+                {
+                    if (KeyPressed != null)
+                        KeyPressed(this, args);
+                };
+            }
+
+            /// <summary>
+            /// Registers a hot key in the system.
+            /// </summary>
+            /// <param name="modifier">The modifiers that are associated with the hot key.</param>
+            /// <param name="key">The key itself that is associated with the hot key.</param>
+            public void RegisterHotKey(ModifierKeys modifier, Keys key)
+            {
+                // increment the counter.
+                _currentId = _currentId + 1;
+
+                // register the hot key.
+                if (!RegisterHotKey(_window.Handle, _currentId, (uint)modifier, (uint)key))
+                    throw new InvalidOperationException("Couldn’t register the hot key.");
+            }
+
+            /// <summary>
+            /// A hot key has been pressed.
+            /// </summary>
+            public event EventHandler<KeyPressedEventArgs> KeyPressed;
+
+            #region IDisposable Members
+
+            public void Dispose()
+            {
+                // unregister all the registered hot keys.
+                for (int i = _currentId; i > 0; i--)
+                {
+                    UnregisterHotKey(_window.Handle, i);
+                }
+
+                // dispose the inner native window.
+                _window.Dispose();
+            }
+
+            #endregion
+        }
+
+        private void InputHandling(object sender, KeyPressedEventArgs e)
+        {
+            if(e.Modifier == ModifierKeys.Control && e.Key == Keys.F3)
+            {
+                Interrupt();
+            }
+
+            if(e.Modifier == ModifierKeys.Control && e.Key == Keys.F4)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// Event Args for the event that is fired after the hot key has been pressed.
+        /// </summary>
+        public class KeyPressedEventArgs : EventArgs
+        {
+            private ModifierKeys _modifier;
+            private Keys _key;
+
+            internal KeyPressedEventArgs(ModifierKeys modifier, Keys key)
+            {
+                _modifier = modifier;
+                _key = key;
+            }
+
+            public ModifierKeys Modifier
+            {
+                get { return _modifier; }
+            }
+
+            public Keys Key
+            {
+                get { return _key; }
+            }
+        }
+
+        /// <summary>
+        /// The enumeration of possible modifiers.
+        /// </summary>
+        [Flags]
+        public enum ModifierKeys : uint
+        {
+            Alt = 1,
+            Control = 2,
+            Shift = 4,
+            Win = 8
+        }
     }
 
-    //public class InputHandler : Input
-    //{
-    //    public InputHandler()
-    //    {
-    //        AxisEvents = new ArrayList();
-    //        KeyEvents = new ArrayList();
-    //    }
-
-    //    public ArrayList AxisEvents;
-    //    public ArrayList KeyEvents;
-
-    //    public void AxisEvent(AxisEvent axisEvent)
-    //    {
-    //        AxisEvents.Add(axisEvent);
-    //    }
-
-    //    public void KeyEvent(Keys key)
-    //    {
-    //        KeyEvents.Add(key);
-    //    }
-
-    //    public void OnTick()
-    //    {
-    //        ArrayList localAxis = AxisEvents;
-    //        AxisEvents.Clear();
-    //        ArrayList localKeys = KeyEvents;
-    //        KeyEvents.Clear();
-    //        foreach (Keys key in localKeys)
-    //        {
-    //        }
-
-    //        foreach (AxisEvent axisEvent in localAxis)
-    //        {
-    //            switch (axisEvent.Axis)
-    //            {
-    //                case MouseAxis.MouseX:
-
-    //                    break;
-
-    //                case MouseAxis.MouseY:
-
-    //                    break;
-    //            }
-    //        }
-    //    }
-    //}
 
     /// <summary>
     /// This class shall keep the GDI32 APIs used in our program.
