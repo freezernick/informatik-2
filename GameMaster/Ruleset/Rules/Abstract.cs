@@ -37,7 +37,7 @@ namespace GameMaster.Ruleset.Abstracts
     /// </summary>
     public abstract class Event : LeftSide, ObjectRegister
     {
-        public string Description;
+        public static string Description;
         public List<RightSide> EventObjects;
 
         public Event()

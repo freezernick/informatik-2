@@ -20,7 +20,7 @@ namespace GameMaster.Ruleset.Templates
 
     public abstract class Template
     {
-        public string Name;
+        public static string Name;
         protected bool ThirdDimension;
         protected List<World> Worlds;
 

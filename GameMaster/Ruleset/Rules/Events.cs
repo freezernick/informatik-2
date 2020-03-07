@@ -51,7 +51,7 @@ namespace GameMaster.Ruleset.Events
         public CustomGlobalEvent()
         {
             Name = "My Custom Global Event";
-            Description = "Default Description";
+            Description = "A user defined global event";
         }
     }
 
@@ -60,7 +60,7 @@ namespace GameMaster.Ruleset.Events
         public CustomWorldEvent()
         {
             Name = "My Custom World Event";
-            Description = "Default Description";
+            Description = "A user defined world event";
         }
     }
 }

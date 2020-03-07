@@ -19,13 +19,11 @@ namespace GameMaster.Forms.Editor
             {
                 customEvent = new CustomWorldEvent();
                 customEvent.Name = textBox1.Text;
-                customEvent.Description = richTextBox1.Text;
             }
             else
             {
                 customEvent = new CustomGlobalEvent();
                 customEvent.Name = textBox1.Text;
-                customEvent.Description = richTextBox1.Text;
             }
             FormHandler.EditorForm().game.CustomEvents.Add(customEvent);
         }
