@@ -4,63 +4,51 @@ using GameMaster.Ruleset.Abstracts;
 
 namespace GameMaster.Ruleset.Events
 {
-    public class TickEvent : GlobalEvent
+    /// <summary>
+    /// The Tick Event is called every update cycle. The cycle can be configured by the user.
+    /// </summary>
+    public class TickEvent : Event
     {
         public TickEvent()
         {
             Name = "Tick Event";
-            Description = "This event is triggered after a set amount of miliseconds. Useful for recurring actions. Timeframe can be changed in the template settings.";
-        }
-    }
-
-    public class WorldStartupEvent : WorldEvent
-    {
-        public WorldStartupEvent()
-        {
-            Name = "World Startup Event";
-            Description = "The World Startup Event is called as soon as the world is being recognized by the GameMaster. Useful for initialization.";
+            Description = "This event is triggered after a set amount of miliseconds. Useful for recurring actions.";
         }
     }
 
     /// <summary>
-    /// The ShutdownRequestEvent is triggered when the user wants to deactive the GameMaster.
+    /// The Startup Event is called when the GameMaster recognizes a world
     /// </summary>
-    public class GlobalShutdownRequestEvent : GlobalEvent
+    public class StartupEvent : Event
     {
-        public GlobalShutdownRequestEvent()
+        public StartupEvent()
         {
-            Name = "Global Shutdown Request Event";
-            Description = "The Global Shutdown Request Event is called when the user wants to end the GameMaster session. You could save the game in this event for example.";
+            Name = "Startup Event";
+            Description = "The Startup Event is called as soon as the world is being recognized by the GameMaster. Useful for initialization.";
         }
     }
 
     /// <summary>
-    /// The ShutdownRequestEvent is triggered when the user wants to deactive the GameMaster.
+    /// The Shutdown Request Event is triggered when the user wants to deactive the GameMaster.
     /// </summary>
-    public class WorldShutdownRequestEvent : WorldEvent
+    public class ShutdownRequestEvent : Event
     {
-        public WorldShutdownRequestEvent()
+        public ShutdownRequestEvent()
         {
-            Name = "World Shutdown Request Event";
-            Description = "The World Shutdown Request Event is called when the user wants to end the GameMaster session. You could save the game in this event for example.";
+            Name = "Shutdown Request Event";
+            Description = "The Shutdown Request Event is called when the user wants to end the GameMaster session. You could save the game in this event for example.";
         }
     }
 
-    public class CustomGlobalEvent : GlobalEvent
+    /// <summary>
+    /// A Custom Event can be utilized by the user to group specific actions togehter and run them occasionally.
+    /// </summary>
+    public class CustomEvent : Event
     {
-        public CustomGlobalEvent()
+        public CustomEvent()
         {
-            Name = "My Custom Global Event";
-            Description = "A user defined global event";
-        }
-    }
-
-    public class CustomWorldEvent : WorldEvent
-    {
-        public CustomWorldEvent()
-        {
-            Name = "My Custom World Event";
-            Description = "A user defined world event";
+            Name = "My Custom Event";
+            Description = "A user defined event";
         }
     }
 }

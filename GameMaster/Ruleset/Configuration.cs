@@ -1,22 +1,19 @@
-﻿using System;
+﻿using GameMaster.Ruleset.Abstracts;
+using GameMaster.Ruleset.Templates;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
-using GameMaster.Ruleset.Abstracts;
-using GameMaster.Ruleset.Worlds;
-using GameMaster.Ruleset.Templates;
 
 namespace GameMaster.Ruleset
 {
     [XmlRoot("configuration")]
     [XmlInclude(typeof(Templates.Template2D))]
     [XmlInclude(typeof(Templates.Platformer))]
-    [XmlInclude(typeof(Events.CustomGlobalEvent))]
-    [XmlInclude(typeof(Events.CustomWorldEvent))]
-    [XmlInclude(typeof(Events.WorldShutdownRequestEvent))]
-    [XmlInclude(typeof(Events.GlobalShutdownRequestEvent))]
+    [XmlInclude(typeof(Events.CustomEvent))]
+    [XmlInclude(typeof(Events.StartupEvent))]
+    [XmlInclude(typeof(Events.ShutdownRequestEvent))]
     [XmlInclude(typeof(Events.TickEvent))]
-    [XmlInclude(typeof(Events.WorldStartupEvent))]
     [XmlInclude(typeof(Actions.Avoid))]
     [XmlInclude(typeof(Actions.Click))]
     [XmlInclude(typeof(Actions.ExecuteCustomEvent))]

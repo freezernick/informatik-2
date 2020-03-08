@@ -1,9 +1,9 @@
 ﻿using GameMaster.Interfaces;
+using GameMaster.Ruleset.Types;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
-using System.Xml.Serialization;
-using GameMaster.Ruleset.Types;
+using GameMaster.Ruleset.Events;
 
 namespace GameMaster.Ruleset.Abstracts
 {
@@ -66,20 +66,6 @@ namespace GameMaster.Ruleset.Abstracts
         }
     }
 
-    /// <summary>
-    /// World Events are events bound to a specific world
-    /// </summary>
-    public abstract class WorldEvent : Event
-    {
-    }
-
-    /// <summary>
-    /// Global Events are executed ignoring which world is currently active
-    /// </summary>
-    public abstract class GlobalEvent : Event
-    {
-    }
-
     public abstract class Action : RightSide
     {
         public string Name;
@@ -94,11 +80,14 @@ namespace GameMaster.Ruleset.Abstracts
 
     public abstract class World : LeftSide
     {
-        public List<WorldEvent> WorldEvents;
+        public List<Event> WorldEvents;
 
         public World()
         {
-            WorldEvents = new List<WorldEvent>();
+            WorldEvents = new List<Event>();
+            WorldEvents.Add(new StartupEvent());
+            WorldEvents.Add(new ShutdownRequestEvent());
+            WorldEvents.Add(new TickEvent());
         }
 
         public abstract class ScreenParameter
