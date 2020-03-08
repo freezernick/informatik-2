@@ -1,5 +1,4 @@
 ﻿using GameMaster.Interfaces;
-using SUCC;
 using GameMaster.Ruleset;
 using System;
 using System.Collections.Generic;
