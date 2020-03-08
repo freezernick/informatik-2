@@ -21,21 +21,7 @@ namespace GameMaster
         {
         }
 
-        private void ObjectListForm_Load(object sender, EventArgs e)
-        {
-            foreach(LeftSide element in game.LeftSideObjects)
-            {
-                listBox3.Items.Add(element);
-            }
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if(listBox3.SelectedIndex != -1)
-            {
-                selectedObject = game.LeftSideObjects[listBox3.SelectedIndex];
-            }
-        }
+        private void ObjectListForm_Load(object sender, EventArgs e) => UpdateList();
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -66,7 +52,7 @@ namespace GameMaster
         private void OnClose(object sender, EventArgs e)
         {
             this.Show();
-            UpdateLists();
+            UpdateList();
         }
 
         // Should be tsSave_Click
@@ -83,11 +69,19 @@ namespace GameMaster
         {
         }
 
-        public void UpdateLists()
+        public void UpdateList()
         {
+            treeView1.Nodes.Clear();
             foreach (LeftSide leftSideObject in game.LeftSideObjects)
             {
-                listBox3.Items.Add(leftSideObject.Name);
+                TreeNode node = treeView1.Nodes.Add(leftSideObject.ToString());
+                if(leftSideObject is World)
+                {
+                    foreach(Event @event in ((World)leftSideObject).WorldEvents)
+                    {
+                        node.Nodes.Add(@event.ToString());
+                    }
+                }
             }
         }
 
@@ -112,6 +106,11 @@ namespace GameMaster
         private void ActionList_Closed(object sender, EventArgs e)
         {
             Show();
+        }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            
         }
     }
 

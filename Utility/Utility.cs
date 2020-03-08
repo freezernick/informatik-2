@@ -61,18 +61,15 @@ namespace GameMaster
             {
                 //Here we select the compatible bitmap in the memeory device
                 //context and keep the refrence to the old bitmap.
-                IntPtr hOld = (IntPtr)PlatformInvokeGDI32.SelectObject
-                                       (hMemDC, hBitmap);
+                IntPtr hOld = (IntPtr)PlatformInvokeGDI32.SelectObject(hMemDC, hBitmap);
                 //We copy the Bitmap to the memory device context.
-                PlatformInvokeGDI32.BitBlt(hMemDC, 0, 0, size.cx, size.cy, hDC,
-                                           0, 0, PlatformInvokeGDI32.SRCCOPY);
+                PlatformInvokeGDI32.BitBlt(hMemDC, 0, 0, size.cx, size.cy, hDC, 0, 0, PlatformInvokeGDI32.SRCCOPY);
                 //We select the old bitmap back to the memory device context.
                 PlatformInvokeGDI32.SelectObject(hMemDC, hOld);
                 //We delete the memory device context.
                 PlatformInvokeGDI32.DeleteDC(hMemDC);
                 //We release the screen device context.
-                PlatformInvokeUSER32.ReleaseDC(PlatformInvokeUSER32.
-                                               GetDesktopWindow(), hDC);
+                PlatformInvokeUSER32.ReleaseDC(PlatformInvokeUSER32.GetDesktopWindow(), hDC);
                 //Image is created by Image bitmap handle and stored in
                 //local variable.
                 Bitmap bmp = System.Drawing.Image.FromHbitmap(hBitmap);

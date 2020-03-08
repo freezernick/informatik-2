@@ -52,6 +52,17 @@ namespace GameMaster
 
         private void Update()
         {
+            foreach(LeftSide leftSide in configuration.LeftSideObjects)
+            {
+                if(leftSide is Event)
+                {
+                    Event @event = (Event)leftSide;
+                    if (@event != null)
+                    {
+                        @event.Execute();
+                    }
+                }
+            }
             Overlay.Run();
         }
 
