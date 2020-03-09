@@ -1,8 +1,6 @@
 ﻿using GameMaster.Ruleset;
-using System;
-using System.Windows.Forms;
 using GameMaster.Ruleset.Templates;
-using GameMaster.Ruleset.Types;
+using System;
 
 namespace GameMaster
 {
@@ -38,7 +36,7 @@ namespace GameMaster
             currentGame.Executable = tbStartAction.Text;
             currentGame.SetTemplate((Template)comboBox1.SelectedItem);
             Configuration.Save(currentGame);
-            if(!FormHandler.Get<MainForm>().Games.Contains(currentGame))
+            if (!FormHandler.Get<MainForm>().Games.Contains(currentGame))
             {
                 FormHandler.Get<MainForm>().Games.Add(currentGame);
                 FormHandler.Get<MainForm>().UpdateList();
@@ -47,12 +45,22 @@ namespace GameMaster
 
         private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
+            openFileDialog1.FileOk += fileSelected;
+        }
+
+        private void fileSelected(object sender, EventArgs e)
+        {
+        }
+
+        private void EditForm_Load(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "Executables|*.exe";
+            openFileDialog1.InitialDirectory = AppContext.BaseDirectory;
         }
     }
 }

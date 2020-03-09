@@ -102,6 +102,7 @@ namespace GameMaster.Ruleset.Actions
     public class OverlayLog : Action
     {
         public string message;
+        public bool useLogfile = false;
 
         public OverlayLog()
         {
@@ -110,7 +111,7 @@ namespace GameMaster.Ruleset.Actions
 
         public override void EventExecute(Event eventReference)
         {
-            LogHelper.OverlayLog(message);
+            LogHelper.OverlayLog(message, useLogfile);
         }
     }
 }

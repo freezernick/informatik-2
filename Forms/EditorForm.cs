@@ -18,16 +18,7 @@ namespace GameMaster
             game = FormHandler.Get<MainForm>().SelectedRuleset;
         }
 
-        private void btActionDelete_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void ObjectListForm_Load(object sender, EventArgs e) => UpdateList();
-
-        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
 
         private void btExit_Click(object sender, EventArgs e)
         {
@@ -117,6 +108,7 @@ namespace GameMaster
 
         private void btTriggerDelete_Click(object sender, EventArgs e)
         {
+            
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -133,19 +125,24 @@ namespace GameMaster
             Hide();
         }
 
-        private void ActionList_Closed(object sender, EventArgs e)
-        {
-            Show();
-        }
+        private void ActionList_Closed(object sender, EventArgs e) => Show();
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void toolStripButton4_Click(object sender, EventArgs e)
         {
+            ImageEditor editor = new ImageEditor();
+            Hide();
+            editor.FormClosed += imageeditor_closed;
+            editor.Show();
+        }
 
+        private void imageeditor_closed(object sender, EventArgs e)
+        {
+            Show();
         }
     }
 
