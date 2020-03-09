@@ -3,10 +3,11 @@ using GameMaster.Ruleset;
 using System;
 using System.Windows.Forms;
 using GameMaster.Ruleset.Abstracts;
+using GameMaster.Ruleset.Events;
 
 namespace GameMaster
 {
-    public partial class EditorForm : Form
+    public partial class EditorForm : GameMasterForm
     {
         public Configuration game;
         public LeftSide selectedObject;
@@ -14,11 +15,12 @@ namespace GameMaster
         public EditorForm()
         {
             InitializeComponent();
-            game = FormHandler.MainForm().SelectedRuleset;
+            game = FormHandler.Get<MainForm>().SelectedRuleset;
         }
 
         private void btActionDelete_Click(object sender, EventArgs e)
         {
+            
         }
 
         private void ObjectListForm_Load(object sender, EventArgs e) => UpdateList();
@@ -29,14 +31,14 @@ namespace GameMaster
 
         private void btExit_Click(object sender, EventArgs e)
         {
-            FormHandler.MainForm().Show();
+            FormHandler.Get<MainForm>().Show();
             Hide();
         }
 
         // Should be tsEdit_Click
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            FormHandler.EditForm().Show();
+            FormHandler.Get<EditForm>().Show();
             Hide();
         }
 
@@ -61,7 +63,7 @@ namespace GameMaster
         // Should be tsClose_Click
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
-            FormHandler.MainForm().Show();
+            FormHandler.Get<MainForm>().Show();
             Close();
         }
 
@@ -74,12 +76,40 @@ namespace GameMaster
             treeView1.Nodes.Clear();
             foreach (LeftSide leftSideObject in game.LeftSideObjects)
             {
-                TreeNode node = treeView1.Nodes.Add(leftSideObject.ToString());
+                TreeNode node = treeView1.Nodes.Add(leftSideObject.Name);
                 if(leftSideObject is World)
                 {
                     foreach(Event @event in ((World)leftSideObject).WorldEvents)
                     {
-                        node.Nodes.Add(@event.ToString());
+                        if (@event is CustomEvent)
+                        {
+                            CustomEvent customEvent = (CustomEvent)@event;
+                            node.Nodes.Add(customEvent.Alias);
+                            continue;
+                        }
+                        TreeNode subnode = node.Nodes.Add(@event.Name);
+
+                        foreach(RightSide rightSide in @event.EventObjects)
+                        {
+                            subnode.Nodes.Add(rightSide.Name);
+                        }
+                    }
+                }
+
+                if(leftSideObject is Event)
+                {
+                    Event @event = (Event) leftSideObject;
+                    if (@event is CustomEvent)
+                    {
+                        CustomEvent customEvent = (CustomEvent)@event;
+                        node.Nodes.Add(customEvent.Alias);
+                        continue;
+                    }
+                    TreeNode subnode = node.Nodes.Add(@event.Name);
+
+                    foreach (RightSide rightSide in @event.EventObjects)
+                    {
+                        subnode.Nodes.Add(rightSide.Name);
                     }
                 }
             }
@@ -111,6 +141,11 @@ namespace GameMaster
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 

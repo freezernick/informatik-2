@@ -55,10 +55,7 @@ namespace GameMaster.Ruleset
             writer.Close();
         }
 
-        public void SetTemplate(Template template)
-        {
-            Template = template;
-        }
+        public void SetTemplate(Template template) => Template = template;
 
         public Template GetTemplate()
         {

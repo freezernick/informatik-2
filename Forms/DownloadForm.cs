@@ -1,25 +1,20 @@
-﻿using SUCC;
-using System;
+﻿using System;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
-using System.Windows.Forms;
 
 namespace GameMaster
 {
-    public partial class DownloadForm : Form
+    public partial class DownloadForm : GameMasterForm
     {
         private string DownloadDirectory = AppContext.BaseDirectory + @"\downloads";
 
-        public DownloadForm()
-        {
-            InitializeComponent();
-        }
+        public DownloadForm() => InitializeComponent();
 
         private void btExit_Click(object sender, EventArgs e)
         {
-            FormHandler.MainForm().Show();
+            FormHandler.Get<MainForm>().Show();
             Close();
         }
 
@@ -92,10 +87,7 @@ namespace GameMaster
             }
         }
 
-        private void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-        {
-            pbProgress.Value = e.ProgressPercentage;
-        }
+        private void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e) => pbProgress.Value = e.ProgressPercentage;
 
         private void wc_DownloadFileCompleted(object sender, EventArgs e)
         {
@@ -143,21 +135,21 @@ namespace GameMaster
         /// <param name="Name">Either the name of the .succ or the name of the subdirectory</param>
         private void FileHandling(bool isConfigInRoot, string Name)
         {
-            if (isConfigInRoot)
-            {
-                DataFile dataFile = new DataFile(Path.Combine(AppContext.BaseDirectory + @"\temp\") + Name);
-                string id = dataFile.Get<string>("ID");
-                Directory.CreateDirectory(Path.Combine(AppContext.BaseDirectory + @"\rulesets\", id));
-                string[] files = Directory.GetFiles(AppContext.BaseDirectory + @"\temp\");
-                foreach (string file in files)
-                {
-                    File.Move(AppContext.BaseDirectory + @"\temp\" + file, Path.Combine(AppContext.BaseDirectory + @"\rulesets\" + Name) + file);
-                }
-            }
-            else
-            {
-                Directory.Move(Path.Combine(AppContext.BaseDirectory + @"\temp", Name), AppContext.BaseDirectory + @"\rulesets\" + Name);
-            }
+            //if (isConfigInRoot)
+            //{
+            //    DataFile dataFile = new DataFile(Path.Combine(AppContext.BaseDirectory + @"\temp\") + Name);
+            //    string id = dataFile.Get<string>("ID");
+            //    Directory.CreateDirectory(Path.Combine(AppContext.BaseDirectory + @"\rulesets\", id));
+            //    string[] files = Directory.GetFiles(AppContext.BaseDirectory + @"\temp\");
+            //    foreach (string file in files)
+            //    {
+            //        File.Move(AppContext.BaseDirectory + @"\temp\" + file, Path.Combine(AppContext.BaseDirectory + @"\rulesets\" + Name) + file);
+            //    }
+            //}
+            //else
+            //{
+            //    Directory.Move(Path.Combine(AppContext.BaseDirectory + @"\temp", Name), AppContext.BaseDirectory + @"\rulesets\" + Name);
+            //}
         }
     }
 }

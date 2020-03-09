@@ -29,6 +29,8 @@ namespace GameMaster.Ruleset.Abstracts
     /// </summary>
     public abstract class RightSide
     {
+        public string Name;
+
         public abstract void EventExecute(Event eventReference);
     }
 
@@ -68,7 +70,10 @@ namespace GameMaster.Ruleset.Abstracts
 
     public abstract class Action : RightSide
     {
-        public string Name;
+        public Action()
+        {
+            Name = "Action";
+        }
     }
 
     public abstract class ObjectAction

@@ -39,6 +39,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lName
@@ -64,7 +66,7 @@
             this.tbStartAction.Location = new System.Drawing.Point(74, 59);
             this.tbStartAction.Margin = new System.Windows.Forms.Padding(2);
             this.tbStartAction.Name = "tbStartAction";
-            this.tbStartAction.Size = new System.Drawing.Size(300, 20);
+            this.tbStartAction.Size = new System.Drawing.Size(261, 20);
             this.tbStartAction.TabIndex = 5;
             // 
             // lStartAction
@@ -141,12 +143,28 @@
             this.label3.TabIndex = 19;
             this.label3.Text = "ID";
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(340, 59);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(34, 23);
+            this.button1.TabIndex = 21;
+            this.button1.Text = "...";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // EditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(385, 162);
             this.ControlBox = false;
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -181,5 +199,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button button1;
     }
 }

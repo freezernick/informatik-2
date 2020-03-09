@@ -215,8 +215,6 @@ namespace GameMaster
         /// </summary>
         public event EventHandler<KeyPressedEventArgs> KeyPressed;
 
-        #region IDisposable Members
-
         public void Dispose()
         {
             // unregister all the registered hot keys.
@@ -228,8 +226,6 @@ namespace GameMaster
             // dispose the inner native window.
             _window.Dispose();
         }
-
-        #endregion IDisposable Members
     }
 
     /// <summary>

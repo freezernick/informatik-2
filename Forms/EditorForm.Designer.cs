@@ -37,6 +37,7 @@
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.button4 = new System.Windows.Forms.Button();
             this.treeView1 = new System.Windows.Forms.TreeView();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -123,12 +124,21 @@
             this.treeView1.TabIndex = 21;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(287, 56);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(507, 405);
+            this.panel1.TabIndex = 22;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
             // EditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(806, 473);
             this.ControlBox = false;
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.toolStrip1);
@@ -154,5 +164,6 @@
         private System.Windows.Forms.ToolStripButton toolStripButton3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.Panel panel1;
     }
 }

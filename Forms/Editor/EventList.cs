@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using GameMaster.Ruleset.Abstracts;
+using GameMaster.Ruleset.Events;
 
 namespace GameMaster.Forms.Editor
 {
@@ -31,8 +32,12 @@ namespace GameMaster.Forms.Editor
             foreach (Type type in derived_types)
             {
                 Event currentEvent = (Event)Activator.CreateInstance(type);
+                if(currentEvent is CustomEvent)
+                {
+                    continue;
+                }
                 AllEvents.Add(currentEvent);
-                listBox1.Items.Add(currentEvent.Name);
+                listBox1.Items.Add(type.Name);
             }
         }
 
@@ -44,17 +49,48 @@ namespace GameMaster.Forms.Editor
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            CustomEvent customEvent = new CustomEvent();
-            customEvent.FormClosed += customEventClosed;
-            customEvent.Show();
-            Hide();
-        }
-
         private void customEventClosed(object sender, EventArgs e)
         {
             Show();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            CustomEvent customEvent = new CustomEvent();
+            customEvent.Alias = textBox1.Text;
+            AllEvents.Add(customEvent);
+            listBox1.Items.Add(customEvent.Alias);
+            game.CustomEvents.Add(customEvent);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if(AllEvents[listBox1.SelectedIndex] is CustomEvent)
+            {
+                CustomEvent customEvent = (CustomEvent)AllEvents[listBox1.SelectedIndex];
+                game.CustomEvents.Remove(customEvent);
+                listBox1.Items.Remove(customEvent.Alias);
+                game.LeftSideObjects.Remove(customEvent);
+                foreach (LeftSide leftSide in game.LeftSideObjects)
+                {
+                    if(leftSide is World)
+                    {
+                        World world = (World)leftSide;
+                        foreach(Event @event in world.WorldEvents)
+                        {
+                            if(@event == customEvent)
+                            {
+                                world.WorldEvents.Remove(customEvent);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

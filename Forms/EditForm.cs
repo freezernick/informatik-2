@@ -6,7 +6,7 @@ using GameMaster.Ruleset.Types;
 
 namespace GameMaster
 {
-    public partial class EditForm : Form
+    public partial class EditForm : GameMasterForm
     {
         private Configuration currentGame;
 
@@ -17,7 +17,7 @@ namespace GameMaster
             {
                 comboBox1.Items.Add(template);
             }
-            currentGame = FormHandler.MainForm().SelectedRuleset;
+            currentGame = FormHandler.Get<MainForm>().SelectedRuleset;
             //Text = "Edit " + currentGame.Name;
             tbName.Text = currentGame.Name;
             tbStartAction.Text = currentGame.Executable;
@@ -28,7 +28,7 @@ namespace GameMaster
         private void btBack_Click(object sender, EventArgs e)
         {
             Close();
-            FormHandler.EditorForm().Show();
+            FormHandler.Get<EditorForm>().Show();
         }
 
         private void btSave_Click(object sender, EventArgs e)
@@ -38,11 +38,21 @@ namespace GameMaster
             currentGame.Executable = tbStartAction.Text;
             currentGame.SetTemplate((Template)comboBox1.SelectedItem);
             Configuration.Save(currentGame);
-            if(!FormHandler.MainForm().Games.Contains(currentGame))
+            if(!FormHandler.Get<MainForm>().Games.Contains(currentGame))
             {
-                FormHandler.MainForm().Games.Add(currentGame);
-                FormHandler.MainForm().UpdateList();
+                FormHandler.Get<MainForm>().Games.Add(currentGame);
+                FormHandler.Get<MainForm>().UpdateList();
             }
+        }
+
+        private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.ShowDialog();
         }
     }
 }

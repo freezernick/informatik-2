@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace GameMaster
 {
-    public partial class MainForm : Form, ProcessInterface
+    public partial class MainForm : GameMasterForm, ProcessInterface
     {
         public Configuration SelectedRuleset;
         public List<Configuration> Games;
@@ -27,8 +27,8 @@ namespace GameMaster
 
         private void btEditRules_Click(object sender, EventArgs e)
         {
-            FormHandler.EditorForm().Text = "Edit " + SelectedRuleset.Name;
-            FormHandler.EditorForm().Show();
+            FormHandler.Get<EditorForm>().Text = "Edit " + SelectedRuleset.Name;
+            FormHandler.Get<EditorForm>().Show();
             Hide();
         }
 
@@ -59,21 +59,21 @@ namespace GameMaster
         private void btNew_Click(object sender, EventArgs e)
         {
             SelectedRuleset = new Configuration();
-            FormHandler.EditForm().Text = "New Config";
-            FormHandler.EditForm().Show();
+            FormHandler.Get<EditForm>().Text = "New Config";
+            FormHandler.Get<EditForm>().Show();
             Hide();
         }
 
         private void btEditProp_Click(object sender, EventArgs e)
         {
-            FormHandler.EditorForm().Text = "Edit " + SelectedRuleset.Name;
-            FormHandler.EditorForm().Show();
+            FormHandler.Get<EditorForm>().Text = "Edit " + SelectedRuleset.Name;
+            FormHandler.Get<EditorForm>().Show();
             Hide();
         }
 
         private void btAdd_Click(object sender, EventArgs e)
         {
-            FormHandler.DownloadForm().Show();
+            FormHandler.Get<DownloadForm>().Show();
             Hide();
         }
 
@@ -123,7 +123,7 @@ namespace GameMaster
         private void Tray_MouseDoubleClick(object sender, EventArgs e)
         {
             vm.Interrupt();
-            FormHandler.MainForm().Show();
+            FormHandler.Get<MainForm>().Show();
             Tray.Visible = false;
             WindowState = FormWindowState.Normal;
         }
@@ -156,7 +156,7 @@ namespace GameMaster
         public void ProcessEnded()
         {
             Running = false;
-            FormHandler.MainForm().Show();
+            FormHandler.Get<MainForm>().Show();
             WindowState = FormWindowState.Normal;
             Tray.Visible = false;
             vm = null;

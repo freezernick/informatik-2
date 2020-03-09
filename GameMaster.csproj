@@ -97,12 +97,6 @@
     <Compile Include="Forms\Editor\Actions.Designer.cs">
       <DependentUpon>Actions.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Editor\CustomEvent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Editor\CustomEvent.Designer.cs">
-      <DependentUpon>CustomEvent.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Editor\EventList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -156,9 +150,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Editor\Actions.resx">
       <DependentUpon>Actions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Editor\CustomEvent.resx">
-      <DependentUpon>CustomEvent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Editor\EventList.resx">
       <DependentUpon>EventList.cs</DependentUpon>

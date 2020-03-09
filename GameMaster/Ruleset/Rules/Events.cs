@@ -45,9 +45,11 @@ namespace GameMaster.Ruleset.Events
     /// </summary>
     public class CustomEvent : Event
     {
+        public string Alias;
+
         public CustomEvent()
         {
-            Name = "My Custom Event";
+            Name = "Custom Event";
             Description = "A user defined event";
         }
     }
