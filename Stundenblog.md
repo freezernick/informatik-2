@@ -172,3 +172,15 @@ Die gespeicherten Konfigurationen sehen leider nicht mehr so übersichtlich aus,
 </configuration>
 ```
 *Rulesets als XML*
+
+#### 11. März
+
+In der heutigen Stunde haben wir weiter an einem Tool gearbeitet, mit dem der Nutzer die Referenzbilder für bestimmte Objekte innnerhalb der Anwendung auswählen und in der Größe anpassen kann.
+
+TODO: Bild
+
+
+#### 12. März
+
+(ausfall)
+
