@@ -1,6 +1,7 @@
 ﻿using System.Windows.Forms;
 using GameMaster.Ruleset.Abstracts;
 using GameMaster.Ruleset.Types;
+using System.Drawing;
 
 namespace GameMaster.Interfaces
 {
@@ -39,5 +40,10 @@ namespace GameMaster.Interfaces
         void KeyEvent(Keys key);
 
         void AxisEvent(AxisEvent axisEvent);
+    }
+
+    public interface ImageParmeter
+    {
+        void UpdateReference(Bitmap image);
     }
 }

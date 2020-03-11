@@ -138,6 +138,16 @@ namespace GameMaster.Ruleset.Abstracts
                 Name = "Rectangle Recognition";
             }
         }
+
+        public class ImageRecognition : ScreenParameter, ImageParmeter
+        {
+            public Bitmap parameter;
+
+            public void UpdateReference(Bitmap image)
+            {
+                parameter = image;
+            }
+        }
     }
 
     public abstract class AbstractGameWorld : World
