@@ -46,8 +46,6 @@ namespace GameMaster.Forms.Editor
         {
             openFileDialog1.InitialDirectory = AppContext.BaseDirectory;
             cropWindow = pictureBox1.CreateGraphics();
-
-
         }
         private void button1_Click(object sender, EventArgs e) => item.UpdateReference(@new);
 
@@ -69,7 +67,7 @@ namespace GameMaster.Forms.Editor
             if (width != 0 && height != 0)
             {
                 Selection = new Rectangle(x, y, width, height);
-                Bitmap test = new Bitmap(loadedImage);
+                Bitmap test = Utility.ResizeImage(new Bitmap(loadedImage), pictureBox1.Width, pictureBox1.Height);
                 @new = test.Clone(Selection, loadedImage.PixelFormat);
                 pictureBox3.Image = @new;
                 pictureBox1.Image = @new;
@@ -96,7 +94,6 @@ namespace GameMaster.Forms.Editor
                 cropWindow.DrawImage(Utility.ResizeImage(loadedImage, pictureBox1.Width, pictureBox1.Height), new Point(0,0 ));
                 width = e.X - x;
                 height = e.Y - y;
-                label3.Text = $"{x}, {y} : {width}, {height}";
                 cropWindow.DrawRectangle(cropPen, x, y, width, height);
             }
         }
