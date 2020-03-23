@@ -23,7 +23,7 @@ Darüberhinaus haben wir heute das Repository und das Projekt für Visual Studio
 
 #### 10. Dezember
 
-Heute haben wir mit dem User Interface begonnen. Die Anwendung hat einen Startbildschirm bekommen, in dem der Nutzer eine Liste von installierten Rulesets präsentiert bekommt und sich entscheiden kann, ob er ein neues Ruleset erstellen, ein vorhandenes starten oder bearbeiten möchte.
+Heute haben wir mit dem User Interface begonnen. Die Anwendung hat einen Startbildschirm bekommen, in dem der Nutzer eine Liste von installierten Rulesets präsentiert bekommt und sich entscheiden kann, ob er ein neues Ruleset erstellen, ein Vorhandenes starten oder bearbeiten möchte.
 
 ![Hauptbildschirm](images/blog/10_12_1.jpg)   
 
@@ -37,11 +37,11 @@ Auch heute haben wir noch am Interface der Anwendung gearbeitet und zum Beispiel
 #### 12. Dezember
 
 Nachdem wir nun bereits einige Fenster erstellt haben, ging es heute darum einfache Funktionalitäten zu den Knöpfen hinzuzufügen, um so zum Beispiel von einem Fenster ins andere zu gelangen.
-Außerdem haben wir ein neues Fenster hinzugefügt, dass das herunterladen von fertigen Rulesets erlaubt.
+Außerdem haben wir ein neues Fenster hinzugefügt, dass das Herunterladen von fertigen Rulesets erlaubt.
 
 #### 19. Dezember
 
-Heute haben wir an einige Fenster erstellt, mit denen man zu einem späteren Zeitpunkt die Eigenschaften von Objekten, die zu einem Ruleset hinzugefügt wurden, verändert werden können soll.
+Heute haben wir an einige Fenster erstellt, mit denen man zu einem späteren Zeitpunkt die Eigenschaften von Objekten, die zu einem Ruleset hinzugefügt wurden, verändern können soll.
 
 #### 14. Januar
 
