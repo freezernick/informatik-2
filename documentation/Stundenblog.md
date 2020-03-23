@@ -45,11 +45,11 @@ Heute haben wir an einige Fenster erstellt, mit denen man zu einem späteren Zei
 
 #### 14. Januar
 
-Heute haben wir die Funktionalität der neuen Fenster eingebaut. Außerdem haben wir mit einer genauen Planung der Klassen-Struktur, die wir früher oder später brauchen werden, begonnen. 
+Wir haben heute die Funktionalität der neuen Fenster eingebaut. Außerdem haben wir mit einer genauen Planung der Klassen-Struktur, die wir früher oder später brauchen werden, begonnen. 
 
 #### 15. Januar
 
-Heute haben wir parallel an der [Klasse, die die geladenen Rulesets repräsentiert](../GameMaster/Ruleset/Configuration.cs), und weiterer Funktionalität des User Interfaces gearbeitet.
+Wir arbeiteten heute parallel an der [Klasse, die die geladenen Rulesets repräsentiert](../GameMaster/Ruleset/Configuration.cs), und weiterer Funktionalität des User Interfaces.
 
 #### 16. Januar
 
@@ -81,17 +81,19 @@ Außerdem haben wir die Download-Funktionalität für Rulesets umgesetzt.
 
 #### 28. & 29. Januar
 
-(Ausfall)
-
-* zip handling & SUCC
+An diesen Tagen haben wir das Speichern & Laden der `.succ`-Dateien eingebaut, sowie das Handling der Dateien bzw. Rulesets, die heruntergeladen wurden. 
 
 #### 4. Februar
+
+Wir haben eine Validierung der `StartAction` eingebaut, damit nur ausführbaere Dateien ausgewählt werden können. Außerdem verhindern wir, dass ein Ruleset gestartet werden kann, während bereits ein Ruleset ausgeführt wird. 
 
 #### 5. Februar
 
 Heute ging es um kleine UX Verbesserungen und darum, dass sich der Hauptbildschirm des GameMasters minimiert, wenn der Nutzer ein Ruleset startet. Und wenn die Prozess des Rulesets beendet wird, sollte der GameMaster sich natürlich wieder selbstständig öffnen.
 
 #### 6. Februar
+
+Heute haben wir etwas Code-Refactoring betrieben.
 
 #### 12. Februar
 
@@ -103,17 +105,15 @@ Heute ging es um kleine UX Verbesserungen und darum, dass sich der Hauptbildschi
 
 #### 20. Februar
 
+Heute haben wir an einem neuen System gearbeitet, bei dem man, wenn man ein neues Ruleset erstellt, ein Template auswählen kann. Anhand dieses Templates werden dann schon Objekte zum Ruleset hinzugefügt (z.B. ein Player-Objekt). So muss man nur noch die passenden Werte (z.B. Referenzbilder, Farben, etc.) eintragen. Außerdem haben wir ein paar Änderungen am Layout des Interfaces vorgenommen.
+
 #### 21. Feburar
 
-(ausfall)
+Wir haben hauptsächlich die Funktionsweise des Editor-Fenster etwas überarbeitet. Darüber hinaus haben wir etwas an der Projektseite und am Overlay gearbeitet. 
 
 #### 26., 27. & 28. Februar
 
-(ausfall)
-
-#### 4. & 5. März
-
-(ausfall)
+In dieser Woche war Informatik ausgefallen. Wir haben dennoch an einem Logging-System gearbeitet, mit dem Nachrichten von der Anwendung selbst als auch vom konfigurierten Ruleset sowohl in eine Log-Datei als auch auf dem Overlay geschrieben werden können.
 
 #### 6. März
 
@@ -195,7 +195,7 @@ In der heutigen Stunde haben wir weiter am Cropping-Tool gearbeitet. Es gibt noc
 
 #### 12. März
 
-Heute haben wir den Bug im Cropping-Tool endlich behben können. Anschließend haben wir die Anzeigen, die wir zum Debuggen verwendet haben entfernt.
+Heute haben wir den Bug im Cropping-Tool endlich behben können. Anschließend haben wir die Elemente des Interfaces, die wir zum Debuggen verwendet haben, entfernt.
 
 #### 13. März
 
