@@ -5,6 +5,7 @@
 ## Vorwort
 
 Hier befindet sich das Stundentagebuch zu unserem Projekt. Zu unserer Projektseite geht es [hier](Projektseite.md).
+Dieses Halbjahr ist aufgrund von einigen Stundenausfällen und der Einstellung des Unterrichtsbetriebes vor den Osterferien etwas anders gewesen. Wenn eine Informatikstunde ausgefallen ist, und wir am selben Tag noch weitergearbeitet haben, ist der Tag normal hier aufgeführt. Zusätzliche Daten sind Tage an denen wir zuhause einen größeren Fortschritt erzielt haben. Ansonsten sind kleinste Änderungen am nächsten Datum aufgeführt. 
 
 ## Stundenblog
 
@@ -22,16 +23,16 @@ Darüberhinaus haben wir heute das Repository und das Projekt für Visual Studio
 
 #### 10. Dezember
 
-Heute haben wir mit dem User Interface begonnen. Die Anwendung hat einen Startbildschirm, in dem der Nutzer ein fertiges Ruleset starten, ein neues erstellen oder ein vorhandenes bearbeiten kann.
+Heute haben wir mit dem User Interface begonnen. Die Anwendung hat einen Startbildschirm bekommen, in dem der Nutzer eine Liste von installierten Rulesets präsentiert bekommt und sich entscheiden kann, ob er ein neues Ruleset erstellen, ein vorhandenes starten oder bearbeiten möchte.
 
-TODO: Bild Hauptbildschirm
+![Hauptbildschirm](images/blog/10_12_1.jpg)   
 
 
 #### 11. Dezember
 
 Auch heute haben wir noch am Interface der Anwendung gearbeitet und zum Beispiel das Fenster zum bearbeiten der Metadaten eines Rulesets erstellt.
 
-TODO: Bild Edit Form
+![Meta-Bildschirm](images/blog/11_12_1.jpg)   
 
 #### 12. Dezember
 
@@ -40,47 +41,45 @@ Außerdem haben wir ein neues Fenster hinzugefügt, dass das herunterladen von f
 
 #### 19. Dezember
 
-Heute haben wir an einige Fenster erstellt, die wir später brauchen werden, wenn wir den Editor für die Rulesets erstellen.
-
-TODO: Bild
+Heute haben wir an einige Fenster erstellt, mit denen man zu einem späteren Zeitpunkt die Eigenschaften von Objekten, die zu einem Ruleset hinzugefügt wurden, verändert werden können soll.
 
 #### 14. Januar
 
-Wir haben heute die Funktionalität der neuen Fenster eingebaut.
+Heute haben wir die Funktionalität der neuen Fenster eingebaut. Außerdem haben wir mit einer genauen Planung der Klassen-Struktur, die wir früher oder später brauchen werden, begonnen. 
 
 #### 15. Januar
 
-Heute haben wir parallel an der Klasse, die die geladenen Rulesets repräsentiert, und weiterer Funktionalität des User Interfaces gearbeitet.
+Heute haben wir parallel an der [Klasse, die die geladenen Rulesets repräsentiert](../GameMaster/Ruleset/Configuration.cs), und weiterer Funktionalität des User Interfaces gearbeitet.
 
 #### 16. Januar
 
-Die heutige Informatikstunde war dem Beheben von einigen kleineren Fehlern gewidmet.
+In der heutigen Informatikstunde haben wir hauptsächlich kleinere Fehler behoben. Anschließend haben wir uns mit der Hilfe von [PInvoke.net](http://www.pinvoke.net/) mit der Verwendung einiger Windows-Systembibliotheken auseinandergesetzt. Diese werden wir später zum Beispiel brauchen, um mit dem Prozess des Spiels interagieren zu können.
 
 #### 22. Januar
 
-Nachdem wir nun die meisten Bugs behoben hatte, haben wir heute sowohl Code-Refactoring betrieben, als auch einige Verbesserungen am Hauptbildschirm durchgeführt.
+Nachdem wir nun die meisten Bugs behoben hatte, haben wir heute sowohl etwas Code-Refactoring betrieben, als auch einige Verbesserungen am Hauptbildschirm durchgeführt.
 
 #### 23. Januar
 
-TODO: SUCC
+Heute haben wir eine Bibliothek namens [SUCC](https://github.com/JimmyCushnie/SUCC) eingebunden, mit der man sehr einfach Objekte serialisieren kann. Das Endresultat ist defacto eine YAML-Datei, auch wenn in diesem Fall die `.succ`-Erweiterung verwendet wird.
 
 ```yml
-Name: Collector
-Author: Nick
-ID: nick-collector
-Version: 1
-FriendlyVersion: 1.0.0
-LastChanged: 2020-01-28 14:50:42
-Categories:
+Name: Collector # Der Name des Rulesets. Kann auch der Name des Spiels sein.
+Author: Nick # Der Ersteller des Rulesets.
+ID: nick-collector # Die ID des Rulesets. Wir verwenden immer author-name um Konflikte zu vermeiden, wenn mehrere Rulesets für ein Spiel installiert sind.
+Version: 1 # Die Version des Rulesets. Ist für eine Update-Funktionalität gedacht.
+FriendlyVersion: 1.0.0 # Die Versionsnummer, die dem Nutzer angezeigt werden soll.
+LastChanged: 2020-01-28 14:50:42 # Ein automatisch gesetzter Zeitstempel, wann das Ruleset zuletzt verändert wurde.
+Categories: # Die Kategorien sind für einen erweiterten Ruleset-Browser gedacht.
     - Test Kategorie
     - Platformer
-StartAction: C:\Users\buyin\source\repos\testgame\bin\Debug\TestGame.exe
+StartAction: C:\Users\buyin\source\repos\testgame\bin\Debug\TestGame.exe # Der Pfad zu der .exe, die vom GameMaster gestartet werden soll.
 ```
 *Beispiel Ruleset*
 
-TODO: Downloads
+Außerdem haben wir die Download-Funktionalität für Rulesets umgesetzt.
 
-#### 29. & 30. Januar
+#### 28. & 29. Januar
 
 (Ausfall)
 
@@ -118,7 +117,7 @@ Heute ging es um kleine UX Verbesserungen und darum, dass sich der Hauptbildschi
 
 #### 6. März
 
-Wir sind heute für das Speichern der Rulesets von der SUCC Library, die wir bisher verwendet haben, auf den .NET XML-Serializer umgestiegen. Diese Lösung ist zwar auch nicht optimal, da wir jetzt für jede Klasse, die der Nutzer verwenden könnte eine extra Zeile schreiben müssen (und das jetzt schon absurd aussieht), allerdings ist das System jetzt robuster und bereitet weniger Probleme.
+Wir sind heute für das Speichern der Rulesets von der SUCC Library, die wir bisher verwendet haben, auf den .NET XML-Serializer umgestiegen. Diese Lösung ist zwar auch nicht optimal, da wir jetzt für jede Klasse, die der Nutzer verwenden **könnte** eine extra Zeile schreiben müssen (und das jetzt schon absurd aussieht), allerdings ist das System jetzt robuster und bereitet langfristig weniger Probleme.
 
 ```c#
 [...]
@@ -173,14 +172,35 @@ Die gespeicherten Konfigurationen sehen leider nicht mehr so übersichtlich aus,
 ```
 *Rulesets als XML*
 
+#### 7. März
+
+Heute haben wir uns um Keyboard-Hooks gekümmert. Da sich der GameMaster minimiert sobald ein Ruleset ausgeführt wird, ist es für uns wichtig mithilfe der User32.dll uns in die Keyboard-Events einzuhaken. So können wir, obwohl das Fenster des geladenen Spiels fokussiert ist, einige Tastenkombinationen erst zum GameMaster umleiten. So haben wir z.B. auf `Strg + F3` ein sofortiges Beenden des Spiels eingebaut.
+
+#### 8. März
+
+Heute haben wir einiges überarbeitet. So verwenden wir im Editor nicht mehr einfache Listen sondern ein Tree-View mit denen sich besser die hierarchischen Strukturen innerhalb eines Rulesets darstellen lassen. Außerdem haben wir die Events so verändert, dass nicht mehr zwischen globalen und lokalen Events unterschieden wird, sondern nur noch ein Eventtyp vorhanden ist. Anschließend haben wir mithilfe der neuen Keyboard-Hooks die Kombination `Strg + F4` zur Erstellen von Screenshots für die Verwendung als Referenzbild eingebaut. Leider sind es bislang nur richtige Screenshots. Eigentlich sollte unter Verwendung der Windows-Bibliotheken ein Abbild des Subprozesses allein erstellt werden, das hat allerdings bislang nicht geklappt.
+
+#### 9. März
+
+Wir haben ein neues Fenster für das Cropping-Tool angelegt. In diesem Fenster soll der Nutzer ein Screenshot laden können, den er während einer GameMaster-Session erstellt hat, und mithilfe der Maus einen Bereich festlegen, der dann als Referenz gespeichert wird. So kann man in einem Screenshot von unserem `Collector`-Testspiel das hellbalue Viereck des Spielers auswählen und der GameMaster speichert dann diesen einzelnen Bereich als neue Bitmap ab, die dann später verwendet wird.
+
+Außerdem haben wir den Logging-Mechanismus überarbeitet und eine Dialogfenster für die Auswahl der `.exe` des Spiels hinzugefügt.
+
 #### 11. März
 
-In der heutigen Stunde haben wir weiter an einem Tool gearbeitet, mit dem der Nutzer die Referenzbilder für bestimmte Objekte innnerhalb der Anwendung auswählen und in der Größe anpassen kann.
+In der heutigen Stunde haben wir weiter am Cropping-Tool gearbeitet. Es gibt noch einen Fehler, bei dem das neue Referenzbild die falsche Größe hat. Diesen konnten wir bislang nicht beheben.
 
-TODO: Bild
+![Cropping-Tool](images/blog/11_3_1.jpg)   
 
 
 #### 12. März
 
-(ausfall)
+Heute haben wir den Bug im Cropping-Tool endlich behben können. Anschließend haben wir die Anzeigen, die wir zum Debuggen verwendet haben entfernt.
 
+#### 13. März
+
+Auch heute haben wir noch einige kleine Änderungen am Cropping-Tool vorgenommen. Obwohl es immer noch nicht ganz fertig ist, widmen wir uns in den nächsten Wochen bis zur Abgabe nur der Bildanalyse und der Interaktion mit dem Prozess des Spiels.
+
+#### 23. März
+
+Heute haben wir den Stundenblog finalisiert.
