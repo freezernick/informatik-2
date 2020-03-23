@@ -93,15 +93,18 @@ Heute ging es um kleine UX Verbesserungen und darum, dass sich der Hauptbildschi
 
 #### 6. Februar
 
-Heute haben wir etwas Code-Refactoring betrieben.
+Heute haben wir etwas Code-Refactoring betrieben. Darüberhinaus haben wir angefangen ein kleines Spiel zu entwickeln, bei dem der Spieler (grau) sich um ein Hindernis (schwarz) zu einem Ziel (blau) bewegen muss. Jedes mal, wenn der Spieler das Ziel erreicht, wird es an eine andere Stelle verschoben.
 
-#### 12. Februar
+![Collector Test Game](images/blog/6_2_1.jpg)
 
-#### 13. Februar
+#### 12., 13. & 14. Februar
 
-#### 14. Februar
+In dieser Woche haben wir uns mit der zweiten Säule des GameMasters beschäftigt, der Bildanalyse. Wir verwenden dafür EmguCV, eine OpenCV-Implementation für .NET-Projekte. Da wir vorher noch nicht mit OpenCV gearbeitet hatte, haben wir uns erst ein wenig durch die OpenCV-Dokumentation gearbeitet und nebenbei mit der EmguCV-Dokumentation abgeglichen.
+Außerdem haben wir ein paar Fehler an unserem Testspiel behoben.
 
 #### 19. Februar
+
+An diesem Tag haben wir uns ein bisschen um die allgemeine Projektstruktur gekümmert und ein paar Dateien umsortiert.
 
 #### 20. Februar
 
