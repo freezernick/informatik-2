@@ -43,6 +43,8 @@ Außerdem haben wir ein neues Fenster hinzugefügt, dass das Herunterladen von f
 
 Heute haben wir an einige Fenster erstellt, mit denen man zu einem späteren Zeitpunkt die Eigenschaften von Objekten, die zu einem Ruleset hinzugefügt wurden, verändern können soll.
 
+### Januar
+
 #### 14. Januar
 
 Wir haben heute die Funktionalität der neuen Fenster eingebaut. Außerdem haben wir mit einer genauen Planung der Klassen-Struktur, die wir früher oder später brauchen werden, begonnen. 
@@ -83,6 +85,8 @@ Außerdem haben wir die Download-Funktionalität für Rulesets umgesetzt.
 
 An diesen Tagen haben wir das Speichern & Laden der `.succ`-Dateien eingebaut, sowie das Handling der Dateien bzw. Rulesets, die heruntergeladen wurden. 
 
+### Februar
+
 #### 4. Februar
 
 Wir haben eine Validierung der `StartAction` eingebaut, damit nur ausführbaere Dateien ausgewählt werden können. Außerdem verhindern wir, dass ein Ruleset gestartet werden kann, während bereits ein Ruleset ausgeführt wird. 
@@ -117,6 +121,8 @@ Wir haben hauptsächlich die Funktionsweise des Editor-Fenster etwas überarbeit
 #### 26., 27. & 28. Februar
 
 In dieser Woche war Informatik ausgefallen. Wir haben dennoch an einem Logging-System gearbeitet, mit dem Nachrichten von der Anwendung selbst als auch vom konfigurierten Ruleset sowohl in eine Log-Datei als auch auf dem Overlay geschrieben werden können.
+
+### März
 
 #### 6. März
 
