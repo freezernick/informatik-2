@@ -89,7 +89,7 @@ An diesen Tagen haben wir das Speichern & Laden der `.succ`-Dateien eingebaut, s
 
 #### 4. Februar
 
-Wir haben eine Validierung der `StartAction` eingebaut, damit nur ausführbaere Dateien ausgewählt werden können. Außerdem verhindern wir, dass ein Ruleset gestartet werden kann, während bereits ein Ruleset ausgeführt wird. 
+Wir haben eine Validierung der `StartAction` eingebaut, damit nur ausführbare Dateien ausgewählt werden können. Außerdem verhindern wir, dass ein Ruleset gestartet werden kann, während bereits ein Ruleset ausgeführt wird. 
 
 #### 5. Februar
 
