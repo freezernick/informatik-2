@@ -6,6 +6,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using Timer = System.Threading.Timer;
@@ -22,6 +23,7 @@ namespace GameMaster
         private Timer timer;
         private Configuration configuration;
         private World currentWorld;
+        private IntPtr processHandle;
 
         public VM(Configuration game)
         {

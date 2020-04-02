@@ -47,7 +47,12 @@ namespace GameMaster.Forms.Editor
             openFileDialog1.InitialDirectory = AppContext.BaseDirectory;
             cropWindow = pictureBox1.CreateGraphics();
         }
-        private void button1_Click(object sender, EventArgs e) => item.UpdateReference(@new);
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //item.UpdateReference(@new);
+            pictureBox2.Image = pictureBox2.Image;
+            pictureBox3.Image = null;
+        }
 
         private void button2_Click(object sender, EventArgs e) => Close();
 
@@ -62,15 +67,17 @@ namespace GameMaster.Forms.Editor
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
+            if (loadedImage == null)
+                return;
+
             width = e.X - x;
             height = e.Y - y;
-            if (width != 0 && height != 0)
+            if (width > 0 && height > 0)
             {
                 Selection = new Rectangle(x, y, width, height);
                 Bitmap test = Utility.ResizeImage(new Bitmap(loadedImage), pictureBox1.Width, pictureBox1.Height);
                 @new = test.Clone(Selection, loadedImage.PixelFormat);
                 pictureBox3.Image = @new;
-                pictureBox1.Image = @new;
             }
             Reset();
         }
@@ -88,7 +95,7 @@ namespace GameMaster.Forms.Editor
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            if(cropping)
+            if(cropping && loadedImage != null)
             {
                 cropWindow = pictureBox1.CreateGraphics();
                 cropWindow.DrawImage(Utility.ResizeImage(loadedImage, pictureBox1.Width, pictureBox1.Height), new Point(0,0 ));
