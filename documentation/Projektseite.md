@@ -1,6 +1,6 @@
 # Idee / Konzept
-Mit dem 'GameMaster' wollen wir ein Tool entwickeln, dass es jedem ohne technisches Vorwissen ermöglicht, eine KI zu entwickeln, die für den Nutzern das Spielen von Computer- und Browsergames übernimmt.
-Es sollte dafür eine grafische Oberfläche gegen, mit der dann anhand von Parametern die Funktionsweise der KI geändert werden kann.
+Mit dem 'GameMaster' wollen wir ein Tool entwickeln, dass es jedem ohne technisches Vorwissen ermöglicht, eine KI oder eher einen Bot zu entwickeln, die für den Nutzern das Spielen von Computer- und Browsergames übernimmt.
+Es sollte dafür eine grafische Oberfläche gegen, mit der dann anhand von Parametern die Funktionsweise geändert werden kann.
 
 # Umsetzung
 
@@ -11,10 +11,10 @@ Für das Overlay verwenden wir [GameOverlay.Net.](https://github.com/michel-pi/G
 
 ## GameMaster TestGame Library
 
-TODO:
-
-Das Repository befindet sich hier: https://github.com/freezernick/gm-test-game-library
+Um unser Projekt unter optimalen Bedingungen testen zu können, haben wir zusaätzlich noch ein kleines Spiel gebaut, in dem man kleine Vierecke einsammeln muss. Das Repository befindet sich hier: https://github.com/freezernick/gm-test-game-library
 
 # Die Anwendung
+
+
 
 # Funktionalität
