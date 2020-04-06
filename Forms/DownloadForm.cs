@@ -78,8 +78,8 @@ namespace GameMaster
                     DownloadUrl.Replace("http://", "https://");
                 }
                 rtbStatus.AppendText("Downloading now...\n");
-                wc.DownloadProgressChanged += wc_DownloadProgressChanged;
-                wc.DownloadFileCompleted += wc_DownloadFileCompleted;
+                wc.DownloadProgressChanged += WC_DownloadProgressChanged;
+                wc.DownloadFileCompleted += WC_DownloadFileCompleted;
                 wc.DownloadFileAsync(
                     new System.Uri(DownloadUrl),
                     Path.Combine(DownloadDirectory, "Download.zip")
@@ -87,9 +87,9 @@ namespace GameMaster
             }
         }
 
-        private void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e) => pbProgress.Value = e.ProgressPercentage;
+        private void WC_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e) => pbProgress.Value = e.ProgressPercentage;
 
-        private void wc_DownloadFileCompleted(object sender, EventArgs e)
+        private void WC_DownloadFileCompleted(object sender, EventArgs e)
         {
             rtbStatus.AppendText("Finished!\n");
             ZipHandling();
@@ -104,7 +104,7 @@ namespace GameMaster
             string[] Files = Directory.GetFiles(TempDirectory);
             foreach (string File in Files)
             {
-                if (File.Contains(".succ"))
+                if (File.Contains(".xml"))
                 {
                     rtbStatus.AppendText("Found 1 ruleset!\n");
                     FileHandling(true, File);
@@ -118,7 +118,7 @@ namespace GameMaster
                 string[] substrings = dir.Split('\\');
                 foreach (string File in Directory.GetFiles(Path.Combine(TempDirectory, substrings.Last())))
                 {
-                    if (File.Contains(".succ"))
+                    if (File.Contains(".xml"))
                     {
                         SetCount++;
                         FileHandling(false, substrings.Last());

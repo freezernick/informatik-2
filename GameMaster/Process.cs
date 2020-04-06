@@ -58,10 +58,9 @@ namespace GameMaster
             {
                 if(leftSide is Event)
                 {
-                    Event @event = (Event)leftSide;
-                    if (@event != null)
+                    if ((Event)leftSide != null)
                     {
-                        @event.Execute();
+                        ((Event)leftSide).Execute();
                     }
                 }
             }

@@ -37,7 +37,7 @@ namespace GameMaster.Ruleset.Abstracts
     /// <summary>
     /// Events are used to group the execution of multiple actions
     /// </summary>
-    public abstract class Event : LeftSide, ObjectRegister
+    public abstract class Event : LeftSide, IObjectRegister
     {
         public static string Description;
         public List<RightSide> EventObjects;
@@ -139,7 +139,7 @@ namespace GameMaster.Ruleset.Abstracts
             }
         }
 
-        public class ImageRecognition : ScreenParameter, ImageParmeter
+        public class ImageRecognition : ScreenParameter, IImageParmeter
         {
             public Bitmap parameter;
 

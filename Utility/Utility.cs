@@ -88,8 +88,7 @@ namespace GameMaster
 
         /// <summary>
         /// Resize the image to the specified width and height.
-        /// 
-        /// 
+        ///
         /// <3 https://stackoverflow.com/questions/1922040/how-to-resize-an-image-c-sharp
         /// </summary>
         /// <param name="image">The image to resize.</param>
@@ -119,6 +118,47 @@ namespace GameMaster
             }
 
             return destImage;
+        }
+
+        [DllImport("user32.dll")]
+        public static extern bool GetWindowRect(SafeHandle hWnd, out RECT lpRect);
+        [DllImport("user32.dll")]
+        public static extern bool PrintWindow(SafeHandle hWnd, IntPtr hdcBlt, int nFlags);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
+
+        private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
+
+        public static Bitmap PrintWindow(SafeHandle hwnd)
+        {
+            if (!GetWindowRect(hwnd, out RECT rc))
+            {
+                MessageBox.Show("not a valid handle!");
+            }
+
+            MessageBox.Show($"{rc.Top}, {rc.Bottom}, {rc.Left}, {rc.Right}");
+
+            Bitmap bmp = new Bitmap(rc.Right - rc.Left, rc.Bottom - rc.Top, PixelFormat.Format32bppArgb);
+            Graphics gfxBmp = Graphics.FromImage(bmp);
+            IntPtr hdcBitmap = gfxBmp.GetHdc();
+
+            PrintWindow(hwnd, hdcBitmap, 0);
+
+            gfxBmp.ReleaseHdc(hdcBitmap);
+            gfxBmp.Dispose();
+
+            return bmp;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct RECT
+        {
+            public int Left;        // x position of upper-left corner
+            public int Top;         // y position of upper-left corner
+            public int Right;       // x position of lower-right corner
+            public int Bottom;      // y position of lower-right corner
         }
     }
 
@@ -179,6 +219,11 @@ namespace GameMaster
 
         [DllImport("user32.dll")]
         public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
+        [DllImport("user32.dll")]
+        public static extern bool GetWindowRect(IntPtr hWnd, out Utility.RECT lpRect);
+        [DllImport("user32.dll")]
+        public static extern bool PrintWindow(IntPtr hWnd, IntPtr hdcBlt, int nFlags);
     }
 
     public sealed class KeyboardHook : IDisposable
@@ -209,8 +254,7 @@ namespace GameMaster
                     ModifierKeys modifier = (ModifierKeys)((int)m.LParam & 0xFFFF);
 
                     // invoke the event to notify the parent.
-                    if (KeyPressed != null)
-                        KeyPressed(this, new KeyPressedEventArgs(modifier, key));
+                    KeyPressed?.Invoke(this, new KeyPressedEventArgs(modifier, key));
                 }
             }
 
@@ -227,8 +271,7 @@ namespace GameMaster
             // register the event of the inner native window.
             _window.KeyPressed += delegate (object sender, KeyPressedEventArgs args)
             {
-                if (KeyPressed != null)
-                    KeyPressed(this, args);
+                KeyPressed?.Invoke(this, args);
             };
         }
 
@@ -240,7 +283,7 @@ namespace GameMaster
         public void RegisterHotKey(ModifierKeys modifier, Keys key)
         {
             // increment the counter.
-            _currentId = _currentId + 1;
+            _currentId += 1;
 
             // register the hot key.
             if (!PlatformInvokeUSER32.RegisterHotKey(_window.Handle, _currentId, (uint)modifier, (uint)key))
@@ -301,6 +344,4 @@ namespace GameMaster
         Shift = 4,
         Win = 8
     }
-
-
 }

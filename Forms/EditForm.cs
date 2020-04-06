@@ -19,7 +19,7 @@ namespace GameMaster
             //Text = "Edit " + currentGame.Name;
             tbName.Text = currentGame.Name;
             tbStartAction.Text = currentGame.Executable;
-            comboBox1.SelectedIndex = comboBox1.FindString(currentGame.GetTemplate().ToString());
+            comboBox1.SelectedIndex = comboBox1.FindString(currentGame.Template.ToString());
             textBox1.Text = currentGame.ID;
         }
 
@@ -34,7 +34,7 @@ namespace GameMaster
             currentGame.ID = textBox1.Text;
             currentGame.Name = tbName.Text;
             currentGame.Executable = tbStartAction.Text;
-            currentGame.SetTemplate((Template)comboBox1.SelectedItem);
+            currentGame.Template = ((Template)comboBox1.SelectedItem);
             Configuration.Save(currentGame);
             if (!FormHandler.Get<MainForm>().Games.Contains(currentGame))
             {

@@ -9,12 +9,12 @@ using System.Windows.Forms;
 
 namespace GameMaster
 {
-    public partial class MainForm : GameMasterForm, ProcessInterface
+    public partial class MainForm : GameMasterForm, IProcessInterface
     {
         public Configuration SelectedRuleset;
         public List<Configuration> Games;
         private bool Running;
-        public VM vm { get; private set; }
+        public VM Vm { get; private set; }
 
         public MainForm()
         {
@@ -117,12 +117,12 @@ namespace GameMaster
         private void btStart_Click(object sender, EventArgs e)
         {
             // Creates a new instance of the VM class holding information for the actual GameMaster
-            vm = new VM(SelectedRuleset);
+            Vm = new VM(SelectedRuleset);
         }
 
         private void Tray_MouseDoubleClick(object sender, EventArgs e)
         {
-            vm.Interrupt();
+            Vm.Interrupt();
             FormHandler.Get<MainForm>().Show();
             Tray.Visible = false;
             WindowState = FormWindowState.Normal;
@@ -159,7 +159,7 @@ namespace GameMaster
             FormHandler.Get<MainForm>().Show();
             WindowState = FormWindowState.Normal;
             Tray.Visible = false;
-            vm = null;
+            Vm = null;
         }
     }
 }

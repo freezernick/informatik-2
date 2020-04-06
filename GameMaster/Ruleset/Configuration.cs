@@ -40,6 +40,7 @@ namespace GameMaster.Ruleset
         public Template Template;
         public List<Event> CustomEvents;
         public List<LeftSide> LeftSideObjects;
+        private string SubPath;
 
         /// <summary>
         /// Saves the specified ruleset as an XML to the specified path
@@ -53,13 +54,6 @@ namespace GameMaster.Ruleset
             serializer.Serialize(writer, ruleset);
             writer.Flush();
             writer.Close();
-        }
-
-        public void SetTemplate(Template template) => Template = template;
-
-        public Template GetTemplate()
-        {
-            return Template;
         }
 
         /// <summary>
@@ -91,9 +85,7 @@ namespace GameMaster.Ruleset
         public bool ValidAction()
         {
             if (File.Exists(Executable) && Executable.EndsWith(".exe"))
-            {
                 return true;
-            }
             return false;
         }
     }
