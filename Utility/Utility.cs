@@ -26,66 +26,6 @@ namespace GameMaster
             return assembly.GetTypes().Where(t => t.IsSubclassOf(baseType));
         }
 
-        public static Bitmap GetDesktopImage()
-        {
-            //In size variable we shall keep the size of the screen.
-            SIZE size;
-
-            //Variable to keep the handle to bitmap.
-            IntPtr hBitmap;
-
-            //Here we get the handle to the desktop device context.
-            IntPtr hDC = PlatformInvokeUSER32.GetDC
-                          (PlatformInvokeUSER32.GetDesktopWindow());
-
-            //Here we make a compatible device context in memory for screen
-            //device context.
-            IntPtr hMemDC = PlatformInvokeGDI32.CreateCompatibleDC(hDC);
-
-            //We pass SM_CXSCREEN constant to GetSystemMetrics to get the
-            //X coordinates of the screen.
-            size.cx = PlatformInvokeUSER32.GetSystemMetrics
-                      (PlatformInvokeUSER32.SM_CXSCREEN);
-
-            //We pass SM_CYSCREEN constant to GetSystemMetrics to get the
-            //Y coordinates of the screen.
-            size.cy = PlatformInvokeUSER32.GetSystemMetrics
-                      (PlatformInvokeUSER32.SM_CYSCREEN);
-
-            //We create a compatible bitmap of the screen size and using
-            //the screen device context.
-            hBitmap = PlatformInvokeGDI32.CreateCompatibleBitmap
-                        (hDC, size.cx, size.cy);
-
-            //As hBitmap is IntPtr, we cannot check it against null.
-            //For this purpose, IntPtr.Zero is used.
-            if (hBitmap != IntPtr.Zero)
-            {
-                //Here we select the compatible bitmap in the memeory device
-                //context and keep the refrence to the old bitmap.
-                IntPtr hOld = (IntPtr)PlatformInvokeGDI32.SelectObject(hMemDC, hBitmap);
-                //We copy the Bitmap to the memory device context.
-                PlatformInvokeGDI32.BitBlt(hMemDC, 0, 0, size.cx, size.cy, hDC, 0, 0, PlatformInvokeGDI32.SRCCOPY);
-                //We select the old bitmap back to the memory device context.
-                PlatformInvokeGDI32.SelectObject(hMemDC, hOld);
-                //We delete the memory device context.
-                PlatformInvokeGDI32.DeleteDC(hMemDC);
-                //We release the screen device context.
-                PlatformInvokeUSER32.ReleaseDC(PlatformInvokeUSER32.GetDesktopWindow(), hDC);
-                //Image is created by Image bitmap handle and stored in
-                //local variable.
-                Bitmap bmp = System.Drawing.Image.FromHbitmap(hBitmap);
-                //Release the memory to avoid memory leaks.
-                PlatformInvokeGDI32.DeleteObject(hBitmap);
-                //This statement runs the garbage collector manually.
-                GC.Collect();
-                //Return the bitmap
-                return bmp;
-            }
-            //If hBitmap is null, retun null.
-            return null;
-        }
-
         /// <summary>
         /// Resize the image to the specified width and height.
         ///
@@ -120,45 +60,35 @@ namespace GameMaster
             return destImage;
         }
 
-        [DllImport("user32.dll")]
-        public static extern bool GetWindowRect(SafeHandle hWnd, out RECT lpRect);
-        [DllImport("user32.dll")]
-        public static extern bool PrintWindow(SafeHandle hWnd, IntPtr hdcBlt, int nFlags);
 
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
-
-        private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
-
-        public static Bitmap PrintWindow(SafeHandle hwnd)
+        public static Image CaptureWindow(IntPtr handle)
         {
-            if (!GetWindowRect(hwnd, out RECT rc))
-            {
-                MessageBox.Show("not a valid handle!");
-            }
-
-            MessageBox.Show($"{rc.Top}, {rc.Bottom}, {rc.Left}, {rc.Right}");
-
-            Bitmap bmp = new Bitmap(rc.Right - rc.Left, rc.Bottom - rc.Top, PixelFormat.Format32bppArgb);
-            Graphics gfxBmp = Graphics.FromImage(bmp);
-            IntPtr hdcBitmap = gfxBmp.GetHdc();
-
-            PrintWindow(hwnd, hdcBitmap, 0);
-
-            gfxBmp.ReleaseHdc(hdcBitmap);
-            gfxBmp.Dispose();
-
-            return bmp;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct RECT
-        {
-            public int Left;        // x position of upper-left corner
-            public int Top;         // y position of upper-left corner
-            public int Right;       // x position of lower-right corner
-            public int Bottom;      // y position of lower-right corner
+            // get te hDC of the target window
+            IntPtr hdcSrc = PlatformInvokeUSER32.GetWindowDC(handle);
+            // get the size
+            PlatformInvokeUSER32.RECT windowRect = new PlatformInvokeUSER32.RECT();
+            PlatformInvokeUSER32.GetWindowRect(handle, ref windowRect);
+            int width = windowRect.right - windowRect.left;
+            int height = windowRect.bottom - windowRect.top;
+            // create a device context we can copy to
+            IntPtr hdcDest = PlatformInvokeGDI32.CreateCompatibleDC(hdcSrc);
+            // create a bitmap we can copy it to,
+            // using GetDeviceCaps to get the width/height
+            IntPtr hBitmap = PlatformInvokeGDI32.CreateCompatibleBitmap(hdcSrc, width, height);
+            // select the bitmap object
+            IntPtr hOld = PlatformInvokeGDI32.SelectObject(hdcDest, hBitmap);
+            // bitblt over
+            PlatformInvokeGDI32.BitBlt(hdcDest, 0, 0, width, height, hdcSrc, 0, 0, PlatformInvokeGDI32.SRCCOPY);
+            // restore selection
+            PlatformInvokeGDI32.SelectObject(hdcDest, hOld);
+            // clean up 
+            PlatformInvokeGDI32.DeleteDC(hdcDest);
+            PlatformInvokeUSER32.ReleaseDC(handle, hdcSrc);
+            // get a .NET image object for it
+            Image img = Image.FromHbitmap(hBitmap);
+            // free up the Bitmap object
+            PlatformInvokeGDI32.DeleteObject(hBitmap);
+            return img;
         }
     }
 
@@ -189,6 +119,8 @@ namespace GameMaster
 
         [DllImport("gdi32.dll", EntryPoint = "SelectObject")]
         public static extern IntPtr SelectObject(IntPtr hdc, IntPtr bmp);
+
+
     }
 
     /// <summary>
@@ -196,8 +128,22 @@ namespace GameMaster
     /// </summary>
     public class PlatformInvokeUSER32
     {
+        [StructLayout(LayoutKind.Sequential)]
+        public struct RECT
+        {
+            public int left;
+            public int top;
+            public int right;
+            public int bottom;
+        }
+
+
         public const int SM_CXSCREEN = 0;
         public const int SM_CYSCREEN = 1;
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetWindowDC(IntPtr hWnd);
+
 
         [DllImport("user32.dll", EntryPoint = "GetDesktopWindow")]
         public static extern IntPtr GetDesktopWindow();
@@ -221,7 +167,8 @@ namespace GameMaster
         public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
         [DllImport("user32.dll")]
-        public static extern bool GetWindowRect(IntPtr hWnd, out Utility.RECT lpRect);
+        public static extern bool GetWindowRect(IntPtr hWnd, ref PlatformInvokeUSER32.RECT lpRect);
+
         [DllImport("user32.dll")]
         public static extern bool PrintWindow(IntPtr hWnd, IntPtr hdcBlt, int nFlags);
     }

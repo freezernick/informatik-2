@@ -44,6 +44,8 @@ namespace GameMaster
             Log("Overlay started");
             StartUpdates();
             currentWorld = configuration.LeftSideObjects.OfType<StartupWorld>().First<StartupWorld>();
+            GameProcess.Refresh();
+            processHandle = GameProcess.MainWindowHandle;
         }
 
         private void StartUpdates()
@@ -100,7 +102,12 @@ namespace GameMaster
             Update();
         }
 
-        private void SaveReferencePicture() => Utility.GetDesktopImage().Save(Path.Combine(AppContext.BaseDirectory, $"{configuration.ID}_reference_{DateTime.Now.ToString("yyyy-MM-dd-THH-mm-ss")}.bmp"));
+        private void SaveReferencePicture()
+        {
+            GameProcess.Refresh();
+            processHandle = GameProcess.MainWindowHandle;
+            Utility.CaptureWindow(processHandle).Save(Path.Combine(AppContext.BaseDirectory, $"{configuration.ID}_reference_{DateTime.Now.ToString("yyyy-MM-dd-THH-mm-ss")}.bmp"));
+        }
 
         private void InputHandling(object sender, KeyPressedEventArgs e)
         {
@@ -149,5 +156,6 @@ namespace GameMaster
             FlushLog();
             LogWriter.Close();
         }
+
     }
 }
