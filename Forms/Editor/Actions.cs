@@ -26,7 +26,7 @@ namespace GameMaster.Forms.Editor
 
         private void button2_Click(object sender, EventArgs e)
         {
-            ObjectRegister selectedObject = FormHandler.Get<EditorForm>().selectedObject as ObjectRegister;
+            IObjectRegister selectedObject = FormHandler.Get<EditorForm>().selectedObject as IObjectRegister;
             if (selectedObject != null)
             {
                 RightSide rightSideObject = (RightSide) Activator.CreateInstance((Type)listBox1.SelectedItem);

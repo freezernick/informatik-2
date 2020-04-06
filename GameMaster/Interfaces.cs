@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace GameMaster.Interfaces
 {
-    public interface VirtualMachine
+    public interface IVirtualMachine
     {
         World CurrentWorld { get; }
     }
@@ -13,7 +13,7 @@ namespace GameMaster.Interfaces
     /// <summary>
     /// Interface between the MainForm and the VM
     /// </summary>
-    public interface ProcessInterface
+    public interface IProcessInterface
     {
         void ProcessStarted();
 
@@ -23,26 +23,26 @@ namespace GameMaster.Interfaces
     /// <summary>
     /// Interface for registering or unregistering objects to a specific left side object
     /// </summary>
-    public interface ObjectRegister
+    public interface IObjectRegister
     {
         void RegisterObject(RightSide eventObject);
 
         void UnregisterObject(RightSide eventObject);
     }
 
-    public interface TickEventInterface
+    public interface ITickEventInterface
     {
         void OnTickEvent();
     }
 
-    public interface Input
+    public interface IInput
     {
         void KeyEvent(Keys key);
 
         void AxisEvent(AxisEvent axisEvent);
     }
 
-    public interface ImageParmeter
+    public interface IImageParmeter
     {
         void UpdateReference(Bitmap image);
     }

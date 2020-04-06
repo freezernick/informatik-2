@@ -18,13 +18,20 @@ namespace GameMaster.Forms.Editor
         private int y;
         private int width;
         private int height;
-        private Pen cropPen = new Pen(Color.Red);
+        private Pen CropPen = new Pen(Color.Red);
         private bool cropping = false;
 
         public ImageEditor(World.ImageRecognition item = null)
         {
             InitializeComponent();
             this.item = item;
+        }
+
+        ~ImageEditor()
+        {
+            CropPen.Dispose();
+            loadedImage.Dispose();
+            @new.Dispose();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -101,7 +108,7 @@ namespace GameMaster.Forms.Editor
                 cropWindow.DrawImage(Utility.ResizeImage(loadedImage, pictureBox1.Width, pictureBox1.Height), new Point(0,0 ));
                 width = e.X - x;
                 height = e.Y - y;
-                cropWindow.DrawRectangle(cropPen, x, y, width, height);
+                cropWindow.DrawRectangle(CropPen, x, y, width, height);
             }
         }
     }
