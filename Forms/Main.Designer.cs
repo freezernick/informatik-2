@@ -38,7 +38,6 @@
             this.btEditProp = new System.Windows.Forms.Button();
             this.SourceCodeLink = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
-            this.WebsiteLink = new System.Windows.Forms.LinkLabel();
             this.btDelete = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -125,16 +124,6 @@
             this.label1.TabIndex = 15;
             this.label1.Text = "Made with ♥️ and OpenCV";
             // 
-            // WebsiteLink
-            // 
-            this.WebsiteLink.AutoSize = true;
-            this.WebsiteLink.Location = new System.Drawing.Point(457, 236);
-            this.WebsiteLink.Name = "WebsiteLink";
-            this.WebsiteLink.Size = new System.Drawing.Size(46, 13);
-            this.WebsiteLink.TabIndex = 16;
-            this.WebsiteLink.TabStop = true;
-            this.WebsiteLink.Text = "Website";
-            // 
             // btDelete
             // 
             this.btDelete.Enabled = false;
@@ -162,7 +151,6 @@
             this.ClientSize = new System.Drawing.Size(600, 258);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btDelete);
-            this.Controls.Add(this.WebsiteLink);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SourceCodeLink);
             this.Controls.Add(this.btStart);
@@ -194,7 +182,6 @@
         private System.Windows.Forms.Button btEditProp;
         private System.Windows.Forms.LinkLabel SourceCodeLink;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.LinkLabel WebsiteLink;
         private System.Windows.Forms.Button btDelete;
         private System.Windows.Forms.Label label2;
     }

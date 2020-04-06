@@ -61,7 +61,7 @@ namespace GameMaster.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die https://gitlab.com/f2p-entertainment/other/informatik-projekte/gamemaster/game-master ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die https://github.com/freezernick/informatik-2 ähnelt.
         /// </summary>
         internal static string Repository {
             get {
