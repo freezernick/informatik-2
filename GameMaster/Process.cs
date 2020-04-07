@@ -23,7 +23,6 @@ namespace GameMaster
         private Timer timer;
         private Configuration configuration;
         private World currentWorld;
-        private IntPtr processHandle;
 
         public VM(Configuration game)
         {
@@ -34,7 +33,7 @@ namespace GameMaster
             hook.RegisterHotKey(ModifierKeys.Control, Keys.F5);
             GameProcess = Process.Start(game.Executable);
             GameProcess.EnableRaisingEvents = true;
-            GameProcess.Exited += p_Exited;
+            GameProcess.Exited += P_Exited;
             StartLogging();
             Log("Process started");
             FormHandler.Get<MainForm>().ProcessStarted();
@@ -44,8 +43,6 @@ namespace GameMaster
             Log("Overlay started");
             StartUpdates();
             currentWorld = configuration.LeftSideObjects.OfType<StartupWorld>().First<StartupWorld>();
-            GameProcess.Refresh();
-            processHandle = GameProcess.MainWindowHandle;
         }
 
         private void StartUpdates()
@@ -76,7 +73,7 @@ namespace GameMaster
             GameProcess.Kill();
         }
 
-        private void p_Exited(object sender, EventArgs e)
+        private void P_Exited(object sender, EventArgs e)
         {
             timer.Dispose();
             StopLogging();
@@ -102,12 +99,13 @@ namespace GameMaster
             Update();
         }
 
-        private void SaveReferencePicture()
+        private IntPtr ProcessHandle()
         {
             GameProcess.Refresh();
-            processHandle = GameProcess.MainWindowHandle;
-            Utility.CaptureWindow(processHandle).Save(Path.Combine(AppContext.BaseDirectory, $"{configuration.ID}_reference_{DateTime.Now.ToString("yyyy-MM-dd-THH-mm-ss")}.bmp"));
+            return GameProcess.MainWindowHandle;
         }
+
+        private void SaveReferencePicture() => Utility.CaptureWindow(ProcessHandle()).Save(Path.Combine(AppContext.BaseDirectory, $"{configuration.ID}_reference_{DateTime.Now.ToString("yyyy-MM-dd-THH-mm-ss")}.bmp"));
 
         private void InputHandling(object sender, KeyPressedEventArgs e)
         {
