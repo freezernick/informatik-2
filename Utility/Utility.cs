@@ -61,6 +61,13 @@ namespace GameMaster
         }
 
 
+        /// <summary>
+        /// Creates a screenshot of the specified window
+        /// 
+        /// <3 https://ourcodeworld.com/articles/read/195/capturing-screenshots-of-different-ways-with-c-and-winforms
+        /// </summary>
+        /// <param name="handle">The main window's handle</param>
+        /// <returns>The screenshot</returns>
         public static Image CaptureWindow(IntPtr handle)
         {
             // get te hDC of the target window
