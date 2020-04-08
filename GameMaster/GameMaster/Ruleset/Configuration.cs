@@ -41,7 +41,9 @@ namespace GameMaster.Ruleset
         public Template Template;
         public List<Event> CustomEvents;
         public List<LeftSide> LeftSideObjects;
-        public string Folder { private get; set; }
+
+        [XmlIgnore]
+        public string Folder;
 
         /// <summary>
         /// Saves the specified ruleset as an XML to the specified path
@@ -55,21 +57,6 @@ namespace GameMaster.Ruleset
             serializer.Serialize(writer, ruleset);
             writer.Flush();
             writer.Close();
-        }
-
-        /// <summary>
-        /// Creates an Ruleset object from an XML at the specified path
-        /// </summary>
-        /// <param name="path">The path to the XML</param>
-        /// <returns>The newly created Ruleset object</returns>
-        public static Configuration Load(string path)
-        {
-            XmlSerializer deserializer = new XmlSerializer(typeof(Configuration));
-            TextReader reader = new StreamReader(path);
-            object obj = deserializer.Deserialize(reader);
-            Configuration ruleset = (Configuration)obj;
-            reader.Close();
-            return ruleset;
         }
 
         /// <summary>
@@ -100,27 +87,26 @@ namespace GameMaster.Ruleset
 
             foreach(string directory in Directory.GetDirectories(Utility.RulesetDirectory))
             {
-                foreach (string file in Directory.GetFiles(directory))
+                string file = directory + "\\config.xml";
+                if (!File.Exists(file))
+                    continue;
+
+                XmlSerializer deserializer = new XmlSerializer(typeof(Configuration));
+                TextReader reader = new StreamReader(file);
+                try
                 {
-                    if (!file.EndsWith(".xml"))
-                        continue;
-
-
+                    object obj = deserializer.Deserialize(reader);
+                    Configuration ruleset = (Configuration)obj;
+                    reader.Close();
+                    string[] pathElements = directory.Split('\\');
+                    ruleset.Folder = pathElements[pathElements.Length];
+                    FormHandler.Get<MainForm>().Games.Add(ruleset);
                 }
-            }
-
-
-            foreach (string dir in Directory.GetFiles(Utility.RulesetDirectory)
-            {
-                Games.Add(Configuration.Load(dir));
-            }
-
-            UpdateList();
-
-            // Select the first game in the list by default if it exists
-            if (listBox1.Items.Count > 0)
-            {
-                listBox1.SetSelected(0, true);
+                catch
+                {
+                    reader.Close();
+                    continue;
+                }
             }
         }
     }

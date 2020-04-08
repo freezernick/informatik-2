@@ -86,7 +86,13 @@ namespace GameMaster
             }
         }
 
-        private void lErscheinungsdatum_Load(object sender, EventArgs e) => Configuration.DiscoverRulesets();
+        private void lErscheinungsdatum_Load(object sender, EventArgs e)
+        {
+            Configuration.DiscoverRulesets();
+            UpdateList();
+            if (listBox1.Items.Count > 0)
+                listBox1.SelectedIndex = 0;
+        }
 
         private void btStart_Click(object sender, EventArgs e) => Vm = new VM(SelectedRuleset);
 
