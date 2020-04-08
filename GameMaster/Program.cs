@@ -13,7 +13,7 @@ namespace GameMaster
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(FormHandler.Get<MainForm>());
+            Application.Run(MainFormHelper.Get());
         }
     }
 }

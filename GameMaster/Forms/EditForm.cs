@@ -15,7 +15,7 @@ namespace GameMaster
             {
                 comboBox1.Items.Add(template);
             }
-            currentGame = FormHandler.Get<MainForm>().SelectedRuleset;
+            currentGame = MainFormHelper.Get().SelectedRuleset;
             //Text = "Edit " + currentGame.Name;
             tbName.Text = currentGame.Name;
             tbStartAction.Text = currentGame.Executable;
@@ -36,10 +36,10 @@ namespace GameMaster
             currentGame.Executable = tbStartAction.Text;
             currentGame.Template = ((Template)comboBox1.SelectedItem);
             Configuration.Save(currentGame);
-            if (!FormHandler.Get<MainForm>().Games.Contains(currentGame))
+            if (!MainFormHelper.Get().Games.Contains(currentGame))
             {
-                FormHandler.Get<MainForm>().Games.Add(currentGame);
-                FormHandler.Get<MainForm>().UpdateList();
+                MainFormHelper.Get().Games.Add(currentGame);
+                MainFormHelper.Get().UpdateList();
             }
         }
 

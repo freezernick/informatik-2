@@ -15,14 +15,14 @@ namespace GameMaster
         public EditorForm()
         {
             InitializeComponent();
-            game = FormHandler.Get<MainForm>().SelectedRuleset;
+            game = MainFormHelper.Get().SelectedRuleset;
         }
 
         private void ObjectListForm_Load(object sender, EventArgs e) => UpdateList();
 
         private void btExit_Click(object sender, EventArgs e)
         {
-            FormHandler.Get<MainForm>().Show();
+            MainFormHelper.Show();
             Hide();
         }
 
@@ -54,7 +54,7 @@ namespace GameMaster
         // Should be tsClose_Click
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
-            FormHandler.Get<MainForm>().Show();
+            MainFormHelper.Show();
             Close();
         }
 

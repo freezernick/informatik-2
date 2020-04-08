@@ -101,7 +101,7 @@ namespace GameMaster
         private void Tray_MouseDoubleClick(object sender, EventArgs e)
         {
             Vm.Interrupt();
-            FormHandler.Get<MainForm>().Show();
+            MainFormHelper.Show();
             Tray.Visible = false;
             WindowState = FormWindowState.Normal;
         }
@@ -135,10 +135,27 @@ namespace GameMaster
         public void ProcessEnded()
         {
             Running = false;
-            FormHandler.Get<MainForm>().Show();
+            MainFormHelper.Show();
             WindowState = FormWindowState.Normal;
             Tray.Visible = false;
             Vm = null;
+        }
+    }
+
+    public static class MainFormHelper
+    {
+        private static MainForm _main;
+
+        public static void Show()
+        {
+            if (_main == null) { _main = new MainForm(); }
+            _main.Show();
+        }
+
+        public static MainForm Get()
+        {
+            if (_main == null) { _main = new MainForm(); }
+            return _main;
         }
     }
 }

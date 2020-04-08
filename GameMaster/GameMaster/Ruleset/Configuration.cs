@@ -64,7 +64,7 @@ namespace GameMaster.Ruleset
         /// </summary>
         public void Delete()
         {
-            MainForm Main = FormHandler.Get<MainForm>();
+            MainForm Main = MainFormHelper.Get();
             Main.Games.Remove(this);
             Main.UpdateList();
             Directory.Delete(Path.Combine(Utility.RulesetDirectory, Folder), true);
@@ -107,7 +107,7 @@ namespace GameMaster.Ruleset
                     reader.Close();
                     string[] pathElements = directory.Split('\\');
                     ruleset.Folder = pathElements[pathElements.Length - 1];
-                    FormHandler.Get<MainForm>().Games.Add(ruleset);
+                    MainFormHelper.Get().Games.Add(ruleset);
                 }
                 catch
                 {

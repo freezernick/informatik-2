@@ -95,7 +95,7 @@ namespace GameMaster.Ruleset.Actions
 
         public override void EventExecute(Event eventReference)
         {
-            FormHandler.Get<MainForm>().Vm.Log(message);
+            MainFormHelper.Get().Vm.Log(message);
         }
     }
 

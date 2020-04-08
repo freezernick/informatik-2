@@ -39,7 +39,7 @@ namespace GameMaster
             GameProcess.Exited += P_Exited;
             StartLogging();
             Log("Process started");
-            FormHandler.Get<MainForm>().ProcessStarted();
+            MainFormHelper.Get().ProcessStarted();
             Overlay = new GameMasterOverlay();
             Overlay.Initialize();
             Overlay.Run();
@@ -96,7 +96,7 @@ namespace GameMaster
             StopLogging();
             Overlay.Clear();
             Overlay = null;
-            FormHandler.Get<MainForm>().ProcessEnded();
+            MainFormHelper.Get().ProcessEnded();
         }
 
         /// <summary>

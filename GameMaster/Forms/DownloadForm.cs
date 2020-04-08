@@ -14,7 +14,7 @@ namespace GameMaster
 
         private void btExit_Click(object sender, EventArgs e)
         {
-            FormHandler.Get<MainForm>().Show();
+            MainFormHelper.Show();
             Close();
         }
 
