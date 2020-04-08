@@ -6,7 +6,7 @@ Es sollte dafür eine grafische Oberfläche gegen, mit der dann anhand von Param
 
 ## Entwicklungsumgebung
 
-TODO: Bild VS
+![](images/page/vs_still.png)
 
 Der 'GameMaster' wird in C# entwickelt. Für die Oberfläche verwenden wir [WindowsForms.](https://github.com/dotnet/winforms). Als IDE verwenden wir [Visual Studio 2019](https://visualstudio.microsoft.com/), da in der Software ein Editor implementiert ist, mit dem man die Benutzeroberfläche mithilfe einiger vorgefertigter Elemente zusammenbauen kann.
 
