@@ -109,7 +109,9 @@
     <Compile Include="Forms\Editor\ImageEditor.Designer.cs">
       <DependentUpon>ImageEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormHandler.cs" />
+    <Compile Include="Forms\FormHandler.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\DownloadForm.cs">
       <SubType>Form</SubType>
     </Compile>
