@@ -3,8 +3,6 @@ using GameMaster.Ruleset;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace GameMaster
@@ -46,7 +44,7 @@ namespace GameMaster
             btEditProp.Enabled = true;
             btDelete.Enabled = true;
 
-            if(listBox1.SelectedItem != null)
+            if (listBox1.SelectedItem != null)
             {
                 SelectedRuleset = Games[listBox1.SelectedIndex];
                 if (SelectedRuleset.ValidAction() && !Running)

@@ -1,17 +1,16 @@
 ﻿using GameMaster.Overlay;
 using GameMaster.Ruleset;
 using GameMaster.Ruleset.Abstracts;
+using GameMaster.Ruleset.Events;
 using GameMaster.Ruleset.Worlds;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using Timer = System.Threading.Timer;
-using System.Collections.Generic;
-using GameMaster.Ruleset.Events;
 
 namespace GameMaster
 {
@@ -51,7 +50,7 @@ namespace GameMaster
 
         private void SetupKeyPressEvents()
         {
-            foreach(LeftSide @object in configuration.LeftSideObjects)
+            foreach (LeftSide @object in configuration.LeftSideObjects)
             {
                 KeyPressEvent @event = @object as KeyPressEvent;
                 if (@event == null)
@@ -66,14 +65,14 @@ namespace GameMaster
         private void StartUpdates()
         {
             Log("Starting Updates");
-            timer = new Timer(this.CheckStatus, autoEvent, 250, 250);
+            timer = new Timer(this.CheckStatus, autoEvent, 60, 250);
         }
 
         private void Update()
         {
-            foreach(LeftSide leftSide in configuration.LeftSideObjects)
+            foreach (LeftSide leftSide in configuration.LeftSideObjects)
             {
-                if(leftSide is Event)
+                if (leftSide is Event)
                 {
                     if ((Event)leftSide != null)
                     {
@@ -144,7 +143,7 @@ namespace GameMaster
                 return;
             }
 
-            foreach(KeyPressEvent @event in KeyEvents)
+            foreach (KeyPressEvent @event in KeyEvents)
             {
                 if (@event.key != e.Key || e.Modifier != ModifierKeys.None)
                     continue;
@@ -183,6 +182,5 @@ namespace GameMaster
             FlushLog();
             LogWriter.Close();
         }
-
     }
 }

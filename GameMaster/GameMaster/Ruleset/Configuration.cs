@@ -92,7 +92,7 @@ namespace GameMaster.Ruleset
                 return;
             }
 
-            foreach(string directory in Directory.GetDirectories(Utility.RulesetDirectory))
+            foreach (string directory in Directory.GetDirectories(Utility.RulesetDirectory))
             {
                 string file = directory + "\\config.xml";
                 if (!File.Exists(file))

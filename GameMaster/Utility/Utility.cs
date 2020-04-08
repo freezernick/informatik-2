@@ -5,7 +5,6 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 
 namespace GameMaster
 {
@@ -28,7 +27,6 @@ namespace GameMaster
         Shift = 4,
         Win = 8
     }
-
 
     [StructLayout(LayoutKind.Sequential)]
     public struct RECT
@@ -88,10 +86,9 @@ namespace GameMaster
             return destImage;
         }
 
-
         /// <summary>
         /// Creates a screenshot of the specified window
-        /// 
+        ///
         /// <3 https://ourcodeworld.com/articles/read/195/capturing-screenshots-of-different-ways-with-c-and-winforms
         /// </summary>
         /// <param name="handle">The main window's handle</param>
@@ -116,7 +113,7 @@ namespace GameMaster
             API.BitBlt(hdcDest, 0, 0, width, height, hdcSrc, 0, 0, API.SRCCOPY);
             // restore selection
             API.SelectObject(hdcDest, hOld);
-            // clean up 
+            // clean up
             API.DeleteDC(hdcDest);
             API.ReleaseDC(handle, hdcSrc);
             // get a .NET image object for it

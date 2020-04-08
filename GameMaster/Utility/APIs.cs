@@ -33,7 +33,7 @@ namespace GameMaster
         [DllImport("gdi32.dll", EntryPoint = "SelectObject")]
         public static extern IntPtr SelectObject(IntPtr hdc, IntPtr bmp);
 
-        #endregion
+        #endregion GDI32
 
         #region User32
 
@@ -61,6 +61,6 @@ namespace GameMaster
         [MarshalAs(UnmanagedType.LPArray), In] INPUT[] pInputs,
         int cbSize);
 
-        #endregion
+        #endregion User32
     }
 }

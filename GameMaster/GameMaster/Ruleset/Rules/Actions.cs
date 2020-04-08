@@ -1,8 +1,9 @@
 ﻿using GameMaster.Logging;
-using System.Numerics;
-using GameMaster.Ruleset.Types;
 using GameMaster.Ruleset.Abstracts;
+using GameMaster.Ruleset.Types;
 using GameMaster.Ruleset.Worlds;
+using System.Numerics;
+using System.Windows.Forms;
 
 namespace GameMaster.Ruleset.Actions
 {
@@ -58,7 +59,6 @@ namespace GameMaster.Ruleset.Actions
 
         public Move()
         {
-
         }
 
         public Move(GameWorld.WorldObject worldObject, Axis MovementAxis, int offset)
@@ -112,6 +112,16 @@ namespace GameMaster.Ruleset.Actions
         public override void EventExecute(Event eventReference)
         {
             LogHelper.OverlayLog(message, useLogfile);
+        }
+    }
+
+    public class Keypress : Action
+    {
+        public Keys key;
+
+        public override void EventExecute(Event eventReference)
+        {
+            SendKeys.Send(key.ToString());
         }
     }
 }
