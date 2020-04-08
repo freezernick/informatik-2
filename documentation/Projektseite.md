@@ -56,22 +56,21 @@ Da die Instanz des Hauptbildschirmes, der MainForm, über die komplette Laufzeit
 
 ```c#
 public static class MainFormHelper
+{
+    private static MainForm _main;
+
+    public static void Show()
     {
-        private static MainForm _main;
-
-        public static void Show()
-        {
-            if (_main == null) { _main = new MainForm(); }
-            _main.Show();
-        }
-
-        public static MainForm Get()
-        {
-            if (_main == null) { _main = new MainForm(); }
-            return _main;
-        }
+        if (_main == null) { _main = new MainForm(); }
+        _main.Show();
     }
 
+    public static MainForm Get()
+    {
+        if (_main == null) { _main = new MainForm(); }
+        return _main;
+    }
+}
 ```
 *Aus [Main.cs](../GameMaster/Forms/Main.cs#145)*
 
@@ -82,23 +81,313 @@ Diese Klasse wird auch direkt beim Programmstart verwendet:
 
 ```c#
 internal static class Program
+{
+    /// <summary>
+    /// The main entry point for the application.
+    /// </summary>
+    [STAThread]
+    private static void Main()
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        private static void Main()
-        {
-            [...]
-            Application.Run(MainFormHelper.Get());
-        }
+        [...]
+        Application.Run(MainFormHelper.Get());
     }
+}
 ```
 *Aus [Program.cs](../GameMaster/Program.cs)*
 
 
 ### MainForm
 
+
+```c#
+public partial class MainForm : GameMasterForm, IProcessInterface
+{
+    public Configuration SelectedRuleset;
+    public List<Configuration> Games;
+    private bool Running;
+    public VM Vm { get; private set; }
+
+    public MainForm()
+    {
+        InitializeComponent();
+        Games = new List<Configuration>();
+        Tray.Icon = SystemIcons.Application;
+        Tray.Click += Tray_MouseDoubleClick;
+        CheckForIllegalCrossThreadCalls = false;
+    }
+
+    private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        // Checks if there are items in the box
+        if (listBox1.Items.Count == 0)
+        {
+            btStart.Enabled = false;
+            btEditProp.Enabled = false;
+            btDelete.Enabled = false;
+            return;
+        }
+
+        btEditProp.Enabled = true;
+        btDelete.Enabled = true;
+
+        if (listBox1.SelectedItem != null)
+        {
+            SelectedRuleset = Games[listBox1.SelectedIndex];
+            if (SelectedRuleset.ValidAction() && !Running)
+            {
+                btStart.Enabled = true;
+            }
+            else
+            {
+                btStart.Enabled = false;
+            }
+        }
+    }
+
+    private void btNew_Click(object sender, EventArgs e)
+    {
+        SelectedRuleset = new Configuration();
+        FormHandler.Get<EditForm>().Text = "New Config";
+        FormHandler.Get<EditForm>().Show();
+        Hide();
+    }
+
+    private void btEditProp_Click(object sender, EventArgs e)
+    {
+        EditorForm editor = new EditorForm();
+        editor.Text = "Edit " + SelectedRuleset.Name;
+        editor.Show();
+        Hide();
+    }
+
+    private void btAdd_Click(object sender, EventArgs e)
+    {
+        new DownloadForm().Show();
+        Hide();
+    }
+
+    public void UpdateList()
+    {
+        listBox1.Items.Clear();
+        foreach (Configuration config in Games)
+        {
+            listBox1.Items.Add(config.Name);
+        }
+    }
+
+    private void lErscheinungsdatum_Load(object sender, EventArgs e)
+    {
+        Configuration.DiscoverRulesets();
+        UpdateList();
+        if (listBox1.Items.Count > 0)
+            listBox1.SelectedIndex = 0;
+    }
+
+    private void btStart_Click(object sender, EventArgs e) => Vm = new VM(SelectedRuleset);
+
+    private void Tray_MouseDoubleClick(object sender, EventArgs e)
+    {
+        Vm.Interrupt();
+        MainFormHelper.Show();
+        Tray.Visible = false;
+        WindowState = FormWindowState.Normal;
+    }
+
+    private void SourceCodeLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) => System.Diagnostics.Process.Start(GameMaster.Properties.Resources.Repository);
+
+    private void button1_Click(object sender, EventArgs e)
+    {
+        var confirmResult = MessageBox.Show("Are you sure to delete this ruleset? This cannot be undone!", "Confirmation needed", MessageBoxButtons.YesNo);
+        if (confirmResult == DialogResult.Yes)
+        {
+            listBox1.Items.RemoveAt(listBox1.SelectedIndex);
+            SelectedRuleset.Delete();
+            SelectedRuleset = null;
+        }
+    }
+
+    /// <summary>
+    /// Called when the game process is started
+    /// </summary>
+    public void ProcessStarted()
+    {
+        Running = true;
+        Tray.Visible = true;
+        Hide();
+    }
+
+    /// <summary>
+    /// Called when the game process has been terminated
+    /// </summary>
+    public void ProcessEnded()
+    {
+        Running = false;
+        MainFormHelper.Show();
+        WindowState = FormWindowState.Normal;
+        Tray.Visible = false;
+        Vm = null;
+    }
+}
+```
+
 #### DownloadForm
+
+```c#
+using System;
+using System.IO;
+using System.IO.Compression;
+using System.Linq;
+using System.Net;
+
+namespace GameMaster
+{
+    public partial class DownloadForm : GameMasterForm
+    {
+        private string DownloadDirectory = AppContext.BaseDirectory + @"\downloads";
+
+        public DownloadForm() => InitializeComponent();
+
+        private void btExit_Click(object sender, EventArgs e)
+        {
+            MainFormHelper.Show();
+            Close();
+        }
+
+        private void tbQuelle_TextChanged(object sender, EventArgs e)
+        {
+            if (!ValidateUrl(tbQuelle.Text))
+            {
+                btStart.Enabled = false;
+                return;
+            }
+            btStart.Enabled = true;
+        }
+
+        /// <summary>
+        /// Checks if the given string is a valid URL.
+        /// Also ensures it's a .zip
+        /// </summary>
+        /// <param name="Url">The string to be checked</param>
+        /// <returns>Whether it's valid or not</returns>
+        private bool ValidateUrl(string Url)
+        {
+            // Is using http / https
+            if (!Url.StartsWith("http://") && !Url.StartsWith("https://"))
+            {
+                return false;
+            }
+
+            // Target is a .zip archive
+            if (!Url.EndsWith(".zip"))
+            {
+                return false;
+            }
+
+            string[] substrings = Url.Split('/');
+
+            /// Target archive has a name
+            /// (Checks if there are characters between the last '/' and the .zip)
+            if (substrings.Last() == ".zip")
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private void btStart_Click(object sender, EventArgs e)
+        {
+            if (!Directory.Exists(DownloadDirectory))
+            {
+                rtbStatus.AppendText("Download directory doesn't exist!\n");
+                rtbStatus.AppendText("Creating...\n");
+                Directory.CreateDirectory(DownloadDirectory);
+            }
+            using (WebClient wc = new WebClient())
+            {
+                string DownloadUrl = tbQuelle.Text;
+
+                // Upgrade insecure requests
+                if (DownloadUrl.StartsWith("http://"))
+                {
+                    rtbStatus.AppendText("\nUpgrading insecure request...\n");
+                    DownloadUrl.Replace("http://", "https://");
+                }
+                rtbStatus.AppendText("Downloading now...\n");
+                wc.DownloadProgressChanged += WC_DownloadProgressChanged;
+                wc.DownloadFileCompleted += WC_DownloadFileCompleted;
+                wc.DownloadFileAsync(
+                    new System.Uri(DownloadUrl),
+                    Path.Combine(DownloadDirectory, "Download.zip")
+                );
+            }
+        }
+
+        private void WC_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e) => pbProgress.Value = e.ProgressPercentage;
+
+        private void WC_DownloadFileCompleted(object sender, EventArgs e)
+        {
+            rtbStatus.AppendText("Finished!\n");
+            ZipHandling();
+        }
+
+        private void ZipHandling()
+        {
+            rtbStatus.AppendText("Extracting archive...\n");
+            string TempDirectory = AppContext.BaseDirectory + @"\temp";
+            ZipFile.ExtractToDirectory(Path.Combine(DownloadDirectory, "Download.zip"), TempDirectory);
+            rtbStatus.AppendText("Done! Checking files...\n");
+            string[] Files = Directory.GetFiles(TempDirectory);
+            foreach (string File in Files)
+            {
+                if (File.Contains(".xml"))
+                {
+                    rtbStatus.AppendText("Found 1 ruleset!\n");
+                    FileHandling(true, File);
+                    return;
+                }
+            }
+            string[] dirs = Directory.GetDirectories(TempDirectory);
+            int SetCount = 0;
+            foreach (string dir in dirs)
+            {
+                string[] substrings = dir.Split('\\');
+                foreach (string File in Directory.GetFiles(Path.Combine(TempDirectory, substrings.Last())))
+                {
+                    if (File.Contains(".xml"))
+                    {
+                        SetCount++;
+                        FileHandling(false, substrings.Last());
+                    }
+                }
+            }
+            rtbStatus.AppendText("Found " + SetCount.ToString() + " rulesets!\n");
+        }
+
+        /// <summary>
+        /// Moves the rulesets to the proper folder
+        /// </summary>
+        /// <param name="isConfigInRoot">Whether the .succ is directly in the temp directory or in a subdirectory</param>
+        /// <param name="Name">Either the name of the .succ or the name of the subdirectory</param>
+        private void FileHandling(bool isConfigInRoot, string Name)
+        {
+            //if (isConfigInRoot)
+            //{
+            //    DataFile dataFile = new DataFile(Path.Combine(AppContext.BaseDirectory + @"\temp\") + Name);
+            //    string id = dataFile.Get<string>("ID");
+            //    Directory.CreateDirectory(Path.Combine(AppContext.BaseDirectory + @"\rulesets\", id));
+            //    string[] files = Directory.GetFiles(AppContext.BaseDirectory + @"\temp\");
+            //    foreach (string file in files)
+            //    {
+            //        File.Move(AppContext.BaseDirectory + @"\temp\" + file, Path.Combine(AppContext.BaseDirectory + @"\rulesets\" + Name) + file);
+            //    }
+            //}
+            //else
+            //{
+            //    Directory.Move(Path.Combine(AppContext.BaseDirectory + @"\temp", Name), AppContext.BaseDirectory + @"\rulesets\" + Name);
+            //}
+        }
+    }
+}
+```
 
 ### Editor
