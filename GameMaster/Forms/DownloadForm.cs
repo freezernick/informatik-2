@@ -3,10 +3,11 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
+using System.Windows.Forms;
 
 namespace GameMaster
 {
-    public partial class DownloadForm : GameMasterForm
+    public partial class DownloadForm : Form
     {
         private string DownloadDirectory = AppContext.BaseDirectory + @"\downloads";
 

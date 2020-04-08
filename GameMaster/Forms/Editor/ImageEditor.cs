@@ -1,11 +1,9 @@
-﻿using System;
+﻿using GameMaster.Ruleset.Abstracts;
+using System;
 using System.ComponentModel;
-using System.Windows.Forms;
-using System.IO;
 using System.Drawing;
-using GameMaster.Interfaces;
-using GameMaster.Ruleset.Abstracts;
-
+using System.IO;
+using System.Windows.Forms;
 
 namespace GameMaster.Forms.Editor
 {
@@ -40,7 +38,6 @@ namespace GameMaster.Forms.Editor
             openFileDialog1.FileOk += fileSelected;
         }
 
-
         private void fileSelected(object sender, CancelEventArgs e)
         {
             FileStream fs = new FileInfo(openFileDialog1.FileName).OpenRead();
@@ -54,6 +51,7 @@ namespace GameMaster.Forms.Editor
             openFileDialog1.InitialDirectory = AppContext.BaseDirectory;
             cropWindow = pictureBox1.CreateGraphics();
         }
+
         private void button1_Click(object sender, EventArgs e)
         {
             //item.UpdateReference(@new);
@@ -102,10 +100,10 @@ namespace GameMaster.Forms.Editor
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            if(cropping && loadedImage != null)
+            if (cropping && loadedImage != null)
             {
                 cropWindow = pictureBox1.CreateGraphics();
-                cropWindow.DrawImage(Utility.ResizeImage(loadedImage, pictureBox1.Width, pictureBox1.Height), new Point(0,0 ));
+                cropWindow.DrawImage(Utility.ResizeImage(loadedImage, pictureBox1.Width, pictureBox1.Height), new Point(0, 0));
                 width = e.X - x;
                 height = e.Y - y;
                 cropWindow.DrawRectangle(CropPen, x, y, width, height);

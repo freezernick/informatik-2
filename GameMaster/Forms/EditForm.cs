@@ -1,10 +1,11 @@
 ﻿using GameMaster.Ruleset;
 using GameMaster.Ruleset.Templates;
 using System;
+using System.Windows.Forms;
 
 namespace GameMaster
 {
-    public partial class EditForm : GameMasterForm
+    public partial class EditForm : Form
     {
         private Configuration currentGame;
 
@@ -23,11 +24,7 @@ namespace GameMaster
             textBox1.Text = currentGame.ID;
         }
 
-        private void btBack_Click(object sender, EventArgs e)
-        {
-            Close();
-            FormHandler.Get<EditorForm>().Show();
-        }
+        private void btBack_Click(object sender, EventArgs e) => Close();
 
         private void btSave_Click(object sender, EventArgs e)
         {

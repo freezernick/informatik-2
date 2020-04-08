@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace GameMaster
 {
-    public partial class MainForm : GameMasterForm, IProcessInterface
+    public partial class MainForm : Form, IProcessInterface
     {
         public Configuration SelectedRuleset;
         public List<Configuration> Games;
@@ -21,13 +21,6 @@ namespace GameMaster
             Tray.Icon = SystemIcons.Application;
             Tray.Click += Tray_MouseDoubleClick;
             CheckForIllegalCrossThreadCalls = false;
-        }
-
-        private void btEditRules_Click(object sender, EventArgs e)
-        {
-            FormHandler.Get<EditorForm>().Text = "Edit " + SelectedRuleset.Name;
-            FormHandler.Get<EditorForm>().Show();
-            Hide();
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -61,21 +54,21 @@ namespace GameMaster
         private void btNew_Click(object sender, EventArgs e)
         {
             SelectedRuleset = new Configuration();
-            FormHandler.Get<EditForm>().Text = "New Config";
-            FormHandler.Get<EditForm>().Show();
+            new EditForm().Show();
             Hide();
         }
 
         private void btEditProp_Click(object sender, EventArgs e)
         {
-            FormHandler.Get<EditorForm>().Text = "Edit " + SelectedRuleset.Name;
-            FormHandler.Get<EditorForm>().Show();
+            EditorForm editor = new EditorForm();
+            editor.Text = "Edit " + SelectedRuleset.Name;
+            editor.Show();
             Hide();
         }
 
         private void btAdd_Click(object sender, EventArgs e)
         {
-            FormHandler.Get<DownloadForm>().Show();
+            new DownloadForm().Show();
             Hide();
         }
 

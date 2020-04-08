@@ -7,7 +7,7 @@ using GameMaster.Ruleset.Events;
 
 namespace GameMaster
 {
-    public partial class EditorForm : GameMasterForm
+    public partial class EditorForm : Form
     {
         public Configuration game;
         public LeftSide selectedObject;
@@ -26,14 +26,12 @@ namespace GameMaster
             Hide();
         }
 
-        // Should be tsEdit_Click
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            FormHandler.Get<EditForm>().Show();
-            Hide();
+            new EditForm().Show();
+            Close();
         }
 
-        // Should be btAddEvent_Click
         private void button4_Click_1(object sender, EventArgs e)
         {
             EditorWindow eventWindow = new EventList(game);
@@ -118,7 +116,7 @@ namespace GameMaster
                 return;
             }
 
-            Actions actions = new Actions();
+            Actions actions = new Actions(selectedObject);
             actions.FormClosed += ActionList_Closed;
             actions.game = game;
             actions.Show();

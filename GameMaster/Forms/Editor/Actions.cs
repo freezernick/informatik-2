@@ -12,7 +12,12 @@ namespace GameMaster.Forms.Editor
 {
     public partial class Actions : GameMaster.EditorWindow
     {
-        public Actions() => InitializeComponent();
+        private LeftSide selected;
+        public Actions(LeftSide selectedObject)
+        {
+            InitializeComponent();
+            selected = selectedObject;
+        }
 
         private void Actions_Load(object sender, EventArgs e)
         {
@@ -26,7 +31,7 @@ namespace GameMaster.Forms.Editor
 
         private void button2_Click(object sender, EventArgs e)
         {
-            IObjectRegister selectedObject = FormHandler.Get<EditorForm>().selectedObject as IObjectRegister;
+            IObjectRegister selectedObject = selected as IObjectRegister;
             if (selectedObject != null)
             {
                 RightSide rightSideObject = (RightSide) Activator.CreateInstance((Type)listBox1.SelectedItem);
