@@ -147,6 +147,7 @@
     <Compile Include="GameMaster\Ruleset\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\APIs.cs" />
     <Compile Include="Utility\Utility.cs" />
     <EmbeddedResource Include="Forms\DownloadForm.resx">
       <DependentUpon>DownloadForm.cs</DependentUpon>

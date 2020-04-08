@@ -57,6 +57,7 @@ namespace GameMaster
                 if (@event == null)
                     continue;
 
+                Log(@event.Name);
                 KeyEvents.Add(@event);
                 hook.RegisterHotKey(ModifierKeys.None, @event.key);
             }

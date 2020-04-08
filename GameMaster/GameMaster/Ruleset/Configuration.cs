@@ -41,7 +41,7 @@ namespace GameMaster.Ruleset
         public Template Template;
         public List<Event> CustomEvents;
         public List<LeftSide> LeftSideObjects;
-        private string SubPath;
+        public string Folder { private get; set; }
 
         /// <summary>
         /// Saves the specified ruleset as an XML to the specified path
@@ -88,6 +88,40 @@ namespace GameMaster.Ruleset
             if (File.Exists(Executable) && Executable.EndsWith(".exe"))
                 return true;
             return false;
+        }
+
+        public static void DiscoverRulesets()
+        {
+            if (!Directory.Exists(Utility.RulesetDirectory))
+            {
+                Directory.CreateDirectory(Utility.RulesetDirectory);
+                return;
+            }
+
+            foreach(string directory in Directory.GetDirectories(Utility.RulesetDirectory))
+            {
+                foreach (string file in Directory.GetFiles(directory))
+                {
+                    if (!file.EndsWith(".xml"))
+                        continue;
+
+
+                }
+            }
+
+
+            foreach (string dir in Directory.GetFiles(Utility.RulesetDirectory)
+            {
+                Games.Add(Configuration.Load(dir));
+            }
+
+            UpdateList();
+
+            // Select the first game in the list by default if it exists
+            if (listBox1.Items.Count > 0)
+            {
+                listBox1.SetSelected(0, true);
+            }
         }
     }
 }

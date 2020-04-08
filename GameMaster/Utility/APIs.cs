@@ -8,7 +8,7 @@ namespace GameMaster
     /// </summary>
     public static class API
     {
-#region GDI32
+        #region GDI32
 
         public const int SRCCOPY = 13369376;
 

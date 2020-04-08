@@ -86,39 +86,9 @@ namespace GameMaster
             }
         }
 
-        private void lErscheinungsdatum_Load(object sender, EventArgs e)
-        {
-            // Check if rulesets directory exists
-            if (!Directory.Exists(AppContext.BaseDirectory + @"\rulesets\"))
-            {
-                Directory.CreateDirectory(AppContext.BaseDirectory + @"\rulesets\");
-            }
+        private void lErscheinungsdatum_Load(object sender, EventArgs e) => Configuration.DiscoverRulesets();
 
-            // Cleans the temporary directory
-            if (Directory.Exists(AppContext.BaseDirectory + @"\temp\"))
-            {
-                Directory.Delete(AppContext.BaseDirectory + @"\temp\", true);
-            }
-
-            foreach (string dir in Directory.GetFiles(AppContext.BaseDirectory + @"\rulesets\"))
-            {
-                Games.Add(Configuration.Load(dir));
-            }
-
-            UpdateList();
-
-            // Select the first game in the list by default if it exists
-            if (listBox1.Items.Count > 0)
-            {
-                listBox1.SetSelected(0, true);
-            }
-        }
-
-        private void btStart_Click(object sender, EventArgs e)
-        {
-            // Creates a new instance of the VM class holding information for the actual GameMaster
-            Vm = new VM(SelectedRuleset);
-        }
+        private void btStart_Click(object sender, EventArgs e) => Vm = new VM(SelectedRuleset);
 
         private void Tray_MouseDoubleClick(object sender, EventArgs e)
         {
@@ -128,10 +98,7 @@ namespace GameMaster
             WindowState = FormWindowState.Normal;
         }
 
-        private void SourceCodeLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            System.Diagnostics.Process.Start(GameMaster.Properties.Resources.Repository);
-        }
+        private void SourceCodeLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) => System.Diagnostics.Process.Start(GameMaster.Properties.Resources.Repository);
 
         private void button1_Click(object sender, EventArgs e)
         {
