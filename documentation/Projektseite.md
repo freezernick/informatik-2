@@ -30,7 +30,7 @@ TODO: Erklärung / Bild
 
 ![](images/page/testgame.png)
 
-Um unser Projekt unter optimalen Bedingungen testen zu können, haben wir zusaätzlich noch ein kleines Spiel gebaut, in dem man kleine Vierecke einsammeln muss. Das Repository befindet sich [hier](https://github.com/freezernick/gm-test-game-library). Auch dieses Spiel ist mit C# und Windows Forms erstellt worden.
+Um unser Projekt unter optimalen Bedingungen testen zu können, haben wir zusaätzlich noch ein kleines Spiel gebaut, in dem man kleine blaue Vierecke einsammeln muss. Das Repository befindet sich [hier](https://github.com/freezernick/gm-test-game-library). Auch dieses Spiel ist mit C# und Windows Forms erstellt worden.
 
 # Die Anwendung
 
