@@ -112,9 +112,13 @@ namespace GameMaster
 
         private void button1_Click(object sender, EventArgs e)
         {
-            listBox1.Items.RemoveAt(listBox1.SelectedIndex);
-            SelectedRuleset.Delete();
-            SelectedRuleset = null;
+            var confirmResult = MessageBox.Show("Are you sure to delete this ruleset? This cannot be undone!", "Confirmation needed", MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.Yes)
+            {
+                listBox1.Items.RemoveAt(listBox1.SelectedIndex);
+                SelectedRuleset.Delete();
+                SelectedRuleset = null;
+            }
         }
 
         /// <summary>
