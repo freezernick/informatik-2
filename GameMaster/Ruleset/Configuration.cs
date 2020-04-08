@@ -13,6 +13,7 @@ namespace GameMaster.Ruleset
     [XmlInclude(typeof(Events.CustomEvent))]
     [XmlInclude(typeof(Events.StartupEvent))]
     [XmlInclude(typeof(Events.ShutdownRequestEvent))]
+    [XmlInclude(typeof(Events.KeyPressEvent))]
     [XmlInclude(typeof(Events.TickEvent))]
     [XmlInclude(typeof(Actions.Avoid))]
     [XmlInclude(typeof(Actions.Click))]

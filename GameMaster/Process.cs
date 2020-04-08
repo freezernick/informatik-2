@@ -10,6 +10,8 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using Timer = System.Threading.Timer;
+using System.Collections.Generic;
+using GameMaster.Ruleset.Events;
 
 namespace GameMaster
 {
@@ -23,6 +25,7 @@ namespace GameMaster
         private Timer timer;
         private Configuration configuration;
         private World currentWorld;
+        private List<KeyPressEvent> KeyEvents = new List<KeyPressEvent>();
 
         public VM(Configuration game)
         {
@@ -31,6 +34,7 @@ namespace GameMaster
             hook.RegisterHotKey(ModifierKeys.Control, Keys.F3);
             hook.RegisterHotKey(ModifierKeys.Control, Keys.F4);
             hook.RegisterHotKey(ModifierKeys.Control, Keys.F5);
+            SetupKeyPressEvents();
             GameProcess = Process.Start(game.Executable);
             GameProcess.EnableRaisingEvents = true;
             GameProcess.Exited += P_Exited;
@@ -43,6 +47,19 @@ namespace GameMaster
             Log("Overlay started");
             StartUpdates();
             currentWorld = configuration.LeftSideObjects.OfType<StartupWorld>().First<StartupWorld>();
+        }
+
+        private void SetupKeyPressEvents()
+        {
+            foreach(LeftSide @object in configuration.LeftSideObjects)
+            {
+                KeyPressEvent @event = @object as KeyPressEvent;
+                if (@event == null)
+                    continue;
+
+                KeyEvents.Add(@event);
+                hook.RegisterHotKey(ModifierKeys.None, @event.key);
+            }
         }
 
         private void StartUpdates()
@@ -112,15 +129,26 @@ namespace GameMaster
             if (e.Modifier == ModifierKeys.Control && e.Key == Keys.F3)
             {
                 Interrupt();
+                return;
             }
 
             if (e.Modifier == ModifierKeys.Control && e.Key == Keys.F4)
             {
                 SaveReferencePicture();
+                return;
             }
 
             if (e.Modifier == ModifierKeys.Control && e.Key == Keys.F5)
             {
+                return;
+            }
+
+            foreach(KeyPressEvent @event in KeyEvents)
+            {
+                if (@event.key != e.Key || e.Modifier != ModifierKeys.None)
+                    continue;
+
+                @event.Execute();
             }
         }
 

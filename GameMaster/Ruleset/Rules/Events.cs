@@ -1,5 +1,5 @@
-﻿using System.Xml.Serialization;
-using GameMaster.Ruleset.Abstracts;
+﻿using GameMaster.Ruleset.Abstracts;
+using System.Windows.Forms;
 
 
 namespace GameMaster.Ruleset.Events
@@ -51,6 +51,17 @@ namespace GameMaster.Ruleset.Events
         {
             Name = "Custom Event";
             Description = "A user defined event";
+        }
+    }
+
+    public class KeyPressEvent : Event
+    {
+        public Keys key;
+        public KeyPressEvent()
+        {
+            key = Keys.V;
+            Name = "Keypress Event";
+            Description = "Event that triggers when the specified key is pressed";
         }
     }
 }
