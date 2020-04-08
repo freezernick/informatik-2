@@ -16,8 +16,13 @@ namespace GameMaster
         public int cy;
     }
 
+    /// <summary>
+    /// Class containing static utility functions and static variables
+    /// </summary>
     public static class Utility
     {
+        public static string RulesetDirectory = AppContext.BaseDirectory + @"\rulesets\";
+
         public static IEnumerable<Type> FindSubClassesOf<TBaseType>()
         {
             var baseType = typeof(TBaseType);
@@ -71,97 +76,37 @@ namespace GameMaster
         public static Image CaptureWindow(IntPtr handle)
         {
             // get te hDC of the target window
-            IntPtr hdcSrc = PlatformInvokeUSER32.GetWindowDC(handle);
+            IntPtr hdcSrc = API.GetWindowDC(handle);
             // get the size
-            PlatformInvokeUSER32.RECT windowRect = new PlatformInvokeUSER32.RECT();
-            PlatformInvokeUSER32.GetWindowRect(handle, ref windowRect);
+            API.RECT windowRect = new API.RECT();
+            API.GetWindowRect(handle, ref windowRect);
             int width = windowRect.right - windowRect.left;
             int height = windowRect.bottom - windowRect.top;
             // create a device context we can copy to
-            IntPtr hdcDest = PlatformInvokeGDI32.CreateCompatibleDC(hdcSrc);
+            IntPtr hdcDest = API.CreateCompatibleDC(hdcSrc);
             // create a bitmap we can copy it to,
             // using GetDeviceCaps to get the width/height
-            IntPtr hBitmap = PlatformInvokeGDI32.CreateCompatibleBitmap(hdcSrc, width, height);
+            IntPtr hBitmap = API.CreateCompatibleBitmap(hdcSrc, width, height);
             // select the bitmap object
-            IntPtr hOld = PlatformInvokeGDI32.SelectObject(hdcDest, hBitmap);
+            IntPtr hOld = API.SelectObject(hdcDest, hBitmap);
             // bitblt over
-            PlatformInvokeGDI32.BitBlt(hdcDest, 0, 0, width, height, hdcSrc, 0, 0, PlatformInvokeGDI32.SRCCOPY);
+            API.BitBlt(hdcDest, 0, 0, width, height, hdcSrc, 0, 0, API.SRCCOPY);
             // restore selection
-            PlatformInvokeGDI32.SelectObject(hdcDest, hOld);
+            API.SelectObject(hdcDest, hOld);
             // clean up 
-            PlatformInvokeGDI32.DeleteDC(hdcDest);
-            PlatformInvokeUSER32.ReleaseDC(handle, hdcSrc);
+            API.DeleteDC(hdcDest);
+            API.ReleaseDC(handle, hdcSrc);
             // get a .NET image object for it
             Image img = Image.FromHbitmap(hBitmap);
             // free up the Bitmap object
-            PlatformInvokeGDI32.DeleteObject(hBitmap);
+            API.DeleteObject(hBitmap);
             return img;
         }
     }
 
     /// <summary>
-    /// This class shall keep the GDI32 APIs used in our program.
+    /// Class for handling keypresses
     /// </summary>
-    public class PlatformInvokeGDI32
-    {
-        public const int SRCCOPY = 13369376;
-
-        [DllImport("gdi32.dll", EntryPoint = "DeleteDC")]
-        public static extern IntPtr DeleteDC(IntPtr hDc);
-
-        [DllImport("gdi32.dll", EntryPoint = "DeleteObject")]
-        public static extern IntPtr DeleteObject(IntPtr hDc);
-
-        [DllImport("gdi32.dll", EntryPoint = "BitBlt")]
-        public static extern bool BitBlt(IntPtr hdcDest, int xDest,
-            int yDest, int wDest, int hDest, IntPtr hdcSource,
-            int xSrc, int ySrc, int RasterOp);
-
-        [DllImport("gdi32.dll", EntryPoint = "CreateCompatibleBitmap")]
-        public static extern IntPtr CreateCompatibleBitmap(IntPtr hdc,
-            int nWidth, int nHeight);
-
-        [DllImport("gdi32.dll", EntryPoint = "CreateCompatibleDC")]
-        public static extern IntPtr CreateCompatibleDC(IntPtr hdc);
-
-        [DllImport("gdi32.dll", EntryPoint = "SelectObject")]
-        public static extern IntPtr SelectObject(IntPtr hdc, IntPtr bmp);
-    }
-
-    /// <summary>
-    /// This class shall keep the User32 APIs used in our program.
-    /// </summary>
-    public class PlatformInvokeUSER32
-    {
-        [StructLayout(LayoutKind.Sequential)]
-        public struct RECT
-        {
-            public int left;
-            public int top;
-            public int right;
-            public int bottom;
-        }
-
-        public const int SM_CXSCREEN = 0;
-        public const int SM_CYSCREEN = 1;
-
-        [DllImport("user32.dll")]
-        public static extern IntPtr GetWindowDC(IntPtr hWnd);
-
-        [DllImport("user32.dll", EntryPoint = "ReleaseDC")]
-        public static extern IntPtr ReleaseDC(IntPtr hWnd, IntPtr hDc);
-
-        [DllImport("user32.dll")]
-        public static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
-
-        [DllImport("user32.dll")]
-        public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
-
-        [DllImport("user32.dll")]
-        public static extern bool GetWindowRect(IntPtr hWnd, ref PlatformInvokeUSER32.RECT lpRect);
-
-    }
-
     public sealed class KeyboardHook : IDisposable
     {
 
@@ -182,7 +127,7 @@ namespace GameMaster
             {
                 base.WndProc(ref m);
 
-                // check if we got a hot key pressed.
+                // check if we got a hotkey pressed.
                 if (m.Msg == WM_HOTKEY)
                 {
                     // get the keys.
@@ -212,31 +157,31 @@ namespace GameMaster
         }
 
         /// <summary>
-        /// Registers a hot key in the system.
+        /// Registers a hotkey in the system.
         /// </summary>
-        /// <param name="modifier">The modifiers that are associated with the hot key.</param>
-        /// <param name="key">The key itself that is associated with the hot key.</param>
+        /// <param name="modifier">The modifiers that are associated with the hotkey.</param>
+        /// <param name="key">The key itself that is associated with the hotkey.</param>
         public void RegisterHotKey(ModifierKeys modifier, Keys key)
         {
             // increment the counter.
             _currentId += 1;
 
-            // register the hot key.
-            if (!PlatformInvokeUSER32.RegisterHotKey(_window.Handle, _currentId, (uint)modifier, (uint)key))
-                throw new InvalidOperationException("Couldn’t register the hot key.");
+            // register the hotkey.
+            if (!API.RegisterHotKey(_window.Handle, _currentId, (uint)modifier, (uint)key))
+                throw new InvalidOperationException("Couldn’t register the hotkey.");
         }
 
         /// <summary>
-        /// A hot key has been pressed.
+        /// A hotkey has been pressed.
         /// </summary>
         public event EventHandler<KeyPressedEventArgs> KeyPressed;
 
         public void Dispose()
         {
-            // unregister all the registered hot keys.
+            // unregister all the registered hotkeys.
             for (int i = _currentId; i > 0; i--)
             {
-                PlatformInvokeUSER32.UnregisterHotKey(_window.Handle, i);
+                API.UnregisterHotKey(_window.Handle, i);
             }
 
             // dispose the inner native window.
@@ -245,7 +190,7 @@ namespace GameMaster
     }
 
     /// <summary>
-    /// Event Args for the event that is fired after the hot key has been pressed.
+    /// Event Args for the event that is fired after the hotkey has been pressed.
     /// </summary>
     public class KeyPressedEventArgs : EventArgs
     {
