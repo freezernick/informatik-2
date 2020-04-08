@@ -53,7 +53,7 @@ namespace GameMaster.Ruleset
         public static void Save(Configuration ruleset)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(Configuration));
-            TextWriter writer = new StreamWriter(Path.Combine(Utility.RulesetDirectory + ruleset.Folder) + "config.xml");
+            TextWriter writer = new StreamWriter(Path.Combine(Utility.RulesetDirectory + ruleset.Folder) + "\\config.xml");
             serializer.Serialize(writer, ruleset);
             writer.Flush();
             writer.Close();
