@@ -73,4 +73,32 @@ public static class MainFormHelper
     }
 
 ```
-*Aus [Main.cs](../GameMaster/Forms/Main.cs)*
+*Aus [Main.cs](../GameMaster/Forms/Main.cs#145)*
+
+In beiden Fällen wird zuerst überprüft, ob die MainForm `_main` bereits existiert, oder ob diese noch initialisiert werden muss. Anschließend wird die MainForm entweder direkt angezeigt oder zurückgegeben. 
+
+
+Diese Klasse wird auch direkt beim Programmstart verwendet:
+
+```c#
+internal static class Program
+    {
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        private static void Main()
+        {
+            [...]
+            Application.Run(MainFormHelper.Get());
+        }
+    }
+```
+*Aus [Program.cs](../GameMaster/Program.cs)*
+
+
+### MainForm
+
+#### DownloadForm
+
+### Editor
