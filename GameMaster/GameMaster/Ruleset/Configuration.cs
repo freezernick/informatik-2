@@ -81,6 +81,9 @@ namespace GameMaster.Ruleset
             return false;
         }
 
+        /// <summary>
+        /// Loops over every folder inside the ruleset directory and looks for valid config.xml files. Valid configurations are added to the list of the  main form.
+        /// </summary>
         public static void DiscoverRulesets()
         {
             if (!Directory.Exists(Utility.RulesetDirectory))
