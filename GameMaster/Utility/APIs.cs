@@ -37,15 +37,6 @@ namespace GameMaster
 
         #region User32
 
-        [StructLayout(LayoutKind.Sequential)]
-        public struct RECT
-        {
-            public int left;
-            public int top;
-            public int right;
-            public int bottom;
-        }
-
         public const int SM_CXSCREEN = 0;
         public const int SM_CYSCREEN = 1;
 
@@ -63,6 +54,12 @@ namespace GameMaster
 
         [DllImport("user32.dll")]
         public static extern bool GetWindowRect(IntPtr hWnd, ref RECT lpRect);
+
+        [DllImport("user32.dll")]
+        internal static extern uint SendInput(
+        uint nInputs,
+        [MarshalAs(UnmanagedType.LPArray), In] INPUT[] pInputs,
+        int cbSize);
 
         #endregion
     }

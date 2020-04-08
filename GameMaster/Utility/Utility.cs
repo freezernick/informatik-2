@@ -17,6 +17,29 @@ namespace GameMaster
     }
 
     /// <summary>
+    /// The enumeration of possible modifiers.
+    /// </summary>
+    [Flags]
+    public enum ModifierKeys : uint
+    {
+        None = 0,
+        Alt = 1,
+        Control = 2,
+        Shift = 4,
+        Win = 8
+    }
+
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct RECT
+    {
+        public int left;
+        public int top;
+        public int right;
+        public int bottom;
+    }
+
+    /// <summary>
     /// Class containing static utility functions and static variables
     /// </summary>
     public static class Utility
@@ -78,7 +101,7 @@ namespace GameMaster
             // get te hDC of the target window
             IntPtr hdcSrc = API.GetWindowDC(handle);
             // get the size
-            API.RECT windowRect = new API.RECT();
+            RECT windowRect = new RECT();
             API.GetWindowRect(handle, ref windowRect);
             int width = windowRect.right - windowRect.left;
             int height = windowRect.bottom - windowRect.top;
@@ -102,128 +125,20 @@ namespace GameMaster
             API.DeleteObject(hBitmap);
             return img;
         }
-    }
-
-    /// <summary>
-    /// Class for handling keypresses
-    /// </summary>
-    public sealed class KeyboardHook : IDisposable
-    {
 
         /// <summary>
-        /// Represents the window that is used internally to get the messages.
+        /// Simulates a keystroke
         /// </summary>
-        private class Window : NativeWindow, IDisposable
+        /// <param name="a"></param>
+        public static void Send(ScanCodeShort a)
         {
-            private static int WM_HOTKEY = 0x0312;
-
-            public Window() => this.CreateHandle(new CreateParams());
-
-            /// <summary>
-            /// Overridden to get the notifications.
-            /// </summary>
-            /// <param name="m"></param>
-            protected override void WndProc(ref Message m)
-            {
-                base.WndProc(ref m);
-
-                // check if we got a hotkey pressed.
-                if (m.Msg == WM_HOTKEY)
-                {
-                    // get the keys.
-                    Keys key = (Keys)(((int)m.LParam >> 16) & 0xFFFF);
-                    ModifierKeys modifier = (ModifierKeys)((int)m.LParam & 0xFFFF);
-
-                    // invoke the event to notify the parent.
-                    KeyPressed?.Invoke(this, new KeyPressedEventArgs(modifier, key));
-                }
-            }
-
-            public event EventHandler<KeyPressedEventArgs> KeyPressed;
-
-            public void Dispose() => this.DestroyHandle();
+            INPUT[] Inputs = new INPUT[1];
+            INPUT Input = new INPUT();
+            Input.type = 1; // 1 = Keyboard Input
+            Input.U.ki.wScan = a;
+            Input.U.ki.dwFlags = KEYEVENTF.SCANCODE;
+            Inputs[0] = Input;
+            API.SendInput(1, Inputs, INPUT.Size);
         }
-
-        private Window _window = new Window();
-        private int _currentId;
-
-        public KeyboardHook()
-        {
-            // register the event of the inner native window.
-            _window.KeyPressed += delegate (object sender, KeyPressedEventArgs args)
-            {
-                KeyPressed?.Invoke(this, args);
-            };
-        }
-
-        /// <summary>
-        /// Registers a hotkey in the system.
-        /// </summary>
-        /// <param name="modifier">The modifiers that are associated with the hotkey.</param>
-        /// <param name="key">The key itself that is associated with the hotkey.</param>
-        public void RegisterHotKey(ModifierKeys modifier, Keys key)
-        {
-            // increment the counter.
-            _currentId += 1;
-
-            // register the hotkey.
-            if (!API.RegisterHotKey(_window.Handle, _currentId, (uint)modifier, (uint)key))
-                throw new InvalidOperationException("Couldn’t register the hotkey.");
-        }
-
-        /// <summary>
-        /// A hotkey has been pressed.
-        /// </summary>
-        public event EventHandler<KeyPressedEventArgs> KeyPressed;
-
-        public void Dispose()
-        {
-            // unregister all the registered hotkeys.
-            for (int i = _currentId; i > 0; i--)
-            {
-                API.UnregisterHotKey(_window.Handle, i);
-            }
-
-            // dispose the inner native window.
-            _window.Dispose();
-        }
-    }
-
-    /// <summary>
-    /// Event Args for the event that is fired after the hotkey has been pressed.
-    /// </summary>
-    public class KeyPressedEventArgs : EventArgs
-    {
-        private ModifierKeys _modifier;
-        private Keys _key;
-
-        internal KeyPressedEventArgs(ModifierKeys modifier, Keys key)
-        {
-            _modifier = modifier;
-            _key = key;
-        }
-
-        public ModifierKeys Modifier
-        {
-            get { return _modifier; }
-        }
-
-        public Keys Key
-        {
-            get { return _key; }
-        }
-    }
-
-    /// <summary>
-    /// The enumeration of possible modifiers.
-    /// </summary>
-    [Flags]
-    public enum ModifierKeys : uint
-    {
-        None = 0,
-        Alt = 1,
-        Control = 2,
-        Shift = 4,
-        Win = 8
     }
 }
