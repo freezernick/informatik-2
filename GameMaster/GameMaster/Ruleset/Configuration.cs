@@ -99,7 +99,7 @@ namespace GameMaster.Ruleset
                     Configuration ruleset = (Configuration)obj;
                     reader.Close();
                     string[] pathElements = directory.Split('\\');
-                    ruleset.Folder = pathElements[pathElements.Length];
+                    ruleset.Folder = pathElements[pathElements.Length - 1];
                     FormHandler.Get<MainForm>().Games.Add(ruleset);
                 }
                 catch
