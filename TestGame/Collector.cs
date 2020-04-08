@@ -21,7 +21,6 @@ namespace TestGame
         {
             if (NextLocation.X >= 586 || NextLocation.X < 0 || NextLocation.Y >= 449 || NextLocation.Y < 0)
             {
-                label1.Text = "Fuck";
                 return false;
             }
             if (obstacle.Contains(NextLocation))
