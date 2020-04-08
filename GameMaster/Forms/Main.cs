@@ -45,14 +45,18 @@ namespace GameMaster
 
             btEditProp.Enabled = true;
             btDelete.Enabled = true;
-            SelectedRuleset = Games[listBox1.SelectedIndex];
-            if (SelectedRuleset.ValidAction() && !Running)
+
+            if(listBox1.SelectedItem != null)
             {
-                btStart.Enabled = true;
-            }
-            else
-            {
-                btStart.Enabled = false;
+                SelectedRuleset = Games[listBox1.SelectedIndex];
+                if (SelectedRuleset.ValidAction() && !Running)
+                {
+                    btStart.Enabled = true;
+                }
+                else
+                {
+                    btStart.Enabled = false;
+                }
             }
         }
 

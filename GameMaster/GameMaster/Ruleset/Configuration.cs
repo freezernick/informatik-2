@@ -60,10 +60,14 @@ namespace GameMaster.Ruleset
         }
 
         /// <summary>
-        /// TODO
+        /// Deletes a ruleset
         /// </summary>
         public void Delete()
         {
+            MainForm Main = FormHandler.Get<MainForm>();
+            Main.Games.Remove(this);
+            Main.UpdateList();
+            Directory.Delete(Path.Combine(Utility.RulesetDirectory, Folder), true);
         }
 
         /// <summary>
