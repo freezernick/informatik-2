@@ -122,7 +122,8 @@ namespace GameMaster
             return GameProcess.MainWindowHandle;
         }
 
-        private void SaveReferencePicture() => Utility.CaptureWindow(ProcessHandle()).Save(Path.Combine(AppContext.BaseDirectory, $"{configuration.ID}_reference_{DateTime.Now.ToString("yyyy-MM-dd-THH-mm-ss")}.bmp"));
+        private void SaveReferencePicture() => Utility.CaptureWindow(ProcessHandle()).Save(Path.Combine(Utility.RulesetDirectory,
+            $"{configuration.Folder}\\{DateTime.Now.ToString("yyyy-MM-dd-THH-mm-ss")}.bmp"));
 
         private void InputHandling(object sender, KeyPressedEventArgs e)
         {
