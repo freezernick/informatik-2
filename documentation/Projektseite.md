@@ -275,7 +275,7 @@ Danach folgen die eigentlichen Bewegungsfunktionen. Wir nehmen hier mal `GoUp` a
 
 In dieser Funktion wird der Punkt berechnet, zu dem sich der Spieler bewegen würden. In diesem Fall muss die `x`-Koordinate gleich bleiben, während der `y`-Wert verringert wird, da der Koordinatenursprung in der linken, oberen Ecke des Fensters ist. Dann rufen wir mit einer if-Abfrage unsere `CheckMovement`-Funktion auf, und wenn der Ort gültig ist, setzten wir die Position des Spieler-Panels. Die restlichen Bewegungsfunktionen unterscheiden sich nur durch das Vorzeichen bzw. die Achse.
 
-Und abschließend kommt die `Tick`-Funktion des Timers, den wir auch als Windows-Forms-Element zum Fenster hinzugefügt haben.
+Und abschließend kommt die `Tick`-Funktion des Timers, den wir auch als Windows-Forms-Element zum Fenster hinzugefügt haben. Wir haben den Interval des Timers auf 10ms gestellt, diese Funktion wird also 100 mal in der Sekunde aufgerufen.
 
 ```c#
         private void Timer1_Tick(object sender, EventArgs e)
@@ -292,6 +292,9 @@ Und abschließend kommt die `Tick`-Funktion des Timers, den wir auch als Windows
                 GoRight();
         }
 ```
+
+In dieser Funktion aktualisieren wir die Punkteanzeige und rufen, wenn einer der Bewegungs-Booleans gesetzt ist, die jeweilige Bewegungsfunktion auf.
+
 <details>
 
 <summary>Vollständiger Code der Collector.cs</summary>
@@ -453,7 +456,7 @@ namespace TestGame
 
 ### MainFormHelper
 
-Da die Instanz des Hauptbildschirmes, der MainForm, über die komplette Laufzeit des Programms erhalten bleiben muss, da ansonsten das Programm beendet wird, können wir dieses Fenster nicht löschen, wenn wir in ein anderes wechseln möchten. Wir können es lediglich verstecken und irgendwo speichern. Außerdem müssen wir auch manchmal auf die MainForm-Instanz zugreifen, um einige Variablen zu setzen. Deshalb haben wir die statische `MainFormHelper`-Klasse erstellt. Diese enthält eine statische `MainForm`-Variable, die die Singleton-Instanz unserer MainForm darstellt. Zusätzlich verfügt sie über zwei Funktionen: `Show`, die wir aufrufen, wenn wir das Fenster anzeigen wollen, und `Get`, die wir verwenden, wenn wir eine Referenz zur MainForm brauchen, um z.B. Variable zu ändern.
+Wie bei unserem Testspiel gilt: Wir können das Hauptfenster nicht schließen, sondern lediglich verstecken und irgendwo speichern. Außerdem müssen wir auch manchmal auf die MainForm-Instanz zugreifen, um einige Variablen zu setzen. Deshalb haben wir die statische `MainFormHelper`-Klasse erstellt. Diese enthält eine statische `MainForm`-Variable, die die Singleton-Instanz unserer MainForm darstellt. Zusätzlich verfügt sie über zwei Funktionen: `Show`, die wir aufrufen, wenn wir das Fenster anzeigen wollen, und `Get`, die wir verwenden, wenn wir eine Referenz zur MainForm brauchen, um z.B. Variable zu ändern.
 
 ```c#
 public static class MainFormHelper
@@ -473,7 +476,6 @@ public static class MainFormHelper
     }
 }
 ```
-*Aus [Main.cs](../GameMaster/Forms/Main.cs#145)*
 
 In beiden Fällen wird zuerst überprüft, ob die MainForm `_main` bereits existiert, oder ob diese noch initialisiert werden muss. Anschließend wird die MainForm entweder direkt angezeigt oder zurückgegeben. 
 
@@ -494,11 +496,8 @@ internal static class Program
     }
 }
 ```
-*Aus [Program.cs](../GameMaster/Program.cs)*
-
 
 ### MainForm
-
 
 ```c#
 public partial class MainForm : GameMasterForm, IProcessInterface
