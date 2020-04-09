@@ -56,11 +56,11 @@ Die Simplizität des Benutzeroberfläche spiegelt sich auch im Code wieder.
 
 ```c#
 
-    [...]
+[...]
 
-    public partial class MainForm : Form
-    {
-        public MainForm() => InitializeComponent();
+public partial class MainForm : Form
+{
+    public MainForm() => InitializeComponent();
 
 ```
 *Aus [MainForm.cs](../TestGame/MainForm.cs)*
@@ -68,11 +68,11 @@ Die Simplizität des Benutzeroberfläche spiegelt sich auch im Code wieder.
 `InitializeComponent` ist eine Funktion, die von dem Windows-Forms-Designer benötigt wird und wird deshalb hier im Constructor aufgerufen.
 
 ```c#
-        private void BtStart_Click(object sender, EventArgs e)
-        {
-            Hide();
-            new Collector(this).Show();
-        }
+    private void BtStart_Click(object sender, EventArgs e)
+    {
+        Hide();
+        new Collector(this).Show();
+    }
 ```
 Es folgen zwei Event-Handler für die `Click`-Events der beiden Knöpfe des Menüs. Da unser Programm beendet wird, wenn wir das Hauptfenster komplett schließen, können wir es nur "verstecken", wenn wir in einen anderen Bildschirm wechseln wollen. Deshalb rufen wir hier die Funktion `Hide` auf. Damit wir später vom Spielbildschirm wieder in den Hauptbildschirm wechseln können, müssen wir dem Spielfenster die Instanz des Menüs mitteilen. Das machen wir über den Constructor des Spielfensters. Mit `this`-wird die aktuelle Instanz der MainForm-Klasse als Parameter des Constructors übertragen. Anschließden lassen wir mit `Show` das gerade erstellte Fenster anzeigen.
 
