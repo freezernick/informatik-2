@@ -47,9 +47,8 @@ namespace TestGame
         private bool CheckMovement(Point NextLocation)
         {
             if (NextLocation.X >= 586 || NextLocation.X < 0 || NextLocation.Y >= 449 || NextLocation.Y < 0)
-            {
                 return false;
-            }
+
             if (obstacle.Contains(NextLocation))
                 return false;
 
