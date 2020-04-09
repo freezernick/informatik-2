@@ -4,8 +4,10 @@ using System.Windows.Forms;
 
 namespace TestGame
 {
-    public partial class Collector : GameForm
+    public partial class Collector : Form
     {
+        private MainForm Main;
+
         private bool RunningDown = false;
         private bool RunningUp = false;
         private bool RunningLeft = false;
@@ -16,7 +18,30 @@ namespace TestGame
         private Random RDM = new Random();
 
         private int Score = 0;
+        public Collector(MainForm main)
+        {
+            InitializeComponent();
+            FormBorderStyle = FormBorderStyle.None;
+            CenterToScreen();
+            KeyDown += KeyPress;
+            KeyUp += KeyRelease;
+            obstacle = new Rectangle(
+                panel2.Location.X,
+                panel2.Location.Y,
+                panel2.Width,
+                panel2.Height
 
+            );
+            Goal = new Rectangle(
+               panel3.Location.X,
+               panel3.Location.Y,
+               panel3.Width,
+               panel3.Height
+
+            );
+
+            Main = main;
+        }
         private bool CheckMovement(Point NextLocation)
         {
             if (NextLocation.X >= 586 || NextLocation.X < 0 || NextLocation.Y >= 449 || NextLocation.Y < 0)
@@ -45,27 +70,6 @@ namespace TestGame
             return true;
         }
 
-        public Collector()
-        {
-            InitializeComponent();
-            KeyDown += KeyPress;
-            KeyUp += KeyRelease;
-            obstacle = new Rectangle(
-                panel2.Location.X,
-                panel2.Location.Y,
-                panel2.Width,
-                panel2.Height
-
-            );
-            Goal = new Rectangle(
-               panel3.Location.X,
-               panel3.Location.Y,
-               panel3.Width,
-               panel3.Height
-
-            );
-        }
-
         private void KeyPress(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.W)
@@ -76,6 +80,14 @@ namespace TestGame
                 RunningLeft = true;
             if (e.KeyCode == Keys.D)
                 RunningRight = true;
+            if (e.KeyCode == Keys.OemMinus)
+                Environment.Exit(1);
+
+            if (e.KeyCode == Keys.Oemplus)
+            {
+                Close();
+                Main.Show();
+            }
         }
 
         private void KeyRelease(object sender, KeyEventArgs e)

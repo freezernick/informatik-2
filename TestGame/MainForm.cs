@@ -12,20 +12,14 @@ namespace TestGame
 {
     public partial class MainForm : Form
     {
-        public MainForm()
-        {
-            InitializeComponent();
-        }
+        public MainForm() => InitializeComponent();
 
         private void BtStart_Click(object sender, EventArgs e)
         {
             Hide();
-            FormHandler.Collector().Show();
+            new Collector(this).Show();
         }
 
-        private void BtExit_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        private void BtExit_Click(object sender, EventArgs e) => Close();
     }
 }
