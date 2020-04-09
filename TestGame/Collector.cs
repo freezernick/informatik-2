@@ -6,7 +6,7 @@ namespace TestGame
 {
     public partial class Collector : Form
     {
-        private MainForm Main;
+        private readonly MainForm Main;
 
         private bool RunningDown = false;
         private bool RunningUp = false;
@@ -15,7 +15,7 @@ namespace TestGame
 
         private Rectangle obstacle;
         private Rectangle Goal;
-        private Random RDM = new Random();
+        private readonly Random RDM = new Random();
 
         private int Score = 0;
 
@@ -72,7 +72,7 @@ namespace TestGame
             return true;
         }
 
-        private void KeyPress(object sender, KeyEventArgs e)
+        private new void KeyPress(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.W)
                 RunningUp = true;
