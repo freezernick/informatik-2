@@ -54,7 +54,7 @@ namespace TestGame
 
             if (Goal.Contains(NextLocation))
             {
-                Point NewLocation = new Point(RDM.Next(0, this.Size.Width), RDM.Next(0, this.Size.Height));
+                Point NewLocation = new Point(RDM.Next(0, this.Size.Width - panel3.Width), RDM.Next(0, this.Size.Height - panel3.Height));
                 while (obstacle.Contains(NewLocation.X, NewLocation.Y))
                 {
                     NewLocation = new Point(RDM.Next(0, this.Size.Width), RDM.Next(0, this.Size.Height));
