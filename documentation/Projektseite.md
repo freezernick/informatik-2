@@ -55,15 +55,11 @@ Das Menü ist sehr simpel und erfüllt keine weitere Funktion als darüber das S
 Die Simplizität des Benutzeroberfläche spiegelt sich auch im Code wieder.
 
 ```c#
-
-[...]
-
 public partial class MainForm : Form
 {
     public MainForm() => InitializeComponent();
 
 ```
-*Aus [MainForm.cs](../TestGame/MainForm.cs)*
 
 `InitializeComponent` ist eine Funktion, die von dem Windows-Forms-Designer benötigt wird und wird deshalb hier im Constructor aufgerufen.
 
