@@ -83,28 +83,28 @@ Es folgen zwei Event-Handler für die `Click`-Events der beiden Knöpfe des Men�
 Für den Beenden-Knopf wird nur die Funktion `Close` aufgerufen, die dann das Fenster, und somit das ganze Programm, schließt bzw. beendet.
 
 <details>
-    <summary>Vollständiger Code der MainForm.cs</summary>
-    
-    ```c#
-    using System;
-    using System.Windows.Forms;
+<summary>Vollständiger Code der MainForm.cs</summary>
 
-    namespace TestGame
+```c#
+using System;
+using System.Windows.Forms;
+
+namespace TestGame
+{
+    public partial class MainForm : Form
     {
-        public partial class MainForm : Form
+        public MainForm() => InitializeComponent();
+
+        private void BtStart_Click(object sender, EventArgs e)
         {
-            public MainForm() => InitializeComponent();
-
-            private void BtStart_Click(object sender, EventArgs e)
-            {
-                Hide();
-                new Collector(this).Show();
-            }
-
-            private void BtExit_Click(object sender, EventArgs e) => Close();
+            Hide();
+            new Collector(this).Show();
         }
+
+        private void BtExit_Click(object sender, EventArgs e) => Close();
     }
-    ```
+}
+```
 </details>
 
 ### Das Spiel
