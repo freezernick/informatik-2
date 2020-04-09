@@ -240,9 +240,9 @@ Liegt der Punkt an einer gültigen Position, können wir das Panel des Ziels an 
 
 ```
 
-Mit diesem Event-Handler verarbeiten wir das KeyDown-Event des Fensters. Mit W/A/S/D (oben, links, unten, rechts) soll der Spieler bewegt werden. Deshalb setzen wir den sobald eine dieser Tasten gedrückt wird, den dazugehörigen "Running"-Boolean. Außerdem erlauben wir noch mit "-" das Spiel bzw. das ganze Programm zu beenden und mit "+" wieder ins Menü zu gelangen.
+Mit diesem Event-Handler verarbeiten wir das `KeyDown`-Event des Fensters. Mit W/A/S/D (oben, links, unten, rechts) soll der Spieler bewegt werden. Deshalb setzen wir den sobald eine dieser Tasten gedrückt wird, den dazugehörigen "Running"-Boolean. Außerdem erlauben wir noch mit "-" das Spiel bzw. das ganze Programm zu beenden und mit "+" wieder ins Menü zu gelangen.
 
-Und damit die Spielfigur sich nicht unendlich lang bewegt, müssen wir natürlich noch den Handler für das KeyUp-Event so programmieren, dass die "Running"-Boleans wieder auf `false` gesetzt werden.
+Und damit die Spielfigur sich nicht unendlich lang bewegt, müssen wir natürlich noch den Handler für das `KeyUp`-Event so programmieren, dass die "Running"-Boleans wieder auf `false` gesetzt werden.
 
 ```c#
         private void KeyRelease(object sender, KeyEventArgs e)
