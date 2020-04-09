@@ -111,6 +111,115 @@ namespace TestGame
 
 ![](images/page/tg.png)
 
+```c#
+public partial class Collector : Form
+{
+    private readonly MainForm Main;
+
+    private bool RunningDown = false;
+    private bool RunningUp = false;
+    private bool RunningLeft = false;
+    private bool RunningRight = false;
+
+    private Rectangle obstacle;
+    private Rectangle Goal;
+    private readonly Random RDM = new Random();
+
+    private int Score = 0;
+```
+
+Erstmal definieren wir die wichtigsten Variablen des Spiels: Die Referenz zur MainForm-Instanz, einige Booleans für die Spielerbewegung, zwei Rechtecke, die das Hindernis und das Ziel repräsentieren und die wir später für die Kollisionsabfrage verwenden, sowie ein Random-Stream, den wir für die neue Position des Ziels verwenden werden, sowie eine Variable für die Punktzahl.
+
+```c#
+    public Collector(MainForm main)
+    {
+        InitializeComponent();
+        FormBorderStyle = FormBorderStyle.None;
+        CenterToScreen();
+```
+
+Mit `FormBorderStyle = FormBorderStyle.None;` und `CenterToScreen();` verändern wir die Weise, wie das Fenster angezeigt wird. Das ließe sich auch über das Eigenschaftsfenster in Visual Studio realisieren, aber hier haben wir es über den Code realisiert, weil wir nur diese zwei Zeilen einstellen mussten.
+
+```c#
+        KeyDown += KeyPress;
+        KeyUp += KeyRelease;
+```
+
+Danach weisen wir für das `KeyDown`- und das `KeyUp`-Event Funktionen zu, die als Event-Handler dienen sollen.
+
+```c#
+        obstacle = new Rectangle(
+            panel2.Location.X,
+            panel2.Location.Y,
+            panel2.Width,
+            panel2.Height
+
+        );
+        Goal = new Rectangle(
+            panel3.Location.X,
+            panel3.Location.Y,
+            panel3.Width,
+            panel3.Height
+
+        );
+
+        Main = main;
+    }
+```
+In diesem Abschnitt setzen wir die Ursprungswerte für die Rechtecke des Hindernisses und des Zielobjekts und weisen die über die Constructor-Parameter mitgegebene MainForm-Instanz der `Main`-Variable zu. Die visuelle Repräsentation der Objekte auf der Karte lösen wir über Panel-Elemente. Die Positionen und Größen, die wir vorher im Designer festgelegt haben, verwenden wir hier als Startwerte.
+
+
+```c#
+    private bool CheckMovement(Point NextLocation)
+    {
+        [...]
+    }
+```
+
+Als nächstes kommt unsere `CheckMovement`-Funktion. Mit ihr überprüfen wir, ob die Koordinaten des Punktes, der als Parameter durchgegeben wird, für den Spieler erreichbar ist. Liegt der Wert außerhalb des Spielfeldes bzw. des Fensterrahmens oder innerhalb des Hindernis-Rechtecks wird `false` ausgegeben. `True` wird also ausgegeben, wenn der Punkt erreichbar ist. Darüberhinaus prüfen wir, ob der Punkt innerhalb des Zielobjektes liegt.
+
+```c#
+        if (NextLocation.X >= 586 || NextLocation.X < 0 || NextLocation.Y >= 449 || NextLocation.Y < 0)
+            return false;
+
+        if (obstacle.Contains(NextLocation))
+            return false;
+```
+
+In der ersten Abfrage überprüfen wir, ob der Punkt noch im Spielbereich liegt. Mit der zweiten Abfrage schauen wir mit der `Contains`-Funktion, ob die das Rechteck des Hindernisses den Punkt enthält.
+
+```c#
+        if (Goal.Contains(NextLocation))
+        {
+            Point NewLocation = new Point(RDM.Next(0, this.Size.Width), RDM.Next(0, this.Size.Height));
+```
+
+Mit der nächsten Abfrage überprüfen wir, ob der Punkt innerhalb des Zielobjektes liegt. Wenn dem so sein sollte, erstellen wir einen neuen Punkt mithilfe des Random-Streams `RDM`, den wir vorher erstellt hatten. Für die `x`- und `y`-Werte legen wir jeweils die Breite bzw. die Höhe des Spielfensters als Maximalwert fest.
+
+```c#
+            while (obstacle.Contains(NewLocation.X, NewLocation.Y))
+            {
+                NewLocation = new Point(RDM.Next(0, this.Size.Width), RDM.Next(0, this.Size.Height));
+            }
+```
+
+Mit dieser `while`-Schleife sagen wir, dass, solange der neue Punkt innerhalb des Hindernisses liegt, die Generierung des Punktes wiederholt werden muss. Schließlich wäre das Ziel nicht erreichbar, wenn es innerhalb dieses Rechteckes liegen würde.
+
+```c#
+            panel3.Location = NewLocation;
+            Goal = new Rectangle(
+                panel3.Location.X,
+                panel3.Location.Y,
+                panel3.Width,
+                panel3.Height
+            );
+            Score++;
+        }
+        return true;
+```
+
+Liegt der Punkt an einer gültigen Position, können wir das Panel des Ziels an die neue Position verschieben und das Rechteck, das das Ziel im Code repräsentiert aktualisieren, die Punktzahl erhöhen und schließlich `true` ausgeben, damit der Spieler sich auch bewegen kann.
+
 <details>
 
 <summary>Vollständiger Code der Collector.cs</summary>
@@ -165,9 +274,8 @@ namespace TestGame
         private bool CheckMovement(Point NextLocation)
         {
             if (NextLocation.X >= 586 || NextLocation.X < 0 || NextLocation.Y >= 449 || NextLocation.Y < 0)
-            {
                 return false;
-            }
+
             if (obstacle.Contains(NextLocation))
                 return false;
 
@@ -200,6 +308,7 @@ namespace TestGame
                 RunningLeft = true;
             if (e.KeyCode == Keys.D)
                 RunningRight = true;
+
             if (e.KeyCode == Keys.OemMinus)
                 Environment.Exit(1);
 
