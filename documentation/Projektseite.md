@@ -220,6 +220,78 @@ Mit dieser `while`-Schleife sagen wir, dass, solange der neue Punkt innerhalb de
 
 Liegt der Punkt an einer gültigen Position, können wir das Panel des Ziels an die neue Position verschieben und das Rechteck, das das Ziel im Code repräsentiert aktualisieren, die Punktzahl erhöhen und schließlich `true` ausgeben, damit der Spieler sich auch bewegen kann.
 
+```c#
+        private new void KeyPress(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.W)
+                RunningUp = true;
+            if (e.KeyCode == Keys.S)
+                RunningDown = true;
+            if (e.KeyCode == Keys.A)
+                RunningLeft = true;
+            if (e.KeyCode == Keys.D)
+                RunningRight = true;
+
+            if (e.KeyCode == Keys.OemMinus)
+                Environment.Exit(1);
+
+            if (e.KeyCode == Keys.Oemplus)
+            {
+                Close();
+                Main.Show();
+            }
+        }
+
+```
+
+Mit diesem Event-Handler verarbeiten wir das KeyDown-Event des Fensters. Mit W/A/S/D (oben, links, unten, rechts) soll der Spieler bewegt werden. Deshalb setzen wir den sobald eine dieser Tasten gedrückt wird, den dazugehörigen "Running"-Boolean. Außerdem erlauben wir noch mit "-" das Spiel bzw. das ganze Programm zu beenden und mit "+" wieder ins Menü zu gelangen.
+
+Und damit die Spielfigur sich nicht unendlich lang bewegt, müssen wir natürlich noch den Handler für das KeyUp-Event so programmieren, dass die "Running"-Boleans wieder auf `false` gesetzt werden.
+
+```c#
+        private void KeyRelease(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.W)
+                RunningUp = false;
+            if (e.KeyCode == Keys.S)
+                RunningDown = false;
+            if (e.KeyCode == Keys.A)
+                RunningLeft = false;
+            if (e.KeyCode == Keys.D)
+                RunningRight = false;
+        }
+```
+
+Danach folgen die eigentlichen Bewegungsfunktionen. Wir nehmen hier mal `GoUp` als Beispiel.
+
+```c#
+        private void GoUp()
+        {
+            Point NextLocation = new Point(panel1.Location.X, panel1.Location.Y - 3);
+            if (CheckMovement(NextLocation))
+                panel1.Location = NextLocation;
+        }
+```
+
+In dieser Funktion wird der Punkt berechnet, zu dem sich der Spieler bewegen würden. In diesem Fall muss die `x`-Koordinate gleich bleiben, während der `y`-Wert verringert wird, da der Koordinatenursprung in der linken, oberen Ecke des Fensters ist. Dann rufen wir mit einer if-Abfrage unsere `CheckMovement`-Funktion auf, und wenn der Ort gültig ist, setzten wir die Position des Spieler-Panels. Die restlichen Bewegungsfunktionen unterscheiden sich nur durch das Vorzeichen bzw. die Achse.
+
+Und abschließend kommt die `Tick`-Funktion des Timers, den wir auch als Windows-Forms-Element zum Fenster hinzugefügt haben.
+
+```c#
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            label1.Text = $"Score: {Score.ToString()}";
+
+            if (RunningUp == true)
+                GoUp();
+            if (RunningDown == true)
+                GoDown();
+            if (RunningLeft == true)
+                GoLeft();
+            if (RunningRight == true)
+                GoRight();
+        }
+```
 <details>
 
 <summary>Vollständiger Code der Collector.cs</summary>
