@@ -44,9 +44,229 @@ TODO: GIF GUI Editing
 
 ## 'GameMaster TestGame Library'
 
-![](images/page/testgame.png)
-
 Um unser Projekt unter optimalen Bedingungen testen zu können, haben wir zusätzlich noch ein kleines Spiel gebaut, in dem man kleine blaue Vierecke einsammeln muss.
+Es besteht lediglich aus zwei Bildschirmen: Dem Menü und dem Spiel.
+
+### Das Menü
+
+![](images/page/tg_menu.png)
+
+Das Menü ist sehr simpel und erfüllt keine weitere Funktion als darüber das Spiel starten zu können. Wir haben dieses Fenster vor dem Hintergrund erstellt, dass wir Text-Erkennung, also den Startknopf, und simulierte Mauseingaben, also das drücken dieses Knopfes, durch den GameMaster testen können.
+Die Simplizität des Benutzeroberfläche spiegelt sich auch im Code wieder.
+
+```c#
+
+    [...]
+
+    public partial class MainForm : Form
+    {
+        public MainForm() => InitializeComponent();
+
+```
+*Aus [MainForm.cs](../TestGame/MainForm.cs)*
+
+`InitializeComponent` ist eine Funktion, die von dem Windows-Forms-Designer benötigt wird und wird deshalb hier im Constructor aufgerufen.
+
+```c#
+        private void BtStart_Click(object sender, EventArgs e)
+        {
+            Hide();
+            new Collector(this).Show();
+        }
+```
+Es folgen zwei Event-Handler für die `Click`-Events der beiden Knöpfe des Menüs. Da unser Programm beendet wird, wenn wir das Hauptfenster komplett schließen, können wir es nur "verstecken", wenn wir in einen anderen Bildschirm wechseln wollen. Deshalb rufen wir hier die Funktion `Hide` auf. Damit wir später vom Spielbildschirm wieder in den Hauptbildschirm wechseln können, müssen wir dem Spielfenster die Instanz des Menüs mitteilen. Das machen wir über den Constructor des Spielfensters. Mit `this`-wird die aktuelle Instanz der MainForm-Klasse als Parameter des Constructors übertragen. Anschließden lassen wir mit `Show` das gerade erstellte Fenster anzeigen.
+
+```c#
+        private void BtExit_Click(object sender, EventArgs e) => Close();
+```
+
+Für den Beenden-Knopf wird nur die Funktion `Close` aufgerufen, die dann das Fenster, und somit das ganze Programm, schließt bzw. beendet.
+
+<details>
+    <summary>Vollständiger Code der MainForm.cs</summary>
+    
+    ```c#
+    using System;
+    using System.Windows.Forms;
+
+    namespace TestGame
+    {
+        public partial class MainForm : Form
+        {
+            public MainForm() => InitializeComponent();
+
+            private void BtStart_Click(object sender, EventArgs e)
+            {
+                Hide();
+                new Collector(this).Show();
+            }
+
+            private void BtExit_Click(object sender, EventArgs e) => Close();
+        }
+    }
+    ```
+</details>
+
+### Das Spiel
+
+![](images/page/tg.png)
+
+<details>
+
+<summary>Vollständiger Code der Collector.cs</summary>
+
+```c#
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace TestGame
+{
+    public partial class Collector : Form
+    {
+        private readonly MainForm Main;
+
+        private bool RunningDown = false;
+        private bool RunningUp = false;
+        private bool RunningLeft = false;
+        private bool RunningRight = false;
+
+        private Rectangle obstacle;
+        private Rectangle Goal;
+        private readonly Random RDM = new Random();
+
+        private int Score = 0;
+
+        public Collector(MainForm main)
+        {
+            InitializeComponent();
+            FormBorderStyle = FormBorderStyle.None;
+            CenterToScreen();
+            KeyDown += KeyPress;
+            KeyUp += KeyRelease;
+            obstacle = new Rectangle(
+                panel2.Location.X,
+                panel2.Location.Y,
+                panel2.Width,
+                panel2.Height
+
+            );
+            Goal = new Rectangle(
+               panel3.Location.X,
+               panel3.Location.Y,
+               panel3.Width,
+               panel3.Height
+
+            );
+
+            Main = main;
+        }
+
+        private bool CheckMovement(Point NextLocation)
+        {
+            if (NextLocation.X >= 586 || NextLocation.X < 0 || NextLocation.Y >= 449 || NextLocation.Y < 0)
+            {
+                return false;
+            }
+            if (obstacle.Contains(NextLocation))
+                return false;
+
+            if (Goal.Contains(NextLocation))
+            {
+                Point NewLocation = new Point(RDM.Next(0, this.Size.Width), RDM.Next(0, this.Size.Height));
+                while (obstacle.Contains(NewLocation.X, NewLocation.Y))
+                {
+                    NewLocation = new Point(RDM.Next(0, this.Size.Width), RDM.Next(0, this.Size.Height));
+                }
+                panel3.Location = NewLocation;
+                Goal = new Rectangle(
+                   panel3.Location.X,
+                   panel3.Location.Y,
+                   panel3.Width,
+                   panel3.Height
+                );
+                Score++;
+            }
+            return true;
+        }
+
+        private new void KeyPress(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.W)
+                RunningUp = true;
+            if (e.KeyCode == Keys.S)
+                RunningDown = true;
+            if (e.KeyCode == Keys.A)
+                RunningLeft = true;
+            if (e.KeyCode == Keys.D)
+                RunningRight = true;
+            if (e.KeyCode == Keys.OemMinus)
+                Environment.Exit(1);
+
+            if (e.KeyCode == Keys.Oemplus)
+            {
+                Close();
+                Main.Show();
+            }
+        }
+
+        private void KeyRelease(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.W)
+                RunningUp = false;
+            if (e.KeyCode == Keys.S)
+                RunningDown = false;
+            if (e.KeyCode == Keys.A)
+                RunningLeft = false;
+            if (e.KeyCode == Keys.D)
+                RunningRight = false;
+        }
+
+        private void GoUp()
+        {
+            Point NextLocation = new Point(panel1.Location.X, panel1.Location.Y - 3);
+            if (CheckMovement(NextLocation))
+                panel1.Location = NextLocation;
+        }
+
+        private void GoDown()
+        {
+            Point NextLocation = new Point(panel1.Location.X, panel1.Location.Y + 3);
+            if (CheckMovement(new Point(NextLocation.X, NextLocation.Y + panel1.Height)))
+                panel1.Location = NextLocation;
+        }
+
+        private void GoLeft()
+        {
+            Point NextLocation = new Point(panel1.Location.X - 3, panel1.Location.Y);
+            if (CheckMovement(NextLocation))
+                panel1.Location = NextLocation;
+        }
+
+        private void GoRight()
+        {
+            Point NextLocation = new Point(panel1.Location.X + 3, panel1.Location.Y);
+            if (CheckMovement(new Point(NextLocation.X + panel1.Width, NextLocation.Y)))
+                panel1.Location = NextLocation;
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            label1.Text = $"Score: {Score.ToString()}";
+
+            if (RunningUp == true)
+                GoUp();
+            if (RunningDown == true)
+                GoDown();
+            if (RunningLeft == true)
+                GoLeft();
+            if (RunningRight == true)
+                GoRight();
+        }
+    }
+}
+```
+</details>
 
 ## GameMaster
 
