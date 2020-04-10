@@ -4,12 +4,15 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Windows.Forms;
+using GameMaster.Ruleset;
 
 namespace GameMaster
 {
     public partial class DownloadForm : Form
     {
-        private string DownloadDirectory = AppContext.BaseDirectory + @"\downloads";
+        string DownloadDirectory = Utility.DownloadDirectory;
+        string RulesetDirectory = Utility.RulesetDirectory;
+        string TempDirectory = Utility.TempDirectory;
 
         public DownloadForm() => InitializeComponent();
 
@@ -62,6 +65,12 @@ namespace GameMaster
 
         private void btStart_Click(object sender, EventArgs e)
         {
+            if(Directory.Exists(TempDirectory))
+            {
+                rtbStatus.AppendText("TempDirectory exists! Deleting...\n");
+                Directory.Delete(TempDirectory, true);
+            }
+
             if (!Directory.Exists(DownloadDirectory))
             {
                 rtbStatus.AppendText("Download directory doesn't exist!\n");
@@ -102,27 +111,17 @@ namespace GameMaster
             string TempDirectory = AppContext.BaseDirectory + @"\temp";
             ZipFile.ExtractToDirectory(Path.Combine(DownloadDirectory, "Download.zip"), TempDirectory);
             rtbStatus.AppendText("Done! Checking files...\n");
-            string[] Files = Directory.GetFiles(TempDirectory);
-            foreach (string File in Files)
-            {
-                if (File.Contains(".xml"))
-                {
-                    rtbStatus.AppendText("Found 1 ruleset!\n");
-                    FileHandling(true, File);
-                    return;
-                }
-            }
+
             string[] dirs = Directory.GetDirectories(TempDirectory);
             int SetCount = 0;
             foreach (string dir in dirs)
             {
-                string[] substrings = dir.Split('\\');
-                foreach (string File in Directory.GetFiles(Path.Combine(TempDirectory, substrings.Last())))
+                foreach (string File in Directory.GetFiles(dir))
                 {
-                    if (File.Contains(".xml"))
+                    if (File.Contains("config.xml"))
                     {
                         SetCount++;
-                        FileHandling(false, substrings.Last());
+                        FileHandling(dir);
                     }
                 }
             }
@@ -132,25 +131,16 @@ namespace GameMaster
         /// <summary>
         /// Moves the rulesets to the proper folder
         /// </summary>
-        /// <param name="isConfigInRoot">Whether the .succ is directly in the temp directory or in a subdirectory</param>
-        /// <param name="Name">Either the name of the .succ or the name of the subdirectory</param>
-        private void FileHandling(bool isConfigInRoot, string Name)
+        /// <param name="Name">The folder name</param>
+        private void FileHandling(string folder)
         {
-            //if (isConfigInRoot)
-            //{
-            //    DataFile dataFile = new DataFile(Path.Combine(AppContext.BaseDirectory + @"\temp\") + Name);
-            //    string id = dataFile.Get<string>("ID");
-            //    Directory.CreateDirectory(Path.Combine(AppContext.BaseDirectory + @"\rulesets\", id));
-            //    string[] files = Directory.GetFiles(AppContext.BaseDirectory + @"\temp\");
-            //    foreach (string file in files)
-            //    {
-            //        File.Move(AppContext.BaseDirectory + @"\temp\" + file, Path.Combine(AppContext.BaseDirectory + @"\rulesets\" + Name) + file);
-            //    }
-            //}
-            //else
-            //{
-            //    Directory.Move(Path.Combine(AppContext.BaseDirectory + @"\temp", Name), AppContext.BaseDirectory + @"\rulesets\" + Name);
-            //}
+            Configuration ruleset = Configuration.TryLoadConfig(folder);
+            if (ruleset == null)
+                return;
+
+            string[] pathElements = folder.Split('\\');
+
+            Directory.Move(Path.Combine(TempDirectory, pathElements[pathElements.Length - 1]), Path.Combine(RulesetDirectory, pathElements[pathElements.Length - 1]));
         }
     }
 }

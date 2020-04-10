@@ -98,22 +98,30 @@ namespace GameMaster.Ruleset
                 if (!File.Exists(file))
                     continue;
 
-                XmlSerializer deserializer = new XmlSerializer(typeof(Configuration));
-                TextReader reader = new StreamReader(file);
-                try
-                {
-                    object obj = deserializer.Deserialize(reader);
-                    Configuration ruleset = (Configuration)obj;
-                    reader.Close();
-                    string[] pathElements = directory.Split('\\');
-                    ruleset.Folder = pathElements[pathElements.Length - 1];
-                    MainFormHelper.Get().Games.Add(ruleset);
-                }
-                catch
-                {
-                    reader.Close();
+                Configuration config = Configuration.TryLoadConfig(directory);
+                if (config == null)
                     continue;
-                }
+
+                MainFormHelper.Get().Games.Add(config);
+            }
+        }
+
+        public static Configuration TryLoadConfig(string folder)
+        {
+            XmlSerializer deserializer = new XmlSerializer(typeof(Configuration));
+            TextReader reader = new StreamReader(Path.Combine(folder, "config.xml"));
+            try
+            {
+                object obj = deserializer.Deserialize(reader);
+                Configuration ruleset = (Configuration)obj;
+                reader.Close();
+                ruleset.Folder = folder;
+                return ruleset;
+            }
+            catch
+            {
+                reader.Close();
+                return null;
             }
         }
     }
