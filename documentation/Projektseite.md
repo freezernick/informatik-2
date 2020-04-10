@@ -1080,6 +1080,215 @@ public partial class ImageEditor : Form
 }
 ```
 
+### Der GameMaster / Process.cs
+
+<details>
+<summary>Vollständiger Code der Process.cs</summary>
+
+```c#
+
+```
+</details>
+
+### Das Overlay
+
+Für das Overlay verwenden wir die Bibliothek [GameOverlay.Net](https://github.com/michel-pi/GameOverlay.Net) (MIT). Da wir das Overlay lediglich dafür verwenden einige Log-Nachrichten auf dem Bildschirm anzeigen zu lassen, reicht und hauptsächlich eine gekürzte Version des [Beispielcodes](https://github.com/michel-pi/GameOverlay.Net/blob/master/source/Examples/Example.cs) der Bibliothek. Wir werden hier hauptsächlich unseren Logging-Mechanismus erklären.
+
+#### Logging.cs
+
+```c#
+    public class LogMessage
+    {
+        public string message;
+        public int clockCount;
+
+        public LogMessage(string logMessage)
+        {
+            message = logMessage;
+            clockCount = 0;
+        }
+    }
+```
+*Aus [Logging.cs](../GameMaster/GameMaster/Logging.cs)*
+
+Unsere `LogMessage`-Klasse enthält einen String für die eigentliche Nachricht und einen Zähler `clockCount`. Dieser steht standardmäßig auf `0`. Diesen Timer verwenden wir, wenn es darum geht Nachrichten wieder auszublenden.
+
+#### Overlay.cs
+
+```c#
+    internal List<LogMessage> logMessages = new List<LogMessage>();
+```
+
+Zuerst erstellen wir eine Liste mit `LogMessage`-Nachrichten. In dieser werden alle Nachrichten, die angezeigt werden gespeichert.
+
+```c#
+    public void Run()
+    {
+        var gfx = _graphics;
+        gfx.BeginScene();
+        gfx.ClearScene();
+        for (int i = 0; i < logMessages.Count - 1; i++)
+        {
+            gfx.DrawTextWithBackground(_font, 16f, _red, _black, new Point(0, i * 25), logMessages[i].message);
+        }
+        [...]
+    }
+```
+
+Die `Run`-Funktion ist die Funktion, die dafür sorgt das Overlay zu aktualisieren. Mit `BeginScene` wird ein neuer Frame erstellt. Mit `ClearScene` wird dieser Frame transparent gemacht. Anschließend iterieren wir für jede `LogMessage` aus unserer vorher erstellten Liste. Mit `DrawTextWithBackground` wird die eigentliche Anzeige erstellt. Mit `new Point(0, i * 25)` setzten wir die Bildschirmkoordinaten der Nachricht in Abhängigkeit des Indexes der Nachricht. Da eine Nachricht 25 Pixel groß ist, verwenden wir diesen Faktor 25.
+
+```c#
+        public void Log(string Message) => logMessages.Add(new LogMessage(Message));
+```
+
+Mit dieser Funktion wird eine neue Instanz der `LogMessage`-Klasse zur Nachrichtenliste hinzugefügt, wenn man `Overlay.Log("...")` aufruft.
+
+```c#
+        public void UpdateLog()
+        {
+            for (int i = 0; i < logMessages.Count - 1; i++)
+            {
+                LogMessage message = logMessages[i];
+                message.clockCount++;
+                if (message.clockCount == 4)
+                {
+                    logMessages.Remove(message);
+                }
+            }
+        }
+```
+
+Die `UpdateLog`-Funktion ist nun die eigentliche Logik des Overlay-Logs. Hier wird jedes mal, wenn diese Funktion aufgerufen wird, der `clockCount` aller Nachrichten um `+1` erhöht. Hat eine Nachricht einen `clockCount` von 4 erreicht, wird die Nachricht aus der Liste gelöscht und vom Bildschirm entfernt.
+
+<details>
+<summary>Vollständiger Code der Overlay.cs</summary>
+
+```c#
+using GameMaster.Logging;
+using GameOverlay.Drawing;
+using GameOverlay.Windows;
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
+
+namespace GameMaster.Overlay
+{
+    public class GameMasterOverlay
+    {
+        private readonly OverlayWindow _window;
+        private readonly Graphics _graphics;
+        private Font _font;
+        private SolidBrush _black;
+        private SolidBrush _red;
+        internal List<LogMessage> logMessages = new List<LogMessage>();
+
+        public GameMasterOverlay()
+        {
+            _window = new OverlayWindow(0, 0, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height)
+            {
+                IsTopmost = true,
+                IsVisible = true
+            };
+
+            _window.SizeChanged += _window_SizeChanged;
+
+            _graphics = new Graphics
+            {
+                Height = _window.Height,
+                PerPrimitiveAntiAliasing = true,
+                TextAntiAliasing = true,
+                UseMultiThreadedFactories = false,
+                VSync = true,
+                Width = _window.Width,
+                WindowHandle = IntPtr.Zero
+            };
+        }
+
+        ~GameMasterOverlay()
+        {
+            _graphics.Dispose();
+            _window.Dispose();
+        }
+
+        public void Initialize()
+        {
+            _window.CreateWindow();
+            _graphics.WindowHandle = _window.Handle;
+            _graphics.Setup();
+            _font = _graphics.CreateFont("Arial", 16);
+            _black = _graphics.CreateSolidBrush(0, 0, 0);
+            _red = _graphics.CreateSolidBrush(Color.Red);
+        }
+
+        /// <summary>
+        /// Refreshes the overlay
+        /// </summary>
+        public void Run()
+        {
+            var gfx = _graphics;
+            gfx.BeginScene();
+            gfx.ClearScene();
+            for (int i = 0; i < logMessages.Count - 1; i++)
+            {
+                gfx.DrawTextWithBackground(_font, 16f, _red, _black, new Point(0, i * 25), logMessages[i].message);
+            }
+            gfx.EndScene();
+        }
+
+        private void _window_SizeChanged(object sender, OverlaySizeEventArgs e)
+        {
+            if (_graphics == null) return;
+
+            if (_graphics.IsInitialized)
+            {
+                // after the Graphics surface is initialized you can only use the Resize method in order to enqueue a size change
+                _graphics.Resize(e.Width, e.Height);
+            }
+            else
+            {
+                // otherwise just set its members
+                _graphics.Width = e.Width;
+                _graphics.Height = e.Height;
+            }
+        }
+
+        /// <summary>
+        /// Clears the screen from the overlay
+        /// </summary>
+        public void Clear()
+        {
+            _graphics.BeginScene();
+            _graphics.ClearScene();
+            _graphics.EndScene();
+        }
+
+        // Logging
+
+        /// <summary>
+        /// Adds a log message to the screen
+        /// </summary>
+        /// <param name="Message"></param>
+        public void Log(string Message) => logMessages.Add(new LogMessage(Message));
+
+        /// <summary>
+        /// Will update the remove timers for all log messages
+        /// </summary>
+        public void UpdateLog()
+        {
+            for (int i = 0; i < logMessages.Count - 1; i++)
+            {
+                LogMessage message = logMessages[i];
+                message.clockCount++;
+                if (message.clockCount == 4)
+                {
+                    logMessages.Remove(message);
+                }
+            }
+        }
+    }
+}
+```
+
 ### Utility
 
 #### APIs.cs
