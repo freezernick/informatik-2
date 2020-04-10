@@ -23,7 +23,7 @@ namespace GameMaster
             CheckForIllegalCrossThreadCalls = false;
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Checks if there are items in the box
             if (listBox1.Items.Count == 0)
@@ -51,14 +51,14 @@ namespace GameMaster
             }
         }
 
-        private void btNew_Click(object sender, EventArgs e)
+        private void BtNew_Click(object sender, EventArgs e)
         {
             SelectedRuleset = new Configuration();
             new EditForm().Show();
             Hide();
         }
 
-        private void btEditProp_Click(object sender, EventArgs e)
+        private void BtEditProp_Click(object sender, EventArgs e)
         {
             EditorForm editor = new EditorForm();
             editor.Text = "Edit " + SelectedRuleset.Name;
@@ -69,7 +69,7 @@ namespace GameMaster
 
         private void EditorClosed(object sender, EventArgs e) => Show();
 
-        private void btAdd_Click(object sender, EventArgs e)
+        private void BtAdd_Click(object sender, EventArgs e)
         {
             new DownloadForm().Show();
             Hide();
@@ -84,7 +84,7 @@ namespace GameMaster
             }
         }
 
-        private void lErscheinungsdatum_Load(object sender, EventArgs e)
+        private void LErscheinungsdatum_Load(object sender, EventArgs e)
         {
             Configuration.DiscoverRulesets();
             UpdateList();
@@ -92,7 +92,7 @@ namespace GameMaster
                 listBox1.SelectedIndex = 0;
         }
 
-        private void btStart_Click(object sender, EventArgs e) => Vm = new VM(SelectedRuleset);
+        private void BtStart_Click(object sender, EventArgs e) => Vm = new VM(SelectedRuleset);
 
         private void Tray_MouseDoubleClick(object sender, EventArgs e)
         {
@@ -104,7 +104,7 @@ namespace GameMaster
 
         private void SourceCodeLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) => System.Diagnostics.Process.Start(GameMaster.Properties.Resources.Repository);
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             var confirmResult = MessageBox.Show("Are you sure to delete this ruleset? This cannot be undone!", "Confirmation needed", MessageBoxButtons.YesNo);
             if (confirmResult == DialogResult.Yes)

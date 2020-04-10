@@ -18,11 +18,12 @@ namespace GameMaster
         {
             InitializeComponent();
             game = MainFormHelper.Get().SelectedRuleset;
+            EditorHelper._editor = this;
         }
 
-        private void toolStripButton2_Click(object sender, EventArgs e) => Configuration.Save(game);
+        private void ToolStripButton2_Click(object sender, EventArgs e) => Configuration.Save(game);
 
-        private void toolStripButton3_Click(object sender, EventArgs e) => Close();
+        private void ToolStripButton3_Click(object sender, EventArgs e) => Close();
 
         private void EditorForm_Load(object sender, EventArgs e)
         {
@@ -37,25 +38,40 @@ namespace GameMaster
             treeView1.ExpandAll();
         }
 
-        private void btTriggerDelete_Click(object sender, EventArgs e)
+        private void BtTriggerDelete_Click(object sender, EventArgs e)
         {
             game.LeftSideObjects.Remove(selectedObject);
             treeView1.SelectedNode.Remove();
         }
 
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e) => selectedObject = dict[e.Node.Text];
+        private void TreeView1_AfterSelect(object sender, TreeViewEventArgs e) => selectedObject = dict[e.Node.Text];
+
+        private void Button4_Click(object sender, EventArgs e)
+        {
+            new EventList().FormClosed += ToolClosure;
+            Disable();
+        }
+
+        private void ToolClosure(object sender, EventArgs e) => Enabled = true;
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            new EditForm().FormClosed += ToolClosure;
+            Disable();
+        }
+
+        private void Disable() => Enabled = false;
     }
 
-    /// <summary>
-    /// Parent class for all configurations windows opened by the EditorForm form.
-    /// It holds a reference to the game currently being edited.
-    /// </summary>
     public class EditorWindow : Form
     {
         public Configuration game;
 
-        public EditorWindow()
-        {
-        }
+        public EditorWindow() => Show();
+    }
+
+    public static class EditorHelper
+    {
+        public static EditorForm _editor;
     }
 }

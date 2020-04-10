@@ -50,7 +50,7 @@
             this.btTriggerDelete.TabIndex = 2;
             this.btTriggerDelete.Text = "-";
             this.btTriggerDelete.UseVisualStyleBackColor = true;
-            this.btTriggerDelete.Click += new System.EventHandler(this.btTriggerDelete_Click);
+            this.btTriggerDelete.Click += new System.EventHandler(this.BtTriggerDelete_Click);
             // 
             // button1
             // 
@@ -61,6 +61,7 @@
             this.button1.TabIndex = 3;
             this.button1.Text = "+ World";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // toolStrip1
             // 
@@ -92,7 +93,7 @@
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(35, 22);
             this.toolStripButton2.Text = "Save";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            this.toolStripButton2.Click += new System.EventHandler(this.ToolStripButton2_Click);
             // 
             // toolStripButton3
             // 
@@ -102,7 +103,7 @@
             this.toolStripButton3.Name = "toolStripButton3";
             this.toolStripButton3.Size = new System.Drawing.Size(30, 22);
             this.toolStripButton3.Text = "Exit";
-            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+            this.toolStripButton3.Click += new System.EventHandler(this.ToolStripButton3_Click);
             // 
             // toolStripButton4
             // 
@@ -122,6 +123,7 @@
             this.button4.TabIndex = 18;
             this.button4.Text = "+ Event";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.Button4_Click);
             // 
             // treeView1
             // 
@@ -129,7 +131,7 @@
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(782, 405);
             this.treeView1.TabIndex = 19;
-            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeView1_AfterSelect);
             // 
             // EditorForm
             // 

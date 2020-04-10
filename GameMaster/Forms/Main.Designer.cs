@@ -51,7 +51,7 @@
             this.listBox1.ScrollAlwaysVisible = true;
             this.listBox1.Size = new System.Drawing.Size(282, 238);
             this.listBox1.TabIndex = 0;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.ListBox1_SelectedIndexChanged);
             // 
             // btDownload
             // 
@@ -62,7 +62,7 @@
             this.btDownload.TabIndex = 5;
             this.btDownload.Text = "Download Rulesets";
             this.btDownload.UseVisualStyleBackColor = true;
-            this.btDownload.Click += new System.EventHandler(this.btAdd_Click);
+            this.btDownload.Click += new System.EventHandler(this.BtAdd_Click);
             // 
             // btNew
             // 
@@ -73,7 +73,7 @@
             this.btNew.TabIndex = 3;
             this.btNew.Text = "New Ruleset";
             this.btNew.UseVisualStyleBackColor = true;
-            this.btNew.Click += new System.EventHandler(this.btNew_Click);
+            this.btNew.Click += new System.EventHandler(this.BtNew_Click);
             // 
             // Tray
             // 
@@ -89,7 +89,7 @@
             this.btStart.TabIndex = 12;
             this.btStart.Text = "Start Ruleset";
             this.btStart.UseVisualStyleBackColor = true;
-            this.btStart.Click += new System.EventHandler(this.btStart_Click);
+            this.btStart.Click += new System.EventHandler(this.BtStart_Click);
             // 
             // btEditProp
             // 
@@ -102,7 +102,7 @@
             this.btEditProp.TabIndex = 11;
             this.btEditProp.Text = "Edit Ruleset";
             this.btEditProp.UseVisualStyleBackColor = true;
-            this.btEditProp.Click += new System.EventHandler(this.btEditProp_Click);
+            this.btEditProp.Click += new System.EventHandler(this.BtEditProp_Click);
             // 
             // SourceCodeLink
             // 
@@ -133,7 +133,7 @@
             this.btDelete.TabIndex = 17;
             this.btDelete.Text = "Delete Ruleset";
             this.btDelete.UseVisualStyleBackColor = true;
-            this.btDelete.Click += new System.EventHandler(this.button1_Click);
+            this.btDelete.Click += new System.EventHandler(this.Button1_Click);
             // 
             // label2
             // 
@@ -166,7 +166,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GameMaster";
-            this.Load += new System.EventHandler(this.lErscheinungsdatum_Load);
+            this.Load += new System.EventHandler(this.LErscheinungsdatum_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
