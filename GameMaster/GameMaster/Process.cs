@@ -157,7 +157,7 @@ namespace GameMaster
 
         private StreamWriter LogWriter;
 
-        private void StartLogging() => LogWriter = new StreamWriter(Path.Combine(AppContext.BaseDirectory, "log.txt"));
+        private void StartLogging() => LogWriter = new StreamWriter(Path.Combine(Utility.RulesetDirectory, configuration.Folder) + "\\log.txt");
 
         public void Log(string message)
         {
