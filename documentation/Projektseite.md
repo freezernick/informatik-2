@@ -53,7 +53,7 @@ Es besteht lediglich aus zwei Bildschirmen: Dem Menü und dem Spiel.
 ![](images/page/tg_menu.png)
 
 Das Menü ist sehr simpel und erfüllt keine weitere Funktion als darüber das Spiel starten zu können. Wir haben dieses Fenster vor dem Hintergrund erstellt, dass wir Text-Erkennung, also den Startknopf, und simulierte Mauseingaben, also das drücken dieses Knopfes, durch den GameMaster testen können.
-Die Simplizität des Benutzeroberfläche spiegelt sich auch im Code wieder.
+Die Simplizität der Benutzeroberfläche spiegelt sich auch im Code wieder.
 
 ```c#
 public partial class MainForm : Form
