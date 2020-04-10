@@ -1111,6 +1111,9 @@ TODO: Image
 
 Das Cropping-Tool kann dazu verwendet werden, um den wichtigen Bereich eines Referenzbildes aus dem ünnötigen Rest herauszuschneiden und gesondert, als eigentliche Referenz zu speichern.
 
+<details>
+<summary>Vollständiger Code der ImageEditor.cs</summary>
+
 ```c#
 public partial class ImageEditor : Form
 {
@@ -1216,6 +1219,8 @@ public partial class ImageEditor : Form
     }
 }
 ```
+
+</details>
 
 ### Der GameMaster / Process.cs
 
