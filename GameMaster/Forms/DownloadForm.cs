@@ -105,6 +105,9 @@ namespace GameMaster
             ZipHandling();
         }
 
+        /// <summary>
+        /// Unzips the archive
+        /// </summary>
         private void ZipHandling()
         {
             rtbStatus.AppendText("Extracting archive...\n");
