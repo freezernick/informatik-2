@@ -141,6 +141,8 @@ namespace GameMaster
             string[] pathElements = folder.Split('\\');
 
             Directory.Move(Path.Combine(TempDirectory, pathElements[pathElements.Length - 1]), Path.Combine(RulesetDirectory, pathElements[pathElements.Length - 1]));
+            MainFormHelper.Get().Games.Add(ruleset);
+            MainFormHelper.Get().UpdateList();
         }
     }
 }
