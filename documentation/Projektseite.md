@@ -690,6 +690,144 @@ namespace GameMaster
 
 #### DownloadForm
 
+TODO: Einleitung
+
+```c#
+        private void tbQuelle_TextChanged(object sender, EventArgs e)
+        {
+            if (!ValidateUrl(tbQuelle.Text))
+            {
+                btStart.Enabled = false;
+                return;
+            }
+            btStart.Enabled = true;
+        }
+```
+Zuerst haben wir einen Event-Handler für das `TextChanged`-Event der Textbox. Sobald der Benutzer anfängt eine URL einzugeben, überprüfen wir mit unserer `ValidateUrl`-Funktion so gut es geht, ob es sich bei dem eingegeben Text um eine gültige URL handelt. Wenn die URL als ungültig erkannt werden sollte, wird der Start-Knopf ausgegraut. Doch wie sieht diese Prüfung aus?
+
+```c#
+        private bool ValidateUrl(string Url)
+        {
+            // Is using http / https
+            if (!Url.StartsWith("http://") && !Url.StartsWith("https://"))
+            {
+                return false;
+            }
+
+            // Target is a .zip archive
+            if (!Url.EndsWith(".zip"))
+            {
+                return false;
+            }
+
+            string[] substrings = Url.Split('/');
+
+            /// Target archive has a name
+            /// (Checks if there are characters between the last '/' and the .zip)
+            if (substrings.Last() == ".zip")
+            {
+                return false;
+            }
+            return true;
+        }
+```
+
+Zuerst schauen wir, ob der String mit einem `http://` oder `https://` beginnt. Danach überprüfen wir, ob die URL auf `.zip` endet, da wir mit der DownloadForm eben nur zip-Archive runterladen und entpacken können. Sollten beide Fälle zutreffen, überprüfen wir noch, ob die `.zip` auch einen Namen hat, oder ob einfach `/.zip` eingegeben wurde. Sind alle Anforderungen erfüllt, kann der Download losgehen.
+
+```c#
+        private void btStart_Click(object sender, EventArgs e)
+        {
+            if(Directory.Exists(TempDirectory))
+            {
+                rtbStatus.AppendText("TempDirectory exists! Deleting...\n");
+                Directory.Delete(TempDirectory, true);
+            }
+
+            if (!Directory.Exists(DownloadDirectory))
+            {
+                rtbStatus.AppendText("Download directory doesn't exist!\n");
+                rtbStatus.AppendText("Creating...\n");
+                Directory.CreateDirectory(DownloadDirectory);
+            }
+            using (WebClient wc = new WebClient())
+            {
+                string DownloadUrl = tbQuelle.Text;
+
+                // Upgrade insecure requests
+                if (DownloadUrl.StartsWith("http://"))
+                {
+                    rtbStatus.AppendText("\nUpgrading insecure request...\n");
+                    DownloadUrl.Replace("http://", "https://");
+                }
+                rtbStatus.AppendText("Downloading now...\n");
+                wc.DownloadProgressChanged += WC_DownloadProgressChanged;
+                wc.DownloadFileCompleted += WC_DownloadFileCompleted;
+                wc.DownloadFileAsync(
+                    new System.Uri(DownloadUrl),
+                    Path.Combine(DownloadDirectory, "Download.zip")
+                );
+            }
+        }
+```
+
+TODO: Start Erklärung
+
+```c#
+        private void WC_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e) => pbProgress.Value = e.ProgressPercentage;
+
+        private void WC_DownloadFileCompleted(object sender, EventArgs e)
+        {
+            rtbStatus.AppendText("Finished!\n");
+            ZipHandling();
+        }
+```
+
+Außerdem haben wir noch zwei Event-Handler für die `DownloadProgressChanged`- und `DownloadFileCompleted`-Events des `WebClients`, den wir zum Downloaden verwenden. Wenn sich der Downloadfortschritt ändert, wird lediglich die Fortschrittsanzeige aktualisiert. Wenn der Download abgeschlossen ist, wird einerseits der Nutzer darüber informiert, andererseits starten wir die `ZipHandling`-Funktion mit der wir das Archiv entpacken.
+
+```c#
+        private void ZipHandling()
+        {
+            rtbStatus.AppendText("Extracting archive...\n");
+            string TempDirectory = AppContext.BaseDirectory + @"\temp";
+            ZipFile.ExtractToDirectory(Path.Combine(DownloadDirectory, "Download.zip"), TempDirectory);
+            rtbStatus.AppendText("Done! Checking files...\n");
+
+            string[] dirs = Directory.GetDirectories(TempDirectory);
+            int SetCount = 0;
+            foreach (string dir in dirs)
+            {
+                foreach (string File in Directory.GetFiles(dir))
+                {
+                    if (File.Contains("config.xml"))
+                    {
+                        SetCount++;
+                        FileHandling(dir);
+                    }
+                }
+            }
+            rtbStatus.AppendText("Found " + SetCount.ToString() + " rulesets!\n");
+        }
+```
+
+TODO: Erklärung
+
+```c#
+        private void FileHandling(string folder)
+        {
+            Configuration ruleset = Configuration.TryLoadConfig(folder);
+            if (ruleset == null)
+                return;
+
+            string[] pathElements = folder.Split('\\');
+
+            Directory.Move(Path.Combine(TempDirectory, pathElements[pathElements.Length - 1]), Path.Combine(RulesetDirectory, pathElements[pathElements.Length - 1]));
+            MainFormHelper.Get().Games.Add(ruleset);
+            MainFormHelper.Get().UpdateList();
+        }
+```
+
+In der `FileHandling`-Funktion wird versucht den Inhalt der XML in eine `Configuration`-Instanz zu deserialisieren. Sollte das Fehlschlagen, also `null` zurückkommen, passiert nichts weiter. Ist die XML gültig, wird sie in den Ruleset-Ordner verschoben und die List der `MainForm` wird aktualisiert.
+
 <details>
 <summary>Vollständiger Code der DownloadForm.cs</summary>
 
