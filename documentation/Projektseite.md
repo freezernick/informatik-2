@@ -528,7 +528,7 @@ namespace GameMaster
 
 
 <details>
-<summary>Vollständiger Code der Main.cs</details>
+<summary>Vollständiger Code der Main.cs</summary>
 
 ```c#
 using GameMaster.Interfaces;
