@@ -3,6 +3,7 @@ using GameOverlay.Drawing;
 using GameOverlay.Windows;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace GameMaster.Overlay
 {
@@ -10,20 +11,14 @@ namespace GameMaster.Overlay
     {
         private readonly OverlayWindow _window;
         private readonly Graphics _graphics;
-
         private Font _font;
-
         private SolidBrush _black;
-        private SolidBrush _gray;
         private SolidBrush _red;
-        private SolidBrush _green;
-        private SolidBrush _blue;
-
         internal List<LogMessage> logMessages = new List<LogMessage>();
 
         public GameMasterOverlay()
         {
-            _window = new OverlayWindow(0, 0, 1920, 1080)
+            _window = new OverlayWindow(0, 0, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height)
             {
                 IsTopmost = true,
                 IsVisible = true
@@ -52,18 +47,11 @@ namespace GameMaster.Overlay
         public void Initialize()
         {
             _window.CreateWindow();
-
             _graphics.WindowHandle = _window.Handle;
             _graphics.Setup();
-
             _font = _graphics.CreateFont("Arial", 16);
-
             _black = _graphics.CreateSolidBrush(0, 0, 0);
-            _gray = _graphics.CreateSolidBrush(0x24, 0x29, 0x2E);
-
             _red = _graphics.CreateSolidBrush(Color.Red);
-            _green = _graphics.CreateSolidBrush(Color.Green);
-            _blue = _graphics.CreateSolidBrush(Color.Blue);
         }
 
         /// <summary>
@@ -76,7 +64,7 @@ namespace GameMaster.Overlay
             gfx.ClearScene();
             for (int i = 0; i < logMessages.Count - 1; i++)
             {
-                gfx.DrawTextWithBackground(_font, 16f, _red, _black, new Point(100, i * 25), logMessages[i].message);
+                gfx.DrawTextWithBackground(_font, 16f, _red, _black, new Point(0, i * 25), logMessages[i].message);
             }
             gfx.EndScene();
         }
