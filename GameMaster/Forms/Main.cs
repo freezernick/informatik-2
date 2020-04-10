@@ -63,8 +63,11 @@ namespace GameMaster
             EditorForm editor = new EditorForm();
             editor.Text = "Edit " + SelectedRuleset.Name;
             editor.Show();
+            editor.FormClosed += EditorClosed;
             Hide();
         }
+
+        private void EditorClosed(object sender, EventArgs e) => Show();
 
         private void btAdd_Click(object sender, EventArgs e)
         {

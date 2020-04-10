@@ -38,18 +38,17 @@
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.button4 = new System.Windows.Forms.Button();
             this.treeView1 = new System.Windows.Forms.TreeView();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btTriggerDelete
             // 
-            this.btTriggerDelete.Location = new System.Drawing.Point(181, 27);
+            this.btTriggerDelete.Location = new System.Drawing.Point(132, 27);
             this.btTriggerDelete.Margin = new System.Windows.Forms.Padding(2);
             this.btTriggerDelete.Name = "btTriggerDelete";
-            this.btTriggerDelete.Size = new System.Drawing.Size(100, 24);
+            this.btTriggerDelete.Size = new System.Drawing.Size(39, 24);
             this.btTriggerDelete.TabIndex = 2;
-            this.btTriggerDelete.Text = "Remove Element";
+            this.btTriggerDelete.Text = "-";
             this.btTriggerDelete.UseVisualStyleBackColor = true;
             this.btTriggerDelete.Click += new System.EventHandler(this.btTriggerDelete_Click);
             // 
@@ -58,9 +57,9 @@
             this.button1.Location = new System.Drawing.Point(12, 27);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(81, 24);
+            this.button1.Size = new System.Drawing.Size(56, 24);
             this.button1.TabIndex = 3;
-            this.button1.Text = "Add World";
+            this.button1.Text = "+ World";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // toolStrip1
@@ -75,7 +74,6 @@
             this.toolStrip1.Size = new System.Drawing.Size(806, 25);
             this.toolStrip1.TabIndex = 17;
             this.toolStrip1.Text = "toolStrip1";
-            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
             // toolStripButton1
             // 
@@ -85,7 +83,6 @@
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(138, 22);
             this.toolStripButton1.Text = "Edit Ruleset Information";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // toolStripButton2
             // 
@@ -115,34 +112,24 @@
             this.toolStripButton4.Name = "toolStripButton4";
             this.toolStripButton4.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton4.Text = "toolStripButton4";
-            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(97, 27);
+            this.button4.Location = new System.Drawing.Point(72, 27);
             this.button4.Margin = new System.Windows.Forms.Padding(2);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(80, 24);
+            this.button4.Size = new System.Drawing.Size(56, 24);
             this.button4.TabIndex = 18;
-            this.button4.Text = "Add Event";
+            this.button4.Text = "+ Event";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click_1);
             // 
             // treeView1
             // 
-            this.treeView1.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawAll;
             this.treeView1.Location = new System.Drawing.Point(12, 56);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(269, 405);
-            this.treeView1.TabIndex = 21;
+            this.treeView1.Size = new System.Drawing.Size(782, 405);
+            this.treeView1.TabIndex = 19;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
-            // 
-            // panel1
-            // 
-            this.panel1.Location = new System.Drawing.Point(287, 56);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(507, 405);
-            this.panel1.TabIndex = 22;
             // 
             // EditorForm
             // 
@@ -150,7 +137,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(806, 473);
             this.ControlBox = false;
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.toolStrip1);
@@ -159,7 +145,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "EditorForm";
             this.Text = "Editor";
-            this.Load += new System.EventHandler(this.ObjectListForm_Load);
+            this.Load += new System.EventHandler(this.EditorForm_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -175,8 +161,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.TreeView treeView1;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolStripButton toolStripButton4;
+        private System.Windows.Forms.TreeView treeView1;
     }
 }
