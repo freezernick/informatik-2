@@ -1,31 +1,26 @@
-# Idee / Konzept
+# Der GameMaster
 
-Mit dem 'GameMaster' wollen wir ein Tool entwickeln, dass es jedem ohne technisches Vorwissen ermöglicht, eine KI oder eher einen Bot zu entwickeln, die für den Nutzern das Spielen von Computer- und Browsergames übernimmt.
-Es sollte dafür eine grafische Oberfläche gegen, mit der dann anhand von Parametern die Funktionsweise geändert werden kann.
+Mit dem 'GameMaster' wollten wir ein Tool entwickeln, dass es jedem ohne technisches Vorwissen ermöglicht, eine KI bzw. einen Bot zu entwickeln, die für den Nutzer das Spielen von Computer- und Browsergames übernimmt. Das Ziel war es eine grafische Oberfläche anzubieten, mit der der Nutzer mithilfe von vordefinierten Elementen ein Regelwerk für den GameMaster zusammenstellen kann. Im folgenden werden wir Schrittweise durch die Anwendung gehen und beispielhaft ein Ruleset erstellen. Die Erklärung der technischen Umsetzung folgt weiter unten.
 
-# Die Anwendung
+## Ein Ruleset erstellen
 
-## Der Startbildschirm
+### Der Hauptbildschirm
 
 ![](images/page/main.png)
 
-Startet man den 'GameMaster' ist dieser Bildschirm das erste was man sieht. Man bekommt eine Liste mit bereits installierten Rulesets. Wenn man eins ausgewählt hat, kann man es starten - solange man das Spiel, für das das Ruleset konfiguriert wurde, installiert hat - bearbeiten oder löschen. Außerdem kann man jederzeit ein neues Ruleset erstellen, oder versuchen fertiggestellte Rulesets herunterzuladen. 
+Startet man den 'GameMaster' ist dieser Bildschirm das erste was man sieht. Man bekommt eine Liste mit bereits installierten Rulesets. Wenn man eins ausgewählt hat, kann man es starten - solange man das Spiel, für das das Ruleset konfiguriert wurde, installiert hat - bearbeiten oder löschen. Außerdem kann man jederzeit ein neues Ruleset erstellen, oder versuchen fertiggestellte Rulesets herunterzuladen. In unserem Fall haben wir noch keine Rulesets installiert. Deshalb klicken wir auf `New Ruleset`, um ein neues zu erstellen. So gelangt man in das Metadaten-Formular des Editors.
 
-## Editor
+### Editor
+
+#### Metadaten-Formular
 
 TODO: Bild + Erklärung
+
+#### Hauptbildschirm des Editors
 
 ### Welten-System
 
 TODO: Erklärung, ggf. Diagramm?
-
-### Metadaten
-
-TODO: Bild + Erklärung
-
-## Downloadfenster
-
-TODO: Bild + Erklärung 
 
 ## Ein Ruleset Starten
 
@@ -33,13 +28,98 @@ TODO: Bild + Erklärung
 
 ### Overlay
 
+### Das fertige Ruleset
+
+TODO: Bild Editor
+
+TODO: Update XML
+
+<details>
+<summary>Die fertige XML</summary>
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<configuration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>GameMaster TestGame Library</Name>
+  <Executable>C:\Users\buyin\source\repos\GameMasterClientLegacy\TestGame\bin\Debug\TestGame.exe</Executable>
+  <Template xsi:type="Platformer" />
+  <CustomEvents />
+  <LeftSideObjects>
+    <LeftSide xsi:type="StartupWorld">
+      <Name>StartupWorld</Name>
+      <WorldEvents>
+        <Event xsi:type="StartupEvent">
+          <Name>Startup Event</Name>
+          <EventObjects />
+        </Event>
+        <Event xsi:type="TickEvent">
+          <Name>Tick Event</Name>
+          <EventObjects />
+        </Event>
+        <Event xsi:type="ShutdownRequestEvent">
+          <Name>Shutdown Request Event</Name>
+          <EventObjects />
+        </Event>
+      </WorldEvents>
+    </LeftSide>
+    <LeftSide xsi:type="GameWorld">
+      <Name>Menu World</Name>
+      <WorldEvents>
+        <Event xsi:type="StartupEvent">
+          <Name>Startup Event</Name>
+          <EventObjects />
+        </Event>
+        <Event xsi:type="TickEvent">
+          <Name>Tick Event</Name>
+          <EventObjects />
+        </Event>
+        <Event xsi:type="ShutdownRequestEvent">
+          <Name>Shutdown Request Event</Name>
+          <EventObjects />
+        </Event>
+      </WorldEvents>
+    </LeftSide>
+    <LeftSide xsi:type="GameWorld">
+      <Name>Game World</Name>
+      <WorldEvents>
+        <Event xsi:type="StartupEvent">
+          <Name>Startup Event</Name>
+          <EventObjects />
+        </Event>
+        <Event xsi:type="TickEvent">
+          <Name>Tick Event</Name>
+          <EventObjects />
+        </Event>
+        <Event xsi:type="ShutdownRequestEvent">
+          <Name>Shutdown Request Event</Name>
+          <EventObjects />
+        </Event>
+      </WorldEvents>
+    </LeftSide>
+  </LeftSideObjects>
+</configuration>
+```
+
+</details>
+
+### Downloadfenster
+
+TODO: Bild 
+
+Wenn man nicht diesem Prozess folgen möchte, kann man sich das Ruleset auch über das Downloadfenster herunterladen. Dafür muss man nur diesen Link eingeben: TODO: Link
+
+
+----
+
 # Umsetzung
+
+Hier folgen nun die Erklärungen, wie wir den 'GameMaster' umgesetzt haben.
 
 ## Entwicklungsumgebung
 
 ![](images/page/vs_still.png)
 
-Der 'GameMaster' wird in C# entwickelt. Für die Oberfläche verwenden wir [WindowsForms.](https://github.com/dotnet/winforms). Als IDE verwenden wir [Visual Studio 2019](https://visualstudio.microsoft.com/), da in der Software ein Editor implementiert ist, mit dem man die Benutzeroberfläche mithilfe einiger vorgefertigter Elemente zusammenbauen kann.
+Den 'GameMaster' haben wir in C# programmiert. Für die Oberfläche verwenden wir [WindowsForms.](https://github.com/dotnet/winforms). Als IDE verwenden wir [Visual Studio 2019](https://visualstudio.microsoft.com/), da in der Software ein Editor implementiert ist, mit dem man die Benutzeroberfläche mithilfe einiger vorgefertigter Elemente zusammenbauen kann.
 
 TODO: GIF GUI Editing
 
@@ -690,7 +770,7 @@ namespace GameMaster
 
 #### DownloadForm
 
-TODO: Einleitung
+TODO: Image
 
 ```c#
         private void tbQuelle_TextChanged(object sender, EventArgs e)
@@ -738,39 +818,27 @@ Zuerst schauen wir, ob der String mit einem `http://` oder `https://` beginnt. D
         private void btStart_Click(object sender, EventArgs e)
         {
             if(Directory.Exists(TempDirectory))
-            {
-                rtbStatus.AppendText("TempDirectory exists! Deleting...\n");
                 Directory.Delete(TempDirectory, true);
-            }
 
             if (!Directory.Exists(DownloadDirectory))
-            {
-                rtbStatus.AppendText("Download directory doesn't exist!\n");
-                rtbStatus.AppendText("Creating...\n");
                 Directory.CreateDirectory(DownloadDirectory);
-            }
+
             using (WebClient wc = new WebClient())
             {
-                string DownloadUrl = tbQuelle.Text;
-
-                // Upgrade insecure requests
-                if (DownloadUrl.StartsWith("http://"))
-                {
-                    rtbStatus.AppendText("\nUpgrading insecure request...\n");
-                    DownloadUrl.Replace("http://", "https://");
-                }
-                rtbStatus.AppendText("Downloading now...\n");
                 wc.DownloadProgressChanged += WC_DownloadProgressChanged;
                 wc.DownloadFileCompleted += WC_DownloadFileCompleted;
+                rtbStatus.AppendText("Downloading now...\n");
                 wc.DownloadFileAsync(
-                    new System.Uri(DownloadUrl),
+                    new System.Uri(tbQuelle.Text;),
                     Path.Combine(DownloadDirectory, "Download.zip")
                 );
             }
         }
 ```
 
-TODO: Start Erklärung
+Im Event-Handler für den Startknopf sorgen wir zuerst dafür, dass das `TempDirectory` gelöscht wird. In diesen Ordner werden wir später das Zip-Archiv extrahieren. Wären dort noch Dateien vorhanden, könnten diese später zu Problemen führen. Danach wird der Download-Ordner erstellt, in das das Archiv gelegt wird, während der Download noch läuft.
+
+Sind diese Schritte erledigt, können wir uns dem Download widmen. Dieser wird über einen `[WebClient](https://docs.microsoft.com/en-us/dotnet/api/system.net.webclient?view=netframework-4.8)` realisiert. Dafür legen wir zuerst für das `DownloadProgressChanged` und das `DownloadFileCompleted`-Event des WebClients unsere Event-Handler fest. Danach wird mit `rtbStatus.AppendText(Downloading now...)` der Nutzer darüber informiert, dass der Download jetzt started. Abschließend stellen wir als Download-URL den Inhalt der Textbox ein und legen fest, dass die Datei als `Download.zip` im Downloadordner gespseichert werden soll.
 
 ```c#
         private void WC_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e) => pbProgress.Value = e.ProgressPercentage;
@@ -782,16 +850,15 @@ TODO: Start Erklärung
         }
 ```
 
-Außerdem haben wir noch zwei Event-Handler für die `DownloadProgressChanged`- und `DownloadFileCompleted`-Events des `WebClients`, den wir zum Downloaden verwenden. Wenn sich der Downloadfortschritt ändert, wird lediglich die Fortschrittsanzeige aktualisiert. Wenn der Download abgeschlossen ist, wird einerseits der Nutzer darüber informiert, andererseits starten wir die `ZipHandling`-Funktion mit der wir das Archiv entpacken.
+Das sind unsere eben erwähnten Event-Handler. Wenn sich der Downloadfortschritt ändert, wird lediglich die Fortschrittsanzeige aktualisiert. Wenn der Download abgeschlossen ist, wird einerseits der Nutzer darüber informiert, andererseits starten wir die `ZipHandling`-Funktion mit der wir das Archiv entpacken.
 
 ```c#
         private void ZipHandling()
         {
             rtbStatus.AppendText("Extracting archive...\n");
-            string TempDirectory = AppContext.BaseDirectory + @"\temp";
             ZipFile.ExtractToDirectory(Path.Combine(DownloadDirectory, "Download.zip"), TempDirectory);
+            
             rtbStatus.AppendText("Done! Checking files...\n");
-
             string[] dirs = Directory.GetDirectories(TempDirectory);
             int SetCount = 0;
             foreach (string dir in dirs)
@@ -800,33 +867,35 @@ Außerdem haben wir noch zwei Event-Handler für die `DownloadProgressChanged`- 
                 {
                     if (File.Contains("config.xml"))
                     {
-                        SetCount++;
-                        FileHandling(dir);
+                        if (FileHandling(dir))
+                            SetCount++;
                     }
                 }
             }
-            rtbStatus.AppendText("Found " + SetCount.ToString() + " rulesets!\n");
+            rtbStatus.AppendText("Found " + SetCount.ToString() + " valid rulesets!\n");
         }
 ```
 
-TODO: Erklärung
+Zu Beginn wird der Nutzer informiert, dass das Archiv nun extrahiert wird. Das Extrahieren setzten wir mit der `[ZipFile](https://docs.microsoft.com/en-us/dotnet/api/system.io.compression.zipfile?view=netframework-4.8)`-Klasse um. Ist das Extrahieren abgeschlossen, könnten wir zwar theoretisch die neuen Dateien einfach verschieben, aber wir wollen zuerst verifizieren, dass es sich um gültige Rulesets handelt. Dafür haben wir einen einfach Loop über alle Ordner im temporären Verzeichnis. Zusätzlich haben wir einen Loop über alle Dateien, die sich im Ordner der aktuellen Iteration des Ordner-Loops befinden. Da überprüfen wir, ob es sich bei der Datei um eine `config.xml` handelt. Diesen Namen setzen wir für Rulesets voraus. Handelt es sich um eine `config.xml` wird sie mit unserer `FileHandling`-Funktion verifiziert. Ist sie gültig, `FileHandling` gibt also `true` aus, wird der Set-Counter um eins erhöht, damit wir dem Nutzer die Anzahl der gefundenen, gültigen Rulesets ausgeben können.
 
 ```c#
-        private void FileHandling(string folder)
+        private bool FileHandling(string folder)
         {
             Configuration ruleset = Configuration.TryLoadConfig(folder);
             if (ruleset == null)
-                return;
+                return false;
 
             string[] pathElements = folder.Split('\\');
 
             Directory.Move(Path.Combine(TempDirectory, pathElements[pathElements.Length - 1]), Path.Combine(RulesetDirectory, pathElements[pathElements.Length - 1]));
             MainFormHelper.Get().Games.Add(ruleset);
             MainFormHelper.Get().UpdateList();
+
+            return true;
         }
 ```
 
-In der `FileHandling`-Funktion wird versucht den Inhalt der XML in eine `Configuration`-Instanz zu deserialisieren. Sollte das Fehlschlagen, also `null` zurückkommen, passiert nichts weiter. Ist die XML gültig, wird sie in den Ruleset-Ordner verschoben und die List der `MainForm` wird aktualisiert.
+In der `FileHandling`-Funktion wird versucht den Inhalt der XML in eine `Configuration`-Instanz zu deserialisieren. Sollte das Fehlschlagen, also `null` zurückkommen, passiert nichts weiter. Ist die XML gültig, wird sie in den Ruleset-Ordner verschoben, damit sie auch beim nächsten Start noch gefunden wird, und die Liste der `MainForm` wird aktualisiert.
 
 <details>
 <summary>Vollständiger Code der DownloadForm.cs</summary>
@@ -900,32 +969,18 @@ namespace GameMaster
         private void btStart_Click(object sender, EventArgs e)
         {
             if(Directory.Exists(TempDirectory))
-            {
-                rtbStatus.AppendText("TempDirectory exists! Deleting...\n");
                 Directory.Delete(TempDirectory, true);
-            }
 
             if (!Directory.Exists(DownloadDirectory))
-            {
-                rtbStatus.AppendText("Download directory doesn't exist!\n");
-                rtbStatus.AppendText("Creating...\n");
                 Directory.CreateDirectory(DownloadDirectory);
-            }
+
             using (WebClient wc = new WebClient())
             {
-                string DownloadUrl = tbQuelle.Text;
-
-                // Upgrade insecure requests
-                if (DownloadUrl.StartsWith("http://"))
-                {
-                    rtbStatus.AppendText("\nUpgrading insecure request...\n");
-                    DownloadUrl.Replace("http://", "https://");
-                }
                 rtbStatus.AppendText("Downloading now...\n");
                 wc.DownloadProgressChanged += WC_DownloadProgressChanged;
                 wc.DownloadFileCompleted += WC_DownloadFileCompleted;
                 wc.DownloadFileAsync(
-                    new System.Uri(DownloadUrl),
+                    new System.Uri(tbQuelle.Text),
                     Path.Combine(DownloadDirectory, "Download.zip")
                 );
             }
@@ -945,10 +1000,9 @@ namespace GameMaster
         private void ZipHandling()
         {
             rtbStatus.AppendText("Extracting archive...\n");
-            string TempDirectory = AppContext.BaseDirectory + @"\temp";
             ZipFile.ExtractToDirectory(Path.Combine(DownloadDirectory, "Download.zip"), TempDirectory);
+            
             rtbStatus.AppendText("Done! Checking files...\n");
-
             string[] dirs = Directory.GetDirectories(TempDirectory);
             int SetCount = 0;
             foreach (string dir in dirs)
@@ -957,29 +1011,31 @@ namespace GameMaster
                 {
                     if (File.Contains("config.xml"))
                     {
-                        SetCount++;
-                        FileHandling(dir);
+                        if (FileHandling(dir))
+                            SetCount++;
                     }
                 }
             }
-            rtbStatus.AppendText("Found " + SetCount.ToString() + " rulesets!\n");
+            rtbStatus.AppendText("Found " + SetCount.ToString() + " valid rulesets!\n");
         }
 
         /// <summary>
         /// Moves the rulesets to the proper folder
         /// </summary>
         /// <param name="Name">The folder name</param>
-        private void FileHandling(string folder)
+        private bool FileHandling(string folder)
         {
             Configuration ruleset = Configuration.TryLoadConfig(folder);
             if (ruleset == null)
-                return;
+                return false;
 
             string[] pathElements = folder.Split('\\');
 
             Directory.Move(Path.Combine(TempDirectory, pathElements[pathElements.Length - 1]), Path.Combine(RulesetDirectory, pathElements[pathElements.Length - 1]));
             MainFormHelper.Get().Games.Add(ruleset);
             MainFormHelper.Get().UpdateList();
+
+            return true;
         }
     }
 }
@@ -987,6 +1043,9 @@ namespace GameMaster
 ### Rulesets
 
 Bevor wir uns den eigentlichen Editor genauer anschauen, werden wir einen Blick auf die eigentlichen Rulesets werfen und wie diese aufgebaut sind und gespeichert werden.
+
+<details>
+<summary>Vollständiger Code der Configuration.cs</summary>
 
 ```c#
 [XmlRoot("configuration")]
@@ -1098,8 +1157,9 @@ public class Configuration
         }
     }
 }
-
 ```
+
+</details>
 
 ### Editor
 
