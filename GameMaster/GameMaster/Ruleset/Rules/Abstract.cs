@@ -143,6 +143,16 @@ namespace GameMaster.Ruleset.Abstracts
 
     public abstract class AbstractGameWorld : World
     {
+        public AbstractGameWorld()
+        {
+
+        }
+
+        public AbstractGameWorld(bool edit) : base(edit)
+        {
+
+        }
+
         public struct Rotation
         {
             public float Roll;
