@@ -64,7 +64,7 @@ namespace GameMaster
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            GameWorld world = new GameWorld();
+            GameWorld world = new GameWorld(true);
             dict.Add(world.Name, world);
             TreeNode node = rootnode.Nodes.Add(world.Name);
             foreach(Event @event in world.WorldEvents)
@@ -81,6 +81,25 @@ namespace GameMaster
         {
             new EditForm().FormClosed += ToolClosure;
             Disable();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (textBox1.Text != "")
+            {
+                button2.Enabled = true;
+                return;
+            }
+            button2.Enabled = false;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            LeftSide leftSide = dict[treeView1.SelectedNode.Text];
+            leftSide.Name = textBox1.Text;
+            dict.Remove(treeView1.SelectedNode.Text);
+            dict.Add(textBox1.Text, leftSide);
+            treeView1.SelectedNode.Text = textBox1.Text;
         }
     }
 

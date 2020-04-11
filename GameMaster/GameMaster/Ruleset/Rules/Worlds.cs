@@ -7,6 +7,8 @@ namespace GameMaster.Ruleset.Worlds
     {
         public GameWorld() => Name = "Game World";
 
+        public GameWorld(bool init) => 
+
         public class Player : WorldParameter
         {
             public Player() => Name = "Player";
