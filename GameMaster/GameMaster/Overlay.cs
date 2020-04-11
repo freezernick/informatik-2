@@ -9,7 +9,7 @@ namespace GameMaster.Overlay
 {
     public class GameMasterOverlay
     {
-        private readonly OverlayWindow _window;
+        private OverlayWindow _window;
         private readonly Graphics _graphics;
         private Font _font;
         private SolidBrush _black;
@@ -46,7 +46,7 @@ namespace GameMaster.Overlay
 
         public void Initialize()
         {
-            _window.CreateWindow();
+            _window.Create();
             _graphics.WindowHandle = _window.Handle;
             _graphics.Setup();
             _font = _graphics.CreateFont("Arial", 16);
