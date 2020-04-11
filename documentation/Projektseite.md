@@ -770,8 +770,6 @@ namespace GameMaster
 
 #### DownloadForm
 
-TODO: Image
-
 ```c#
         private void tbQuelle_TextChanged(object sender, EventArgs e)
         {
@@ -812,7 +810,7 @@ Zuerst haben wir einen Event-Handler für das `TextChanged`-Event der Textbox. S
         }
 ```
 
-Zuerst schauen wir, ob der String mit einem `http://` oder `https://` beginnt. Danach überprüfen wir, ob die URL auf `.zip` endet, da wir mit der DownloadForm eben nur zip-Archive runterladen und entpacken können. Sollten beide Fälle zutreffen, überprüfen wir noch, ob die `.zip` auch einen Namen hat, oder ob einfach `/.zip` eingegeben wurde. Sind alle Anforderungen erfüllt, kann der Download losgehen.
+Zunächst schauen wir, ob der String mit einem `http://` oder `https://` beginnt. Danach überprüfen wir, ob die URL auf `.zip` endet, da wir mit der DownloadForm eben nur zip-Archive runterladen und entpacken können. Sollten beide Fälle zutreffen, überprüfen wir noch, ob die `.zip` auch einen Namen hat, oder ob einfach `/.zip` eingegeben wurde. Sind alle Anforderungen erfüllt, kann der Download losgehen.
 
 ```c#
         private void btStart_Click(object sender, EventArgs e)
@@ -1040,6 +1038,8 @@ namespace GameMaster
     }
 }
 ```
+</details>
+
 ### Rulesets
 
 Bevor wir uns den eigentlichen Editor genauer anschauen, werden wir einen Blick auf die eigentlichen Rulesets werfen und wie diese aufgebaut sind und gespeichert werden.
