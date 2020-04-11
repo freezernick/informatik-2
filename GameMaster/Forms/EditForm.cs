@@ -21,14 +21,12 @@ namespace GameMaster
             tbName.Text = currentGame.Name;
             tbStartAction.Text = currentGame.Executable;
             comboBox1.SelectedIndex = comboBox1.FindString(currentGame.Template.ToString());
-            textBox1.Text = currentGame.ID;
         }
 
         private void btBack_Click(object sender, EventArgs e) => Close();
 
         private void btSave_Click(object sender, EventArgs e)
         {
-            currentGame.ID = textBox1.Text;
             currentGame.Name = tbName.Text;
             currentGame.Executable = tbStartAction.Text;
             currentGame.Template = ((Template)comboBox1.SelectedItem);

@@ -28,7 +28,6 @@ namespace GameMaster.Ruleset
         public Configuration()
         {
             Name = "Default Name";
-            ID = "defaultid";
             Executable = "";
             Template = new Platformer();
             CustomEvents = new List<Event>();
@@ -36,7 +35,6 @@ namespace GameMaster.Ruleset
         }
 
         public String Name;
-        public String ID;
         public String Executable;
         public Template Template;
         public List<Event> CustomEvents;

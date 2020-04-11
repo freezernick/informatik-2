@@ -56,11 +56,17 @@ namespace GameMaster
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            new EditForm().FormClosed += ToolClosure;
+            new WorldList().FormClosed += ToolClosure;
             Disable();
         }
 
         private void Disable() => Enabled = false;
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            new EditForm().FormClosed += ToolClosure;
+            Disable();
+        }
     }
 
     public class EditorWindow : Form

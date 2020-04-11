@@ -85,12 +85,7 @@ namespace GameMaster.Ruleset.Abstracts
 
     public abstract class World : LeftSide
     {
-        public List<Event> WorldEvents;
-
-        public World()
-        {
-            WorldEvents = new List<Event>();
-        }
+        public List<Event> WorldEvents = new List<Event>();
 
         public static T NewWorld<T>() where T : World, new()
         {
@@ -133,20 +128,13 @@ namespace GameMaster.Ruleset.Abstracts
         {
             public Rectangle Shape;
 
-            public RectangleRecognition()
-            {
-                Name = "Rectangle Recognition";
-            }
+            public RectangleRecognition() => Name = "Rectangle Recognition";
         }
 
         public class ImageRecognition : ScreenParameter, IImageParmeter
         {
             public Bitmap parameter;
-
-            public void UpdateReference(Bitmap image)
-            {
-                parameter = image;
-            }
+            public void UpdateReference(Bitmap image) => parameter = image;
         }
     }
 
