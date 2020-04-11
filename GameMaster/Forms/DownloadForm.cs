@@ -66,32 +66,18 @@ namespace GameMaster
         private void btStart_Click(object sender, EventArgs e)
         {
             if(Directory.Exists(TempDirectory))
-            {
-                rtbStatus.AppendText("TempDirectory exists! Deleting...\n");
                 Directory.Delete(TempDirectory, true);
-            }
 
             if (!Directory.Exists(DownloadDirectory))
-            {
-                rtbStatus.AppendText("Download directory doesn't exist!\n");
-                rtbStatus.AppendText("Creating...\n");
                 Directory.CreateDirectory(DownloadDirectory);
-            }
+
             using (WebClient wc = new WebClient())
             {
-                string DownloadUrl = tbQuelle.Text;
-
-                // Upgrade insecure requests
-                if (DownloadUrl.StartsWith("http://"))
-                {
-                    rtbStatus.AppendText("\nUpgrading insecure request...\n");
-                    DownloadUrl.Replace("http://", "https://");
-                }
                 rtbStatus.AppendText("Downloading now...\n");
                 wc.DownloadProgressChanged += WC_DownloadProgressChanged;
                 wc.DownloadFileCompleted += WC_DownloadFileCompleted;
                 wc.DownloadFileAsync(
-                    new System.Uri(DownloadUrl),
+                    new System.Uri(tbQuelle.Text),
                     Path.Combine(DownloadDirectory, "Download.zip")
                 );
             }
@@ -111,10 +97,9 @@ namespace GameMaster
         private void ZipHandling()
         {
             rtbStatus.AppendText("Extracting archive...\n");
-            string TempDirectory = AppContext.BaseDirectory + @"\temp";
             ZipFile.ExtractToDirectory(Path.Combine(DownloadDirectory, "Download.zip"), TempDirectory);
+            
             rtbStatus.AppendText("Done! Checking files...\n");
-
             string[] dirs = Directory.GetDirectories(TempDirectory);
             int SetCount = 0;
             foreach (string dir in dirs)
@@ -123,29 +108,31 @@ namespace GameMaster
                 {
                     if (File.Contains("config.xml"))
                     {
-                        SetCount++;
-                        FileHandling(dir);
+                        if (FileHandling(dir))
+                            SetCount++;
                     }
                 }
             }
-            rtbStatus.AppendText("Found " + SetCount.ToString() + " rulesets!\n");
+            rtbStatus.AppendText("Found " + SetCount.ToString() + " valid rulesets!\n");
         }
 
         /// <summary>
         /// Moves the rulesets to the proper folder
         /// </summary>
         /// <param name="Name">The folder name</param>
-        private void FileHandling(string folder)
+        private bool FileHandling(string folder)
         {
             Configuration ruleset = Configuration.TryLoadConfig(folder);
             if (ruleset == null)
-                return;
+                return false;
 
             string[] pathElements = folder.Split('\\');
 
             Directory.Move(Path.Combine(TempDirectory, pathElements[pathElements.Length - 1]), Path.Combine(RulesetDirectory, pathElements[pathElements.Length - 1]));
             MainFormHelper.Get().Games.Add(ruleset);
             MainFormHelper.Get().UpdateList();
+
+            return true;
         }
     }
 }
