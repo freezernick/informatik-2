@@ -1490,6 +1490,7 @@ namespace GameMaster.Overlay
     }
 }
 ```
+</details>
 
 ### Utility
 
