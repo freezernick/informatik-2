@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using GameMaster.Ruleset.Abstracts;
 using GameMaster.Ruleset.Events;
 using System.Collections.Generic;
+using GameMaster.Ruleset.Worlds;
 
 namespace GameMaster
 {
@@ -13,6 +14,7 @@ namespace GameMaster
         public Configuration game;
         public LeftSide selectedObject;
         public Dictionary<string, LeftSide> dict;
+        TreeNode rootnode;
 
         public EditorForm()
         {
@@ -28,7 +30,7 @@ namespace GameMaster
         private void EditorForm_Load(object sender, EventArgs e)
         {
             dict = new Dictionary<string, LeftSide>();
-            TreeNode rootnode = treeView1.Nodes.Add(game.Name);
+            rootnode = treeView1.Nodes.Add(game.Name);
             foreach(LeftSide leftSide in game.LeftSideObjects)
             {
                 dict.Add(leftSide.Name, leftSide);
@@ -44,7 +46,13 @@ namespace GameMaster
             treeView1.SelectedNode.Remove();
         }
 
-        private void TreeView1_AfterSelect(object sender, TreeViewEventArgs e) => selectedObject = dict[e.Node.Text];
+        private void TreeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            if (e.Node.Text == game.Name)
+                return;
+
+            selectedObject = dict[e.Node.Text];
+        }
 
         private void Button4_Click(object sender, EventArgs e)
         {
@@ -56,8 +64,15 @@ namespace GameMaster
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            new WorldList().FormClosed += ToolClosure;
-            Disable();
+            GameWorld world = new GameWorld();
+            dict.Add(world.Name, world);
+            TreeNode node = rootnode.Nodes.Add(world.Name);
+            foreach(Event @event in world.WorldEvents)
+            {
+                dict.Add(@event.Name, @event);
+                node.Nodes.Add(@event.Name);
+            }
+            game.LeftSideObjects.Add(world);
         }
 
         private void Disable() => Enabled = false;

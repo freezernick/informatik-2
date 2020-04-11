@@ -87,13 +87,12 @@ namespace GameMaster.Ruleset.Abstracts
     {
         public List<Event> WorldEvents = new List<Event>();
 
-        public static T NewWorld<T>() where T : World, new()
+        public World()
         {
-            T world = new T();
-            world.WorldEvents.Add(new StartupEvent());
-            world.WorldEvents.Add(new TickEvent());
-            world.WorldEvents.Add(new ShutdownRequestEvent());
-            return world;
+            Name = "World";
+            WorldEvents.Add(new StartupEvent());
+            WorldEvents.Add(new TickEvent());
+            WorldEvents.Add(new ShutdownRequestEvent());
         }
 
         public abstract class ScreenParameter

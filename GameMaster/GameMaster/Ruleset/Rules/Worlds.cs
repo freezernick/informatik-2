@@ -5,6 +5,8 @@ namespace GameMaster.Ruleset.Worlds
 {
     public class GameWorld : AbstractGameWorld
     {
+        public GameWorld() => Name = "Game World";
+
         public class Player : WorldParameter
         {
             public Player() => Name = "Player";
@@ -23,6 +25,6 @@ namespace GameMaster.Ruleset.Worlds
     /// </summary>
     public class StartupWorld : World
     {
-        public StartupWorld() => Name = "StartupWorld";
+        public StartupWorld() => Name = "Startup World";
     }
 }
