@@ -1,6 +1,6 @@
 # Der GameMaster
 
-Mit dem 'GameMaster' wollten wir ein Tool entwickeln, dass es jedem ohne technisches Vorwissen ermöglicht, eine KI bzw. einen Bot zu entwickeln, die für den Nutzer das Spielen von Computer- und Browsergames übernimmt. Das Ziel war es eine grafische Oberfläche anzubieten, mit der der Nutzer mithilfe von vordefinierten Elementen ein Regelwerk für den GameMaster zusammenstellen kann. Im folgenden werden wir Schrittweise durch die Anwendung gehen und beispielhaft ein Ruleset erstellen. Die Erklärung der technischen Umsetzung folgt weiter unten.
+Mit dem 'GameMaster' wollten wir ein Tool entwickeln, das jedem, auch ohne Programmierkentnisse, ermöglicht, eine KI bzw. einen Bot zu entwickeln, die für den Nutzer das Spielen von Computer- und Browsergames übernimmt. Das Ziel war es eine grafische Oberfläche anzubieten, mit der der Nutzer mithilfe von vordefinierten Elementen ein Regelwerk zusammenstellen kann, das der 'GameMaster' dann befolgt. Im folgenden werden wir Schrittweise durch die Anwendung gehen und beispielhaft ein Ruleset erstellen. Die Erklärung der technischen Umsetzung folgt weiter unten.
 
 ## Ein Ruleset erstellen
 
@@ -8,29 +8,48 @@ Mit dem 'GameMaster' wollten wir ein Tool entwickeln, dass es jedem ohne technis
 
 ![](images/page/main.png)
 
-Startet man den 'GameMaster' ist dieser Bildschirm das erste was man sieht. Man bekommt eine Liste mit bereits installierten Rulesets. Wenn man eins ausgewählt hat, kann man es starten - solange man das Spiel, für das das Ruleset konfiguriert wurde, installiert hat - bearbeiten oder löschen. Außerdem kann man jederzeit ein neues Ruleset erstellen, oder versuchen fertiggestellte Rulesets herunterzuladen. In unserem Fall haben wir noch keine Rulesets installiert. Deshalb klicken wir auf `New Ruleset`, um ein neues zu erstellen. So gelangt man in das Metadaten-Formular des Editors.
+Startet man den 'GameMaster' ist dieser Bildschirm das erste was man sieht. Man bekommt eine Liste mit bereits installierten Rulesets. Wenn man eins ausgewählt hat, kann man es starten - solange man das Spiel, für das das Ruleset konfiguriert wurde, installiert hat - bearbeiten oder löschen. Außerdem kann man jederzeit ein neues Ruleset erstellen, oder versuchen fertiggestellte Rulesets herunterzuladen. In unserem Fall haben wir noch keine Rulesets installiert. Deshalb klicken wir auf `New Ruleset`, um ein neues zu erstellen. So gelangt man in den Ruleset-Editor.
 
 ### Editor
 
-#### Metadaten-Formular
+TODO: Bild
 
-TODO: Bild + Erklärung
+TODO: Erklärung
 
-#### Hauptbildschirm des Editors
+#### Metadaten
 
-### Welten-System
+TODO: Bild
 
-TODO: Erklärung, ggf. Diagramm?
+TODO: Erklärung
 
-## Ein Ruleset Starten
+#### Welten-System
 
-### Input Rerouting
+TODO: Bild
 
-### Overlay
+TODO: Erklärung
 
-### Das fertige Ruleset
+#### Event-System
+
+TODO: Bild
+
+TODO: Erklärung
+
+#### Aktions-System
+
+TODO: Bild
+
+TODO: Erklärung
+
+
+-----
+
+Nachdem wir nun etwas an unserem Ruleset gewerkelt haben, müssen wir es selbstverständlich testen. Dazu musst man einfach auf 'Save' und dann auf 'Exit' drücken. Schon gelangt man wieder in den Hauptbildschirm, wo wir nun unser neues Ruleset sehen.
+
+#### Das fertige Ruleset
 
 TODO: Bild Editor
+
+TODO: Bild Hauptbildschirm
 
 TODO: Update XML
 
@@ -101,6 +120,30 @@ TODO: Update XML
 ```
 
 </details>
+
+## Ein Ruleset Starten
+
+Um den 'GameMaster' nun unser Ruleset spielen zu lassen, müssen wir einfach auf 'Start Ruleset' drücken. Der Hauptbildschirm wird jetzt minimiert und die Exe des Spiels gestartet.
+
+### Tastenkombinationen
+
+Während der 'GameMaster' im Spielzustand ist, lassen sich ein paar festgelegte Tastenkombinationen verwenden. Außerdem lassen sich mit den Keyboard-Events im Editor neue Kombinationen erstellen.
+
+|Kombination|Bedeutung|
+|-----------|---------|
+|Strg + F3|Beendet das Spiel|
+|Strg + F4|Erstellt einen Screenshot vom fokussierten Fenster als mögliches Referenzbild|
+|Strg + F5|Erstellt einen Screenshot als mögliches Referenzbild|
+|Strg + F6|Logging-Stufe ändern|
+
+Alle anderen Tasten werden wie gewohnt als Eingabe an das Spielfenster weitergeleitet. Man kann also auch ins Spielgeschehen eingreifen, um den GameMaster zu "ärgern". :-)
+
+### Overlay
+
+Desweiteren gibt es während der GameMaster spielt ein 'Overlay'. Das ist normalerweise vollständig transparent, aber wenn man in seinem Ruleset eine `Overlay-Log` Aktion eingebaut oder mit `Strg + F6` die Log-Ausgabestufe erhöht hat, können Nachrichten auf dem Bildschirm erscheinen.
+
+![](images/page/overlay.png)
+*"test" wird mit der Overlay-Log Aktion in einem Tick-Event ausgeführt*
 
 ### Downloadfenster
 
