@@ -36,7 +36,6 @@
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
-            this.button4 = new System.Windows.Forms.Button();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.RulesetStuff = new System.Windows.Forms.GroupBox();
             this.button3 = new System.Windows.Forms.Button();
@@ -44,9 +43,7 @@
             this.tbStartAction = new System.Windows.Forms.TextBox();
             this.tbName = new System.Windows.Forms.TextBox();
             this.lName = new System.Windows.Forms.Label();
-            this.CustomEventStuff = new System.Windows.Forms.GroupBox();
             this.button8 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.EventName = new System.Windows.Forms.TextBox();
@@ -58,16 +55,22 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.StartActionSelector = new System.Windows.Forms.OpenFileDialog();
             this.button5 = new System.Windows.Forms.Button();
+            this.EventList = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.toolStrip1.SuspendLayout();
             this.RulesetStuff.SuspendLayout();
-            this.CustomEventStuff.SuspendLayout();
             this.eventStuff.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.EventList.SuspendLayout();
             this.SuspendLayout();
             // 
             // btTriggerDelete
             // 
-            this.btTriggerDelete.Location = new System.Drawing.Point(238, 26);
+            this.btTriggerDelete.Location = new System.Drawing.Point(133, 27);
             this.btTriggerDelete.Margin = new System.Windows.Forms.Padding(2);
             this.btTriggerDelete.Name = "btTriggerDelete";
             this.btTriggerDelete.Size = new System.Drawing.Size(39, 24);
@@ -128,19 +131,9 @@
             this.toolStripButton4.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton4.Text = "toolStripButton4";
             // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(72, 27);
-            this.button4.Margin = new System.Windows.Forms.Padding(2);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(56, 24);
-            this.button4.TabIndex = 18;
-            this.button4.Text = "+ Event";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.Button4_Click);
-            // 
             // treeView1
             // 
+            this.treeView1.HideSelection = false;
             this.treeView1.Location = new System.Drawing.Point(12, 56);
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(376, 405);
@@ -209,45 +202,21 @@
             this.lName.TabIndex = 2;
             this.lName.Text = "Name";
             // 
-            // CustomEventStuff
-            // 
-            this.CustomEventStuff.Controls.Add(this.button8);
-            this.CustomEventStuff.Controls.Add(this.button7);
-            this.CustomEventStuff.Controls.Add(this.button6);
-            this.CustomEventStuff.Controls.Add(this.label2);
-            this.CustomEventStuff.Controls.Add(this.EventName);
-            this.CustomEventStuff.Location = new System.Drawing.Point(399, 56);
-            this.CustomEventStuff.Name = "CustomEventStuff";
-            this.CustomEventStuff.Size = new System.Drawing.Size(405, 405);
-            this.CustomEventStuff.TabIndex = 25;
-            this.CustomEventStuff.TabStop = false;
-            this.CustomEventStuff.Text = "Create Custom Event";
-            // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(9, 47);
+            this.button8.Location = new System.Drawing.Point(9, 141);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(128, 23);
+            this.button8.Size = new System.Drawing.Size(175, 23);
             this.button8.TabIndex = 4;
             this.button8.Text = "Cancel";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(143, 47);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(123, 23);
-            this.button7.TabIndex = 3;
-            this.button7.Text = "Create";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(272, 48);
+            this.button6.Location = new System.Drawing.Point(190, 141);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(128, 23);
+            this.button6.Size = new System.Drawing.Size(179, 23);
             this.button6.TabIndex = 2;
             this.button6.Text = "Create and Add";
             this.button6.UseVisualStyleBackColor = true;
@@ -256,7 +225,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 25);
+            this.label2.Location = new System.Drawing.Point(6, 118);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 1;
@@ -264,9 +233,9 @@
             // 
             // EventName
             // 
-            this.EventName.Location = new System.Drawing.Point(187, 21);
+            this.EventName.Location = new System.Drawing.Point(190, 115);
             this.EventName.Name = "EventName";
-            this.EventName.Size = new System.Drawing.Size(213, 20);
+            this.EventName.Size = new System.Drawing.Size(179, 20);
             this.EventName.TabIndex = 0;
             // 
             // eventStuff
@@ -327,13 +296,76 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(133, 27);
+            this.button5.Location = new System.Drawing.Point(73, 27);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(100, 23);
+            this.button5.Size = new System.Drawing.Size(55, 23);
             this.button5.TabIndex = 23;
-            this.button5.Text = "+ Custom Event";
+            this.button5.Text = "+ Event";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // EventList
+            // 
+            this.EventList.Controls.Add(this.button4);
+            this.EventList.Controls.Add(this.button6);
+            this.EventList.Controls.Add(this.button8);
+            this.EventList.Controls.Add(this.label5);
+            this.EventList.Controls.Add(this.label4);
+            this.EventList.Controls.Add(this.label3);
+            this.EventList.Controls.Add(this.comboBox1);
+            this.EventList.Controls.Add(this.EventName);
+            this.EventList.Controls.Add(this.label2);
+            this.EventList.Location = new System.Drawing.Point(400, 62);
+            this.EventList.Name = "EventList";
+            this.EventList.Size = new System.Drawing.Size(406, 399);
+            this.EventList.TabIndex = 26;
+            this.EventList.TabStop = false;
+            this.EventList.Text = "Event List";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(190, 39);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(179, 23);
+            this.button4.TabIndex = 5;
+            this.button4.Text = "Add";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click_1);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 93);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(114, 13);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Create a custom event";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 80);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(88, 13);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "----------- or -----------";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 22);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(157, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Select an existing custom event";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(9, 41);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(175, 21);
+            this.comboBox1.TabIndex = 0;
             // 
             // EditorForm
             // 
@@ -341,12 +373,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(806, 473);
             this.ControlBox = false;
+            this.Controls.Add(this.EventList);
             this.Controls.Add(this.eventStuff);
-            this.Controls.Add(this.CustomEventStuff);
             this.Controls.Add(this.RulesetStuff);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.treeView1);
-            this.Controls.Add(this.button4);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btTriggerDelete);
@@ -358,11 +389,11 @@
             this.toolStrip1.PerformLayout();
             this.RulesetStuff.ResumeLayout(false);
             this.RulesetStuff.PerformLayout();
-            this.CustomEventStuff.ResumeLayout(false);
-            this.CustomEventStuff.PerformLayout();
             this.eventStuff.ResumeLayout(false);
             this.eventStuff.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.EventList.ResumeLayout(false);
+            this.EventList.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -374,7 +405,6 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.ToolStripButton toolStripButton4;
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.GroupBox RulesetStuff;
@@ -391,11 +421,15 @@
         private System.Windows.Forms.TextBox tbStartAction;
         private System.Windows.Forms.OpenFileDialog StartActionSelector;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.GroupBox CustomEventStuff;
         private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox EventName;
+        private System.Windows.Forms.GroupBox EventList;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

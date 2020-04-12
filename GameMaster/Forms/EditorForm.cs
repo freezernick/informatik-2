@@ -83,8 +83,7 @@ namespace GameMaster
 
         private void Button4_Click(object sender, EventArgs e)
         {
-            new EventList().FormClosed += ToolClosure;
-            Disable();
+            
         }
 
         private void ToolClosure(object sender, EventArgs e) => Enabled = true;
@@ -117,6 +116,10 @@ namespace GameMaster
         private void button2_Click(object sender, EventArgs e)
         {
             LeftSide leftSide = dict[treeView1.SelectedNode.Text];
+            if(leftSide is CustomEvent)
+            {
+                game.CustomEvents.Find(x => x.Name == leftSide.Name).Name = EventName.Text;
+            }
             leftSide.Name = textBox1.Text;
             dict.Remove(treeView1.SelectedNode.Text);
             dict.Add(textBox1.Text, leftSide);
@@ -127,8 +130,8 @@ namespace GameMaster
         {
             eventStuff.Hide();
             eventStuff.SendToBack();
-            CustomEventStuff.Hide();
-            CustomEventStuff.SendToBack();
+            EventList.Hide();
+            EventList.SendToBack();
             RulesetStuff.Hide();
             RulesetStuff.SendToBack();
         }
@@ -152,7 +155,7 @@ namespace GameMaster
         private void button5_Click(object sender, EventArgs e)
         {
             HideAll();
-            CustomEventStuff.Show();
+            EventList.Show();
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -188,6 +191,11 @@ namespace GameMaster
         private void button3_Click(object sender, EventArgs e) => StartActionSelector.ShowDialog();
 
         private void StartActionSelector_FileOK(object sender, System.ComponentModel.CancelEventArgs e) => tbStartAction.Text = StartActionSelector.FileName;
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public class EditorWindow : Form
