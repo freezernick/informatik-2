@@ -45,7 +45,7 @@ namespace GameMaster
             Overlay.Run();
             Log("Overlay started");
             StartUpdates();
-            currentWorld = configuration.LeftSideObjects.OfType<StartupWorld>().First<StartupWorld>();
+            currentWorld = (StartupWorld) configuration.LeftSideObjects.Find(x => x.GetType() == typeof(StartupWorld));
         }
 
         private void SetupKeyPressEvents()
@@ -72,12 +72,10 @@ namespace GameMaster
         {
             foreach (LeftSide leftSide in configuration.LeftSideObjects)
             {
-                if (leftSide is Event)
+                if (leftSide is TickEvent)
                 {
-                    if ((Event)leftSide != null)
-                    {
-                        ((Event)leftSide).Execute();
-                    }
+                    if ((TickEvent)leftSide != null)
+                        ((TickEvent)leftSide).Execute();
                 }
             }
             Overlay.Run();
