@@ -49,7 +49,10 @@ namespace GameMaster
         private void TreeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node.Text == game.Name)
+            {
+                eventStuff.Hide();
                 return;
+            }
 
             selectedObject = dict[e.Node.Text];
         }
@@ -77,14 +80,6 @@ namespace GameMaster
 
         private void Disable() => Enabled = false;
 
-        private void toolStripButton1_Click(object sender, EventArgs e) => ShowEditForm();
-
-        public void ShowEditForm()
-        {
-            new EditForm().FormClosed += ToolClosure;
-            Disable();
-        }
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             if (textBox1.Text != "")
@@ -103,6 +98,33 @@ namespace GameMaster
             dict.Add(textBox1.Text, leftSide);
             treeView1.SelectedNode.Text = textBox1.Text;
         }
+
+        private void RulesetStuff_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        //private void btSave_Click(object sender, EventArgs e)
+        //{
+        //    currentGame.Name = tbName.Text;
+        //    currentGame.Executable = tbStartAction.Text;
+        //    Configuration.Save(currentGame);
+        //    if (!MainFormHelper.Get().Games.Contains(currentGame))
+        //    {
+        //        MainFormHelper.Get().Games.Add(currentGame);
+        //        MainFormHelper.Get().UpdateList();
+        //    }
+        //}
+
+        //private void button1_Click(object sender, EventArgs e) => openFileDialog1.ShowDialog();
+
+        //private void EditForm_Load(object sender, EventArgs e)
+        //{
+        //    openFileDialog1.Filter = "Executables|*.exe";
+        //    openFileDialog1.InitialDirectory = AppContext.BaseDirectory;
+        //}
+
+        //private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e) => tbStartAction.Text = openFileDialog1.FileName;
     }
 
     public class EditorWindow : Form
