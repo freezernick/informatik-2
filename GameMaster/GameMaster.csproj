@@ -134,7 +134,6 @@
     <Compile Include="GameMaster\Overlay.cs" />
     <Compile Include="GameMaster\Process.cs" />
     <Compile Include="GameMaster\Ruleset\Rules\Events.cs" />
-    <Compile Include="GameMaster\Ruleset\Template.cs" />
     <Compile Include="GameMaster\Ruleset\Types.cs" />
     <Compile Include="GameMaster\Ruleset\Rules\Worlds.cs" />
     <Compile Include="GameMaster\Ruleset\Configuration.cs" />

@@ -1,5 +1,4 @@
 ﻿using GameMaster.Ruleset.Abstracts;
-using GameMaster.Ruleset.Templates;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,8 +7,6 @@ using System.Xml.Serialization;
 namespace GameMaster.Ruleset
 {
     [XmlRoot("configuration")]
-    [XmlInclude(typeof(Templates.Template2D))]
-    [XmlInclude(typeof(Templates.Platformer))]
     [XmlInclude(typeof(Events.CustomEvent))]
     [XmlInclude(typeof(Events.StartupEvent))]
     [XmlInclude(typeof(Events.ShutdownRequestEvent))]
@@ -29,14 +26,12 @@ namespace GameMaster.Ruleset
         {
             Name = "Default Name";
             Executable = "";
-            Template = new Platformer();
             CustomEvents = new List<Event>();
             LeftSideObjects = new List<LeftSide>();
         }
 
         public String Name;
         public String Executable;
-        public Template Template;
         public List<Event> CustomEvents;
         public List<LeftSide> LeftSideObjects;
 
