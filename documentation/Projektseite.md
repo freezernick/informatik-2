@@ -142,7 +142,7 @@ Alle anderen Tasten werden wie gewohnt als Eingabe an das Spielfenster weitergel
 
 Desweiteren gibt es während der GameMaster spielt ein 'Overlay'. Das ist normalerweise vollständig transparent, aber wenn man in seinem Ruleset eine `Overlay-Log` Aktion eingebaut oder mit `Strg + F6` die Log-Ausgabestufe erhöht hat, können Nachrichten auf dem Bildschirm erscheinen.
 
-![](images/page/overlay.png)
+![](images/page/overlay.png)   
 *"test" wird mit der Overlay-Log Aktion in einem Tick-Event ausgeführt*
 
 ### Downloadfenster
