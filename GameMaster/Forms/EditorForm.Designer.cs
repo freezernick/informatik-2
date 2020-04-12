@@ -148,14 +148,12 @@
             this.RulesetStuff.Controls.Add(this.tbStartAction);
             this.RulesetStuff.Controls.Add(this.tbName);
             this.RulesetStuff.Controls.Add(this.lName);
-            this.RulesetStuff.Controls.Add(this.eventStuff);
-            this.RulesetStuff.Location = new System.Drawing.Point(3, 3);
+            this.RulesetStuff.Location = new System.Drawing.Point(3, 28);
             this.RulesetStuff.Name = "RulesetStuff";
             this.RulesetStuff.Size = new System.Drawing.Size(406, 399);
             this.RulesetStuff.TabIndex = 21;
             this.RulesetStuff.TabStop = false;
             this.RulesetStuff.Text = "Ruleset Properties";
-            this.RulesetStuff.Enter += new System.EventHandler(this.RulesetStuff_Enter);
             // 
             // button3
             // 
@@ -165,6 +163,7 @@
             this.button3.TabIndex = 24;
             this.button3.Text = "...";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // lStartAction
             // 
@@ -183,6 +182,7 @@
             this.tbStartAction.Name = "tbStartAction";
             this.tbStartAction.Size = new System.Drawing.Size(251, 20);
             this.tbStartAction.TabIndex = 22;
+            this.tbStartAction.TextChanged += new System.EventHandler(this.tbStartAction_TextChanged);
             // 
             // tbName
             // 
@@ -191,6 +191,7 @@
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(291, 20);
             this.tbName.TabIndex = 3;
+            this.tbName.TextChanged += new System.EventHandler(this.tbName_TextChanged);
             // 
             // lName
             // 
@@ -208,7 +209,7 @@
             this.eventStuff.Controls.Add(this.button2);
             this.eventStuff.Controls.Add(this.numericUpDown1);
             this.eventStuff.Controls.Add(this.textBox1);
-            this.eventStuff.Location = new System.Drawing.Point(1, 0);
+            this.eventStuff.Location = new System.Drawing.Point(3, 28);
             this.eventStuff.Name = "eventStuff";
             this.eventStuff.Size = new System.Drawing.Size(405, 399);
             this.eventStuff.TabIndex = 2;
@@ -257,9 +258,10 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.RulesetStuff);
-            this.panel1.Location = new System.Drawing.Point(394, 56);
+            this.panel1.Controls.Add(this.eventStuff);
+            this.panel1.Location = new System.Drawing.Point(394, 28);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(412, 405);
+            this.panel1.Size = new System.Drawing.Size(412, 433);
             this.panel1.TabIndex = 22;
             // 
             // EditorForm

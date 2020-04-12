@@ -50,6 +50,11 @@ namespace GameMaster.Ruleset
             serializer.Serialize(writer, ruleset);
             writer.Flush();
             writer.Close();
+            if (!MainFormHelper.Get().Games.Contains(ruleset))
+            {
+                MainFormHelper.Get().Games.Add(ruleset);
+                MainFormHelper.Get().UpdateList();
+            }
         }
 
         /// <summary>

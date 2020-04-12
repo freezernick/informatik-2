@@ -23,12 +23,20 @@ namespace GameMaster
             EditorHelper._editor = this;
         }
 
+        // General Stuff
+
         private void ToolStripButton2_Click(object sender, EventArgs e) => Configuration.Save(game);
 
         private void ToolStripButton3_Click(object sender, EventArgs e) => Close();
 
         private void EditorForm_Load(object sender, EventArgs e)
         {
+            RulesetStuff.Visible = false;
+            eventStuff.Visible = false;
+
+            StartActionSelector.Filter = "Executables|*.exe";
+            StartActionSelector.InitialDirectory = AppContext.BaseDirectory;
+
             dict = new Dictionary<string, LeftSide>();
             rootnode = treeView1.Nodes.Add(game.Name);
             foreach(LeftSide leftSide in game.LeftSideObjects)
@@ -51,6 +59,7 @@ namespace GameMaster
             if (e.Node.Text == game.Name)
             {
                 eventStuff.Hide();
+                RulesetStuff.Show();
                 return;
             }
 
@@ -99,32 +108,15 @@ namespace GameMaster
             treeView1.SelectedNode.Text = textBox1.Text;
         }
 
-        private void RulesetStuff_Enter(object sender, EventArgs e)
-        {
+        // Ruleset Stuff
 
-        }
+        private void tbName_TextChanged(object sender, EventArgs e) => game.Name = tbName.Text;
 
-        //private void btSave_Click(object sender, EventArgs e)
-        //{
-        //    currentGame.Name = tbName.Text;
-        //    currentGame.Executable = tbStartAction.Text;
-        //    Configuration.Save(currentGame);
-        //    if (!MainFormHelper.Get().Games.Contains(currentGame))
-        //    {
-        //        MainFormHelper.Get().Games.Add(currentGame);
-        //        MainFormHelper.Get().UpdateList();
-        //    }
-        //}
+        private void tbStartAction_TextChanged(object sender, EventArgs e) => game.Executable = tbStartAction.Text;
 
-        //private void button1_Click(object sender, EventArgs e) => openFileDialog1.ShowDialog();
+        private void button3_Click(object sender, EventArgs e) => StartActionSelector.ShowDialog();
 
-        //private void EditForm_Load(object sender, EventArgs e)
-        //{
-        //    openFileDialog1.Filter = "Executables|*.exe";
-        //    openFileDialog1.InitialDirectory = AppContext.BaseDirectory;
-        //}
-
-        //private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e) => tbStartAction.Text = openFileDialog1.FileName;
+        private void StartActionSelector_FileOK(object sender, System.ComponentModel.CancelEventArgs e) => tbStartAction.Text = StartActionSelector.FileName;
     }
 
     public class EditorWindow : Form
