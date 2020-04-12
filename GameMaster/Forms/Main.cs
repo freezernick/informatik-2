@@ -54,7 +54,9 @@ namespace GameMaster
         private void BtNew_Click(object sender, EventArgs e)
         {
             SelectedRuleset = new Configuration();
-            new EditForm().Show();
+            EditorForm editor = new EditorForm();
+            editor.Show();
+            editor.ShowEditForm();
             Hide();
         }
 

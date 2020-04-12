@@ -11,8 +11,8 @@ namespace GameMaster
         public EditForm()
         {
             InitializeComponent();
+            Show();
             currentGame = MainFormHelper.Get().SelectedRuleset;
-            //Text = "Edit " + currentGame.Name;
             tbName.Text = currentGame.Name;
             tbStartAction.Text = currentGame.Executable;
         }
@@ -31,24 +31,14 @@ namespace GameMaster
             }
         }
 
-        private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            openFileDialog1.ShowDialog();
-            openFileDialog1.FileOk += fileSelected;
-        }
-
-        private void fileSelected(object sender, EventArgs e)
-        {
-        }
+        private void button1_Click(object sender, EventArgs e) => openFileDialog1.ShowDialog();
 
         private void EditForm_Load(object sender, EventArgs e)
         {
             openFileDialog1.Filter = "Executables|*.exe";
             openFileDialog1.InitialDirectory = AppContext.BaseDirectory;
         }
+
+        private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e) => tbStartAction.Text = openFileDialog1.FileName;
     }
 }

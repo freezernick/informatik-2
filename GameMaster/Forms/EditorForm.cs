@@ -77,7 +77,9 @@ namespace GameMaster
 
         private void Disable() => Enabled = false;
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
+        private void toolStripButton1_Click(object sender, EventArgs e) => ShowEditForm();
+
+        public void ShowEditForm()
         {
             new EditForm().FormClosed += ToolClosure;
             Disable();
