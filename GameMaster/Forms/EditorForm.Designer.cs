@@ -44,6 +44,12 @@
             this.tbStartAction = new System.Windows.Forms.TextBox();
             this.tbName = new System.Windows.Forms.TextBox();
             this.lName = new System.Windows.Forms.Label();
+            this.CustomEventStuff = new System.Windows.Forms.GroupBox();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.EventName = new System.Windows.Forms.TextBox();
             this.eventStuff = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
@@ -51,17 +57,17 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.StartActionSelector = new System.Windows.Forms.OpenFileDialog();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.button5 = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.RulesetStuff.SuspendLayout();
+            this.CustomEventStuff.SuspendLayout();
             this.eventStuff.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btTriggerDelete
             // 
-            this.btTriggerDelete.Location = new System.Drawing.Point(132, 27);
+            this.btTriggerDelete.Location = new System.Drawing.Point(238, 26);
             this.btTriggerDelete.Margin = new System.Windows.Forms.Padding(2);
             this.btTriggerDelete.Name = "btTriggerDelete";
             this.btTriggerDelete.Size = new System.Drawing.Size(39, 24);
@@ -148,7 +154,7 @@
             this.RulesetStuff.Controls.Add(this.tbStartAction);
             this.RulesetStuff.Controls.Add(this.tbName);
             this.RulesetStuff.Controls.Add(this.lName);
-            this.RulesetStuff.Location = new System.Drawing.Point(3, 28);
+            this.RulesetStuff.Location = new System.Drawing.Point(398, 62);
             this.RulesetStuff.Name = "RulesetStuff";
             this.RulesetStuff.Size = new System.Drawing.Size(406, 399);
             this.RulesetStuff.TabIndex = 21;
@@ -203,13 +209,73 @@
             this.lName.TabIndex = 2;
             this.lName.Text = "Name";
             // 
+            // CustomEventStuff
+            // 
+            this.CustomEventStuff.Controls.Add(this.button8);
+            this.CustomEventStuff.Controls.Add(this.button7);
+            this.CustomEventStuff.Controls.Add(this.button6);
+            this.CustomEventStuff.Controls.Add(this.label2);
+            this.CustomEventStuff.Controls.Add(this.EventName);
+            this.CustomEventStuff.Location = new System.Drawing.Point(399, 56);
+            this.CustomEventStuff.Name = "CustomEventStuff";
+            this.CustomEventStuff.Size = new System.Drawing.Size(405, 405);
+            this.CustomEventStuff.TabIndex = 25;
+            this.CustomEventStuff.TabStop = false;
+            this.CustomEventStuff.Text = "Create Custom Event";
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(9, 47);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(128, 23);
+            this.button8.TabIndex = 4;
+            this.button8.Text = "Cancel";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(143, 47);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(123, 23);
+            this.button7.TabIndex = 3;
+            this.button7.Text = "Create";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(272, 48);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(128, 23);
+            this.button6.TabIndex = 2;
+            this.button6.Text = "Create and Add";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 25);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Name";
+            // 
+            // EventName
+            // 
+            this.EventName.Location = new System.Drawing.Point(187, 21);
+            this.EventName.Name = "EventName";
+            this.EventName.Size = new System.Drawing.Size(213, 20);
+            this.EventName.TabIndex = 0;
+            // 
             // eventStuff
             // 
             this.eventStuff.Controls.Add(this.label1);
             this.eventStuff.Controls.Add(this.button2);
             this.eventStuff.Controls.Add(this.numericUpDown1);
             this.eventStuff.Controls.Add(this.textBox1);
-            this.eventStuff.Location = new System.Drawing.Point(3, 28);
+            this.eventStuff.Location = new System.Drawing.Point(401, 62);
             this.eventStuff.Name = "eventStuff";
             this.eventStuff.Size = new System.Drawing.Size(405, 399);
             this.eventStuff.TabIndex = 2;
@@ -255,14 +321,19 @@
             this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
-            // panel1
+            // StartActionSelector
             // 
-            this.panel1.Controls.Add(this.RulesetStuff);
-            this.panel1.Controls.Add(this.eventStuff);
-            this.panel1.Location = new System.Drawing.Point(394, 28);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(412, 433);
-            this.panel1.TabIndex = 22;
+            this.StartActionSelector.Filter = "Executable|*.exe";
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(133, 27);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(100, 23);
+            this.button5.TabIndex = 23;
+            this.button5.Text = "+ Custom Event";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // EditorForm
             // 
@@ -270,7 +341,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(806, 473);
             this.ControlBox = false;
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.eventStuff);
+            this.Controls.Add(this.CustomEventStuff);
+            this.Controls.Add(this.RulesetStuff);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.toolStrip1);
@@ -284,10 +358,11 @@
             this.toolStrip1.PerformLayout();
             this.RulesetStuff.ResumeLayout(false);
             this.RulesetStuff.PerformLayout();
+            this.CustomEventStuff.ResumeLayout(false);
+            this.CustomEventStuff.PerformLayout();
             this.eventStuff.ResumeLayout(false);
             this.eventStuff.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -315,6 +390,12 @@
         private System.Windows.Forms.Label lStartAction;
         private System.Windows.Forms.TextBox tbStartAction;
         private System.Windows.Forms.OpenFileDialog StartActionSelector;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.GroupBox CustomEventStuff;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox EventName;
     }
 }

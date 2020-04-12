@@ -23,6 +23,15 @@ namespace GameMaster
             EditorHelper._editor = this;
         }
 
+        private void UpdateGroup()
+        {
+            HideAll();
+            if (treeView1.SelectedNode == rootnode)
+                ShowRulesetProperties();
+            else if (selectedObject is Event)
+                ShowEventProperties();
+        }
+
         // General Stuff
 
         private void ToolStripButton2_Click(object sender, EventArgs e) => Configuration.Save(game);
@@ -31,10 +40,7 @@ namespace GameMaster
 
         private void EditorForm_Load(object sender, EventArgs e)
         {
-            RulesetStuff.Visible = false;
-            eventStuff.Visible = false;
-
-            StartActionSelector.Filter = "Executables|*.exe";
+            HideAll();
             StartActionSelector.InitialDirectory = AppContext.BaseDirectory;
 
             dict = new Dictionary<string, LeftSide>();
@@ -46,20 +52,29 @@ namespace GameMaster
             }
 
             treeView1.ExpandAll();
+            treeView1.SelectedNode = rootnode;
         }
 
         private void BtTriggerDelete_Click(object sender, EventArgs e)
         {
-            game.LeftSideObjects.Remove(selectedObject);
-            treeView1.SelectedNode.Remove();
+            if (treeView1.SelectedNode == rootnode)
+                return;
+
+            if((selectedObject is Event && game.LeftSideObjects.Contains(selectedObject)) || selectedObject is World)
+            {
+                game.LeftSideObjects.Remove(selectedObject);
+                treeView1.SelectedNode.Remove();
+                return;
+            }
+
+            // Events that are inside a world
         }
 
         private void TreeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node.Text == game.Name)
             {
-                eventStuff.Hide();
-                RulesetStuff.Show();
+                ShowRulesetProperties();
                 return;
             }
 
@@ -108,7 +123,63 @@ namespace GameMaster
             treeView1.SelectedNode.Text = textBox1.Text;
         }
 
+        private void HideAll()
+        {
+            eventStuff.Hide();
+            eventStuff.SendToBack();
+            CustomEventStuff.Hide();
+            CustomEventStuff.SendToBack();
+            RulesetStuff.Hide();
+            RulesetStuff.SendToBack();
+        }
+
+        // World Stuff
+
+        private void ShowWorldProperties()
+        {
+            HideAll();
+        }
+
+        // Event Stuff
+
+        private void ShowEventProperties()
+        {
+            HideAll();
+        }
+
+        // Custom Event Stuff
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            HideAll();
+            CustomEventStuff.Show();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            game.CustomEvents.Add(new CustomEvent { Name = EventName.Text });
+            UpdateGroup();
+        }
+        private void button8_Click(object sender, EventArgs e) => UpdateGroup();
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            CustomEvent customEvent = new CustomEvent { Name = EventName.Text };
+            game.CustomEvents.Add(customEvent);
+            if (selectedObject == null)
+            {
+                game.LeftSideObjects.Add(game.CustomEvents[game.CustomEvents.LastIndexOf(customEvent)]);
+                rootnode.Nodes.Add(customEvent.Name);
+            }
+        }
+
         // Ruleset Stuff
+
+        private void ShowRulesetProperties()
+        {
+            HideAll();
+            RulesetStuff.Show();
+        }
 
         private void tbName_TextChanged(object sender, EventArgs e) => game.Name = tbName.Text;
 

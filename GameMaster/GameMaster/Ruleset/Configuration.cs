@@ -26,13 +26,13 @@ namespace GameMaster.Ruleset
         {
             Name = "Default Name";
             Executable = "";
-            CustomEvents = new List<Event>();
+            CustomEvents = new List<Events.CustomEvent>();
             LeftSideObjects = new List<LeftSide>();
         }
 
         public String Name;
         public String Executable;
-        public List<Event> CustomEvents;
+        public List<Events.CustomEvent> CustomEvents;
         public List<LeftSide> LeftSideObjects;
 
         [XmlIgnore]
