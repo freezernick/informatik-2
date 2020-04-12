@@ -54,19 +54,22 @@ namespace GameMaster
         private void BtNew_Click(object sender, EventArgs e)
         {
             SelectedRuleset = new Configuration();
-            EditorForm editor = new EditorForm();
-            editor.Show();
-            editor.ShowEditForm();
+            OpenEditor().ShowEditForm();
             Hide();
         }
 
         private void BtEditProp_Click(object sender, EventArgs e)
         {
+            OpenEditor().Text = $"Edit {SelectedRuleset.Name}";
+            Hide();
+        }
+
+        private EditorForm OpenEditor()
+        {
             EditorForm editor = new EditorForm();
-            editor.Text = "Edit " + SelectedRuleset.Name;
             editor.Show();
             editor.FormClosed += EditorClosed;
-            Hide();
+            return editor;
         }
 
         private void EditorClosed(object sender, EventArgs e) => Show();
