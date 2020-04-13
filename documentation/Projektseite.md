@@ -1,6 +1,6 @@
 # Der GameMaster
 
-Mit dem 'GameMaster' wollten wir ein Tool entwickeln, das jedem, auch ohne Programmierkentnisse, ermöglicht, eine KI bzw. einen Bot zu entwickeln, die für den Nutzer das Spielen von Computer- und Browsergames übernimmt. Das Ziel war es eine grafische Oberfläche anzubieten, mit der der Nutzer mithilfe von vordefinierten Elementen ein Regelwerk zusammenstellen kann, das der 'GameMaster' dann befolgt. Im folgenden werden wir Schrittweise durch die Anwendung gehen und beispielhaft ein Ruleset erstellen. Die Erklärung der technischen Umsetzung folgt weiter unten.
+Mit dem 'GameMaster' wollten wir ein Tool entwickeln, das jedem, auch ohne Programmierkentnisse, ermöglicht, eine KI bzw. einen Bot zu entwickeln, die für den Nutzer das Spielen von Computer- und Browsergames übernimmt. Das Ziel war es eine grafische Oberfläche anzubieten, mit der der Nutzer mithilfe von vordefinierten Elementen ein Regelwerk zusammenstellen kann, das der 'GameMaster' dann befolgt. Im folgenden werden wir Schrittweise durch die Anwendung gehen und beispielhaft ein Ruleset für unser Testspiel erstellen. Die Erklärung der technischen Umsetzung folgt weiter unten.
 
 ## Ein Ruleset erstellen
 
@@ -14,36 +14,70 @@ Startet man den 'GameMaster' ist dieser Bildschirm das erste was man sieht. Man 
 
 TODO: Bild
 
-TODO: Erklärung
+Grundsätzlich ist der Ruleset-Editor einfach aufgebaut. Auf der linken Seite gibt es eine hi­e­r­ar­chische Liste. Der Hauptpunkt der Liste repräsentiert das Ruleset selbst. Darunter finden sich "Welten", also bestimmte und unabhängige Zustände des Spiels (z.B. das Hauptmenü, verschiedene Level), und "Events". Events werden entweder intern vom GameMaster oder durch die Konfiguration des Nutzers ausgelöst. In jedem Event lassen sich die "Actions" platzieren, die eigentliche Handlungsanweisungen für den GameMaster. Die Events können sowohl eigenständige Elemente sein, als auch innerhalb einer Welt sein.
+Auf der rechten Seite befindet sich ein Panel mit den Eigenschaften des Objektes aus der Liste, welches gerade ausgewählt ist.
+Die obere Leiste erlaubt es neue "Objekte" (also Welten, Events und Aktionen) zum Ruleset hinzuzufügen oder zu entfernen, sowie das Ruleset zu speichern und den Editor zu beenden.
 
-#### Metadaten
+### Metadaten
+
+TODO: Bild
+
+In unserem Fall ist der Eintrag, der das Ruleset selbst repräsentiert ausgewählt. Deshalb sehen wir das Panel für die Ruleset-Metadaten. Hier können wir den Namen ändern und den Pfad zur Exe festlegen.
+
+### World-Editor
+
+Standardmäßig enthält jedes Ruleset eine `StartupWorld`. Diese Welt ist von Beginn der Session an aktiv. Sie ist als Art Pseudozustand gedacht, der aktiv ist, während das Spiel noch lädt. Trotzdem hat sie die volle Funktionalität wie andere Welten auch und hat zum Beispiel vordefinierte Events. Das reicht uns allerdings nicht aus. Wir werden zwei neue Welten hinzufügen, eine für das Menü und eine für das eigentliche Spiel. Wir wählen also `+ World` aus und eine neue Welt wird zur Liste hinzugefügt. Nun öffnet sich das Panel zum Bearbeiten von Welten.
+
+TODO: Bild
+
+Hier legen wir ersteinmal den Namen als `Menu World` fest. Anschließend erstellen wir noch eine Welt und nennen diese `Game World`.
+Allerdings müssen wir dem GameMaster auch mitteilen, wie die Welten aussehen, bzw. erkannt werden können. Um an die Referenzbilder dafür zu kommen, können wir auch den GameMaster verwenden.
+
+### Ein Ruleset Starten
+
+Dazu klicken wir einfach auf `Save` und `Exit`. Jetzt kann man im Hauptfenster auch unser neues Ruleset sehen und mit `Start` starten.
+
+#### Tastenkombinationen
+
+Während der 'GameMaster' im Spielzustand ist, lassen sich ein paar festgelegte Tastenkombinationen verwenden. Außerdem lassen sich mit den Keyboard-Events im Editor neue Kombinationen erstellen.
+
+|Kombination|Bedeutung|
+|-----------|---------|
+|Strg + F3|Beendet das Spiel|
+|Strg + F4|Erstellt einen Screenshot vom fokussierten Fenster als mögliches Referenzbild|
+|Strg + F5|Erstellt einen Screenshot als mögliches Referenzbild|
+|Strg + F6|Logging-Stufe ändern|
+
+Alle anderen Tasten werden wie gewohnt als Eingabe an das Spielfenster weitergeleitet. Man kann also auch ins Spielgeschehen eingreifen, um den GameMaster zu "ärgern". :-)
+
+Aber wir wollen ja Referenzbilder erhalten. Also drücken wir im Hauptmenü einmal `Strg + F4` und anschließend klicken wir auf `Start` und drücken nochmal `Strg + F4`. Dann könnnen wir es auch schon wieder mit `Strg + F3` beenden.
+
+#### Image-Editor
+
+
+
+#### Event-Editor
 
 TODO: Bild
 
 TODO: Erklärung
 
-#### Welten-System
+
+#### Action-Editor
 
 TODO: Bild
 
 TODO: Erklärung
 
-#### Event-System
+Also sollte jetzt sobald die Menüwelt erkannt wird ein "Es funktioniert" ausgegeben werden.
+
+### Overlay
+
+Das wollen wir doch gleich mal testen. Also wieder speichern & zurück zum Hauptfenster. Das Overlay ist normalerweise vollständig transparent, aber wenn man eine `Overlay-Log` Aktion eingebaut oder mit `Strg + F6` die Log-Ausgabestufe erhöht hat, können Nachrichten auf dem Bildschirm erscheinen.
+Und wenn das Menü erscheint wird auch schon erfolgreich "Es funktioniert" angezeigt.
 
 TODO: Bild
 
-TODO: Erklärung
-
-#### Aktions-System
-
-TODO: Bild
-
-TODO: Erklärung
-
-
------
-
-Nachdem wir nun etwas an unserem Ruleset gewerkelt haben, müssen wir es selbstverständlich testen. Dazu musst man einfach auf 'Save' und dann auf 'Exit' drücken. Schon gelangt man wieder in den Hauptbildschirm, wo wir nun unser neues Ruleset sehen.
 
 #### Das fertige Ruleset
 
@@ -120,30 +154,6 @@ TODO: Update XML
 ```
 
 </details>
-
-## Ein Ruleset Starten
-
-Um den 'GameMaster' nun unser Ruleset spielen zu lassen, müssen wir einfach auf 'Start Ruleset' drücken. Der Hauptbildschirm wird jetzt minimiert und die Exe des Spiels gestartet.
-
-### Tastenkombinationen
-
-Während der 'GameMaster' im Spielzustand ist, lassen sich ein paar festgelegte Tastenkombinationen verwenden. Außerdem lassen sich mit den Keyboard-Events im Editor neue Kombinationen erstellen.
-
-|Kombination|Bedeutung|
-|-----------|---------|
-|Strg + F3|Beendet das Spiel|
-|Strg + F4|Erstellt einen Screenshot vom fokussierten Fenster als mögliches Referenzbild|
-|Strg + F5|Erstellt einen Screenshot als mögliches Referenzbild|
-|Strg + F6|Logging-Stufe ändern|
-
-Alle anderen Tasten werden wie gewohnt als Eingabe an das Spielfenster weitergeleitet. Man kann also auch ins Spielgeschehen eingreifen, um den GameMaster zu "ärgern". :-)
-
-### Overlay
-
-Desweiteren gibt es während der GameMaster spielt ein 'Overlay'. Das ist normalerweise vollständig transparent, aber wenn man in seinem Ruleset eine `Overlay-Log` Aktion eingebaut oder mit `Strg + F6` die Log-Ausgabestufe erhöht hat, können Nachrichten auf dem Bildschirm erscheinen.
-
-![](images/page/overlay.png)   
-*"test" wird mit der Overlay-Log Aktion in einem Tick-Event ausgeführt*
 
 ### Downloadfenster
 
