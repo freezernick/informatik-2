@@ -103,12 +103,7 @@ namespace GameMaster
             return destImage;
         }
 
-        public static string GenerateSlug(string phrase)
-        {
-            phrase = phrase.ToLower();
-            phrase.Replace(' ', '-');
-            return phrase;
-        }
+        public static string GenerateSlug(string phrase) => phrase.ToLower().Replace(' ', '-');
 
         /// <summary>
         /// Creates a screenshot of the specified window
