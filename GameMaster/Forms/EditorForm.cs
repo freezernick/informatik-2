@@ -81,6 +81,7 @@ namespace GameMaster
             }
 
             selectedObject = dict[e.Node.Text];
+            UpdateGroup();
         }
 
         private void Button4_Click(object sender, EventArgs e)
@@ -130,6 +131,7 @@ namespace GameMaster
 
         private void HideAll()
         {
+            WorldProperties.Hide();
             eventStuff.Hide();
             eventStuff.SendToBack();
             EventList.Hide();
@@ -143,6 +145,18 @@ namespace GameMaster
         private void ShowWorldProperties()
         {
             HideAll();
+            if(selectedObject is StartupWorld)
+            {
+                Bt_WorldChange.Enabled = false;
+                Bt_WorldClear.Enabled = false;
+            }
+            else
+            {
+                Bt_WorldChange.Enabled = true;
+                Bt_WorldClear.Enabled = true;
+            }
+            WorldProperties.Show();
+            WorldProperties.BringToFront();
         }
 
         // Event Stuff

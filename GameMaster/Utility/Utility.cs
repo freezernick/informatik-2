@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace GameMaster
 {
@@ -55,10 +56,10 @@ namespace GameMaster
     /// </summary>
     public static class Utility
     {
-        public static string RulesetDirectory = AppContext.BaseDirectory + @"\rulesets\";
+        public static string RulesetDirectory = Path.Combine(AppContext.BaseDirectory, "rulesets");
         public static string DownloadDirectory = AppContext.BaseDirectory + @"\downloads";
         public static string TempDirectory = AppContext.BaseDirectory + @"\temp";
-        public static string ImageDirectory = Utility.RulesetDirectory + $@"\{MainFormHelper.Get().SelectedRuleset.Name}\images\";
+        public static string ImageDirectory = (MainFormHelper.Get().SelectedRuleset == null) ? "" : RulesetDirectory + $@"\{MainFormHelper.Get().SelectedRuleset.Name}\images\";
 
         public static IEnumerable<Type> FindSubClassesOf<TBaseType>()
         {

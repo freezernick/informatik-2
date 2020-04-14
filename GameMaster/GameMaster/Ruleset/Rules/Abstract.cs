@@ -116,7 +116,7 @@ namespace GameMaster.Ruleset.Abstracts
 
         public class ImageRecognition : ScreenParameter, IImageParmeter
         {
-            public ReferenceParameters reference { get; internal set; }
+            public ReferenceParameters reference;
 
             [XmlIgnore]
             public Bitmap image { get; internal set; }
