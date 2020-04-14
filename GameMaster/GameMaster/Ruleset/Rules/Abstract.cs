@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using GameMaster.Ruleset.Events;
+using Emgu.CV;
+using Emgu.CV.Structure;
+using Emgu.Util;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace GameMaster.Ruleset.Abstracts
 {
@@ -136,8 +141,27 @@ namespace GameMaster.Ruleset.Abstracts
 
         public class ImageRecognition : ScreenParameter, IImageParmeter
         {
-            public Bitmap parameter;
-            public void UpdateReference(Bitmap image) => parameter = image;
+            public ReferenceParameters reference { get; internal set; }
+
+            [XmlIgnore]
+            public Bitmap image { get; internal set; }
+
+            public ImageRecognition()
+            {
+                reference = new ReferenceParameters();
+            }
+            public void UpdateReference(Bitmap Image)
+            {
+                if(File.Exists(Utility.ImageDirectory + $@"\{reference.Name}"))
+                    File.Delete(Utility.ImageDirectory + $@"\{reference.Name}");
+
+                if (Image == null)
+                    return;
+
+                Image.Save(Utility.ImageDirectory + $@"\{reference.Name}");
+                image = Image;
+                reference = new ReferenceParameters(Utility.GenerateSlug(Name), image.Width, image.Height);
+            }
         }
     }
 

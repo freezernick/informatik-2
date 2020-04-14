@@ -2,6 +2,8 @@
 using GameMaster.Ruleset.Abstracts;
 using GameMaster.Ruleset.Types;
 using System.Drawing;
+using Emgu.CV.Structure;
+using Emgu.CV;
 
 namespace GameMaster.Interfaces
 {

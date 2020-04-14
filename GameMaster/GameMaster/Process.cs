@@ -10,7 +10,11 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using Emgu.CV;
+using Emgu.Util;
+using Emgu.CV.Structure;
 using Timer = System.Threading.Timer;
+using System.Drawing;
 
 namespace GameMaster
 {
@@ -24,6 +28,7 @@ namespace GameMaster
         private Timer timer;
         private Configuration configuration;
         private World currentWorld;
+        private List<World> worldList = new List<World>();
         private List<KeyPressEvent> KeyEvents = new List<KeyPressEvent>();
 
         public VM(Configuration game)
@@ -76,6 +81,22 @@ namespace GameMaster
                 {
                     if ((TickEvent)leftSide != null)
                         ((TickEvent)leftSide).Execute();
+                }
+                else if(leftSide is GameWorld)
+                {
+                    //OverlayLog("huhu");
+                    //Image<Bgr, Byte> image = Emgu.CV.BitmapExtension.ToImage<Bgr, Byte>(((GameWorld)leftSide).WorldReference.parameter);
+                    //if (image == null)
+                    //    continue;
+
+                    //new Bitmap(100, 100).Save("test.bmp");
+                    //new Image<Bgr, Byte>("test.bpm");
+                    //OverlayLog("huy");
+                    //if (image == new Image<Bgr, Byte>("test.bmp"))
+                    //{
+
+                    //}
+                    
                 }
             }
             Overlay.Run();

@@ -5,6 +5,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 
 namespace GameMaster
 {
@@ -36,6 +37,18 @@ namespace GameMaster
         public int right;
         public int bottom;
     }
+    public struct ReferenceParameters
+    {
+        public string Name;
+        public int Width;
+        public int Height;
+        public ReferenceParameters(string name, int x, int y)
+        {
+            Name = name;
+            Width = x;
+            Height = y;
+        }
+    }
 
     /// <summary>
     /// Class containing static utility functions and static variables
@@ -45,6 +58,7 @@ namespace GameMaster
         public static string RulesetDirectory = AppContext.BaseDirectory + @"\rulesets\";
         public static string DownloadDirectory = AppContext.BaseDirectory + @"\downloads";
         public static string TempDirectory = AppContext.BaseDirectory + @"\temp";
+        public static string ImageDirectory = Utility.RulesetDirectory + $@"\{MainFormHelper.Get().SelectedRuleset.Name}\images\";
 
         public static IEnumerable<Type> FindSubClassesOf<TBaseType>()
         {
@@ -86,6 +100,13 @@ namespace GameMaster
             }
 
             return destImage;
+        }
+
+        public static string GenerateSlug(string phrase)
+        {
+            phrase = phrase.ToLower();
+            phrase.Replace(' ', '-');
+            return phrase;
         }
 
         /// <summary>

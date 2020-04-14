@@ -27,6 +27,8 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -52,8 +54,12 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Emgu.CV.UI, Version=4.2.0.3662, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <HintPath>..\packages\Emgu.CV.runtime.windows.4.2.0.3662\lib\net461\Emgu.CV.UI.dll</HintPath>
+    </Reference>
     <Reference Include="Emgu.CV.World.NetStandard, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
-      <HintPath>packages\Emgu.CV.4.2.0.3662\lib\netstandard2.0\Emgu.CV.World.NetStandard.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Emgu.CV.4.2.0.3662\lib\netstandard2.0\Emgu.CV.World.NetStandard.dll</HintPath>
     </Reference>
     <Reference Include="GameOverlay, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GameOverlay.Net.4.2.0\lib\net47\GameOverlay.dll</HintPath>
@@ -83,18 +89,15 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="ZedGraph, Version=5.1.7.430, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZedGraph.5.1.7\lib\net35-Client\ZedGraph.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\Editor\Actions.cs">
+    <Compile Include="Forms\ImageEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Editor\Actions.Designer.cs">
-      <DependentUpon>Actions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Editor\ImageEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Editor\ImageEditor.Designer.cs">
+    <Compile Include="Forms\ImageEditor.Designer.cs">
       <DependentUpon>ImageEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\DownloadForm.cs">
@@ -133,10 +136,7 @@
     <EmbeddedResource Include="Forms\DownloadForm.resx">
       <DependentUpon>DownloadForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Editor\Actions.resx">
-      <DependentUpon>Actions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Editor\ImageEditor.resx">
+    <EmbeddedResource Include="Forms\ImageEditor.resx">
       <DependentUpon>ImageEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Main.resx">
@@ -182,6 +182,32 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="License-LGPL.txt" />
+    <Content Include="x64\concrt140.dll" />
+    <Content Include="x64\cvextern.dll" />
+    <Content Include="x64\msvcp140.dll" />
+    <Content Include="x64\msvcp140_1.dll" />
+    <Content Include="x64\msvcp140_2.dll" />
+    <Content Include="x64\msvcp140_codecvt_ids.dll" />
+    <Content Include="x64\opencv_videoio_ffmpeg420_64.dll" />
+    <Content Include="x64\vcruntime140.dll" />
+    <Content Include="x64\vcruntime140_1.dll" />
+    <Content Include="x86\concrt140.dll" />
+    <Content Include="x86\cvextern.dll" />
+    <Content Include="x86\msvcp140.dll" />
+    <Content Include="x86\msvcp140_1.dll" />
+    <Content Include="x86\msvcp140_2.dll" />
+    <Content Include="x86\msvcp140_codecvt_ids.dll" />
+    <Content Include="x86\opencv_videoio_ffmpeg420.dll" />
+    <Content Include="x86\vcruntime140.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Emgu.CV.runtime.windows.4.2.0.3662\build\Emgu.CV.runtime.windows.targets" Condition="Exists('..\packages\Emgu.CV.runtime.windows.4.2.0.3662\build\Emgu.CV.runtime.windows.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Dieses Projekt verweist auf mindestens ein NuGet-Paket, das auf diesem Computer fehlt. Verwenden Sie die Wiederherstellung von NuGet-Paketen, um die fehlenden Dateien herunterzuladen. Weitere Informationen finden Sie unter "http://go.microsoft.com/fwlink/?LinkID=322105". Die fehlende Datei ist "{0}".</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Emgu.CV.runtime.windows.4.2.0.3662\build\Emgu.CV.runtime.windows.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Emgu.CV.runtime.windows.4.2.0.3662\build\Emgu.CV.runtime.windows.targets'))" />
+  </Target>
 </Project>
