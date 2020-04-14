@@ -20,7 +20,6 @@ namespace GameMaster
         {
             InitializeComponent();
             game = MainFormHelper.Get().SelectedRuleset;
-            EditorHelper._editor = this;
         }
 
         private void UpdateGroup()
@@ -259,10 +258,5 @@ namespace GameMaster
         public Configuration game;
 
         public EditorWindow() => Show();
-    }
-
-    public static class EditorHelper
-    {
-        public static EditorForm _editor;
     }
 }
