@@ -235,7 +235,22 @@ namespace GameMaster
 
         private void Bt_WorldChange_Click(object sender, EventArgs e)
         {
-
+            Disable();
+            ImageEditor imageEditor;
+            if (selectedObject is GameWorld)
+            {
+                GameWorld @object = (GameWorld) selectedObject;
+                if (@object.WorldReference != null)
+                    imageEditor = new ImageEditor(@object.WorldReference);
+                else
+                    imageEditor = new ImageEditor();
+            }
+            else
+            {
+                imageEditor = new ImageEditor();
+            }
+            imageEditor.Show();
+            imageEditor.FormClosed += ToolClosure;
         }
     }
 
