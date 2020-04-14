@@ -45,8 +45,7 @@ Während der 'GameMaster' im Spielzustand ist, lassen sich ein paar festgelegte 
 |-----------|---------|
 |Strg + F3|Beendet das Spiel|
 |Strg + F4|Erstellt einen Screenshot vom fokussierten Fenster als mögliches Referenzbild|
-|Strg + F5|Erstellt einen Screenshot als mögliches Referenzbild|
-|Strg + F6|Logging-Stufe ändern|
+|Strg + F5|Logging-Stufe ändern|
 
 Alle anderen Tasten werden wie gewohnt als Eingabe an das Spielfenster weitergeleitet. Man kann also auch ins Spielgeschehen eingreifen, um den GameMaster zu "ärgern". :-)
 
@@ -73,7 +72,7 @@ Also sollte jetzt sobald die Menüwelt erkannt wird ein "Es funktioniert" ausgeg
 
 ### Overlay
 
-Das wollen wir doch gleich mal testen. Also wieder speichern & zurück zum Hauptfenster. Das Overlay ist normalerweise vollständig transparent, aber wenn man eine `Overlay-Log` Aktion eingebaut oder mit `Strg + F6` die Log-Ausgabestufe erhöht hat, können Nachrichten auf dem Bildschirm erscheinen.
+Das wollen wir doch gleich mal testen. Also wieder speichern & zurück zum Hauptfenster. Das Overlay ist normalerweise vollständig transparent, aber wenn man eine `Overlay-Log` Aktion eingebaut oder mit `Strg + F5` die Log-Ausgabestufe erhöht hat, können Nachrichten auf dem Bildschirm erscheinen.
 Und wenn das Menü erscheint wird auch schon erfolgreich "Es funktioniert" angezeigt.
 
 TODO: Bild

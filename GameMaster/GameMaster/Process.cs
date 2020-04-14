@@ -21,7 +21,7 @@ namespace GameMaster
     public class VM
     {
         private Process GameProcess;
-        private GameMasterOverlay Overlay;
+        private GameMasterOverlay Overlay = new GameMasterOverlay();
         private KeyboardHook hook = new KeyboardHook();
         private int LogIterationCount = 0;
         private AutoResetEvent autoEvent = new AutoResetEvent(false);
@@ -30,6 +30,7 @@ namespace GameMaster
         private World currentWorld;
         private List<World> worldList = new List<World>();
         private List<KeyPressEvent> KeyEvents = new List<KeyPressEvent>();
+        private bool IncreasedLogging = false;
 
         public VM(Configuration game)
         {
@@ -45,7 +46,6 @@ namespace GameMaster
             StartLogging();
             Log("Process started");
             MainFormHelper.Get().ProcessStarted();
-            Overlay = new GameMasterOverlay();
             Overlay.Initialize();
             Overlay.Run();
             Log("Overlay started");
@@ -121,10 +121,8 @@ namespace GameMaster
         /// <summary>
         /// Helper for the internal timer
         /// </summary>
-        /// <param name="stateInfo"></param>
         public void CheckStatus(Object stateInfo)
         {
-            AutoResetEvent autoEvent = (AutoResetEvent)stateInfo;
             LogIterationCount++;
             if (LogIterationCount == 16)
             {
@@ -160,7 +158,7 @@ namespace GameMaster
 
             if (e.Modifier == ModifierKeys.Control && e.Key == Keys.F5)
             {
-                return;
+                IncreasedLogging = true;
             }
 
             foreach (KeyPressEvent @event in KeyEvents)
@@ -176,14 +174,27 @@ namespace GameMaster
 
         private StreamWriter LogWriter;
 
+        /// <summary>
+        /// Starts the StreamWriter for the log
+        /// </summary>
         private void StartLogging() => LogWriter = new StreamWriter(Path.Combine(Utility.RulesetDirectory, configuration.Folder) + "\\log.txt");
 
+        /// <summary>
+        /// Adds a message to the log
+        /// </summary>
+        /// <param name="message">The message to be logged</param>
         public void Log(string message)
         {
             if (LogWriter == null) { return; }
             LogWriter.WriteLine("{0} : " + message, DateTime.Now.ToLongTimeString());
+            if (IncreasedLogging)
+                OverlayLog(message);
         }
 
+        /// <summary>
+        /// Displays a message on the overlay
+        /// </summary>
+        /// <param name="message">The message to be displayed</param>
         public void OverlayLog(string message)
         {
             if (Overlay != null) { Overlay.Log(message); }
