@@ -50,7 +50,18 @@ namespace GameMaster
             foreach(LeftSide leftSide in game.LeftSideObjects)
             {
                 dict.Add(leftSide.Name, leftSide);
-                rootnode.Nodes.Add(leftSide.Name);
+                TreeNode newNode = rootnode.Nodes.Add(leftSide.Name);
+
+                if(leftSide is World)
+                {
+                    World world = (World)leftSide;
+                    foreach(Event worldEvent in world.WorldEvents)
+                    {
+                        MessageBox.Show("test");
+                        newNode.Nodes.Add(worldEvent.Name);
+                        dict.Add($"e_{world.Name}_{worldEvent.Name}", worldEvent);
+                    }
+                }
             }
 
             treeView1.ExpandAll();
@@ -80,6 +91,12 @@ namespace GameMaster
                 return;
             }
 
+            if(e.Node.Text.StartsWith("e_"))
+            {
+                World world = (World) dict[e.Node.Text.Split('_')[1]];
+                selectedObject = (Event) dict[e.Node.Text.Split('_')[2]];
+            }
+
             selectedObject = dict[e.Node.Text];
             UpdateGroup();
         }
@@ -99,7 +116,7 @@ namespace GameMaster
             foreach(Event @event in world.WorldEvents)
             {
                 dict.Add(@event.Name, @event);
-                node.Nodes.Add(@event.Name);
+                node.Nodes.Add($"e_{world.Name}_{@event.Name}");
             }
             game.LeftSideObjects.Add(world);
         }

@@ -65,7 +65,7 @@ namespace GameMaster.Ruleset.Abstracts
 
     public abstract class World : LeftSide
     {
-        public List<Event> WorldEvents = new List<Event>();
+        public List<Event> WorldEvents;
 
         public World() => Name = "World";
 
@@ -73,6 +73,7 @@ namespace GameMaster.Ruleset.Abstracts
         {
             if(initialize)
             {
+                WorldEvents = new List<Event>();
                 WorldEvents.Add(new StartupEvent());
                 WorldEvents.Add(new TickEvent());
                 WorldEvents.Add(new ShutdownRequestEvent());
