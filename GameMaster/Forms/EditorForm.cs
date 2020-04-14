@@ -252,11 +252,4 @@ namespace GameMaster
             imageEditor.FormClosed += ToolClosure;
         }
     }
-
-    public class EditorWindow : Form
-    {
-        public Configuration game;
-
-        public EditorWindow() => Show();
-    }
 }
