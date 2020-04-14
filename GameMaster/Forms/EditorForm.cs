@@ -57,7 +57,6 @@ namespace GameMaster
                     World world = (World)leftSide;
                     foreach(Event worldEvent in world.WorldEvents)
                     {
-                        MessageBox.Show("test");
                         newNode.Nodes.Add(worldEvent.Name);
                         dict.Add($"e_{world.Name}_{worldEvent.Name}", worldEvent);
                     }
@@ -115,8 +114,8 @@ namespace GameMaster
             TreeNode node = rootnode.Nodes.Add(world.Name);
             foreach(Event @event in world.WorldEvents)
             {
-                dict.Add(@event.Name, @event);
-                node.Nodes.Add($"e_{world.Name}_{@event.Name}");
+                dict.Add($"e_{world.Name}_{@event.Name}", @event);
+                node.Nodes.Add(@event.Name);
             }
             game.LeftSideObjects.Add(world);
         }

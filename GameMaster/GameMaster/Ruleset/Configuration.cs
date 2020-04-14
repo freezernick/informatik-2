@@ -45,6 +45,12 @@ namespace GameMaster.Ruleset
         /// <param name="path">The path of the XML</param>
         public static void Save(Configuration ruleset)
         {
+            if (ruleset.Folder == null)
+            {
+                ruleset.Folder = Path.Combine(Utility.RulesetDirectory, Utility.GenerateSlug(ruleset.Name));
+                if (!Directory.Exists(ruleset.Folder))
+                    Directory.CreateDirectory(ruleset.Folder);
+            }
             XmlSerializer serializer = new XmlSerializer(typeof(Configuration));
             TextWriter writer = new StreamWriter(Path.Combine(ruleset.Folder, "config.xml"));
             serializer.Serialize(writer, ruleset);
