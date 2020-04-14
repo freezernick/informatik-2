@@ -57,8 +57,8 @@ namespace GameMaster
     public static class Utility
     {
         public static string RulesetDirectory = Path.Combine(AppContext.BaseDirectory, "rulesets");
-        public static string DownloadDirectory = AppContext.BaseDirectory + @"\downloads";
-        public static string TempDirectory = AppContext.BaseDirectory + @"\temp";
+        public static string DownloadDirectory = Path.Combine(AppContext.BaseDirectory, "downloads");
+        public static string TempDirectory = Path.Combine(AppContext.BaseDirectory + "temp");
         public static string ImageDirectory = (MainFormHelper.Get().SelectedRuleset == null) ? "" : RulesetDirectory + $@"\{MainFormHelper.Get().SelectedRuleset.Name}\images\";
 
         public static IEnumerable<Type> FindSubClassesOf<TBaseType>()
