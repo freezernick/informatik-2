@@ -30,6 +30,8 @@ namespace GameMaster
                 ShowRulesetProperties();
             else if (selectedObject is Event)
                 ShowEventProperties();
+            else if (selectedObject is World)
+                ShowWorldProperties();
         }
 
         // General Stuff
@@ -148,9 +150,8 @@ namespace GameMaster
         private void ShowEventProperties()
         {
             HideAll();
+            eventStuff.Show();
         }
-
-        // Custom Event Stuff
 
         private void button5_Click(object sender, EventArgs e)
         {
@@ -193,6 +194,16 @@ namespace GameMaster
         private void StartActionSelector_FileOK(object sender, System.ComponentModel.CancelEventArgs e) => tbStartAction.Text = StartActionSelector.FileName;
 
         private void button4_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Bt_WorldClear_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Bt_WorldChange_Click(object sender, EventArgs e)
         {
 
         }

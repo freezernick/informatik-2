@@ -61,11 +61,20 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.WorldProperties = new System.Windows.Forms.GroupBox();
+            this.Bt_WorldChange = new System.Windows.Forms.Button();
+            this.Bt_WorldClear = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.RulesetStuff.SuspendLayout();
             this.eventStuff.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.EventList.SuspendLayout();
+            this.WorldProperties.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // btTriggerDelete
@@ -367,12 +376,81 @@
             this.comboBox1.Size = new System.Drawing.Size(175, 21);
             this.comboBox1.TabIndex = 0;
             // 
+            // WorldProperties
+            // 
+            this.WorldProperties.Controls.Add(this.Bt_WorldChange);
+            this.WorldProperties.Controls.Add(this.Bt_WorldClear);
+            this.WorldProperties.Controls.Add(this.pictureBox1);
+            this.WorldProperties.Controls.Add(this.label7);
+            this.WorldProperties.Controls.Add(this.textBox2);
+            this.WorldProperties.Controls.Add(this.label6);
+            this.WorldProperties.Location = new System.Drawing.Point(398, 61);
+            this.WorldProperties.Name = "WorldProperties";
+            this.WorldProperties.Size = new System.Drawing.Size(408, 400);
+            this.WorldProperties.TabIndex = 27;
+            this.WorldProperties.TabStop = false;
+            this.WorldProperties.Text = "World Properties";
+            // 
+            // Bt_WorldChange
+            // 
+            this.Bt_WorldChange.Location = new System.Drawing.Point(210, 217);
+            this.Bt_WorldChange.Name = "Bt_WorldChange";
+            this.Bt_WorldChange.Size = new System.Drawing.Size(186, 23);
+            this.Bt_WorldChange.TabIndex = 5;
+            this.Bt_WorldChange.Text = "Change";
+            this.Bt_WorldChange.UseVisualStyleBackColor = true;
+            this.Bt_WorldChange.Click += new System.EventHandler(this.Bt_WorldChange_Click);
+            // 
+            // Bt_WorldClear
+            // 
+            this.Bt_WorldClear.Location = new System.Drawing.Point(12, 217);
+            this.Bt_WorldClear.Name = "Bt_WorldClear";
+            this.Bt_WorldClear.Size = new System.Drawing.Size(192, 23);
+            this.Bt_WorldClear.TabIndex = 4;
+            this.Bt_WorldClear.Text = "Clear";
+            this.Bt_WorldClear.UseVisualStyleBackColor = true;
+            this.Bt_WorldClear.Click += new System.EventHandler(this.Bt_WorldClear_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(12, 81);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(385, 129);
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(9, 59);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(57, 13);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Reference";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(176, 23);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(226, 20);
+            this.textBox2.TabIndex = 1;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 26);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Name";
+            // 
             // EditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(806, 473);
             this.ControlBox = false;
+            this.Controls.Add(this.WorldProperties);
             this.Controls.Add(this.EventList);
             this.Controls.Add(this.eventStuff);
             this.Controls.Add(this.RulesetStuff);
@@ -394,6 +472,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.EventList.ResumeLayout(false);
             this.EventList.PerformLayout();
+            this.WorldProperties.ResumeLayout(false);
+            this.WorldProperties.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -431,5 +512,12 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.GroupBox WorldProperties;
+        private System.Windows.Forms.Button Bt_WorldChange;
+        private System.Windows.Forms.Button Bt_WorldClear;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label6;
     }
 }
