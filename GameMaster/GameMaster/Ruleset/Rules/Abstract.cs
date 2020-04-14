@@ -12,17 +12,8 @@ using System.IO;
 
 namespace GameMaster.Ruleset.Abstracts
 {
-    public class GameWindow
-    {
-        public bool Fullscreen;
-        public int Width;
-        public int Height;
-        public int X;
-        public int Y;
-    }
-
     /// <summary>
-    /// Class used for objects that should be added to the left side of the ruleset editor
+    /// Class for major ruleset classes (worlds & events)
     /// </summary>
     public abstract class LeftSide
     {
@@ -30,7 +21,7 @@ namespace GameMaster.Ruleset.Abstracts
     }
 
     /// <summary>
-    /// Class used for objects that should be added to the right side of the ruleset editor
+    /// Class for minor ruleset classes (actions)
     /// </summary>
     public abstract class RightSide
     {
@@ -44,41 +35,25 @@ namespace GameMaster.Ruleset.Abstracts
     /// </summary>
     public abstract class Event : LeftSide, IObjectRegister
     {
-        public static string Description;
-        public List<RightSide> EventObjects;
+        public static string Description = "Event description";
+        public List<RightSide> EventObjects = new List<RightSide>();
 
-        public Event()
-        {
-            Name = "Event";
-            Description = "Event description";
-            EventObjects = new List<RightSide>();
-        }
+        public Event() => Name = "Event";
 
         public void Execute()
         {
             foreach (RightSide eventObject in EventObjects)
-            {
                 eventObject.EventExecute(this);
-            }
         }
 
-        public void RegisterObject(RightSide eventObject)
-        {
-            EventObjects.Add(eventObject);
-        }
+        public void RegisterObject(RightSide eventObject) => EventObjects.Add(eventObject);
 
-        public void UnregisterObject(RightSide eventObject)
-        {
-            EventObjects.Remove(eventObject);
-        }
+        public void UnregisterObject(RightSide eventObject) => EventObjects.Remove(eventObject);
     }
 
     public abstract class Action : RightSide
     {
-        public Action()
-        {
-            Name = "Action";
-        }
+        public Action() => Name = "Action";
     }
 
     public abstract class ObjectAction
