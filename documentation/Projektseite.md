@@ -12,7 +12,7 @@ Startet man den 'GameMaster' ist dieser Bildschirm das erste was man sieht. Man 
 
 ### Editor
 
-TODO: Bild
+![](images/page/editor/meta.png)
 
 Grundsätzlich ist der Ruleset-Editor einfach aufgebaut. Auf der linken Seite gibt es eine hi­e­r­ar­chische Liste. Der Hauptpunkt der Liste repräsentiert das Ruleset selbst. Darunter finden sich "Welten", also bestimmte und unabhängige Zustände des Spiels (z.B. das Hauptmenü, verschiedene Level), und "Events". Events werden entweder intern vom GameMaster oder durch die Konfiguration des Nutzers ausgelöst. In jedem Event lassen sich die "Actions" platzieren, die eigentliche Handlungsanweisungen für den GameMaster. Die Events können sowohl eigenständige Elemente sein, als auch innerhalb einer Welt sein.
 Auf der rechten Seite befindet sich ein Panel mit den Eigenschaften des Objektes aus der Liste, welches gerade ausgewählt ist.
@@ -20,9 +20,7 @@ Die obere Leiste erlaubt es neue "Objekte" (also Welten, Events und Aktionen) zu
 
 ### Metadaten
 
-TODO: Bild
-
-In unserem Fall ist der Eintrag, der das Ruleset selbst repräsentiert ausgewählt. Deshalb sehen wir das Panel für die Ruleset-Metadaten. Hier können wir den Namen ändern und den Pfad zur Exe festlegen.
+In unserem Fall ist der Eintrag, der das Ruleset selbst repräsentiert ausgewählt. Deshalb sehen wir das Panel für die Ruleset-Metadaten. Hier können wir den Namen ändern und den Pfad zur Exe festlegen. Wir tragen hier als Beispiel "Neuer Name" und den Pfad zu unserem Testspiel ein.
 
 ### World-Editor
 
