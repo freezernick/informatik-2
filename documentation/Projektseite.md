@@ -1728,6 +1728,8 @@ namespace GameMaster.Ruleset.Abstracts
 }
 ```
 
+</details>
+
 ### Editor
 
 
