@@ -69,8 +69,6 @@ Nachdem wir jetzt dem GameMaster mitgeteilt haben, woran er das Spielmenü erken
 
 ### Action-Editor
 
-TODO: BILD
-
 Mit der ausgewählten `Overlay Log`-Aktion können wir nun die Eigenschaften dieser verändern. Wir setzen als Nachricht "Es funktioniert!". Also sollte jetzt sobald die Menüwelt erkannt wird diese Nachricht auf dem Overlay erscheinen.
 
 ### Overlay
@@ -1729,16 +1727,6 @@ namespace GameMaster.Ruleset.Abstracts
 
 </details>
 
-### Editor
-
-
-
-<details>
-<summary>Vollständiger Code der Editor.cs</summary>
-
-
-
-</details>
 
 #### Cropping-Tool
 
@@ -1920,6 +1908,93 @@ public partial class ImageEditor : Form
 </details>
 
 ### Der GameMaster / Process.cs
+
+In der `Process.cs` befindet sich die `VM`-Klasse in der die eigentliche Logik des GameMasters liegt.
+
+```c#
+        private void Update()
+        {
+            if (currentWorld == null)
+                UpdateWorld((StartupWorld)configuration.LeftSideObjects.Find(x => x.GetType() == typeof(StartupWorld)));
+
+```
+
+ Die `Update`-Funktion ist eine der wichtigsten Funktionen in der Klasse. Sie wird mit einem Timer vier mal in der Sekunde aufgerufen. In ihr wird zuerst überprüft, ob die `currentWorld` gesetzt ist. Ist das nicht der Fall, befinden wir uns im ersten Tick und die `currentWorld` wird auf die `StartupWorld` des Rulesets gesetzt.
+
+```c#
+            foreach (LeftSide leftSide in configuration.LeftSideObjects)
+            {
+                if (leftSide is TickEvent)
+                {
+                    if ((TickEvent)leftSide != null)
+                        ((TickEvent)leftSide).Execute();
+                }
+```
+
+Danach kommt eine Schleife über alle `LeftSide`-Objekte im Ruleset. Wenn das aktuelle Objekt ein `TickEvent` ist, das jeden Updatezyklus ausgelöst werden soll, rufen wir die `Execute`-Funktion des Events auf.
+
+```c#
+                else if (leftSide is GameWorld && leftSide != currentWorld)
+                {
+                    GameWorld world = (GameWorld)leftSide;
+                    if (world != null && world.WorldReference.reference.Name != null)
+                    {
+                        Rectangle match;
+                        if (Recognize(world.WorldReference, out match))
+                            UpdateWorld(world);
+                    }
+```
+
+Handelt es sich nicht um ein `TickEvent`, sondern um eine `GameWorld`, die nicht gerade aktiv ist, verwenden wir den `ImageRecognition`-Parameter der Welt, um zu überprüfen, ob vielleicht die Welt gewechselt wurde. Gibt `Recognize` einen positiven Wert zurück, wurde die Welt erkannt, und wir müssen `currentWorld` aktualisieren. 
+
+```c#
+            if(currentWorld is GameWorld)
+            {
+                GameWorld world = (GameWorld)currentWorld;
+                if (world.WorldObjects.Count > 0)
+                {
+                    foreach (GameWorld.WorldObject worldObject in world.WorldObjects)
+                    {
+                        if (worldObject.Reference.Name != "")
+                        {
+                            Rectangle match;
+                            if (Recognize(worldObject.Reference, out match))
+                                worldObject.ScreenLocation = new Vector2(match.X, match.Y);
+                        }
+                    }
+                }
+            }
+```
+
+Zuletzt aktualisieren wir - erneut mithilfe der `Recognize`-Funktion - die Orte der `WorldObjects` aus der `currentWorld`.
+
+```c#
+        private bool Recognize(World.ImageRecognition recognition, out Rectangle match)
+        {
+            Image<Bgr, byte> source = BitmapExtension.ToImage<Bgr, Byte>(Utility.CaptureWindow(ProcessHandle()));
+            Image<Bgr, byte> template = new Image<Bgr, byte>(configuration.Folder + $"\\images\\{recognition.Name}");
+            bool found = false;
+            using (Image<Gray, float> result = source.MatchTemplate(template, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+
+                if (maxValues[0] > 0.9)
+                {
+                    match = new Rectangle(maxLocations[0], template.Size);
+                    found = true;
+                }
+                else
+                    match = new Rectangle();
+            }
+            source.Dispose();
+            template.Dispose();
+            return found;
+        }
+```
+
+Hier findet die eigentliche Bilderkennung statt. Mit der `CaptureWindow`-Funktion wird eine Bitmap mit dem aktuellen Zustand des Spielfenster erstellt und die Bitmap des `ImageRecognition`-Parameters geladen. Danach wirden mithilfe von EmguCV / OpenCV die beiden Bilder verglichen bzw. lokalisiert. 
 
 <details>
 <summary>Vollständiger Code der Process.cs</summary>

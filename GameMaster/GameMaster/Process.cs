@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Numerics;
 using System.Threading;
 using System.Windows.Forms;
 using Timer = System.Threading.Timer;
@@ -82,31 +83,65 @@ namespace GameMaster
                     if ((TickEvent)leftSide != null)
                         ((TickEvent)leftSide).Execute();
                 }
-                else if (leftSide is GameWorld)
+                else if (leftSide is GameWorld && leftSide != currentWorld)
                 {
                     GameWorld world = (GameWorld)leftSide;
                     if (world != null && world.WorldReference.reference.Name != null)
                     {
-                        Image<Bgr, byte> source = BitmapExtension.ToImage<Bgr, Byte>(Utility.CaptureWindow(ProcessHandle()));
-                        Image<Bgr, byte> template = new Image<Bgr, byte>(configuration.Folder + "\\images\\test.bmp");
-                        using (Image<Gray, float> result = source.MatchTemplate(template, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed))
-                        {
-                            double[] minValues, maxValues;
-                            Point[] minLocations, maxLocations;
-                            result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
-
-                            // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
-                            if (maxValues[0] > 0.9)
-                            {
-                                UpdateWorld(world);
-                            }
-                        }
-                        source.Dispose();
-                        template.Dispose();
+                        Rectangle match;
+                        if (Recognize(world.WorldReference, out match))
+                            UpdateWorld(world);
                     }
                 }
             }
+
+            if (currentWorld is GameWorld)
+            {
+                GameWorld world = (GameWorld)currentWorld;
+                if (world.WorldObjects.Count > 0)
+                {
+                    foreach (GameWorld.WorldObject worldObject in world.WorldObjects)
+                    {
+                        if (worldObject.Reference.Name != "")
+                        {
+                            Rectangle match;
+                            if (Recognize(worldObject.Reference, out match))
+                            {
+                                worldObject.ScreenLocation = new Vector2(match.X, match.Y);
+                            }
+                        }
+                    }
+                }
+            }
+
             Overlay.Run();
+        }
+
+        /// <summary>
+        /// https://stackoverflow.com/questions/16406958/emgu-finding-image-a-in-image-b
+        /// </summary>
+        private bool Recognize(World.ImageRecognition recognition, out Rectangle match)
+        {
+            Image<Bgr, byte> source = BitmapExtension.ToImage<Bgr, Byte>(Utility.CaptureWindow(ProcessHandle()));
+            Image<Bgr, byte> template = new Image<Bgr, byte>(configuration.Folder + $"\\images\\{recognition.Name}");
+            bool found = false;
+            using (Image<Gray, float> result = source.MatchTemplate(template, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed))
+            {
+                double[] minValues, maxValues;
+                Point[] minLocations, maxLocations;
+                result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
+
+                if (maxValues[0] > 0.9)
+                {
+                    match = new Rectangle(maxLocations[0], template.Size);
+                    found = true;
+                }
+                else
+                    match = new Rectangle();
+            }
+            source.Dispose();
+            template.Dispose();
+            return found;
         }
 
         private void UpdateWorld(World world)

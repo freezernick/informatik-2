@@ -41,6 +41,7 @@ namespace GameMaster.Interfaces
 
     public interface IImageParmeter
     {
+        void ClearReference();
         void UpdateReference(Bitmap image);
     }
 }

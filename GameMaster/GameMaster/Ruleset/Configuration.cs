@@ -21,6 +21,9 @@ namespace GameMaster.Ruleset
     [XmlInclude(typeof(Worlds.GameWorld))]
     [XmlInclude(typeof(Worlds.StartupWorld))]
     [XmlInclude(typeof(Worlds.GameWorld.ImageRecognition))]
+    [XmlInclude(typeof(Worlds.GameWorld.Goal))]
+    [XmlInclude(typeof(Worlds.GameWorld.Obstacle))]
+    [XmlInclude(typeof(Worlds.GameWorld.Player))]
     public class Configuration
     {
         public String Name = "Default Name";

@@ -92,7 +92,7 @@ namespace GameMaster
                 return;
             }
 
-            if(e.Node.Name.StartsWith(""))
+            if(e.Node.Name.StartsWith("e"))
             {
                 World world = (World) dict[e.Node.Name.Split('_')[1]];
                 selectedObject = (Event) dict[e.Node.Name];
@@ -236,6 +236,7 @@ namespace GameMaster
 
         private void Bt_WorldClear_Click(object sender, EventArgs e)
         {
+            ((GameWorld)selectedObject).WorldReference.UpdateReference(null);
         }
 
         private void Bt_WorldChange_Click(object sender, EventArgs e)

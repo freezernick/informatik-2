@@ -30,15 +30,11 @@ namespace GameMaster.Ruleset.Actions
 
         public override void EventExecute(Event eventReference)
         {
-            if (Self.WorldLocation.X + ObjectToAvoid.WorldLocation.X < Spacing)
+            if (Self.ScreenLocation.X + ObjectToAvoid.ScreenLocation.X < Spacing)
             {
             }
 
-            if (Self.WorldLocation.Y + ObjectToAvoid.WorldLocation.Y < Spacing)
-            {
-            }
-
-            if (Self.WorldLocation.Z + ObjectToAvoid.WorldLocation.Z < Spacing)
+            if (Self.ScreenLocation.Y + ObjectToAvoid.ScreenLocation.Y < Spacing)
             {
             }
         }
@@ -48,7 +44,7 @@ namespace GameMaster.Ruleset.Actions
     {
         public GameWorld.WorldObject Self;
         public bool isMoving;
-        public Vector3 OldLocation;
+        public Vector2 OldLocation;
         public int Offset;
         public Axis Axis;
 
@@ -63,7 +59,7 @@ namespace GameMaster.Ruleset.Actions
 
         public Move(GameWorld.WorldObject worldObject, Axis MovementAxis, int offset)
         {
-            OldLocation = worldObject.WorldLocation;
+            OldLocation = worldObject.ScreenLocation;
             Axis = MovementAxis;
             Offset = offset;
         }

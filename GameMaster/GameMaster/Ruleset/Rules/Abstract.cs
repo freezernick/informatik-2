@@ -109,6 +109,12 @@ namespace GameMaster.Ruleset.Abstracts
                 image = Image;
                 reference = new ReferenceParameters(Utility.GenerateSlug(Name), image.Width, image.Height);
             }
+
+            public void ClearReference()
+            {
+                reference = new ReferenceParameters();
+                image = null;
+            }
         }
     }
 
@@ -138,15 +144,12 @@ namespace GameMaster.Ruleset.Abstracts
 
         public abstract class WorldObject
         {
-            public Vector3 WorldLocation;
-            public Vector3 Size;
-            public Rotation WorldRotation;
-        }
-
-        public abstract class WorldParameter : WorldObject
-        {
             public string Name;
-            public ScreenLocation ScreenLocation;
+            public Vector2 ScreenLocation = new Vector2();
+            public Vector2 Size = new Vector2();
+            public Rotation WorldRotation = new Rotation();
+            public ImageRecognition Reference = new ImageRecognition();
+            public List<RightSide> Actions = new List<RightSide>();
         }
     }
 }
