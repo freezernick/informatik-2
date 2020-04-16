@@ -1,6 +1,5 @@
 ﻿using GameMaster.Ruleset.Abstracts;
 
-
 namespace GameMaster.Ruleset.Worlds
 {
     public class GameWorld : AbstractGameWorld

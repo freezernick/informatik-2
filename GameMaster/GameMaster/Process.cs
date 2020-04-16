@@ -1,4 +1,6 @@
-﻿using GameMaster.Overlay;
+﻿using Emgu.CV;
+using Emgu.CV.Structure;
+using GameMaster.Overlay;
 using GameMaster.Ruleset;
 using GameMaster.Ruleset.Abstracts;
 using GameMaster.Ruleset.Events;
@@ -6,15 +8,11 @@ using GameMaster.Ruleset.Worlds;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using Emgu.CV;
-using Emgu.Util;
-using Emgu.CV.Structure;
 using Timer = System.Threading.Timer;
-using System.Drawing;
 
 namespace GameMaster
 {
@@ -74,7 +72,7 @@ namespace GameMaster
 
         private void Update()
         {
-            if(currentWorld == null)
+            if (currentWorld == null)
                 UpdateWorld((StartupWorld)configuration.LeftSideObjects.Find(x => x.GetType() == typeof(StartupWorld)));
 
             foreach (LeftSide leftSide in configuration.LeftSideObjects)
@@ -84,7 +82,7 @@ namespace GameMaster
                     if ((TickEvent)leftSide != null)
                         ((TickEvent)leftSide).Execute();
                 }
-                else if(leftSide is GameWorld)
+                else if (leftSide is GameWorld)
                 {
                     GameWorld world = (GameWorld)leftSide;
                     if (world != null && world.WorldReference.reference.Name != null)

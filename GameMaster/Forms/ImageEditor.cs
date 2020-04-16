@@ -1,10 +1,10 @@
 ﻿using GameMaster.Ruleset.Abstracts;
+using GameMaster.Ruleset.Worlds;
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using GameMaster.Ruleset.Worlds;
 
 namespace GameMaster.Forms.Editor
 {
@@ -53,13 +53,13 @@ namespace GameMaster.Forms.Editor
             openFileDialog1.InitialDirectory = Utility.RulesetDirectory;
             cropWindow = pictureBox1.CreateGraphics();
 
-            if(Object is GameWorld)
+            if (Object is GameWorld)
             {
                 GameWorld world = (GameWorld)Object;
                 if (world.WorldReference.reference.Name != "")
                 {
                     Bitmap OldImage = new Bitmap(Utility.ImageDirectory + world.WorldReference.reference.Name);
-                    if(OldImage == null)
+                    if (OldImage == null)
                         return;
 
                     pictureBox1.Image = Utility.ResizeImage(OldImage, pictureBox1.Width, pictureBox1.Height);

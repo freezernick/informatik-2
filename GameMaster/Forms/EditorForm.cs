@@ -15,7 +15,7 @@ namespace GameMaster
         public Configuration game;
         public object selectedObject;
         public Dictionary<string, LeftSide> dict;
-        TreeNode rootnode;
+        private TreeNode rootnode;
 
         public EditorForm()
         {
@@ -106,7 +106,6 @@ namespace GameMaster
 
         private void Button4_Click(object sender, EventArgs e)
         {
-            
         }
 
         private void ToolClosure(object sender, EventArgs e) => Enabled = true;
@@ -199,6 +198,7 @@ namespace GameMaster
             game.CustomEvents.Add(new CustomEvent { Name = EventName.Text });
             UpdateGroup();
         }
+
         private void button8_Click(object sender, EventArgs e) => UpdateGroup();
 
         private void button6_Click(object sender, EventArgs e)
@@ -232,12 +232,10 @@ namespace GameMaster
 
         private void button4_Click_1(object sender, EventArgs e)
         {
-
         }
 
         private void Bt_WorldClear_Click(object sender, EventArgs e)
         {
-
         }
 
         private void Bt_WorldChange_Click(object sender, EventArgs e)
