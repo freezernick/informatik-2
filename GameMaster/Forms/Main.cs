@@ -76,9 +76,7 @@ namespace GameMaster
         {
             listBox1.Items.Clear();
             foreach (Configuration config in Games)
-            {
                 listBox1.Items.Add(config.Name);
-            }
         }
 
         private void MainForm_Load(object sender, EventArgs e)

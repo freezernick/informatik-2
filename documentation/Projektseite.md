@@ -734,6 +734,57 @@ Der Handler für den "Edit Ruleset"-Knopf ist etwas verkürzt und ruft nur `Open
 
 Die eigentliche `OpenEditor`-Funktion ist recht simpel. Sie erstellt die Instanz der `EditorForm`, zeigt sie and und registriert einen Event-Handler für das `Closed`-Event, da wir dann unseren Hauptbildschirm wieder anzeigen wollen.
 
+```c#
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            Configuration.DiscoverRulesets();
+            UpdateList();
+            if (listBox1.Items.Count > 0)
+                listBox1.SelectedIndex = 0;
+        }
+
+        public void UpdateList()
+        {
+            listBox1.Items.Clear();
+            foreach (Configuration config in Games)
+                listBox1.Items.Add(config.Name);
+        }
+```
+
+Wenn das Hauptfenster geladen wird, rufen wird mit der `DiscoverRulesets` die `Games`-Liste gefüllt. Anschließend wird mit der `UpdateList`-Funktion die `ListBox`, die der Nutzer sieht, mit den neuen Einträgen aktualisiert. Die `UpdateList`-Funktion ist ein simpler Loop, der für jeden Eintrag in der Liste einen neuen Eintrag zur `ListBox` hinzufügt.
+
+```c#
+        private void BtStart_Click(object sender, EventArgs e) => Vm = new VM(SelectedRuleset);
+```
+
+Klickt man auf "Start Ruleset" wird eine neue Instanz des GameMasters erstellt. Diese startet dann das Spiel und kann mithilfe des `IProcessInterface` die folgenden Funktionen aufrufen:
+
+```c#
+        /// <summary>
+        /// Called when the game process is started
+        /// </summary>
+        public void ProcessStarted()
+        {
+            Running = true;
+            Tray.Visible = true;
+            Hide();
+        }
+
+        /// <summary>
+        /// Called when the game process has been terminated
+        /// </summary>
+        public void ProcessEnded()
+        {
+            Running = false;
+            MainFormHelper.Show();
+            WindowState = FormWindowState.Normal;
+            Tray.Visible = false;
+            Vm = null;
+        }
+```
+
+Diese sorgen dafür, dass das Hauptfenster zwischem dem normalen Zustand und dem `Running`-Zustand wechselt.
+
 <details>
 <summary>Vollständiger Code der Main.cs</summary>
 
