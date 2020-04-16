@@ -1,14 +1,11 @@
 ﻿using GameMaster.Interfaces;
+using GameMaster.Ruleset.Events;
 using GameMaster.Ruleset.Types;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Numerics;
-using GameMaster.Ruleset.Events;
-using Emgu.CV;
-using Emgu.CV.Structure;
-using Emgu.Util;
-using System.Xml.Serialization;
 using System.IO;
+using System.Numerics;
+using System.Xml.Serialization;
 
 namespace GameMaster.Ruleset.Abstracts
 {
@@ -35,7 +32,6 @@ namespace GameMaster.Ruleset.Abstracts
     /// </summary>
     public abstract class Event : LeftSide, IObjectRegister
     {
-        public static string Description = "Event description";
         public List<RightSide> EventObjects = new List<RightSide>();
 
         public Event() => Name = "Event";
@@ -51,18 +47,6 @@ namespace GameMaster.Ruleset.Abstracts
         public void UnregisterObject(RightSide eventObject) => EventObjects.Remove(eventObject);
     }
 
-    public abstract class Action : RightSide
-    {
-        public Action() => Name = "Action";
-    }
-
-    public abstract class ObjectAction
-    {
-        public string Name;
-
-        public abstract void Run();
-    }
-
     public abstract class World : LeftSide
     {
         public List<Event> WorldEvents;
@@ -71,7 +55,7 @@ namespace GameMaster.Ruleset.Abstracts
 
         public World(bool initialize)
         {
-            if(initialize)
+            if (initialize)
             {
                 WorldEvents = new List<Event>();
                 WorldEvents.Add(new StartupEvent());
@@ -83,15 +67,7 @@ namespace GameMaster.Ruleset.Abstracts
         public abstract class ScreenParameter
         {
             public string Name;
-
-            /// <summary>
-            /// The top right corner of the are that should be observed
-            /// </summary>
             public ScreenLocation ScreenLocation;
-
-            /// <summary>
-            /// The size of the area that should be observed
-            /// </summary>
             public Vector2 Size;
         }
 
@@ -102,9 +78,6 @@ namespace GameMaster.Ruleset.Abstracts
 
         public abstract class ShapeRecognition : ScreenParameter
         {
-            /// <summary>
-            /// The colors of the shape that should be looked for
-            /// </summary>
             public Color[] Colors;
         }
 
@@ -122,13 +95,11 @@ namespace GameMaster.Ruleset.Abstracts
             [XmlIgnore]
             public Bitmap image { get; internal set; }
 
-            public ImageRecognition()
-            {
-                reference = new ReferenceParameters();
-            }
+            public ImageRecognition() => reference = new ReferenceParameters();
+
             public void UpdateReference(Bitmap Image)
             {
-                if(File.Exists(Utility.ImageDirectory + $@"\{reference.Name}"))
+                if (File.Exists(Utility.ImageDirectory + $@"\{reference.Name}"))
                     File.Delete(Utility.ImageDirectory + $@"\{reference.Name}");
 
                 if (Image == null)
@@ -145,12 +116,10 @@ namespace GameMaster.Ruleset.Abstracts
     {
         public AbstractGameWorld()
         {
-
         }
 
         public AbstractGameWorld(bool edit) : base(edit)
         {
-
         }
 
         public struct Rotation
@@ -177,7 +146,6 @@ namespace GameMaster.Ruleset.Abstracts
         public abstract class WorldParameter : WorldObject
         {
             public string Name;
-            public ObjectAction ToDo;
             public ScreenLocation ScreenLocation;
         }
     }

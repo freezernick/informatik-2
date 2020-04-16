@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace GameMaster.Ruleset.Actions
 {
-    public class Click : Action
+    public class Click : RightSide
     {
         public ScreenLocation ClickLocation;
 
@@ -22,7 +22,7 @@ namespace GameMaster.Ruleset.Actions
         }
     }
 
-    public class Avoid : Action
+    public class Avoid : RightSide
     {
         public GameWorld.WorldObject ObjectToAvoid;
         public GameWorld.WorldObject Self;
@@ -44,7 +44,7 @@ namespace GameMaster.Ruleset.Actions
         }
     }
 
-    public class Move : Action
+    public class Move : RightSide
     {
         public GameWorld.WorldObject Self;
         public bool isMoving;
@@ -74,17 +74,17 @@ namespace GameMaster.Ruleset.Actions
         }
     }
 
-    public class ExecuteCustomEvent : Action
+    public class ExecuteCustomEvent : RightSide
     {
         public Event eventReference;
 
-        public override void EventExecute(Event caller)
+        public override void EventExecute(Event eventReference)
         {
-            eventReference.Execute();
+            this.eventReference.Execute();
         }
     }
 
-    public class Log : Action
+    public class Log : RightSide
     {
         public string message;
 
@@ -99,7 +99,7 @@ namespace GameMaster.Ruleset.Actions
         }
     }
 
-    public class OverlayLog : Action
+    public class OverlayLog : RightSide
     {
         public string message;
         public bool useLogfile = false;
@@ -115,7 +115,7 @@ namespace GameMaster.Ruleset.Actions
         }
     }
 
-    public class Keypress : Action
+    public class Keypress : RightSide
     {
         public Keys key;
 

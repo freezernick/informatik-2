@@ -9,11 +9,7 @@ namespace GameMaster.Ruleset.Events
     /// </summary>
     public class TickEvent : Event
     {
-        public TickEvent()
-        {
-            Name = "Tick Event";
-            Description = "This event is triggered after a set amount of miliseconds. Useful for recurring actions.";
-        }
+        public TickEvent() => Name = "Tick Event";
     }
 
     /// <summary>
@@ -21,11 +17,7 @@ namespace GameMaster.Ruleset.Events
     /// </summary>
     public class StartupEvent : Event
     {
-        public StartupEvent()
-        {
-            Name = "Startup Event";
-            Description = "The Startup Event is called as soon as the world is being recognized by the GameMaster. Useful for initialization.";
-        }
+        public StartupEvent() => Name = "Startup Event";
     }
 
     /// <summary>
@@ -33,11 +25,7 @@ namespace GameMaster.Ruleset.Events
     /// </summary>
     public class ShutdownRequestEvent : Event
     {
-        public ShutdownRequestEvent()
-        {
-            Name = "Shutdown Request Event";
-            Description = "The Shutdown Request Event is called when the user wants to end the GameMaster session. You could save the game in this event for example.";
-        }
+        public ShutdownRequestEvent() => Name = "Shutdown Request Event";
     }
 
     /// <summary>
@@ -47,11 +35,7 @@ namespace GameMaster.Ruleset.Events
     {
         public string Alias;
 
-        public CustomEvent()
-        {
-            Name = "Custom Event";
-            Description = "A user defined event";
-        }
+        public CustomEvent() => Name = "Custom Event";
     }
 
     public class KeyPressEvent : Event
@@ -59,9 +43,8 @@ namespace GameMaster.Ruleset.Events
         public Keys key;
         public KeyPressEvent()
         {
-            key = Keys.V;
+            key = Keys.None;
             Name = "Keypress Event";
-            Description = "Event that triggers when the specified key is pressed";
         }
     }
 }
