@@ -51,22 +51,27 @@ Aber wir wollen ja Referenzbilder erhalten. Also drücken wir im Hauptmenü einm
 
 ### Image-Editor
 
+Nun wollen wir unsere erstellten Referenzbilder einbauen. Dafür gehen wir zurück in den Editor und wählen die `Menu World` aus und klicken anschließend auf `Change`. Nun öffnet sich der Referenzbildeditor. Hier können wir mit `Select an Image` den Dialog öffnen, mit dem wir unser Referenzbild von der Festplatte auswählen können. Bestätigen wir unsere Eingabe, wird das Bild auch direkt im Editor angezeigt.
 
+![](images/page/editor/before_crop.png)
+
+Nun können wir mit der Maus im großen Bildfenster den eigentlichen Bereich auswählen, um den Rand abzuschneiden.
+
+![](images/page/editor/cropping.png)
+
+Jetzt können wir auf `Save as Reference` klicken, um das Referenzbild für diese Welt zu speichern.
 
 ### Event-Editor
 
-TODO: Bild
+![](images/page/editor/event.png)
 
-TODO: Erklärung
-
+Nachdem wir jetzt dem GameMaster mitgeteilt haben, woran er das Spielmenü erkennen kann, wollen wir jetzt dafür sorgen, dass er auch was macht. Dafür wählen wir das `Startup Event` in unserer `Menu World` aus. Es wird der Event-Editor geöffnet, in dem wir zum Beispiel den Namen ändern könnten. Das wollen wir aber nicht tun, sondern eine Aktion zum Event hinzufügen. Dafür klicken wir auf `+ Action` und wählen `Overlay Log` aus.
 
 ### Action-Editor
 
 TODO: Bild
 
-TODO: Erklärung
-
-Also sollte jetzt sobald die Menüwelt erkannt wird ein "Es funktioniert" ausgegeben werden.
+Mit der ausgewählten `Overlay Log`-Aktion können wir nun die Eigenschaften dieser verändern. Wir setzen als Nachricht "Es funktioniert!". Also sollte jetzt sobald die Menüwelt erkannt wird diese Nachricht auf dem Overlay erscheinen.
 
 ### Overlay
 
