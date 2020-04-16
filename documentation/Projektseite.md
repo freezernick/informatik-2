@@ -1483,7 +1483,7 @@ namespace GameMaster.Ruleset
 
 </details>
 
-### Rulesetklasse
+### Rulesetklassen
 
 Damit der Nutzer überhaupt Dinge im Editor auswählen kann, braucht es natürlich einige Klassen. Für diese haben wir in der `Abstract.cs` die Basisklassen zusammengefasst, und dann in die Namespaces `Worlds`, `Actions` und `Events` aufgeteilt. Wir werden hier jetzt nur die abstrakten Klassen durchgehen, da die eigentliche Implementation dann in den verschiedenen Childklassen ähnlich ist.
 
@@ -1549,23 +1549,6 @@ Als nächstes kommt die Klasse für die Events. Sie verfügt über eine Liste mi
             public Vector2 Size;
         }
 
-        public class TextRecognition : ScreenParameter
-        {
-            public string TextToRecognize;
-        }
-
-        public abstract class ShapeRecognition : ScreenParameter
-        {
-            public Color[] Colors;
-        }
-
-        public class RectangleRecognition : ShapeRecognition
-        {
-            public Rectangle Shape;
-
-            public RectangleRecognition() => Name = "Rectangle Recognition";
-        }
-
         public class ImageRecognition : ScreenParameter, IImageParmeter
         {
             public ReferenceParameters reference;
@@ -1590,6 +1573,8 @@ Als nächstes kommt die Klasse für die Events. Sie verfügt über eine Liste mi
         }
     }
 ```
+
+Als letztes kommt die Klasse für die Welten. Sie enthält auch die Klassen für die Bilderkennung.
 
 <details>
 <summary>Vollständiger Code der Abstract.cs</summary>
@@ -1790,6 +1775,8 @@ Klickt man auf die `PictureBox` mit dem geladenen Bild, legen wir den Ursprungsp
         Reset();
     }
 ```
+
+Wird die linke Maustaste losgelassen berechnen wir die Breite und die Höhe des Auswahlrechtecks und setzten danach
 
 ```c#
     private void Reset()
