@@ -40,13 +40,9 @@ namespace GameMaster
             {
                 SelectedRuleset = Games[listBox1.SelectedIndex];
                 if (SelectedRuleset.ValidAction() && !Running)
-                {
                     btStart.Enabled = true;
-                }
                 else
-                {
                     btStart.Enabled = false;
-                }
             }
         }
 
@@ -55,20 +51,16 @@ namespace GameMaster
             SelectedRuleset = new Configuration();
             SelectedRuleset.LeftSideObjects.Add(new Ruleset.Worlds.StartupWorld(true));
             OpenEditor();
-            Hide();
         }
 
-        private void BtEditProp_Click(object sender, EventArgs e)
-        {
-            OpenEditor().Text = $"Edit {SelectedRuleset.Name}";
-            Hide();
-        }
+        private void BtEditProp_Click(object sender, EventArgs e) => OpenEditor().Text = $"Edit {SelectedRuleset.Name}";
 
         private EditorForm OpenEditor()
         {
             EditorForm editor = new EditorForm();
             editor.Show();
             editor.FormClosed += EditorClosed;
+            Hide();
             return editor;
         }
 

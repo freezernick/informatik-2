@@ -1,6 +1,6 @@
 # Der GameMaster
 
-Mit dem 'GameMaster' wollten wir ein Tool entwickeln, das jedem, auch ohne Programmierkentnisse, ermöglicht, eine KI bzw. einen Bot zu entwickeln, die für den Nutzer das Spielen von Computer- und Browsergames übernimmt. Das Ziel war es eine grafische Oberfläche anzubieten, mit der der Nutzer mithilfe von vordefinierten Elementen ein Regelwerk zusammenstellen kann, das der 'GameMaster' dann befolgt. Im folgenden werden wir Schrittweise durch die Anwendung gehen und beispielhaft ein Ruleset für unser Testspiel erstellen. Die Erklärung der technischen Umsetzung folgt weiter unten.
+Mit dem 'GameMaster' wollten wir ein Tool entwickeln, das jedem, auch ohne Programmierkentnisse, ermöglicht, eine KI bzw. einen Bot zu entwickeln, die für den Nutzer das Spielen von Computer- und Browsergames übernimmt. Das Ziel war es eine grafische Oberfläche anzubieten, mit der der Nutzer mithilfe von vordefinierten Elementen ein Regelwerk zusammenstellen kann, das der 'GameMaster' dann befolgt. Im folgenden werden wir Schrittweise durch die Anwendung gehen und beispielhaft damit beginnen ein Ruleset für unser Testspiel zu erstellen. Die Erklärung der technischen Umsetzung folgt weiter unten.
 
 ## Ein Ruleset erstellen
 
@@ -69,7 +69,7 @@ Nachdem wir jetzt dem GameMaster mitgeteilt haben, woran er das Spielmenü erken
 
 ### Action-Editor
 
-TODO: Bild
+TODO: BILD
 
 Mit der ausgewählten `Overlay Log`-Aktion können wir nun die Eigenschaften dieser verändern. Wir setzen als Nachricht "Es funktioniert!". Also sollte jetzt sobald die Menüwelt erkannt wird diese Nachricht auf dem Overlay erscheinen.
 
@@ -81,13 +81,12 @@ Und wenn das Menü erscheint wird auch schon erfolgreich "Es funktioniert!" ange
 ![](images/page/works.png)
 
 
-#### Das fertige Ruleset
+----
 
-Da wir nun die Funktionen des Editors hinreichend erklärt haben, kürzen wir das ganze mal ab. So könnte das fertige Ruleset aussehen:
+So sieht die `config.xml` unseres Rulesets jetzt aus:
 
-TODO: Bild Editor
 
-TODO: Update XML
+TODO: UPADTE!!
 
 <details>
 <summary>Die fertige XML</summary>
@@ -159,7 +158,7 @@ TODO: Update XML
 
 ### Downloadfenster
 
-TODO: Bild 
+![](images/page/download.png)
 
 Wenn man nicht diesem Prozess folgen möchte, kann man sich auch fertige Rulesets aus dem Internet runterladen (wenn es denn welche gibt). Dazu muss man im Downloadfenster einfach die Url zu dem Zip-Archiv mit den Rulesets einfügen und Start drücken.
 
@@ -660,7 +659,80 @@ namespace GameMaster
 
 ### MainForm
 
+```c#
+        public Configuration SelectedRuleset;
+        public List<Configuration> Games = new List<Configuration>();
+        private bool Running;
+        public VM Vm;
 
+        public MainForm()
+        {
+            InitializeComponent();
+            Tray.Icon = SystemIcons.Application;
+            Tray.Click += Tray_MouseDoubleClick;
+            CheckForIllegalCrossThreadCalls = false;
+        }
+```
+
+Zu Beginn definieren wir wieder einige Variablen, die wir später brauchen werden. `SelectedRuleset` ist das gerade aus der Liste `Games` ausgewählte Ruleset. `Running` definiert, ob gerade ein Ruleset ausgeführt wird. `VM` repräsentiert eine Instanz des GameMasters, wenn ein Ruleset läuft.
+Im Constructor setzen wir mit `Tray.Icon = SystemIcons.Application;` noch das Symbol, das in der Taskleiste angezeigt wird, während ein Ruleset läuft. Das Hauptfenster wird sozusagen in die Taskleiste minimiert, wenn man auf Start drückt. Zusätzlich setzen wir für das `Click`-Event des Icons einen Event-Handler. Mit `CheckForIllegalCrossThreadCalls = false;` verhindern wir einen Absturz bzw. eine Exception, der vom Event-Handler verursacht wird. Das hätte man auch anders lösen können, aber dazu sind wir nicht mehr gekommen. (#5)
+
+```c#
+        private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Checks if there are items in the box
+            if (listBox1.Items.Count == 0)
+            {
+                btStart.Enabled = false;
+                btEditProp.Enabled = false;
+                btDelete.Enabled = false;
+                return;
+            }
+
+            btEditProp.Enabled = true;
+            btDelete.Enabled = true;
+
+            if (listBox1.SelectedItem != null)
+            {
+                SelectedRuleset = Games[listBox1.SelectedIndex];
+                if (SelectedRuleset.ValidAction() && !Running)
+                    btStart.Enabled = true;
+                else
+                    btStart.Enabled = false;
+            }
+        }
+```
+
+Mit diesem Event-Handler reagieren wir auf das `SelectedIndexChanged`-Event der List mit den Rulesets. Zuerst überprüfen wir, ob überhaupt Dinge aufgelistet sind und deaktivieren ggf. die Knöpfe im Menü. Ansonsten können wir die Knöpfe zum Bearbeiten und Löschen aktivieren, müssen aber noch zusätzlich sicherstellen, dass der Startknopf nur aktiviert ist, wenn kein anderes Ruleset ausgeführt wird und die Exe des Rulesets überhaupt gültig ist.
+
+```c#
+        private void BtNew_Click(object sender, EventArgs e)
+        {
+            SelectedRuleset = new Configuration();
+            SelectedRuleset.LeftSideObjects.Add(new Ruleset.Worlds.StartupWorld(true));
+            OpenEditor();
+        }
+
+        private void BtEditProp_Click(object sender, EventArgs e) => OpenEditor().Text = $"Edit {SelectedRuleset.Name}";
+```
+
+Der Event-Handler für den "New Ruleset"-Knopf erstellt zunächst ein neues `Configuration`-Objekt bzw. ein neues, leeres Ruleset. Dem wird noch die `StartupWorld` hinzugefügt, die jedes Ruleset haben sollte. Anschließend wird der Editor mit unserer `OpenEditor`-Funktion geöffnet.
+Der Handler für den "Edit Ruleset"-Knopf ist etwas verkürzt und ruft nur `OpenEditor` auf und ändert den Titel des Editorfenster.
+
+```c#
+        private EditorForm OpenEditor()
+        {
+            EditorForm editor = new EditorForm();
+            editor.Show();
+            editor.FormClosed += EditorClosed;
+            Hide();
+            return editor;
+        }
+
+        private void EditorClosed(object sender, EventArgs e) => Show();
+```
+
+Die eigentliche `OpenEditor`-Funktion ist recht simpel. Sie erstellt die Instanz der `EditorForm`, zeigt sie and und registriert einen Event-Handler für das `Closed`-Event, da wir dann unseren Hauptbildschirm wieder anzeigen wollen.
 
 <details>
 <summary>Vollständiger Code der Main.cs</summary>
@@ -723,20 +795,16 @@ namespace GameMaster
             SelectedRuleset = new Configuration();
             SelectedRuleset.LeftSideObjects.Add(new Ruleset.Worlds.StartupWorld(true));
             OpenEditor();
-            Hide();
         }
 
-        private void BtEditProp_Click(object sender, EventArgs e)
-        {
-            OpenEditor().Text = $"Edit {SelectedRuleset.Name}";
-            Hide();
-        }
+        private void BtEditProp_Click(object sender, EventArgs e) => OpenEditor().Text = $"Edit {SelectedRuleset.Name}";
 
         private EditorForm OpenEditor()
         {
             EditorForm editor = new EditorForm();
             editor.Show();
             editor.FormClosed += EditorClosed;
+            Hide();
             return editor;
         }
 
@@ -1364,13 +1432,278 @@ namespace GameMaster.Ruleset
 
 </details>
 
+### Rulesetklasse
+
+Damit der Nutzer überhaupt Dinge im Editor auswählen kann, braucht es natürlich einige Klassen. Für diese haben wir in der `Abstract.cs` die Basisklassen zusammengefasst, und dann in die Namespaces `Worlds`, `Actions` und `Events` aufgeteilt. Wir werden hier jetzt nur die abstrakten Klassen durchgehen, da die eigentliche Implementation dann in den verschiedenen Childklassen ähnlich ist.
+
+```c#
+    public abstract class LeftSide
+    {
+        public string Name;
+    }
+
+    public abstract class RightSide
+    {
+        public string Name;
+
+        public abstract void EventExecute(Event eventReference);
+    }
+```
+
+Zuerst definieren wir die Basis für alle Objekte, die im Editor verwendet werden könnnen. Die Namen `LeftSide` und `RightSide` haben ihren Ursprung aus einer Version des Editors, die eine Liste für Events & Welten (links) und einer für platzierte Aktionen (Rechts) enthielt. Alle `RightSide`-Objekte sind ausführbare Aktionen, deshalb die Funktion `EventExecute`, die für die Ausführung der Aktion sorgt. Da sie als `abstract` markiert ist, muss sie von allen Child-Klassen überschrieben werden.
+
+```c#
+    public abstract class Event : LeftSide, IObjectRegister
+    {
+        public List<RightSide> EventObjects = new List<RightSide>();
+
+        public Event() => Name = "Event";
+
+        public void Execute()
+        {
+            foreach (RightSide eventObject in EventObjects)
+                eventObject.EventExecute(this);
+        }
+
+        public void RegisterObject(RightSide eventObject) => EventObjects.Add(eventObject);
+
+        public void UnregisterObject(RightSide eventObject) => EventObjects.Remove(eventObject);
+    }
+```
+
+Als nächstes kommt die Klasse für die Events. Sie verfügt über eine Liste mit Aktionen, die mithilfe der `Execute`-Funktion ausgeführt werden. Die Aktionen werden mit der Implementation des `IObjectRegisgter`-Interfaces aus der `Interface.cs` hinzugefügt und entfernt.
+
+```c#
+    public abstract class World : LeftSide
+    {
+        public List<Event> WorldEvents;
+
+        public World() => Name = "World";
+
+        public World(bool initialize)
+        {
+            if (initialize)
+            {
+                WorldEvents = new List<Event>();
+                WorldEvents.Add(new StartupEvent());
+                WorldEvents.Add(new TickEvent());
+                WorldEvents.Add(new ShutdownRequestEvent());
+            }
+        }
+
+        public abstract class ScreenParameter
+        {
+            public string Name;
+            public ScreenLocation ScreenLocation;
+            public Vector2 Size;
+        }
+
+        public class TextRecognition : ScreenParameter
+        {
+            public string TextToRecognize;
+        }
+
+        public abstract class ShapeRecognition : ScreenParameter
+        {
+            public Color[] Colors;
+        }
+
+        public class RectangleRecognition : ShapeRecognition
+        {
+            public Rectangle Shape;
+
+            public RectangleRecognition() => Name = "Rectangle Recognition";
+        }
+
+        public class ImageRecognition : ScreenParameter, IImageParmeter
+        {
+            public ReferenceParameters reference;
+
+            [XmlIgnore]
+            public Bitmap image { get; internal set; }
+
+            public ImageRecognition() => reference = new ReferenceParameters();
+
+            public void UpdateReference(Bitmap Image)
+            {
+                if (File.Exists(Utility.ImageDirectory + $@"\{reference.Name}"))
+                    File.Delete(Utility.ImageDirectory + $@"\{reference.Name}");
+
+                if (Image == null)
+                    return;
+
+                Image.Save(Utility.ImageDirectory + $@"\{reference.Name}");
+                image = Image;
+                reference = new ReferenceParameters(Utility.GenerateSlug(Name), image.Width, image.Height);
+            }
+        }
+    }
+```
+
+<details>
+<summary>Vollständiger Code der Abstract.cs</summary>
+
+```c#
+using GameMaster.Interfaces;
+using GameMaster.Ruleset.Events;
+using GameMaster.Ruleset.Types;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Numerics;
+using System.Xml.Serialization;
+
+namespace GameMaster.Ruleset.Abstracts
+{
+    public abstract class LeftSide
+    {
+        public string Name;
+    }
+
+    public abstract class RightSide
+    {
+        public string Name;
+
+        public abstract void EventExecute(Event eventReference);
+    }
+
+    /// <summary>
+    /// Events are used to group the execution of multiple actions
+    /// </summary>
+    public abstract class Event : LeftSide, IObjectRegister
+    {
+        public List<RightSide> EventObjects = new List<RightSide>();
+
+        public Event() => Name = "Event";
+
+        public void Execute()
+        {
+            foreach (RightSide eventObject in EventObjects)
+                eventObject.EventExecute(this);
+        }
+
+        public void RegisterObject(RightSide eventObject) => EventObjects.Add(eventObject);
+
+        public void UnregisterObject(RightSide eventObject) => EventObjects.Remove(eventObject);
+    }
+
+    public abstract class World : LeftSide
+    {
+        public List<Event> WorldEvents;
+
+        public World() => Name = "World";
+
+        public World(bool initialize)
+        {
+            if (initialize)
+            {
+                WorldEvents = new List<Event>();
+                WorldEvents.Add(new StartupEvent());
+                WorldEvents.Add(new TickEvent());
+                WorldEvents.Add(new ShutdownRequestEvent());
+            }
+        }
+
+        public abstract class ScreenParameter
+        {
+            public string Name;
+            public ScreenLocation ScreenLocation;
+            public Vector2 Size;
+        }
+
+        public class TextRecognition : ScreenParameter
+        {
+            public string TextToRecognize;
+        }
+
+        public abstract class ShapeRecognition : ScreenParameter
+        {
+            public Color[] Colors;
+        }
+
+        public class RectangleRecognition : ShapeRecognition
+        {
+            public Rectangle Shape;
+
+            public RectangleRecognition() => Name = "Rectangle Recognition";
+        }
+
+        public class ImageRecognition : ScreenParameter, IImageParmeter
+        {
+            public ReferenceParameters reference;
+
+            [XmlIgnore]
+            public Bitmap image { get; internal set; }
+
+            public ImageRecognition() => reference = new ReferenceParameters();
+
+            public void UpdateReference(Bitmap Image)
+            {
+                if (File.Exists(Utility.ImageDirectory + $@"\{reference.Name}"))
+                    File.Delete(Utility.ImageDirectory + $@"\{reference.Name}");
+
+                if (Image == null)
+                    return;
+
+                Image.Save(Utility.ImageDirectory + $@"\{reference.Name}");
+                image = Image;
+                reference = new ReferenceParameters(Utility.GenerateSlug(Name), image.Width, image.Height);
+            }
+        }
+    }
+
+    public abstract class AbstractGameWorld : World
+    {
+        public AbstractGameWorld()
+        {
+        }
+
+        public AbstractGameWorld(bool edit) : base(edit)
+        {
+        }
+
+        public struct Rotation
+        {
+            public float Roll;
+            public float Yaw;
+            public float Pitch;
+
+            public Rotation(float yaw = 0.0f, float pitch = 0.0f, float roll = 0.0f)
+            {
+                Roll = roll;
+                Yaw = yaw;
+                Pitch = pitch;
+            }
+        }
+
+        public abstract class WorldObject
+        {
+            public Vector3 WorldLocation;
+            public Vector3 Size;
+            public Rotation WorldRotation;
+        }
+
+        public abstract class WorldParameter : WorldObject
+        {
+            public string Name;
+            public ScreenLocation ScreenLocation;
+        }
+    }
+}
+```
+
 ### Editor
 
-#### Metadata-Editor
+
+
+<details>
+<summary>Vollständiger Code der Editor.cs</summary>
+
+
+
+</details>
 
 #### Cropping-Tool
-
-TODO: Image
 
 Das Cropping-Tool kann dazu verwendet werden, um den wichtigen Bereich eines Referenzbildes aus dem ünnötigen Rest herauszuschneiden und gesondert, als eigentliche Referenz zu speichern.
 
