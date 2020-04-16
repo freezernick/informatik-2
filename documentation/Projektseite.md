@@ -76,16 +76,16 @@ Mit der ausgewählten `Overlay Log`-Aktion können wir nun die Eigenschaften die
 ### Overlay
 
 Das wollen wir doch gleich mal testen. Also wieder speichern & zurück zum Hauptfenster. Das Overlay ist normalerweise vollständig transparent, aber wenn man eine `Overlay-Log` Aktion eingebaut oder mit `Strg + F5` die Log-Ausgabestufe erhöht hat, können Nachrichten auf dem Bildschirm erscheinen.
-Und wenn das Menü erscheint wird auch schon erfolgreich "Es funktioniert" angezeigt.
+Und wenn das Menü erscheint wird auch schon erfolgreich "Es funktioniert!" angezeigt.
 
-TODO: Bild
+![](images/page/works.png)
 
 
 #### Das fertige Ruleset
 
-TODO: Bild Editor
+Da wir nun die Funktionen des Editors hinreichend erklärt haben, kürzen wir das ganze mal ab. So könnte das fertige Ruleset aussehen:
 
-TODO: Bild Hauptbildschirm
+TODO: Bild Editor
 
 TODO: Update XML
 
@@ -161,7 +161,7 @@ TODO: Update XML
 
 TODO: Bild 
 
-Wenn man nicht diesem Prozess folgen möchte, kann man sich das Ruleset auch über das Downloadfenster herunterladen. Dafür muss man nur diesen Link eingeben: TODO: Link
+Wenn man nicht diesem Prozess folgen möchte, kann man sich auch fertige Rulesets aus dem Internet runterladen (wenn es denn welche gibt). Dazu muss man im Downloadfenster einfach die Url zu dem Zip-Archiv mit den Rulesets einfügen und Start drücken.
 
 
 ----
@@ -176,7 +176,6 @@ Hier folgen nun die Erklärungen, wie wir den 'GameMaster' umgesetzt haben.
 
 Den 'GameMaster' haben wir in C# programmiert. Für die Oberfläche verwenden wir [WindowsForms.](https://github.com/dotnet/winforms). Als IDE verwenden wir [Visual Studio 2019](https://visualstudio.microsoft.com/), da in der Software ein Editor implementiert ist, mit dem man die Benutzeroberfläche mithilfe einiger vorgefertigter Elemente zusammenbauen kann.
 
-TODO: GIF GUI Editing
 
 ## 'GameMaster TestGame Library'
 

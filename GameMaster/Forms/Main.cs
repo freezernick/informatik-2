@@ -12,7 +12,7 @@ namespace GameMaster
         public Configuration SelectedRuleset;
         public List<Configuration> Games;
         private bool Running;
-        public VM Vm { get; private set; }
+        public VM Vm;
 
         public MainForm()
         {
