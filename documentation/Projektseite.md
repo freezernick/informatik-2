@@ -85,39 +85,17 @@ Und wenn das Menü erscheint wird auch schon erfolgreich "Es funktioniert!" ange
 
 So sieht die `config.xml` unseres Rulesets jetzt aus:
 
-
-TODO: UPADTE!!
-
 <details>
-<summary>Die fertige XML</summary>
+<summary>Die config.xml</summary>
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <configuration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Name>GameMaster TestGame Library</Name>
+  <Name>Neuer Name</Name>
   <Executable>C:\Users\buyin\source\repos\GameMasterClientLegacy\TestGame\bin\Debug\TestGame.exe</Executable>
-  <Template xsi:type="Platformer" />
-  <CustomEvents />
   <LeftSideObjects>
     <LeftSide xsi:type="StartupWorld">
       <Name>StartupWorld</Name>
-      <WorldEvents>
-        <Event xsi:type="StartupEvent">
-          <Name>Startup Event</Name>
-          <EventObjects />
-        </Event>
-        <Event xsi:type="TickEvent">
-          <Name>Tick Event</Name>
-          <EventObjects />
-        </Event>
-        <Event xsi:type="ShutdownRequestEvent">
-          <Name>Shutdown Request Event</Name>
-          <EventObjects />
-        </Event>
-      </WorldEvents>
-    </LeftSide>
-    <LeftSide xsi:type="GameWorld">
-      <Name>Menu World</Name>
       <WorldEvents>
         <Event xsi:type="StartupEvent">
           <Name>Startup Event</Name>
@@ -138,7 +116,13 @@ TODO: UPADTE!!
       <WorldEvents>
         <Event xsi:type="StartupEvent">
           <Name>Startup Event</Name>
-          <EventObjects />
+          <EventObjects>
+            <RightSide xsi:type="OverlayLog">
+              <Name>Overlay Log</Name>
+              <message>Es funktioniert!</message>
+              <useLogfile>true</useLogfile>
+            </RightSide>
+          </EventObjects>
         </Event>
         <Event xsi:type="TickEvent">
           <Name>Tick Event</Name>
@@ -149,6 +133,21 @@ TODO: UPADTE!!
           <EventObjects />
         </Event>
       </WorldEvents>
+      <WorldReference>
+        <ScreenLocation>
+          <X>0</X>
+          <Y>0</Y>
+        </ScreenLocation>
+        <Size>
+          <X>0</X>
+          <Y>0</Y>
+        </Size>
+        <reference>
+          <Name>menu</Name>
+          <Width>0</Width>
+          <Height>0</Height>
+        </reference>
+      </WorldReference>
     </LeftSide>
   </LeftSideObjects>
 </configuration>
