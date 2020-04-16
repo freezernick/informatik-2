@@ -8,9 +8,10 @@
 
     public enum Axis
     {
-        X,
-        Y,
-        Z
+        PlusX,
+        MinusX,
+        PlusY,
+        MinusY
     }
 
     public struct ScreenLocation

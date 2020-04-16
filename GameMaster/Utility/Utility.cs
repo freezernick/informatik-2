@@ -54,6 +54,8 @@ namespace GameMaster
         public static string TempDirectory = Path.Combine(AppContext.BaseDirectory + "temp");
         public static string ImageDirectory = (MainFormHelper.Get().SelectedRuleset == null) ? "" : RulesetDirectory + $@"\{MainFormHelper.Get().SelectedRuleset.Folder}\images\";
 
+        public static string GenerateSlug(string phrase) => phrase.ToLower().Replace(' ', '-');
+
         /// <summary>
         /// Resize the image to the specified width and height.
         ///
@@ -88,7 +90,10 @@ namespace GameMaster
             return destImage;
         }
 
-        public static string GenerateSlug(string phrase) => phrase.ToLower().Replace(' ', '-');
+        public const int MOUSEEVENTF_LEFTDOWN = 0x02;
+        public const int MOUSEEVENTF_LEFTUP = 0x04;
+        public const int MOUSEEVENTF_RIGHTDOWN = 0x08;
+        public const int MOUSEEVENTF_RIGHTUP = 0x10;
 
         /// <summary>
         /// Creates a screenshot of the specified window

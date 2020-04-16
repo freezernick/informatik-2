@@ -1,6 +1,7 @@
 ﻿using GameMaster.Ruleset.Abstracts;
 using System.Windows.Forms;
-
+using GameMaster.Interfaces;
+using System.Drawing;
 
 namespace GameMaster.Ruleset.Events
 {
@@ -46,5 +47,32 @@ namespace GameMaster.Ruleset.Events
             key = Keys.None;
             Name = "Keypress Event";
         }
+    }
+
+    public abstract class ParameterEvent : Event, IRecognizable
+    {
+        public World.ScreenParameter parameter;
+
+        public World.ScreenParameter Get()
+        {
+            return parameter;
+        }
+
+        public void Recognized(Rectangle match) => Execute();
+    }
+
+    public class RectangleParameterEvent : ParameterEvent
+    {
+        new World.RectangleRecognition parameter = new World.RectangleRecognition();
+    }
+
+    public class ImageParameterEvent : ParameterEvent
+    {
+        new World.ImageRecognition parameter = new World.ImageRecognition();
+    }
+
+    public class TextParameterEvent : ParameterEvent
+    {
+        new World.TextRecognition parameter = new World.TextRecognition();
     }
 }

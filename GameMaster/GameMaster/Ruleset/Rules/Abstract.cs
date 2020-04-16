@@ -25,12 +25,17 @@ namespace GameMaster.Ruleset.Abstracts
         public string Name;
 
         public abstract void EventExecute(Event eventReference);
+
+        public sealed class ActionEvent : Event
+        {
+            public ActionEvent() => Name = "Action Event";
+        }
     }
 
     /// <summary>
     /// Events are used to group the execution of multiple actions
     /// </summary>
-    public abstract class Event : LeftSide, IObjectRegister
+    public abstract class Event : LeftSide
     {
         public List<RightSide> EventObjects = new List<RightSide>();
 

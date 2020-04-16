@@ -183,7 +183,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="License-LGPL.txt" />
     <Content Include="x64\concrt140.dll" />
     <Content Include="x64\cvextern.dll" />
     <Content Include="x64\msvcp140.dll" />

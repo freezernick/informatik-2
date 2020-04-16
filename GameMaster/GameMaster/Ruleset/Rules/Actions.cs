@@ -10,16 +10,23 @@ namespace GameMaster.Ruleset.Actions
     public class Click : RightSide
     {
         public ScreenLocation ClickLocation;
+        public bool Hold = false;
 
-        public Click()
-        {
-            Name = "Click";
-        }
+        public Click() => Name = "Click";
 
         public override void EventExecute(Event eventReference)
         {
-            throw new System.NotImplementedException();
+            uint X = (uint)ClickLocation.X;
+            uint Y = (uint)ClickLocation.Y;
+            API.mouse_event(Utility.MOUSEEVENTF_LEFTDOWN, X, Y, 0, 0);
+            if(!Hold)
+                API.mouse_event(Utility.MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
         }
+    }
+
+    public class ClickParameter : Click
+    {
+        public World.ImageRecognition Parameter = new World.ImageRecognition();
     }
 
     public class Avoid : RightSide
@@ -30,13 +37,14 @@ namespace GameMaster.Ruleset.Actions
 
         public override void EventExecute(Event eventReference)
         {
-            if (Self.ScreenLocation.X + ObjectToAvoid.ScreenLocation.X < Spacing)
-            {
-            }
-
-            if (Self.ScreenLocation.Y + ObjectToAvoid.ScreenLocation.Y < Spacing)
-            {
-            }
+            if (Self.ScreenLocation.X - ObjectToAvoid.ScreenLocation.X < Spacing)
+                new Move(Self, Axis.MinusX).EventExecute(new ActionEvent());
+            else if(ObjectToAvoid.ScreenLocation.X - Self.ScreenLocation.X < Spacing)
+                new Move(Self, Axis.PlusX).EventExecute(new ActionEvent());
+            if (Self.ScreenLocation.Y - ObjectToAvoid.ScreenLocation.Y < Spacing)
+                new Move(Self, Axis.MinusY).EventExecute(new ActionEvent());
+            else if (Self.ScreenLocation.Y - ObjectToAvoid.ScreenLocation.Y < Spacing)
+                new Move(Self, Axis.PlusY).EventExecute(new ActionEvent());
         }
     }
 
@@ -45,7 +53,6 @@ namespace GameMaster.Ruleset.Actions
         public GameWorld.WorldObject Self;
         public bool isMoving;
         public Vector2 OldLocation;
-        public int Offset;
         public Axis Axis;
 
         public bool IsMoving()
@@ -57,11 +64,10 @@ namespace GameMaster.Ruleset.Actions
         {
         }
 
-        public Move(GameWorld.WorldObject worldObject, Axis MovementAxis, int offset)
+        public Move(GameWorld.WorldObject worldObject, Axis MovementAxis)
         {
             OldLocation = worldObject.ScreenLocation;
             Axis = MovementAxis;
-            Offset = offset;
         }
 
         public override void EventExecute(Event eventReference)
@@ -74,25 +80,18 @@ namespace GameMaster.Ruleset.Actions
     {
         public Event eventReference;
 
-        public override void EventExecute(Event eventReference)
-        {
-            this.eventReference.Execute();
-        }
+        public override void EventExecute(Event eventReference) => this.eventReference.Execute();
     }
 
     public class Log : RightSide
     {
         public string message;
 
-        public Log()
-        {
-            Name = "Log";
-        }
+        public Log() => Name = "Log";
 
-        public override void EventExecute(Event eventReference)
-        {
-            MainFormHelper.Get().Vm.Log(message);
-        }
+        public Log(string message) => this.message = message;
+
+        public override void EventExecute(Event eventReference) => MainFormHelper.Get().Vm.Log(message);
     }
 
     public class OverlayLog : RightSide
@@ -113,11 +112,8 @@ namespace GameMaster.Ruleset.Actions
 
     public class Keypress : RightSide
     {
-        public Keys key;
+        public Keys key = Keys.D;
 
-        public override void EventExecute(Event eventReference)
-        {
-            SendKeys.Send(key.ToString());
-        }
+        public override void EventExecute(Event eventReference) => SendKeys.Send(key.ToString());
     }
 }

@@ -1,9 +1,11 @@
 ﻿using GameMaster.Ruleset.Abstracts;
 using System.Collections.Generic;
+using GameMaster.Interfaces;
+using System.Drawing;
 
 namespace GameMaster.Ruleset.Worlds
 {
-    public class GameWorld : AbstractGameWorld
+    public class GameWorld : AbstractGameWorld, IRecognizable
     {
         public List<WorldObject> WorldObjects = new List<WorldObject>();
         
@@ -30,6 +32,13 @@ namespace GameMaster.Ruleset.Worlds
         }
 
         public ImageRecognition WorldReference = new ImageRecognition();
+
+        public ScreenParameter Get()
+        {
+            return WorldReference;
+        }
+
+        public void Recognized(Rectangle match) => new Actions.Log($"Name recognized").EventExecute(new RightSide.ActionEvent());
     }
 
     /// <summary>
