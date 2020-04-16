@@ -10,14 +10,13 @@ namespace GameMaster
     public partial class MainForm : Form, IProcessInterface
     {
         public Configuration SelectedRuleset;
-        public List<Configuration> Games;
+        public List<Configuration> Games = new List<Configuration>();
         private bool Running;
         public VM Vm;
 
         public MainForm()
         {
             InitializeComponent();
-            Games = new List<Configuration>();
             Tray.Icon = SystemIcons.Application;
             Tray.Click += Tray_MouseDoubleClick;
             CheckForIllegalCrossThreadCalls = false;

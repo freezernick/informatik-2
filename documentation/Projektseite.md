@@ -677,20 +677,19 @@ namespace GameMaster
     public partial class MainForm : Form, IProcessInterface
     {
         public Configuration SelectedRuleset;
-        public List<Configuration> Games;
+        public List<Configuration> Games = new List<Configuration>();
         private bool Running;
-        public VM Vm { get; private set; }
+        public VM Vm;
 
         public MainForm()
         {
             InitializeComponent();
-            Games = new List<Configuration>();
             Tray.Icon = SystemIcons.Application;
             Tray.Click += Tray_MouseDoubleClick;
             CheckForIllegalCrossThreadCalls = false;
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Checks if there are items in the box
             if (listBox1.Items.Count == 0)
@@ -718,22 +717,31 @@ namespace GameMaster
             }
         }
 
-        private void btNew_Click(object sender, EventArgs e)
+        private void BtNew_Click(object sender, EventArgs e)
         {
             SelectedRuleset = new Configuration();
-            new EditForm().Show();
+            SelectedRuleset.LeftSideObjects.Add(new Ruleset.Worlds.StartupWorld(true));
+            OpenEditor();
             Hide();
         }
 
-        private void btEditProp_Click(object sender, EventArgs e)
+        private void BtEditProp_Click(object sender, EventArgs e)
+        {
+            OpenEditor().Text = $"Edit {SelectedRuleset.Name}";
+            Hide();
+        }
+
+        private EditorForm OpenEditor()
         {
             EditorForm editor = new EditorForm();
-            editor.Text = "Edit " + SelectedRuleset.Name;
             editor.Show();
-            Hide();
+            editor.FormClosed += EditorClosed;
+            return editor;
         }
 
-        private void btAdd_Click(object sender, EventArgs e)
+        private void EditorClosed(object sender, EventArgs e) => Show();
+
+        private void BtAdd_Click(object sender, EventArgs e)
         {
             new DownloadForm().Show();
             Hide();
@@ -748,7 +756,7 @@ namespace GameMaster
             }
         }
 
-        private void lErscheinungsdatum_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             Configuration.DiscoverRulesets();
             UpdateList();
@@ -756,7 +764,7 @@ namespace GameMaster
                 listBox1.SelectedIndex = 0;
         }
 
-        private void btStart_Click(object sender, EventArgs e) => Vm = new VM(SelectedRuleset);
+        private void BtStart_Click(object sender, EventArgs e) => Vm = new VM(SelectedRuleset);
 
         private void Tray_MouseDoubleClick(object sender, EventArgs e)
         {
@@ -768,7 +776,7 @@ namespace GameMaster
 
         private void SourceCodeLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) => System.Diagnostics.Process.Start(GameMaster.Properties.Resources.Repository);
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             var confirmResult = MessageBox.Show("Are you sure to delete this ruleset? This cannot be undone!", "Confirmation needed", MessageBoxButtons.YesNo);
             if (confirmResult == DialogResult.Yes)
