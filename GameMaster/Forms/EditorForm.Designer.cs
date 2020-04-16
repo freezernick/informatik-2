@@ -68,6 +68,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.worldName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.ActionAdd = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.toolStrip1.SuspendLayout();
             this.RulesetStuff.SuspendLayout();
             this.eventStuff.SuspendLayout();
@@ -249,6 +252,9 @@
             // 
             // eventStuff
             // 
+            this.eventStuff.Controls.Add(this.listBox1);
+            this.eventStuff.Controls.Add(this.button7);
+            this.eventStuff.Controls.Add(this.ActionAdd);
             this.eventStuff.Controls.Add(this.label1);
             this.eventStuff.Controls.Add(this.button2);
             this.eventStuff.Controls.Add(this.numericUpDown1);
@@ -445,16 +451,42 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Name";
             // 
+            // ActionAdd
+            // 
+            this.ActionAdd.Location = new System.Drawing.Point(9, 80);
+            this.ActionAdd.Name = "ActionAdd";
+            this.ActionAdd.Size = new System.Drawing.Size(192, 23);
+            this.ActionAdd.TabIndex = 2;
+            this.ActionAdd.Text = "+ Action";
+            this.ActionAdd.UseVisualStyleBackColor = true;
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(207, 80);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(185, 23);
+            this.button7.TabIndex = 3;
+            this.button7.Text = "- Action";
+            this.button7.UseVisualStyleBackColor = true;
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(9, 110);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(382, 108);
+            this.listBox1.TabIndex = 4;
+            // 
             // EditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(806, 473);
             this.ControlBox = false;
+            this.Controls.Add(this.eventStuff);
             this.Controls.Add(this.WorldProperties);
             this.Controls.Add(this.RulesetStuff);
             this.Controls.Add(this.EventList);
-            this.Controls.Add(this.eventStuff);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.toolStrip1);
@@ -520,5 +552,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox worldName;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button ActionAdd;
     }
 }

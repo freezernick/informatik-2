@@ -58,7 +58,8 @@ namespace GameMaster
                     World world = (World)leftSide;
                     foreach(Event worldEvent in world.WorldEvents)
                     {
-                        newNode.Nodes.Add(worldEvent.Name);
+                        TreeNode eventNode = newNode.Nodes.Add(worldEvent.Name);
+                        eventNode.Name = $"e_{world.Name}_{worldEvent.Name}";
                         dict.Add($"e_{world.Name}_{worldEvent.Name}", worldEvent);
                     }
                 }
@@ -91,10 +92,12 @@ namespace GameMaster
                 return;
             }
 
-            if(e.Node.Name.StartsWith("e_"))
+            if(e.Node.Name.StartsWith(""))
             {
-                World world = (World) dict[e.Node.Text.Split('_')[1]];
-                selectedObject = (Event) dict[e.Node.Text.Split('_')[2]];
+                World world = (World) dict[e.Node.Name.Split('_')[1]];
+                selectedObject = (Event) dict[e.Node.Name];
+                ShowEventProperties();
+                return;
             }
 
             selectedObject = dict[e.Node.Text];
