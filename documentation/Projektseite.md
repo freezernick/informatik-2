@@ -174,7 +174,7 @@ Hier folgen nun die Erklärungen, wie wir den 'GameMaster' umgesetzt haben.
 
 ![](images/page/vs_still.png)
 
-Den 'GameMaster' haben wir in C# programmiert. Für die Oberfläche verwenden wir [WindowsForms.](https://github.com/dotnet/winforms). Als IDE verwenden wir [Visual Studio 2019](https://visualstudio.microsoft.com/), da in der Software ein Editor implementiert ist, mit dem man die Benutzeroberfläche mithilfe einiger vorgefertigter Elemente zusammenbauen kann.
+Den 'GameMaster' haben wir in C# programmiert. Für die Oberfläche verwenden wir [WindowsForms](https://github.com/dotnet/winforms). Als IDE verwenden wir [Visual Studio 2019](https://visualstudio.microsoft.com/), da in der Software ein Editor implementiert ist, mit dem man die Benutzeroberfläche mithilfe einiger vorgefertigter Elemente zusammenbauen kann.
 
 
 ## 'GameMaster TestGame Library'
@@ -890,7 +890,7 @@ Zunächst schauen wir, ob der String mit einem `http://` oder `https://` beginnt
 
 Im Event-Handler für den Startknopf sorgen wir zuerst dafür, dass das `TempDirectory` gelöscht wird. In diesen Ordner werden wir später das Zip-Archiv extrahieren. Wären dort noch Dateien vorhanden, könnten diese später zu Problemen führen. Danach wird der Download-Ordner erstellt, in das das Archiv gelegt wird, während der Download noch läuft.
 
-Sind diese Schritte erledigt, können wir uns dem Download widmen. Dieser wird über einen `[WebClient](https://docs.microsoft.com/en-us/dotnet/api/system.net.webclient?view=netframework-4.8)` realisiert. Dafür legen wir zuerst für das `DownloadProgressChanged` und das `DownloadFileCompleted`-Event des WebClients unsere Event-Handler fest. Danach wird mit `rtbStatus.AppendText(Downloading now...)` der Nutzer darüber informiert, dass der Download jetzt started. Abschließend stellen wir als Download-URL den Inhalt der Textbox ein und legen fest, dass die Datei als `Download.zip` im Downloadordner gespseichert werden soll.
+Sind diese Schritte erledigt, können wir uns dem Download widmen. Dieser wird über einen [`WebClient`](https://docs.microsoft.com/en-us/dotnet/api/system.net.webclient?view=netframework-4.8) realisiert. Dafür legen wir zuerst für das `DownloadProgressChanged` und das `DownloadFileCompleted`-Event des WebClients unsere Event-Handler fest. Danach wird mit `rtbStatus.AppendText(Downloading now...)` der Nutzer darüber informiert, dass der Download jetzt started. Abschließend stellen wir als Download-URL den Inhalt der Textbox ein und legen fest, dass die Datei als `Download.zip` im Downloadordner gespseichert werden soll.
 
 ```c#
         private void WC_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e) => pbProgress.Value = e.ProgressPercentage;
