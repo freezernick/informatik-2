@@ -26,7 +26,7 @@ In unserem Fall ist der Eintrag, der das Ruleset selbst repräsentiert ausgewäh
 
 Standardmäßig enthält jedes Ruleset eine `StartupWorld`. Diese Welt ist von Beginn der Session an aktiv. Sie ist als Art Pseudozustand gedacht, der aktiv ist, während das Spiel noch lädt. Trotzdem hat sie die volle Funktionalität wie andere Welten auch und hat zum Beispiel vordefinierte Events. Das reicht uns allerdings nicht aus. Wir werden zwei neue Welten hinzufügen, eine für das Menü und eine für das eigentliche Spiel. Wir wählen also `+ World` aus und eine neue Welt wird zur Liste hinzugefügt. Nun öffnet sich das Panel zum Bearbeiten von Welten.
 
-TODO: Bild
+![](images/page/editor/world.png)
 
 Hier legen wir ersteinmal den Namen als `Menu World` fest. Anschließend erstellen wir noch eine Welt und nennen diese `Game World`.
 Allerdings müssen wir dem GameMaster auch mitteilen, wie die Welten aussehen, bzw. erkannt werden können. Um an die Referenzbilder dafür zu kommen, können wir auch den GameMaster verwenden.
@@ -2912,13 +2912,6 @@ using System.Runtime.InteropServices;
 
 namespace GameMaster
 {
-    //This structure shall be used to keep the size of the screen.
-    public struct SIZE
-    {
-        public int cx;
-        public int cy;
-    }
-
     /// <summary>
     /// The enumeration of possible modifiers.
     /// </summary>
@@ -2947,6 +2940,9 @@ namespace GameMaster
     public static class Utility
     {
         public static string RulesetDirectory = AppContext.BaseDirectory + @"\rulesets\";
+        public static string DownloadDirectory = Path.Combine(AppContext.BaseDirectory, "downloads");
+        public static string TempDirectory = Path.Combine(AppContext.BaseDirectory + "temp");
+        public static string ImageDirectory = (MainFormHelper.Get().SelectedRuleset == null) ? "" : RulesetDirectory + $@"\{MainFormHelper.Get().SelectedRuleset.Name}\images\";
 
         public static IEnumerable<Type> FindSubClassesOf<TBaseType>()
         {
@@ -3045,3 +3041,7 @@ namespace GameMaster
 }
 ```
 </details>
+
+# Schlusswort
+
+Zwar haben wir die eigentliche Funktionalität des GameMaster umgesetzt, aber zum Zeitpunkt der Abgabe gibt es noch einige Fehler und Abstürze, die wir eigentlich gerne noch behoben hätten. Außerdem haben wir es zeitlich nur geschafft die Erkennung per Referenzbild einzubauen, nicht auch zum Beispiel Text-, Farb- oder Formerkennung, auch wenn wir uns das gewünscht hatten. Vielleicht setzen wir das zu einem späteren Zeitpunkt nochmal um. Wir markieren den Zustand der Abgabe wieder mit dem Tag `Informatik-Abgabe`. 
