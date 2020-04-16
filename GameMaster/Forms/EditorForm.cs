@@ -6,13 +6,14 @@ using GameMaster.Ruleset.Abstracts;
 using GameMaster.Ruleset.Events;
 using System.Collections.Generic;
 using GameMaster.Ruleset.Worlds;
+using GameMaster.Interfaces;
 
 namespace GameMaster
 {
     public partial class EditorForm : Form
     {
         public Configuration game;
-        public LeftSide selectedObject;
+        public object selectedObject;
         public Dictionary<string, LeftSide> dict;
         TreeNode rootnode;
 
@@ -43,6 +44,7 @@ namespace GameMaster
         {
             HideAll();
             StartActionSelector.InitialDirectory = AppContext.BaseDirectory;
+            StartActionSelector.FileOk += StartActionSelector_FileOK;
 
             dict = new Dictionary<string, LeftSide>();
             rootnode = treeView1.Nodes.Add(game.Name);
@@ -71,9 +73,9 @@ namespace GameMaster
             if (treeView1.SelectedNode == rootnode)
                 return;
 
-            if((selectedObject is Event && game.LeftSideObjects.Contains(selectedObject)) || selectedObject is World)
+            if((selectedObject is Event && game.LeftSideObjects.Contains((LeftSide) selectedObject)) || selectedObject is World)
             {
-                game.LeftSideObjects.Remove(selectedObject);
+                game.LeftSideObjects.Remove((LeftSide)selectedObject);
                 treeView1.SelectedNode.Remove();
                 return;
             }
@@ -89,7 +91,7 @@ namespace GameMaster
                 return;
             }
 
-            if(e.Node.Text.StartsWith("e_"))
+            if(e.Node.Name.StartsWith("e_"))
             {
                 World world = (World) dict[e.Node.Text.Split('_')[1]];
                 selectedObject = (Event) dict[e.Node.Text.Split('_')[2]];
@@ -170,6 +172,7 @@ namespace GameMaster
                 Bt_WorldChange.Enabled = true;
                 Bt_WorldClear.Enabled = true;
             }
+            worldName.Text = ((World)selectedObject).Name;
             WorldProperties.Show();
             WorldProperties.BringToFront();
         }
@@ -212,6 +215,8 @@ namespace GameMaster
         {
             HideAll();
             RulesetStuff.Show();
+            tbName.Text = game.Name;
+            tbStartAction.Text = game.Executable;
         }
 
         private void tbName_TextChanged(object sender, EventArgs e) => game.Name = tbName.Text;
@@ -250,6 +255,11 @@ namespace GameMaster
             }
             imageEditor.Show();
             imageEditor.FormClosed += ToolClosure;
+        }
+
+        private void worldName_TextChanged(object sender, EventArgs e)
+        {
+            ((World)selectedObject).Name = worldName.Text;
         }
     }
 }

@@ -66,7 +66,7 @@
             this.Bt_WorldClear = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.worldName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.RulesetStuff.SuspendLayout();
@@ -382,7 +382,7 @@
             this.WorldProperties.Controls.Add(this.Bt_WorldClear);
             this.WorldProperties.Controls.Add(this.pictureBox1);
             this.WorldProperties.Controls.Add(this.label7);
-            this.WorldProperties.Controls.Add(this.textBox2);
+            this.WorldProperties.Controls.Add(this.worldName);
             this.WorldProperties.Controls.Add(this.label6);
             this.WorldProperties.Location = new System.Drawing.Point(398, 61);
             this.WorldProperties.Name = "WorldProperties";
@@ -428,12 +428,13 @@
             this.label7.TabIndex = 2;
             this.label7.Text = "Reference";
             // 
-            // textBox2
+            // worldName
             // 
-            this.textBox2.Location = new System.Drawing.Point(176, 23);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(226, 20);
-            this.textBox2.TabIndex = 1;
+            this.worldName.Location = new System.Drawing.Point(176, 23);
+            this.worldName.Name = "worldName";
+            this.worldName.Size = new System.Drawing.Size(226, 20);
+            this.worldName.TabIndex = 1;
+            this.worldName.TextChanged += new System.EventHandler(this.worldName_TextChanged);
             // 
             // label6
             // 
@@ -451,9 +452,9 @@
             this.ClientSize = new System.Drawing.Size(806, 473);
             this.ControlBox = false;
             this.Controls.Add(this.WorldProperties);
+            this.Controls.Add(this.RulesetStuff);
             this.Controls.Add(this.EventList);
             this.Controls.Add(this.eventStuff);
-            this.Controls.Add(this.RulesetStuff);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.toolStrip1);
@@ -517,7 +518,7 @@
         private System.Windows.Forms.Button Bt_WorldClear;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox worldName;
         private System.Windows.Forms.Label label6;
     }
 }

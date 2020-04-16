@@ -54,6 +54,7 @@ namespace GameMaster
         private void BtNew_Click(object sender, EventArgs e)
         {
             SelectedRuleset = new Configuration();
+            SelectedRuleset.LeftSideObjects.Add(new Ruleset.Worlds.StartupWorld(true));
             OpenEditor();
             Hide();
         }

@@ -10,13 +10,6 @@ using System.IO;
 
 namespace GameMaster
 {
-    //This structure shall be used to keep the size of the screen.
-    public struct SIZE
-    {
-        public int cx;
-        public int cy;
-    }
-
     /// <summary>
     /// The enumeration of possible modifiers.
     /// </summary>

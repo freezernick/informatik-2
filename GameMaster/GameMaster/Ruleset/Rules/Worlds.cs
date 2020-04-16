@@ -31,5 +31,7 @@ namespace GameMaster.Ruleset.Worlds
     public class StartupWorld : World
     {
         public StartupWorld() => Name = "Startup World";
+
+        public StartupWorld(bool init) : base(init) => Name = "Startup World";
     }
 }

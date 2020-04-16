@@ -7,11 +7,6 @@ using Emgu.CV;
 
 namespace GameMaster.Interfaces
 {
-    public interface IVirtualMachine
-    {
-        World CurrentWorld { get; }
-    }
-
     /// <summary>
     /// Interface between the MainForm and the VM
     /// </summary>
