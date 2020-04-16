@@ -1098,115 +1098,255 @@ namespace GameMaster
 
 Bevor wir uns den eigentlichen Editor genauer anschauen, werden wir einen Blick auf die eigentlichen Rulesets werfen und wie diese aufgebaut sind und gespeichert werden.
 
-<details>
-<summary>Vollständiger Code der Configuration.cs</summary>
+```c#
+    [XmlRoot("configuration")]
+    [XmlInclude(typeof(Events.CustomEvent))]
+    [XmlInclude(typeof(Events.StartupEvent))]
+    [XmlInclude(typeof(Events.ShutdownRequestEvent))]
+    [XmlInclude(typeof(Events.KeyPressEvent))]
+    [XmlInclude(typeof(Events.TickEvent))]
+    [XmlInclude(typeof(Actions.Avoid))]
+    [XmlInclude(typeof(Actions.Click))]
+    [XmlInclude(typeof(Actions.ExecuteCustomEvent))]
+    [XmlInclude(typeof(Actions.Log))]
+    [XmlInclude(typeof(Actions.Move))]
+    [XmlInclude(typeof(Actions.OverlayLog))]
+    [XmlInclude(typeof(Worlds.GameWorld))]
+    [XmlInclude(typeof(Worlds.StartupWorld))]
+    public class Configuration
+    {
+```
+
+Mit diesen Audrücken vor der eigentlichen Klassendefinition geben wir dem Xml-Parser die wichtigsten Informationen. `[XmlRoot("configuration")]` beschreibt, dass diese Klasse das Root-Element der Xml repräsentiert und "configuration" heißen soll. Mit den `XmlInclude`-Ausdrücken teilen wir dem Parser mit, dass auf diese Klassen in der `Configuration`-Klasse verwiesen werden kann. Das ist wichtig, damit der Parser diesen Typ als Xml-Attribut speichert (z.B. `xsi:type="StartupWorld"`) und beim deserialisieren den Ursprungstyp wiederherstellen kann. 
 
 ```c#
-[XmlRoot("configuration")]
-[XmlInclude(typeof(Templates.Template2D))]
-[XmlInclude(typeof(Templates.Platformer))]
-[XmlInclude(typeof(Events.CustomEvent))]
-[XmlInclude(typeof(Events.StartupEvent))]
-[XmlInclude(typeof(Events.ShutdownRequestEvent))]
-[XmlInclude(typeof(Events.KeyPressEvent))]
-[XmlInclude(typeof(Events.TickEvent))]
-[XmlInclude(typeof(Actions.Avoid))]
-[XmlInclude(typeof(Actions.Click))]
-[XmlInclude(typeof(Actions.ExecuteCustomEvent))]
-[XmlInclude(typeof(Actions.Log))]
-[XmlInclude(typeof(Actions.Move))]
-[XmlInclude(typeof(Actions.OverlayLog))]
-[XmlInclude(typeof(Worlds.GameWorld))]
-[XmlInclude(typeof(Worlds.StartupWorld))]
-public class Configuration
-{
-    public Configuration()
-    {
-        Name = "Default Name";
-        ID = "defaultid";
-        Executable = "";
-        Template = new Platformer();
-        CustomEvents = new List<Event>();
-        LeftSideObjects = new List<LeftSide>();
-    }
+        public String Name = "Default Name";
+        public String Executable = "";
+        public List<Events.CustomEvent> CustomEvents = new List<Events.CustomEvent>();
+        public List<LeftSide> LeftSideObjects = new List<LeftSide>();
 
-    public String Name;
-    public String ID;
-    public String Executable;
-    public Template Template;
-    public List<Event> CustomEvents;
-    public List<LeftSide> LeftSideObjects;
+        [XmlIgnore]
+        public string Folder;
+```
 
-    [XmlIgnore]
-    public string Folder;
+In der eigentlichen Klasse definieren wir zuerst einmal die wichtigsten Variablen für den Namen des Rulesets, den Ort der Exe, die Liste mit benutzerdefinierten Events und die Liste mit den eigentlichen Objekte im Ruleset (also Welten und Events). Mit der `Folder`-Variable speichern wir den Namen des Ordners der config.xml. Da wir den immer beim Laden des Rulesets wissen und bei neuen Rulesets generieren, brauchen wir ihn nicht zu serialisieren. Deshalb haben wir das `[XmlIgnore]` hinzugefügt.
 
-    /// <summary>
-    /// Saves the specified ruleset as an XML to the specified path
-    /// </summary>
-    /// <param name="ruleset">The ruleset to be saved</param>
-    public static void Save(Configuration ruleset)
-    {
-        XmlSerializer serializer = new XmlSerializer(typeof(Configuration));
-        TextWriter writer = new StreamWriter(Path.Combine(Utility.RulesetDirectory + ruleset.Folder) + "\\config.xml");
-        serializer.Serialize(writer, ruleset);
-        writer.Flush();
-        writer.Close();
-    }
-
-    /// <summary>
-    /// Deletes a ruleset
-    /// </summary>
-    public void Delete()
-    {
-        MainForm Main = MainFormHelper.Get();
-        Main.Games.Remove(this);
-        Main.UpdateList();
-        Directory.Delete(Path.Combine(Utility.RulesetDirectory, Folder), true);
-    }
-
-    /// <summary>
-    /// Checks if the executable specified in the StartAction property is valid
-    /// </summary>
-    /// <returns>Whether the start action is valid or not</returns>
-    public bool ValidAction()
-    {
-        if (File.Exists(Executable) && Executable.EndsWith(".exe"))
-            return true;
-        return false;
-    }
-
-    /// <summary>
-    /// Loops over every folder inside the ruleset directory and looks for valid config.xml files. Valid configurations are added to the list of the  main form.
-    /// </summary>
-    public static void DiscoverRulesets()
-    {
-        if (!Directory.Exists(Utility.RulesetDirectory))
+```c#
+        public static void Save(Configuration ruleset)
         {
-            Directory.CreateDirectory(Utility.RulesetDirectory);
-            return;
+            if (ruleset.Folder == null)
+            {
+                ruleset.Folder = Path.Combine(Utility.RulesetDirectory, Utility.GenerateSlug(ruleset.Name));
+                if (!Directory.Exists(ruleset.Folder))
+                    Directory.CreateDirectory(ruleset.Folder);
+            }
+            XmlSerializer serializer = new XmlSerializer(typeof(Configuration));
+            TextWriter writer = new StreamWriter(Path.Combine(ruleset.Folder, "config.xml"));
+            serializer.Serialize(writer, ruleset);
+            writer.Flush();
+            writer.Close();
+            if (!MainFormHelper.Get().Games.Contains(ruleset))
+            {
+                MainFormHelper.Get().Games.Add(ruleset);
+                MainFormHelper.Get().UpdateList();
+            }
         }
+```
 
-        foreach (string directory in Directory.GetDirectories(Utility.RulesetDirectory))
+Mit dieser Funktion speichern wir die Rulesets ab. Zuerst schauen wir, ob der Ordner gesetzt ist. Ist das nicht der Fall, wurde das Ruleset neu erstellt und wir generieren den Ordnernamen anhand des Names des Rulesets. Ggf. wird der Ordner auch erstellt. Danach erstellen wir den `XmlSerializier` und einen `TextWriter`. Der Serializier speichert dann das generierte XML mit dem `TextWriter` in der config.xml im Ordner des Rulesets ab. Abschließend überprüfen wir noch, ob das Ruleset bereits in der Liste im Hauptbildschirm ist. Falls es nicht aufgelistet ist, fügen wir es hinzu. 
+
+
+```c#
+        public void Delete()
         {
-            string file = directory + "\\config.xml";
-            if (!File.Exists(file))
-                continue;
+            MainForm Main = MainFormHelper.Get();
+            Main.Games.Remove(this);
+            Main.UpdateList();
+            Directory.Delete(Path.Combine(Utility.RulesetDirectory, Folder), true);
+        }
+```
 
+Mit der `Delete`-Funktion wird ein Ruleset gelöscht. Es wird aus der Liste des Hauptbildschirms entfernt und anschließen der gesamte Ordner des Rulesets gelöscht.
+
+```c#
+        public bool ValidAction() { return File.Exists(Executable) && Executable.EndsWith(".exe") ? true : false; }
+```
+
+Mit dieser kleinen Funktion bestimmen wir, ob die im Ruleset eingetragene Exe auch existiert und eine `.exe` ist. Sind diese beiden Konditionen erfüllt geben wir `true` aus, andernfalls `false`.
+
+```c#
+        public static void DiscoverRulesets()
+        {
+            if (!Directory.Exists(Utility.RulesetDirectory))
+            {
+                Directory.CreateDirectory(Utility.RulesetDirectory);
+                return;
+            }
+```
+
+Mit der `DiscoverRulesets`-Funktion überprüfen wir zuerst die Existenz des Ruleset-Ordners. Ist dieser nicht vorhanden, wird er erstellt und der Funktionsablauf mit `return` beendet. Wir wissen schließlich, dass der Ordner leer ist. Also brauchen wir dort auch nicht nach Rulesets suchen.
+
+```c#
+            foreach (string directory in Directory.GetDirectories(Utility.RulesetDirectory))
+            {
+                string file = directory + "\\config.xml";
+                if (!File.Exists(file))
+                    continue;
+
+                Configuration config = Configuration.TryLoadConfig(directory);
+                if (config == null)
+                    continue;
+
+                MainFormHelper.Get().Games.Add(config);
+            }
+        }
+```
+
+Ist der Ordner aber schon vorhanden gewesen, erstellen wir einen Loop über jeden Unterordner im Verzeichnis. Wenn sich keine `config.xml` im Unterordner befindet, können wir zum nächsten Eintrag springen. Ist diese allerdings vorhanden, müssen wir natürlich überprüfen, ob es sich um ein gültiges Ruleset handelt. Dafür verwenden wir unsere `TryLoadConfig`-Funktion. Ist es ungültig gibt diese Funktion `null` aus und wir können wieder im Loop zum nächsten Verzeichnis springen. Andernfalls wird es zur Liste im Hauptmenü hinzugefügt.
+
+```c#
+        public static Configuration TryLoadConfig(string folder)
+        {
             XmlSerializer deserializer = new XmlSerializer(typeof(Configuration));
-            TextReader reader = new StreamReader(file);
+            TextReader reader = new StreamReader(Path.Combine(folder, "config.xml"));
             try
             {
                 object obj = deserializer.Deserialize(reader);
                 Configuration ruleset = (Configuration)obj;
                 reader.Close();
-                string[] pathElements = directory.Split('\\');
-                ruleset.Folder = pathElements[pathElements.Length - 1];
-                MainFormHelper.Get().Games.Add(ruleset);
+                ruleset.Folder = folder;
+                return ruleset;
             }
             catch
             {
                 reader.Close();
-                continue;
+                return null;
+            }
+        }
+
+```
+
+Als letztes kommt die `TryLoadConfig`-Funktion. Zuerst erstellen wir den `Deserializer` und einen `TextReader`, der dem Deserializer den Inhalt der `config.xml` übermittelt. Hier tricksen wir jetzt ein bisschen. Anstatt eine Funktion zu schreiben, mit der man das XML validieren könnte, sagen wir einfach dem Deserializer, dass er das XML in ein Objekt umwandeln soll. Wäre das eine ungültige Xml oder kein Ruleset würde eigentlich eine Exception auftreten, die den Programmablauf beendet. Mit dem `try / catch` können wir das aber unterbinden. Sollte eine Exception auftreten, als der `Catch`-Fall eintreten, schließen wir einfach den Reader und geben `null` zurück. Tritt keine Exception auf, also wurde das Ruleset erfolgreich deserialisiert, können wir es als solches zurückgeben. 
+
+<details>
+<summary>Vollständiger Code der Configuration.cs</summary>
+
+```c#
+using GameMaster.Ruleset.Abstracts;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Xml.Serialization;
+
+namespace GameMaster.Ruleset
+{
+    [XmlRoot("configuration")]
+    [XmlInclude(typeof(Events.CustomEvent))]
+    [XmlInclude(typeof(Events.StartupEvent))]
+    [XmlInclude(typeof(Events.ShutdownRequestEvent))]
+    [XmlInclude(typeof(Events.KeyPressEvent))]
+    [XmlInclude(typeof(Events.TickEvent))]
+    [XmlInclude(typeof(Actions.Avoid))]
+    [XmlInclude(typeof(Actions.Click))]
+    [XmlInclude(typeof(Actions.ExecuteCustomEvent))]
+    [XmlInclude(typeof(Actions.Log))]
+    [XmlInclude(typeof(Actions.Move))]
+    [XmlInclude(typeof(Actions.OverlayLog))]
+    [XmlInclude(typeof(Worlds.GameWorld))]
+    [XmlInclude(typeof(Worlds.StartupWorld))]
+    public class Configuration
+    {
+        public String Name = "Default Name";
+        public String Executable = "";
+        public List<Events.CustomEvent> CustomEvents = new List<Events.CustomEvent>();
+        public List<LeftSide> LeftSideObjects = new List<LeftSide>();
+
+        [XmlIgnore]
+        public string Folder;
+
+        /// <summary>
+        /// Saves the specified ruleset as an XML to the specified path
+        /// </summary>
+        /// <param name="ruleset">The ruleset to be saved</param>
+        /// <param name="path">The path of the XML</param>
+        public static void Save(Configuration ruleset)
+        {
+            if (ruleset.Folder == null)
+            {
+                ruleset.Folder = Path.Combine(Utility.RulesetDirectory, Utility.GenerateSlug(ruleset.Name));
+                if (!Directory.Exists(ruleset.Folder))
+                    Directory.CreateDirectory(ruleset.Folder);
+            }
+            XmlSerializer serializer = new XmlSerializer(typeof(Configuration));
+            TextWriter writer = new StreamWriter(Path.Combine(ruleset.Folder, "config.xml"));
+            serializer.Serialize(writer, ruleset);
+            writer.Flush();
+            writer.Close();
+            if (!MainFormHelper.Get().Games.Contains(ruleset))
+            {
+                MainFormHelper.Get().Games.Add(ruleset);
+                MainFormHelper.Get().UpdateList();
+            }
+        }
+
+        /// <summary>
+        /// Deletes a ruleset
+        /// </summary>
+        public void Delete()
+        {
+            MainForm Main = MainFormHelper.Get();
+            Main.Games.Remove(this);
+            Main.UpdateList();
+            Directory.Delete(Path.Combine(Utility.RulesetDirectory, Folder), true);
+        }
+
+        /// <summary>
+        /// Checks if the executable specified in the StartAction property is valid
+        /// </summary>
+        /// <returns>Whether the start action is valid or not</returns>
+        public bool ValidAction() { return File.Exists(Executable) && Executable.EndsWith(".exe") ? true : false; }
+
+        /// <summary>
+        /// Loops over every folder inside the ruleset directory and looks for valid config.xml files. Valid configurations are added to the list of the  main form.
+        /// </summary>
+        public static void DiscoverRulesets()
+        {
+            if (!Directory.Exists(Utility.RulesetDirectory))
+            {
+                Directory.CreateDirectory(Utility.RulesetDirectory);
+                return;
+            }
+
+            foreach (string directory in Directory.GetDirectories(Utility.RulesetDirectory))
+            {
+                string file = directory + "\\config.xml";
+                if (!File.Exists(file))
+                    continue;
+
+                Configuration config = Configuration.TryLoadConfig(directory);
+                if (config == null)
+                    continue;
+
+                MainFormHelper.Get().Games.Add(config);
+            }
+        }
+
+        public static Configuration TryLoadConfig(string folder)
+        {
+            XmlSerializer deserializer = new XmlSerializer(typeof(Configuration));
+            TextReader reader = new StreamReader(Path.Combine(folder, "config.xml"));
+            try
+            {
+                object obj = deserializer.Deserialize(reader);
+                Configuration ruleset = (Configuration)obj;
+                reader.Close();
+                ruleset.Folder = folder;
+                return ruleset;
+            }
+            catch
+            {
+                reader.Close();
+                return null;
             }
         }
     }
