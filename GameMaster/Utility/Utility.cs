@@ -54,14 +54,6 @@ namespace GameMaster
         public static string TempDirectory = Path.Combine(AppContext.BaseDirectory + "temp");
         public static string ImageDirectory = (MainFormHelper.Get().SelectedRuleset == null) ? "" : RulesetDirectory + $@"\{MainFormHelper.Get().SelectedRuleset.Name}\images\";
 
-        public static IEnumerable<Type> FindSubClassesOf<TBaseType>()
-        {
-            var baseType = typeof(TBaseType);
-            var assembly = baseType.Assembly;
-
-            return assembly.GetTypes().Where(t => t.IsSubclassOf(baseType));
-        }
-
         /// <summary>
         /// Resize the image to the specified width and height.
         ///

@@ -4,11 +4,13 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using GameMaster.Ruleset.Worlds;
 
 namespace GameMaster.Forms.Editor
 {
     public partial class ImageEditor : Form
     {
+        private object Object;
         private World.ImageRecognition item;
         private Image loadedImage;
         private Bitmap @new;
@@ -19,10 +21,10 @@ namespace GameMaster.Forms.Editor
         private Pen CropPen = new Pen(Color.Red);
         private bool cropping = false;
 
-        public ImageEditor(World.ImageRecognition item = null)
+        public ImageEditor(object selectedObject = null)
         {
             InitializeComponent();
-            this.item = item;
+            Object = selectedObject;
         }
 
         ~ImageEditor()
@@ -48,8 +50,22 @@ namespace GameMaster.Forms.Editor
 
         private void ImageEditor_Load(object sender, EventArgs e)
         {
-            openFileDialog1.InitialDirectory = AppContext.BaseDirectory;
+            openFileDialog1.InitialDirectory = Utility.RulesetDirectory;
             cropWindow = pictureBox1.CreateGraphics();
+
+            if(Object is GameWorld)
+            {
+                GameWorld world = (GameWorld)Object;
+                if (world.WorldReference.reference.Name != "")
+                {
+                    Bitmap OldImage = new Bitmap(Utility.ImageDirectory + world.WorldReference.reference.Name);
+                    if(OldImage == null)
+                        return;
+
+                    pictureBox1.Image = Utility.ResizeImage(OldImage, pictureBox1.Width, pictureBox1.Height);
+                    pictureBox2.Image = Utility.ResizeImage(OldImage, pictureBox2.Width, pictureBox2.Height);
+                }
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

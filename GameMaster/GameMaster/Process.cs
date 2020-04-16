@@ -89,19 +89,7 @@ namespace GameMaster
                 }
                 else if(leftSide is GameWorld)
                 {
-                    //OverlayLog("huhu");
-                    //Image<Bgr, Byte> image = Emgu.CV.BitmapExtension.ToImage<Bgr, Byte>(((GameWorld)leftSide).WorldReference.parameter);
-                    //if (image == null)
-                    //    continue;
 
-                    //new Bitmap(100, 100).Save("test.bmp");
-                    //new Image<Bgr, Byte>("test.bpm");
-                    //OverlayLog("huy");
-                    //if (image == new Image<Bgr, Byte>("test.bmp"))
-                    //{
-
-                    //}
-                    
                 }
             }
             Overlay.Run();

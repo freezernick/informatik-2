@@ -22,18 +22,10 @@ namespace GameMaster.Ruleset
     [XmlInclude(typeof(Worlds.StartupWorld))]
     public class Configuration
     {
-        public Configuration()
-        {
-            Name = "Default Name";
-            Executable = "";
-            CustomEvents = new List<Events.CustomEvent>();
-            LeftSideObjects = new List<LeftSide>();
-        }
-
-        public String Name;
-        public String Executable;
-        public List<Events.CustomEvent> CustomEvents;
-        public List<LeftSide> LeftSideObjects;
+        public String Name = "Default Name";
+        public String Executable = "";
+        public List<Events.CustomEvent> CustomEvents = new List<Events.CustomEvent>();
+        public List<LeftSide> LeftSideObjects = new List<LeftSide>();
 
         [XmlIgnore]
         public string Folder;
@@ -78,12 +70,7 @@ namespace GameMaster.Ruleset
         /// Checks if the executable specified in the StartAction property is valid
         /// </summary>
         /// <returns>Whether the start action is valid or not</returns>
-        public bool ValidAction()
-        {
-            if (File.Exists(Executable) && Executable.EndsWith(".exe"))
-                return true;
-            return false;
-        }
+        public bool ValidAction() { return File.Exists(Executable) && Executable.EndsWith(".exe") ? true : false; }
 
         /// <summary>
         /// Loops over every folder inside the ruleset directory and looks for valid config.xml files. Valid configurations are added to the list of the  main form.
