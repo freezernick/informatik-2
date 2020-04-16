@@ -90,7 +90,7 @@ namespace GameMaster
                     if (world != null && world.WorldReference.reference.Name != null)
                     {
                         Image<Bgr, byte> source = BitmapExtension.ToImage<Bgr, Byte>(Utility.CaptureWindow(ProcessHandle()));
-                        Image<Bgr, byte> template = new Image<Bgr, byte>(Utility.ImageDirectory + world.WorldReference.reference.Name + ".bmp");
+                        Image<Bgr, byte> template = new Image<Bgr, byte>(configuration.Folder + "\\images\\test.bmp");
                         using (Image<Gray, float> result = source.MatchTemplate(template, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed))
                         {
                             double[] minValues, maxValues;
@@ -100,9 +100,11 @@ namespace GameMaster
                             // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
                             if (maxValues[0] > 0.9)
                             {
-
+                                UpdateWorld(world);
                             }
                         }
+                        source.Dispose();
+                        template.Dispose();
                     }
                 }
             }

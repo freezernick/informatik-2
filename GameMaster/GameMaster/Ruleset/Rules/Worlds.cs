@@ -22,7 +22,7 @@ namespace GameMaster.Ruleset.Worlds
             public Goal() => Name = "Goal";
         }
 
-        public ImageRecognition WorldReference;
+        public ImageRecognition WorldReference = new ImageRecognition();
     }
 
     /// <summary>

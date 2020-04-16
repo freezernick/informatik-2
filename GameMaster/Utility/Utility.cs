@@ -52,7 +52,7 @@ namespace GameMaster
         public static string RulesetDirectory = Path.Combine(AppContext.BaseDirectory, "rulesets");
         public static string DownloadDirectory = Path.Combine(AppContext.BaseDirectory, "downloads");
         public static string TempDirectory = Path.Combine(AppContext.BaseDirectory + "temp");
-        public static string ImageDirectory = (MainFormHelper.Get().SelectedRuleset == null) ? "" : RulesetDirectory + $@"\{MainFormHelper.Get().SelectedRuleset.Name}\images\";
+        public static string ImageDirectory = (MainFormHelper.Get().SelectedRuleset == null) ? "" : RulesetDirectory + $@"\{MainFormHelper.Get().SelectedRuleset.Folder}\images\";
 
         /// <summary>
         /// Resize the image to the specified width and height.

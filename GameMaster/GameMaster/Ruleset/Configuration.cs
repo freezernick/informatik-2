@@ -20,6 +20,7 @@ namespace GameMaster.Ruleset
     [XmlInclude(typeof(Actions.OverlayLog))]
     [XmlInclude(typeof(Worlds.GameWorld))]
     [XmlInclude(typeof(Worlds.StartupWorld))]
+    [XmlInclude(typeof(Worlds.GameWorld.ImageRecognition))]
     public class Configuration
     {
         public String Name = "Default Name";
