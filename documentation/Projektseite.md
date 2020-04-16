@@ -3970,4 +3970,4 @@ namespace GameMaster
 
 # Schlusswort
 
-Zwar haben wir die eigentliche Funktionalität des GameMaster umgesetzt, aber zum Zeitpunkt der Abgabe gibt es noch einige Fehler und Abstürze, die wir eigentlich gerne noch behoben hätten. Außerdem haben wir es zeitlich nur geschafft die Erkennung per Referenzbild einzubauen, nicht auch zum Beispiel Text-, Farb- oder Formerkennung, auch wenn wir uns das gewünscht hatten. Vielleicht setzen wir das zu einem späteren Zeitpunkt nochmal um. Wir markieren den Zustand der Abgabe wieder mit dem Tag `Informatik-Abgabe`. 
+Zwar haben wir die eigentliche Funktionalität des GameMaster umgesetzt, aber zum Zeitpunkt der Abgabe gibt es noch einige Fehler und Abstürze, die wir eigentlich gerne noch behoben hätten. Außerdem haben wir es zeitlich nur geschafft die Erkennung per Referenzbild einzubauen, nicht auch zum Beispiel Text-, Farb- oder Formerkennung, auch wenn wir uns das gewünscht hatten. Auch die Entwicklung dieses Projekts hat viel Spaß gemacht, und wir machen bestimmt ab und an weiter. Deshalb markieren wir den Zustand der Abgabe wieder mit dem Tag `Informatik-Abgabe`. 
