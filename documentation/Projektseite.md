@@ -49,18 +49,18 @@ Alle anderen Tasten werden wie gewohnt als Eingabe an das Spielfenster weitergel
 
 Aber wir wollen ja Referenzbilder erhalten. Also drücken wir im Hauptmenü einmal `Strg + F4` und anschließend klicken wir auf `Start` und drücken nochmal `Strg + F4`. Dann könnnen wir es auch schon wieder mit `Strg + F3` beenden.
 
-#### Image-Editor
+### Image-Editor
 
 
 
-#### Event-Editor
+### Event-Editor
 
 TODO: Bild
 
 TODO: Erklärung
 
 
-#### Action-Editor
+### Action-Editor
 
 TODO: Bild
 
