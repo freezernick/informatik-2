@@ -1,3 +1,5 @@
+*Informatikprojekt von Jakob Wagner & Nick Lamprecht (12G)*
+
 # Der GameMaster
 
 Mit dem 'GameMaster' wollten wir ein Tool entwickeln, das jedem, auch ohne Programmierkentnisse, ermöglicht, eine KI bzw. einen Bot zu entwickeln, die für den Nutzer das Spielen von Computer- und Browsergames übernimmt. Das Ziel war es eine grafische Oberfläche anzubieten, mit der der Nutzer mithilfe von vordefinierten Elementen ein Regelwerk zusammenstellen kann, das der 'GameMaster' dann befolgt. Im folgenden werden wir Schrittweise durch die Anwendung gehen und beispielhaft damit beginnen ein Ruleset für unser Testspiel zu erstellen. Die Erklärung der technischen Umsetzung folgt weiter unten.
