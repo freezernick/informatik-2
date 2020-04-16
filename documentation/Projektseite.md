@@ -409,6 +409,7 @@ In dieser Funktion wird der Punkt berechnet, zu dem sich der Spieler bewegen wü
 Und abschließend kommt die `Tick`-Funktion des Timers, den wir auch als Windows-Forms-Element zum Fenster hinzugefügt haben. Wir haben den Interval des Timers auf 10ms gestellt, diese Funktion wird also 100 mal in der Sekunde aufgerufen.
 
 ```c#
+
         private void Timer1_Tick(object sender, EventArgs e)
         {
             label1.Text = $"Score: {Score.ToString()}";
