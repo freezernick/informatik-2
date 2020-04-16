@@ -75,10 +75,7 @@ namespace GameMaster
         private void Update()
         {
             if(currentWorld == null)
-            {
-                currentWorld = (StartupWorld)configuration.LeftSideObjects.Find(x => x.GetType() == typeof(StartupWorld));
-                currentWorld.WorldEvents.Find(x => x.GetType() == typeof(StartupEvent)).Execute();
-            }
+                UpdateWorld((StartupWorld)configuration.LeftSideObjects.Find(x => x.GetType() == typeof(StartupWorld)));
 
             foreach (LeftSide leftSide in configuration.LeftSideObjects)
             {
@@ -89,10 +86,33 @@ namespace GameMaster
                 }
                 else if(leftSide is GameWorld)
                 {
+                    GameWorld world = (GameWorld)leftSide;
+                    if (world != null && world.WorldReference.reference.Name != null)
+                    {
+                        Image<Bgr, byte> source = BitmapExtension.ToImage<Bgr, Byte>(Utility.CaptureWindow(ProcessHandle()));
+                        Image<Bgr, byte> template = new Image<Bgr, byte>(Utility.ImageDirectory + world.WorldReference.reference.Name + ".bmp");
+                        using (Image<Gray, float> result = source.MatchTemplate(template, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed))
+                        {
+                            double[] minValues, maxValues;
+                            Point[] minLocations, maxLocations;
+                            result.MinMax(out minValues, out maxValues, out minLocations, out maxLocations);
 
+                            // You can try different values of the threshold. I guess somewhere between 0.75 and 0.95 would be good.
+                            if (maxValues[0] > 0.9)
+                            {
+
+                            }
+                        }
+                    }
                 }
             }
             Overlay.Run();
+        }
+
+        private void UpdateWorld(World world)
+        {
+            currentWorld = world;
+            currentWorld.WorldEvents.Find(x => x.GetType() == typeof(StartupEvent)).Execute();
         }
 
         public void Interrupt()

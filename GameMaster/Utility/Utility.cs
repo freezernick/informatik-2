@@ -97,7 +97,7 @@ namespace GameMaster
         /// </summary>
         /// <param name="handle">The main window's handle</param>
         /// <returns>The screenshot</returns>
-        public static Image CaptureWindow(IntPtr handle)
+        public static Bitmap CaptureWindow(IntPtr handle)
         {
             // get te hDC of the target window
             IntPtr hdcSrc = API.GetWindowDC(handle);
@@ -121,7 +121,7 @@ namespace GameMaster
             API.DeleteDC(hdcDest);
             API.ReleaseDC(handle, hdcSrc);
             // get a .NET image object for it
-            Image img = Image.FromHbitmap(hBitmap);
+            Bitmap img = Image.FromHbitmap(hBitmap);
             // free up the Bitmap object
             API.DeleteObject(hBitmap);
             return img;
