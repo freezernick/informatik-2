@@ -675,7 +675,7 @@ namespace GameMaster
 ```
 
 Zu Beginn definieren wir wieder einige Variablen, die wir später brauchen werden. `SelectedRuleset` ist das gerade aus der Liste `Games` ausgewählte Ruleset. `Running` definiert, ob gerade ein Ruleset ausgeführt wird. `VM` repräsentiert eine Instanz des GameMasters, wenn ein Ruleset läuft.
-Im Constructor setzen wir mit `Tray.Icon = SystemIcons.Application;` noch das Symbol, das in der Taskleiste angezeigt wird, während ein Ruleset läuft. Das Hauptfenster wird sozusagen in die Taskleiste minimiert, wenn man auf Start drückt. Zusätzlich setzen wir für das `Click`-Event des Icons einen Event-Handler. Mit `CheckForIllegalCrossThreadCalls = false;` verhindern wir einen Absturz bzw. eine Exception, der vom Event-Handler verursacht wird. Das hätte man auch anders lösen können, aber dazu sind wir nicht mehr gekommen. (#5)
+Im Constructor setzen wir mit `Tray.Icon = SystemIcons.Application;` noch das Symbol, das in der Taskleiste angezeigt wird, während ein Ruleset läuft. Das Hauptfenster wird sozusagen in die Taskleiste minimiert, wenn man auf Start drückt. Zusätzlich setzen wir für das `Click`-Event des Icons einen Event-Handler. Mit `CheckForIllegalCrossThreadCalls = false;` verhindern wir einen Absturz bzw. eine Exception, der vom Event-Handler verursacht wird. Das hätte man auch anders lösen können, aber dazu sind wir nicht mehr gekommen.
 
 ```c#
         private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -1757,6 +1757,68 @@ namespace GameMaster.Ruleset.Abstracts
 #### Cropping-Tool
 
 Das Cropping-Tool kann dazu verwendet werden, um den wichtigen Bereich eines Referenzbildes aus dem ünnötigen Rest herauszuschneiden und gesondert, als eigentliche Referenz zu speichern.
+
+```c#
+    private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+    {
+        x = e.X;
+        y = e.Y;
+        cropping = true;
+    }
+```
+
+Klickt man auf die `PictureBox` mit dem geladenen Bild, legen wir den Ursprungspunkt des Auswahlrechtecks fest und setzten `cropping` auf `true`.
+
+```c#
+
+    private Rectangle Selection;
+
+    private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+    {
+        if (loadedImage == null)
+            return;
+
+        width = e.X - x;
+        height = e.Y - y;
+        if (width > 0 && height > 0)
+        {
+            Selection = new Rectangle(x, y, width, height);
+            Bitmap test = Utility.ResizeImage(new Bitmap(loadedImage), pictureBox1.Width, pictureBox1.Height);
+            @new = test.Clone(Selection, loadedImage.PixelFormat);
+            pictureBox3.Image = @new;
+        }
+        Reset();
+    }
+```
+
+```c#
+    private void Reset()
+    {
+        cropping = false;
+        x = 0;
+        y = 0;
+        width = 0;
+        height = 0;
+    }
+```
+
+```c#
+    private Graphics cropWindow;
+
+    private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+    {
+        if (cropping && loadedImage != null)
+        {
+            cropWindow = pictureBox1.CreateGraphics();
+            cropWindow.DrawImage(Utility.ResizeImage(loadedImage, pictureBox1.Width, pictureBox1.Height), new Point(0, 0));
+            width = e.X - x;
+            height = e.Y - y;
+            cropWindow.DrawRectangle(CropPen, x, y, width, height);
+        }
+    }
+```
+
+Sobald man die Maus bewegt wird dieser Event-Handler aufgerufen. Zuerst überprüfen wir, ob ein Bild geladen ist und, ob die linke Maustaste noch gedrückt wird. Ist das der Fall, wird mithilfe der `Graphics` der `PictureBox` das Bild neugezeichnet, damit danach das rote Auswahlrechteck darüber gezeichnet werden kann.
 
 <details>
 <summary>Vollständiger Code der ImageEditor.cs</summary>
