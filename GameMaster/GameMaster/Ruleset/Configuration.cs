@@ -74,7 +74,11 @@ namespace GameMaster.Ruleset
         /// Checks if the executable specified in the StartAction property is valid
         /// </summary>
         /// <returns>Whether the start action is valid or not</returns>
-        public bool ValidAction() { return File.Exists(Executable) && Executable.EndsWith(".exe") ? true : false; }
+        public bool ValidAction()
+        {
+            // TODO: Replace
+            return true;
+        }
 
         /// <summary>
         /// Loops over every folder inside the ruleset directory and looks for valid config.xml files. Valid configurations are added to the list of the  main form.
