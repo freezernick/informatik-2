@@ -153,7 +153,7 @@ namespace GameMaster.Ruleset.Abstracts
             public Vector2 ScreenLocation = new Vector2();
             public Vector2 Size = new Vector2();
             public Rotation WorldRotation = new Rotation();
-            public ImageRecognition Reference = new ImageRecognition();
+            public ScreenParameter Reference;
             public List<RightSide> Actions = new List<RightSide>();
         }
     }
