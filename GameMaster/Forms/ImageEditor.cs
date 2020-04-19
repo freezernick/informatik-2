@@ -36,8 +36,8 @@ namespace GameMaster.Forms.Editor
 
         private void button3_Click(object sender, EventArgs e)
         {
-            openFileDialog1.ShowDialog();
             openFileDialog1.FileOk += fileSelected;
+            openFileDialog1.ShowDialog();
         }
 
         private void fileSelected(object sender, CancelEventArgs e)

@@ -14,6 +14,7 @@ using System.Numerics;
 using System.Threading;
 using System.Windows.Forms;
 using Timer = System.Threading.Timer;
+using GameMaster.Interfaces;
 
 namespace GameMaster
 {
@@ -102,12 +103,31 @@ namespace GameMaster
                 {
                     foreach (GameWorld.WorldObject worldObject in world.WorldObjects)
                     {
-                        if (worldObject.Reference.Name != "")
+                        if (worldObject is IRecognizable)
                         {
                             Rectangle match;
-                            if (Recognize(worldObject.Reference, out match))
+                            IRecognizable worldObj = (IRecognizable)worldObject;
+                            if(worldObj.Get() is World.ImageRecognition)
                             {
-                                worldObject.ScreenLocation = new Vector2(match.X, match.Y);
+                                World.ImageRecognition reference = (World.ImageRecognition)worldObj.Get();
+                                if (Recognize(reference, out match))
+                                    worldObj.Recognized(match);
+                            }
+                            else if(worldObj.Get() is World.TextRecognition)
+                            {
+                                // TODO
+                            }
+                            else if(worldObj.Get() is World.ShapeRecognition)
+                            {
+                                // TODO
+                            }
+                            else if(worldObj.Get() is World.ScreenParameter)
+                            {
+                                // TODO
+                            }
+                            else if(worldObj.Get() is World.RectangleRecognition)
+                            {
+                                // TODO
                             }
                         }
                     }

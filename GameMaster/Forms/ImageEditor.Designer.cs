@@ -45,7 +45,7 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "Reference Picture";
-            this.openFileDialog1.Filter = "Referenz Bilder|*.bmp";
+            this.openFileDialog1.Filter = "Reference Pictures|*.bmp";
             // 
             // button1
             // 
