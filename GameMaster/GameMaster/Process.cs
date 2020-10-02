@@ -15,6 +15,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Timer = System.Threading.Timer;
 using GameMaster.Interfaces;
+using GameMaster.Exception;
 
 namespace GameMaster
 {
@@ -144,7 +145,7 @@ namespace GameMaster
         {
             if(!File.Exists(configuration.Folder + $"\\images\\{recognition.Name}"))
             {
-                Log($"Tried to recognize {recognition.Name} but no image was found!");
+                GMException.Throw($"Tried to recognize {recognition.Name} but no image was found!", Severity.Medium);
                 match = new Rectangle();
                 return false;
             }
