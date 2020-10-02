@@ -13,9 +13,9 @@ namespace TestGame
         private bool RunningLeft = false;
         private bool RunningRight = false;
 
-        private Rectangle obstacle;
+        private Rectangle Obstalce;
         private Rectangle Goal;
-        private readonly Random RDM = new Random();
+        private readonly Random Random = new Random();
 
         private int Score = 0;
 
@@ -26,18 +26,18 @@ namespace TestGame
             CenterToScreen();
             KeyDown += KeyPress;
             KeyUp += KeyRelease;
-            obstacle = new Rectangle(
-                panel2.Location.X,
-                panel2.Location.Y,
-                panel2.Width,
-                panel2.Height
+            Obstalce = new Rectangle(
+                ObstaclePanel.Location.X,
+                ObstaclePanel.Location.Y,
+                ObstaclePanel.Width,
+                ObstaclePanel.Height
 
             );
             Goal = new Rectangle(
-               panel3.Location.X,
-               panel3.Location.Y,
-               panel3.Width,
-               panel3.Height
+               GoalPanel.Location.X,
+               GoalPanel.Location.Y,
+               GoalPanel.Width,
+               GoalPanel.Height
 
             );
 
@@ -49,22 +49,22 @@ namespace TestGame
             if (NextLocation.X >= 586 || NextLocation.X < 0 || NextLocation.Y >= 449 || NextLocation.Y < 0)
                 return false;
 
-            if (obstacle.Contains(NextLocation))
+            if (Obstalce.Contains(NextLocation))
                 return false;
 
             if (Goal.Contains(NextLocation))
             {
-                Point NewLocation = new Point(RDM.Next(0, this.Size.Width - panel3.Width), RDM.Next(0, this.Size.Height - panel3.Height));
-                while (obstacle.Contains(NewLocation.X, NewLocation.Y))
+                Point NewLocation = new Point(Random.Next(0, this.Size.Width - GoalPanel.Width), Random.Next(0, this.Size.Height - GoalPanel.Height));
+                while (Obstalce.Contains(NewLocation.X, NewLocation.Y))
                 {
-                    NewLocation = new Point(RDM.Next(0, this.Size.Width), RDM.Next(0, this.Size.Height));
+                    NewLocation = new Point(Random.Next(0, this.Size.Width), Random.Next(0, this.Size.Height));
                 }
-                panel3.Location = NewLocation;
+                GoalPanel.Location = NewLocation;
                 Goal = new Rectangle(
-                   panel3.Location.X,
-                   panel3.Location.Y,
-                   panel3.Width,
-                   panel3.Height
+                   GoalPanel.Location.X,
+                   GoalPanel.Location.Y,
+                   GoalPanel.Width,
+                   GoalPanel.Height
                 );
                 Score++;
             }
@@ -105,30 +105,30 @@ namespace TestGame
 
         private void GoUp()
         {
-            Point NextLocation = new Point(panel1.Location.X, panel1.Location.Y - 3);
+            Point NextLocation = new Point(PlayerPanel.Location.X, PlayerPanel.Location.Y - 3);
             if (CheckMovement(NextLocation))
-                panel1.Location = NextLocation;
+                PlayerPanel.Location = NextLocation;
         }
 
         private void GoDown()
         {
-            Point NextLocation = new Point(panel1.Location.X, panel1.Location.Y + 3);
-            if (CheckMovement(new Point(NextLocation.X, NextLocation.Y + panel1.Height)))
-                panel1.Location = NextLocation;
+            Point NextLocation = new Point(PlayerPanel.Location.X, PlayerPanel.Location.Y + 3);
+            if (CheckMovement(new Point(NextLocation.X, NextLocation.Y + PlayerPanel.Height)))
+                PlayerPanel.Location = NextLocation;
         }
 
         private void GoLeft()
         {
-            Point NextLocation = new Point(panel1.Location.X - 3, panel1.Location.Y);
+            Point NextLocation = new Point(PlayerPanel.Location.X - 3, PlayerPanel.Location.Y);
             if (CheckMovement(NextLocation))
-                panel1.Location = NextLocation;
+                PlayerPanel.Location = NextLocation;
         }
 
         private void GoRight()
         {
-            Point NextLocation = new Point(panel1.Location.X + 3, panel1.Location.Y);
-            if (CheckMovement(new Point(NextLocation.X + panel1.Width, NextLocation.Y)))
-                panel1.Location = NextLocation;
+            Point NextLocation = new Point(PlayerPanel.Location.X + 3, PlayerPanel.Location.Y);
+            if (CheckMovement(new Point(NextLocation.X + PlayerPanel.Width, NextLocation.Y)))
+                PlayerPanel.Location = NextLocation;
         }
 
         private void Timer1_Tick(object sender, EventArgs e)

@@ -29,30 +29,30 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.PlayerPanel = new System.Windows.Forms.Panel();
+            this.ObstaclePanel = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.GoalPanel = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
-            // panel1
+            // PlayerPanel
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.panel1.Location = new System.Drawing.Point(150, 162);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(30, 32);
-            this.panel1.TabIndex = 0;
+            this.PlayerPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.PlayerPanel.Location = new System.Drawing.Point(150, 162);
+            this.PlayerPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.PlayerPanel.Name = "PlayerPanel";
+            this.PlayerPanel.Size = new System.Drawing.Size(30, 32);
+            this.PlayerPanel.TabIndex = 0;
             // 
-            // panel2
+            // ObstaclePanel
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panel2.Location = new System.Drawing.Point(268, 101);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(78, 199);
-            this.panel2.TabIndex = 2;
+            this.ObstaclePanel.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.ObstaclePanel.Location = new System.Drawing.Point(268, 101);
+            this.ObstaclePanel.Margin = new System.Windows.Forms.Padding(2);
+            this.ObstaclePanel.Name = "ObstaclePanel";
+            this.ObstaclePanel.Size = new System.Drawing.Size(78, 199);
+            this.ObstaclePanel.TabIndex = 2;
             // 
             // timer1
             // 
@@ -70,15 +70,15 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "label1";
             // 
-            // panel3
+            // GoalPanel
             // 
-            this.panel3.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.panel3.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.panel3.Location = new System.Drawing.Point(482, 162);
-            this.panel3.Margin = new System.Windows.Forms.Padding(2);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(15, 16);
-            this.panel3.TabIndex = 0;
+            this.GoalPanel.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.GoalPanel.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.GoalPanel.Location = new System.Drawing.Point(482, 162);
+            this.GoalPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.GoalPanel.Name = "GoalPanel";
+            this.GoalPanel.Size = new System.Drawing.Size(15, 16);
+            this.GoalPanel.TabIndex = 0;
             // 
             // Collector
             // 
@@ -87,11 +87,10 @@
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(586, 449);
             this.ControlBox = false;
-            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.GoalPanel);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
-            this.Location = new System.Drawing.Point(0, 0);
+            this.Controls.Add(this.ObstaclePanel);
+            this.Controls.Add(this.PlayerPanel);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Collector";
             this.Text = "Form2";
@@ -102,10 +101,10 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel PlayerPanel;
+        private System.Windows.Forms.Panel ObstaclePanel;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel GoalPanel;
     }
 }
