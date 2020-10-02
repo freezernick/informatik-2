@@ -91,7 +91,7 @@ namespace GameMaster.Ruleset.Actions
 
         public Log(string message) => this.message = message;
 
-        public override void EventExecute(Event eventReference) => MainFormHelper.Get().Vm.Log(message);
+        public override void EventExecute(Event eventReference) => MainFormHelper.Get().GameMasterProcess.Log(message);
     }
 
     public class OverlayLog : RightSide

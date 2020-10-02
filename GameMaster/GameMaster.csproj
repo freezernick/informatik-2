@@ -118,6 +118,7 @@
     <Compile Include="Forms\EditorForm.Designer.cs">
       <DependentUpon>EditorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameMaster\Exception.cs" />
     <Compile Include="GameMaster\Logging.cs" />
     <Compile Include="GameMaster\Ruleset\Rules\Abstract.cs" />
     <Compile Include="GameMaster\Ruleset\Rules\Actions.cs" />

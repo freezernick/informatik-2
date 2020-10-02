@@ -23,7 +23,7 @@ namespace GameMaster.Exception
             if (severity == Severity.Medium)
                 LogHelper.OverlayLog("An exception has occured! The program may be unstable now!");
             if (severity == Severity.High)
-                MainFormHelper.Get().Vm.Interrupt();
+                MainFormHelper.Get().GameMasterProcess.Interrupt();
         }
     }
 }

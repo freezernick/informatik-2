@@ -2,12 +2,12 @@
 {
     public static class LogHelper
     {
-        public static void Log(string message) => MainFormHelper.Get().Vm.Log(message);
+        public static void Log(string message) => MainFormHelper.Get().GameMasterProcess.Log(message);
 
         public static void OverlayLog(string message, bool useLogfile = false)
         {
-            MainFormHelper.Get().Vm.OverlayLog(message);
-            if (useLogfile) { MainFormHelper.Get().Vm.Log(message); }
+            MainFormHelper.Get().GameMasterProcess.OverlayLog(message);
+            if (useLogfile) { MainFormHelper.Get().GameMasterProcess.Log(message); }
         }
     }
 
