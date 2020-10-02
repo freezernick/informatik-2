@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace GameMaster
 {
@@ -31,11 +28,13 @@ namespace GameMaster
         public int right;
         public int bottom;
     }
+
     public struct ReferenceParameters
     {
         public string Name;
         public int Width;
         public int Height;
+
         public ReferenceParameters(string name, int x, int y)
         {
             Name = name;

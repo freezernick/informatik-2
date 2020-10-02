@@ -1,5 +1,7 @@
 ﻿using Emgu.CV;
 using Emgu.CV.Structure;
+using GameMaster.Exception;
+using GameMaster.Interfaces;
 using GameMaster.Overlay;
 using GameMaster.Ruleset;
 using GameMaster.Ruleset.Abstracts;
@@ -10,12 +12,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Numerics;
 using System.Threading;
 using System.Windows.Forms;
 using Timer = System.Threading.Timer;
-using GameMaster.Interfaces;
-using GameMaster.Exception;
 
 namespace GameMaster
 {
@@ -23,23 +22,23 @@ namespace GameMaster
     {
         private Process GameProcess;
         private GameMasterOverlay Overlay = new GameMasterOverlay();
-        private KeyboardHook hook = new KeyboardHook();
+        private KeyboardHook Hook = new KeyboardHook();
         private int LogIterationCount = 0;
-        private AutoResetEvent autoEvent = new AutoResetEvent(false);
-        private Timer timer;
-        private Configuration configuration;
-        private World currentWorld;
-        private List<World> worldList = new List<World>();
+        private AutoResetEvent AutoEvent = new AutoResetEvent(false);
+        private Timer Timer;
+        private Configuration Configuration;
+        private World CurrentWorld;
+        private List<World> WorldList = new List<World>();
         private List<KeyPressEvent> KeyEvents = new List<KeyPressEvent>();
         private bool IncreasedLogging = false;
 
         public GameMasterProcess(Configuration game)
         {
-            configuration = game;
-            hook.KeyPressed += InputHandling;
-            hook.RegisterHotKey(ModifierKeys.Control, Keys.F3);
-            hook.RegisterHotKey(ModifierKeys.Control, Keys.F4);
-            hook.RegisterHotKey(ModifierKeys.Control, Keys.F5);
+            Configuration = game;
+            Hook.KeyPressed += InputHandling;
+            Hook.RegisterHotKey(ModifierKeys.Control, Keys.F3);
+            Hook.RegisterHotKey(ModifierKeys.Control, Keys.F4);
+            Hook.RegisterHotKey(ModifierKeys.Control, Keys.F5);
             SetupKeyPressEvents();
             GameProcess = Process.Start(game.Executable);
             GameProcess.EnableRaisingEvents = true;
@@ -55,39 +54,38 @@ namespace GameMaster
 
         private void SetupKeyPressEvents()
         {
-            foreach (LeftSide @object in configuration.LeftSideObjects)
+            foreach (LeftSide @object in Configuration.LeftSideObjects)
             {
-                KeyPressEvent @event = @object as KeyPressEvent;
-                if (@event == null)
+                if (!(@object is KeyPressEvent @event))
                     continue;
 
                 Log(@event.Name);
                 KeyEvents.Add(@event);
-                hook.RegisterHotKey(ModifierKeys.None, @event.key);
+                Hook.RegisterHotKey(ModifierKeys.None, @event.key);
             }
         }
 
         private void StartUpdates()
         {
             Log("Starting Updates");
-            timer = new Timer(this.CheckStatus, autoEvent, 60, 250);
+            Timer = new Timer(this.CheckStatus, AutoEvent, 60, 250);
         }
 
         private void Update()
         {
-            if (currentWorld == null)
-                UpdateWorld((StartupWorld)configuration.LeftSideObjects.Find(x => x.GetType() == typeof(StartupWorld)));
+            if (CurrentWorld == null)
+                UpdateWorld((StartupWorld)Configuration.LeftSideObjects.Find(x => x.GetType() == typeof(StartupWorld)));
 
-            foreach (LeftSide leftSide in configuration.LeftSideObjects)
+            foreach (LeftSide leftSide in Configuration.LeftSideObjects)
             {
-                if (leftSide is TickEvent)
+                if (leftSide is TickEvent @event)
                 {
-                    if ((TickEvent)leftSide != null)
-                        ((TickEvent)leftSide).Execute();
+                    if (@event != null)
+                        @event.Execute();
                 }
-                else if (leftSide is GameWorld && leftSide != currentWorld)
+                else if (leftSide is GameWorld world1 && leftSide != CurrentWorld)
                 {
-                    GameWorld world = (GameWorld)leftSide;
+                    GameWorld world = world1;
                     if (world != null && world.WorldReference.reference.Name != null)
                     {
                         Rectangle match;
@@ -97,39 +95,39 @@ namespace GameMaster
                 }
             }
 
-            if (currentWorld is GameWorld)
+            if (CurrentWorld is GameWorld)
             {
-                GameWorld world = (GameWorld)currentWorld;
+                GameWorld world = (GameWorld)CurrentWorld;
                 if (world.WorldObjects.Count > 0)
                 {
                     foreach (GameWorld.WorldObject worldObject in world.WorldObjects)
                     {
-                        if (worldObject is IRecognizable)
+                        if (!(worldObject is IRecognizable))
                         {
-                            Rectangle match;
-                            IRecognizable worldObj = (IRecognizable)worldObject;
-                            if(worldObj.Get() is World.ImageRecognition)
-                            {
-                                World.ImageRecognition reference = (World.ImageRecognition)worldObj.Get();
-                                if (Recognize(reference, out match))
-                                    worldObj.Recognized(match);
-                            }
-                            else if(worldObj.Get() is World.TextRecognition)
-                            {
-                                // TODO
-                            }
-                            else if(worldObj.Get() is World.ShapeRecognition)
-                            {
-                                // TODO
-                            }
-                            else if(worldObj.Get() is World.ScreenParameter)
-                            {
-                                // TODO
-                            }
-                            else if(worldObj.Get() is World.RectangleRecognition)
-                            {
-                                // TODO
-                            }
+                            continue;
+                        }
+                        Rectangle match;
+                        IRecognizable worldObj = (IRecognizable)worldObject;
+                        if (worldObj.Get() is World.ImageRecognition reference)
+                        {
+                            if (Recognize(reference, out match))
+                                worldObj.Recognized(match);
+                        }
+                        else if (worldObj.Get() is World.TextRecognition)
+                        {
+                            // TODO
+                        }
+                        else if (worldObj.Get() is World.ShapeRecognition)
+                        {
+                            // TODO
+                        }
+                        else if (worldObj.Get() is World.ScreenParameter)
+                        {
+                            // TODO
+                        }
+                        else if (worldObj.Get() is World.RectangleRecognition)
+                        {
+                            // TODO
                         }
                     }
                 }
@@ -143,14 +141,14 @@ namespace GameMaster
         /// </summary>
         private bool Recognize(World.ImageRecognition recognition, out Rectangle match)
         {
-            if(!File.Exists(configuration.Folder + $"\\images\\{recognition.Name}"))
+            if (!File.Exists(Configuration.Folder + $"\\images\\{recognition.Name}"))
             {
                 GMException.Throw($"Tried to recognize {recognition.Name} but no image was found!", Severity.Medium);
                 match = new Rectangle();
                 return false;
             }
             Image<Bgr, byte> source = BitmapExtension.ToImage<Bgr, Byte>(Utility.CaptureWindow(ProcessHandle()));
-            Image<Bgr, byte> template = new Image<Bgr, byte>(configuration.Folder + $"\\images\\{recognition.Name}");
+            Image<Bgr, byte> template = new Image<Bgr, byte>(Configuration.Folder + $"\\images\\{recognition.Name}");
             bool found = false;
             using (Image<Gray, float> result = source.MatchTemplate(template, Emgu.CV.CvEnum.TemplateMatchingType.CcoeffNormed))
             {
@@ -173,20 +171,20 @@ namespace GameMaster
 
         private void UpdateWorld(World world)
         {
-            currentWorld = world;
-            currentWorld.WorldEvents.Find(x => x.GetType() == typeof(StartupEvent)).Execute();
+            CurrentWorld = world;
+            CurrentWorld.WorldEvents.Find(x => x.GetType() == typeof(StartupEvent)).Execute();
         }
 
         public void Interrupt()
         {
-            hook.Dispose();
+            Hook.Dispose();
             Log("Interrupt signal");
             GameProcess.Kill();
         }
 
         private void P_Exited(object sender, EventArgs e)
         {
-            timer.Dispose();
+            Timer.Dispose();
             StopLogging();
             Overlay.Clear();
             Overlay = null;
@@ -194,7 +192,7 @@ namespace GameMaster
         }
 
         /// <summary>
-        /// Helper for the internal timer
+        /// Helper for the internal Timer
         /// </summary>
         public void CheckStatus(Object stateInfo)
         {
@@ -215,7 +213,7 @@ namespace GameMaster
         }
 
         private void SaveReferencePicture() => Utility.CaptureWindow(ProcessHandle()).Save(Path.Combine(Utility.RulesetDirectory,
-            $"{configuration.Folder}\\{DateTime.Now.ToString("yyyy-MM-dd-THH-mm-ss")}.bmp"));
+            $"{Configuration.Folder}\\{DateTime.Now:yyyy-MM-dd-THH-mm-ss}.bmp"));
 
         private void InputHandling(object sender, KeyPressedEventArgs e)
         {
@@ -252,7 +250,7 @@ namespace GameMaster
         /// <summary>
         /// Starts the StreamWriter for the log
         /// </summary>
-        private void StartLogging() => LogWriter = new StreamWriter(Path.Combine(Utility.RulesetDirectory, configuration.Folder) + "\\log.txt");
+        private void StartLogging() => LogWriter = new StreamWriter(Path.Combine(Utility.RulesetDirectory, Configuration.Folder) + "\\log.txt");
 
         /// <summary>
         /// Adds a message to the log
