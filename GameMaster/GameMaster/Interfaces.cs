@@ -1,5 +1,4 @@
-﻿using GameMaster.Ruleset.Abstracts;
-using GameMaster.Ruleset.Worlds;
+﻿using GameMaster.Ruleset.Worlds;
 using System.Drawing;
 
 namespace GameMaster.Interfaces
