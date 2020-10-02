@@ -142,6 +142,12 @@ namespace GameMaster
         /// </summary>
         private bool Recognize(World.ImageRecognition recognition, out Rectangle match)
         {
+            if(!File.Exists(configuration.Folder + $"\\images\\{recognition.Name}"))
+            {
+                Log($"Tried to recognize {recognition.Name} but no image was found!");
+                match = new Rectangle();
+                return false;
+            }
             Image<Bgr, byte> source = BitmapExtension.ToImage<Bgr, Byte>(Utility.CaptureWindow(ProcessHandle()));
             Image<Bgr, byte> template = new Image<Bgr, byte>(configuration.Folder + $"\\images\\{recognition.Name}");
             bool found = false;
