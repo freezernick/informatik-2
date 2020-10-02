@@ -12,7 +12,7 @@ namespace GameMaster
         public Configuration SelectedRuleset;
         public List<Configuration> Games = new List<Configuration>();
         private bool Running;
-        public VM Vm;
+        public GameMasterProcess GameMasterProcess;
 
         public MainForm()
         {
@@ -87,11 +87,11 @@ namespace GameMaster
                 listBox1.SelectedIndex = 0;
         }
 
-        private void BtStart_Click(object sender, EventArgs e) => Vm = new VM(SelectedRuleset);
+        private void BtStart_Click(object sender, EventArgs e) => GameMasterProcess = new GameMasterProcess(SelectedRuleset);
 
         private void Tray_MouseDoubleClick(object sender, EventArgs e)
         {
-            Vm.Interrupt();
+            GameMasterProcess.Interrupt();
             MainFormHelper.Show();
             Tray.Visible = false;
             WindowState = FormWindowState.Normal;
@@ -129,7 +129,7 @@ namespace GameMaster
             MainFormHelper.Show();
             WindowState = FormWindowState.Normal;
             Tray.Visible = false;
-            Vm = null;
+            GameMasterProcess = null;
         }
     }
 

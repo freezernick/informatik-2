@@ -19,7 +19,7 @@ using GameMaster.Exception;
 
 namespace GameMaster
 {
-    public class VM
+    public class GameMasterProcess
     {
         private Process GameProcess;
         private GameMasterOverlay Overlay = new GameMasterOverlay();
@@ -33,7 +33,7 @@ namespace GameMaster
         private List<KeyPressEvent> KeyEvents = new List<KeyPressEvent>();
         private bool IncreasedLogging = false;
 
-        public VM(Configuration game)
+        public GameMasterProcess(Configuration game)
         {
             configuration = game;
             hook.KeyPressed += InputHandling;
