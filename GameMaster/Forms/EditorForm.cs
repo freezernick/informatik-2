@@ -53,10 +53,9 @@ namespace GameMaster
                 dict.Add(leftSide.Name, leftSide);
                 TreeNode newNode = rootnode.Nodes.Add(leftSide.Name);
 
-                if(leftSide is World)
+                if (leftSide is World world)
                 {
-                    World world = (World)leftSide;
-                    foreach(Event worldEvent in world.WorldEvents)
+                    foreach (Event worldEvent in world.WorldEvents)
                     {
                         TreeNode eventNode = newNode.Nodes.Add(worldEvent.Name);
                         eventNode.Name = $"e_{world.Name}_{worldEvent.Name}";
@@ -243,9 +242,8 @@ namespace GameMaster
         {
             Disable();
             ImageEditor imageEditor;
-            if (selectedObject is GameWorld)
+            if (selectedObject is GameWorld @object)
             {
-                GameWorld @object = (GameWorld) selectedObject;
                 if (@object.WorldReference != null)
                     imageEditor = new ImageEditor(@object.WorldReference);
                 else

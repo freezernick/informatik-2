@@ -57,8 +57,7 @@ namespace GameMaster
         {
             foreach (LeftSide @object in configuration.LeftSideObjects)
             {
-                KeyPressEvent @event = @object as KeyPressEvent;
-                if (@event == null)
+                if (!(@object is KeyPressEvent @event))
                     continue;
 
                 Log(@event.Name);
@@ -80,14 +79,14 @@ namespace GameMaster
 
             foreach (LeftSide leftSide in configuration.LeftSideObjects)
             {
-                if (leftSide is TickEvent)
+                if (leftSide is TickEvent @event)
                 {
-                    if ((TickEvent)leftSide != null)
-                        ((TickEvent)leftSide).Execute();
+                    if (@event != null)
+                        @event.Execute();
                 }
-                else if (leftSide is GameWorld && leftSide != currentWorld)
+                else if (leftSide is GameWorld world1 && leftSide != currentWorld)
                 {
-                    GameWorld world = (GameWorld)leftSide;
+                    GameWorld world = world1;
                     if (world != null && world.WorldReference.reference.Name != null)
                     {
                         Rectangle match;
@@ -104,32 +103,32 @@ namespace GameMaster
                 {
                     foreach (GameWorld.WorldObject worldObject in world.WorldObjects)
                     {
-                        if (worldObject is IRecognizable)
+                        if (!(worldObject is IRecognizable))
                         {
-                            Rectangle match;
-                            IRecognizable worldObj = (IRecognizable)worldObject;
-                            if(worldObj.Get() is World.ImageRecognition)
-                            {
-                                World.ImageRecognition reference = (World.ImageRecognition)worldObj.Get();
-                                if (Recognize(reference, out match))
-                                    worldObj.Recognized(match);
-                            }
-                            else if(worldObj.Get() is World.TextRecognition)
-                            {
-                                // TODO
-                            }
-                            else if(worldObj.Get() is World.ShapeRecognition)
-                            {
-                                // TODO
-                            }
-                            else if(worldObj.Get() is World.ScreenParameter)
-                            {
-                                // TODO
-                            }
-                            else if(worldObj.Get() is World.RectangleRecognition)
-                            {
-                                // TODO
-                            }
+                            continue;
+                        }
+                        Rectangle match;
+                        IRecognizable worldObj = (IRecognizable)worldObject;
+                        if (worldObj.Get() is World.ImageRecognition reference)
+                        {
+                            if (Recognize(reference, out match))
+                                worldObj.Recognized(match);
+                        }
+                        else if (worldObj.Get() is World.TextRecognition)
+                        {
+                            // TODO
+                        }
+                        else if (worldObj.Get() is World.ShapeRecognition)
+                        {
+                            // TODO
+                        }
+                        else if (worldObj.Get() is World.ScreenParameter)
+                        {
+                            // TODO
+                        }
+                        else if (worldObj.Get() is World.RectangleRecognition)
+                        {
+                            // TODO
                         }
                     }
                 }
@@ -215,7 +214,7 @@ namespace GameMaster
         }
 
         private void SaveReferencePicture() => Utility.CaptureWindow(ProcessHandle()).Save(Path.Combine(Utility.RulesetDirectory,
-            $"{configuration.Folder}\\{DateTime.Now.ToString("yyyy-MM-dd-THH-mm-ss")}.bmp"));
+            $"{configuration.Folder}\\{DateTime.Now:yyyy-MM-dd-THH-mm-ss}.bmp"));
 
         private void InputHandling(object sender, KeyPressedEventArgs e)
         {

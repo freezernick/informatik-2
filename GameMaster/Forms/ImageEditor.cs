@@ -53,9 +53,8 @@ namespace GameMaster.Forms.Editor
             openFileDialog1.InitialDirectory = Utility.RulesetDirectory;
             cropWindow = pictureBox1.CreateGraphics();
 
-            if (Object is GameWorld)
+            if (Object is GameWorld world)
             {
-                GameWorld world = (GameWorld)Object;
                 if (world.WorldReference.reference.Name != "")
                 {
                     Bitmap OldImage = new Bitmap(Utility.ImageDirectory + world.WorldReference.reference.Name);
