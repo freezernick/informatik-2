@@ -184,6 +184,7 @@ namespace GameMaster
 
         private void P_Exited(object sender, EventArgs e)
         {
+            Hook.Dispose();
             Timer.Dispose();
             StopLogging();
             Overlay.Clear();
